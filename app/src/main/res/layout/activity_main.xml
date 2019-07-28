@@ -70,6 +70,8 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:tint="@android:color/white"
-            app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"/>
+            app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
+            android:onClick="addMeeting"
+    />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
