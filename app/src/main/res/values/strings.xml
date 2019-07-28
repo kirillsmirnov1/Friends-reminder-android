@@ -5,4 +5,12 @@
     <string name="log">Log</string>
     <string name="friends">Friends</string>
     <string name="add_meeting">Add Meeting</string>
+    <string name="type_input_invitation">Type:</string>
+    <string name="meeting_input_invitation">Meeting</string>
+    <string name="date_input_invitation">Date:</string>
+    <string name="default_date">28.07.2019</string>
+    <string name="persons_input_invitation">Persons:</string>
+    <string name="default_persons">Ivan, Vasiliy, Georgy</string>
+    <string name="comment_input_invitation">Comment:</string>
+    <string name="default_meeting_comment">It was a fine ride with my friends.</string>
 </resources>
