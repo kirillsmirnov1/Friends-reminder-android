@@ -11,9 +11,9 @@
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-                android:name=".AddMeeting"
+                android:name=".AddInteraction"
                 android:parentActivityName=".MainActivity"
-                android:label="@string/add_meeting"
+                android:label="@string/add_interaction"
         >
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
