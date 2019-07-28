@@ -7,7 +7,10 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
     <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:theme="@style/AppTheme.AppBarOverlay">
@@ -21,10 +24,47 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main"/>
+    <LinearLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/app_bar_layout"
+    >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/a_while_ago"
+                android:layout_margin="4dp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/log"
+                android:layout_margin="4dp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/friends"
+                android:layout_margin="4dp"
+        />
+
+    </LinearLayout>
+
+    <include layout="@layout/content_main"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_below="@id/tabs"/>
+
+    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
+            android:scaleType="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

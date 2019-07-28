@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Friends</string>
     <string name="action_settings">Settings</string>
+    <string name="a_while_ago">A while ago</string>
+    <string name="log">Log</string>
+    <string name="friends">Friends</string>
 </resources>
