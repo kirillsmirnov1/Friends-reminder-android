@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AddInteraction extends AppCompatActivity {
+public class AddInteractionActivity extends AppCompatActivity {
 
     private EditText mType;
     private EditText mDate;

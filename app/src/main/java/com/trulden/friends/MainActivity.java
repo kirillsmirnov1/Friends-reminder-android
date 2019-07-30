@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addMeeting(View view) {
         Log.d(LOG_TAG, "plus pressed");
-        Intent intent = new Intent(this, AddInteraction.class);
+        Intent intent = new Intent(this, AddInteractionActivity.class);
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
     }
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == NEW_INTERACTION_REQUEST){
             if(resultCode == RESULT_OK){
-                String reply = data.getStringExtra(AddInteraction.EXTRA_NEW_INTERACTION);
+                String reply = data.getStringExtra(AddInteractionActivity.EXTRA_NEW_INTERACTION);
                 mMainText.append(reply + "\n");
             }
         }

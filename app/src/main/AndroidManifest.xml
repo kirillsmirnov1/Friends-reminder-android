@@ -11,7 +11,7 @@
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-                android:name=".AddInteraction"
+                android:name=".AddInteractionActivity"
                 android:parentActivityName=".MainActivity"
                 android:label="@string/add_interaction"
         >
