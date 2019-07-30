@@ -3,7 +3,8 @@ package com.trulden.friends;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.widget.TextView;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    public static final int NEW_INTERACTION_REQUEST = 1;
+    TextView mMainText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "This button doesn't work yet", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        mMainText = findViewById(R.id.main_text);
     }
 
     @Override
@@ -56,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
     public void addMeeting(View view) {
         Log.d(LOG_TAG, "plus pressed");
         Intent intent = new Intent(this, AddInteraction.class);
-        startActivity(intent);
+        startActivityForResult(intent, NEW_INTERACTION_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == NEW_INTERACTION_REQUEST){
+            if(resultCode == RESULT_OK){
+                String reply = data.getStringExtra(AddInteraction.EXTRA_NEW_INTERACTION);
+                mMainText.append(reply + "\n");
+            }
+        }
     }
 }

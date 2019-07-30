@@ -13,4 +13,5 @@
     <string name="default_persons">Ivan, Vasiliy, Georgy</string>
     <string name="comment_input_invitation">Comment:</string>
     <string name="default_meeting_comment">It was a fine ride with my friends.</string>
+    <string name="save">Save</string>
 </resources>
