@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.fragment.app.DialogFragment;
 
 public class AddInteractionActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
@@ -58,6 +59,10 @@ public class AddInteractionActivity extends AppCompatActivity implements
         finish();
     }
 
+    public void processDatePickerResult(int year, int month, int date){
+        mDate.setText(year + " " + month + " " + date);
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -66,5 +71,10 @@ public class AddInteractionActivity extends AppCompatActivity implements
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void pickADate(View view) {
+        DialogFragment f = new DatePickerFragment();
+        f.show(getSupportFragmentManager(), "datePicker");
     }
 }
