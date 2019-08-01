@@ -14,4 +14,11 @@
     <string name="comment_input_invitation">Comment:</string>
     <string name="default_meeting_comment">It was a fine ride with my friends.</string>
     <string name="save">Save</string>
+
+    <string-array name="interaction_types">
+        <item>Meeting</item>
+        <item>Texting</item>
+        <item>Call</item>
+    </string-array>
+
 </resources>

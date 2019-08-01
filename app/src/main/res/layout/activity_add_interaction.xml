@@ -18,64 +18,85 @@
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
             app:layout_constraintHorizontal_bias="1.0" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/button_save_interaction">
+
+    <!--INTERACTION TYPE-->
+
         <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <TextView
                     android:text="@string/type_input_invitation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textType"/>
-            <EditText
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/editType" android:hint="@string/meeting_input_invitation"/>
+                    android:id="@+id/textType"/>
+
+            <Spinner
+                    android:id="@+id/interaction_type_spinner"
+            />
         </TableRow>
+
+    <!--DATE-->
+
         <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <TextView
                     android:text="@string/date_input_invitation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textDate"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textDate"/>
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:ems="10"
-                    android:id="@+id/editDate" android:hint="@string/default_date"/>
+                    android:id="@+id/editDate"
+                    android:hint="@string/default_date"/>
         </TableRow>
+
+    <!--PERSONS-->
+
         <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <TextView
                     android:text="@string/persons_input_invitation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textPersons"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textPersons"/>
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="textPersonName|textCapWords"
                     android:hint="@string/default_persons"
                     android:ems="10"
                     android:id="@+id/editPersons"/>
         </TableRow>
+
+    <!--COMMENT-->
+
         <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <TextView
                     android:text="@string/comment_input_invitation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textComment"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textComment"/>
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
+                    android:inputType="textMultiLine|textCapSentences"
                     android:ems="10"
-                    android:id="@+id/editComment" android:hint="@string/default_meeting_comment"/>
+                    android:id="@+id/editComment"
+                    android:hint="@string/default_meeting_comment"
+                    android:imeOptions="actionDone"
+            />
         </TableRow>
     </TableLayout>
+
+    <!--SEND-->
+
     <Button
             android:text="@string/save"
             android:layout_width="wrap_content"
