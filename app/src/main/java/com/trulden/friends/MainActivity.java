@@ -11,37 +11,85 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     public static final int NEW_INTERACTION_REQUEST = 1;
-    TextView mMainText;
+    //TextView mMainText;
+
+    Toolbar mToolbar;
+
+    static String mLog = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        mMainText = findViewById(R.id.main_text);
+        initToolbar();
+        initTabsAndPageViewer();
+
+        //mMainText = findViewById(R.id.main_text);
+    }
+
+    private void initTabsAndPageViewer() {
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.a_while_ago));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.friends));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.log));
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+        viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new
+                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private void initToolbar() {
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString("log", mMainText.getText().toString());
+        //outState.putString("log", mMainText.getText().toString());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if(savedInstanceState != null){
-            mMainText.setText(savedInstanceState.getString("log"));
-        }
+//        if(savedInstanceState != null){
+//            mMainText.setText(savedInstanceState.getString("log"));
+//        }
     }
 
     @Override
@@ -78,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == NEW_INTERACTION_REQUEST){
             if(resultCode == RESULT_OK){
                 String reply = data.getStringExtra(AddInteractionActivity.EXTRA_NEW_INTERACTION);
-                mMainText.append(reply + "\n");
+                mLog += reply + "\n";
             }
         }
     }
