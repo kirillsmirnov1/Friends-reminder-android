@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private void initTabsAndPageViewer() {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.a_while_ago));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.meetings));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.friends));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.log));
 

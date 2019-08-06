@@ -1,5 +1,6 @@
 package com.trulden.friends;
 
+import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -16,7 +17,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0: return new TabReminder();
+            case 0: return TabReminder.newInstance("meeting");
             case 1: return new TabFriends();
             case 2: return new TabLog();
             default: return null;

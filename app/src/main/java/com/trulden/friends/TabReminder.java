@@ -18,9 +18,27 @@ import android.view.ViewGroup;
  */
 public class TabReminder extends Fragment {
     private LinearLayout mLayout;
+    private String type;
 
     public TabReminder() {
         // Required empty public constructor
+    }
+
+    public static TabReminder newInstance(String type){
+        TabReminder tr = new TabReminder();
+
+        Bundle args = new Bundle();
+        args.putString("type", type);
+        tr.setArguments(args);
+
+        return tr;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        type = getArguments().getString("type");
     }
 
     @Override
@@ -36,9 +54,17 @@ public class TabReminder extends Fragment {
 
         mLayout = getView().findViewById(R.id.tab_reminder_layout);
 
-        addBlock("Meetings", getResources().getStringArray(R.array.meetings_a_while_ago));
-        addBlock("\nTextings", getResources().getStringArray(R.array.texting_a_while_ago));
-        addBlock("\nCalls", getResources().getStringArray(R.array.call_a_while_ago));
+        switch(type) {
+            case "meeting":
+                addBlock("Meetings", getResources().getStringArray(R.array.meetings_a_while_ago));
+                break;
+            case "texting":
+                addBlock("\nTextings", getResources().getStringArray(R.array.texting_a_while_ago));
+                break;
+            case "call":
+                addBlock("\nCalls", getResources().getStringArray(R.array.call_a_while_ago));
+                break;
+        }
     }
 
     private void addBlock(String name, String[] entries){
