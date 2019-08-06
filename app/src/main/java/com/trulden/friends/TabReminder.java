@@ -11,13 +11,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TabReminder extends Fragment {
-    private LinearLayout mLayout;
+    private RecyclerView.LayoutManager mLayout;
     private String type;
 
     private final static String TYPE_ARGUMENT = "TYPE_ARGUMENT";
@@ -25,6 +30,8 @@ public class TabReminder extends Fragment {
     public final static String MEETINGS_TAG = "MEETINGS_TAG";
     public final static String TEXTING_TAG = "TEXTING_TAG";
     public final static String CALLS_TAG = "CALLS_TAG";
+
+    private ArrayList<String> mReminderData = new ArrayList<>();
 
     public TabReminder() {
         // Required empty public constructor
@@ -45,6 +52,18 @@ public class TabReminder extends Fragment {
         super.onCreate(savedInstanceState);
 
         type = getArguments().getString(TYPE_ARGUMENT);
+        switch (type){
+            case MEETINGS_TAG:
+                mReminderData.addAll(Arrays.asList(getResources().getStringArray(R.array.meetings_a_while_ago)));
+                break;
+            case TEXTING_TAG:
+                mReminderData.addAll(Arrays.asList(getResources().getStringArray(R.array.texting_a_while_ago)));
+                break;
+            case CALLS_TAG:
+                mReminderData.addAll(Arrays.asList(getResources().getStringArray(R.array.call_a_while_ago)));
+                break;
+        }
+
     }
 
     @Override
@@ -58,30 +77,11 @@ public class TabReminder extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mLayout = getView().findViewById(R.id.tab_reminder_layout);
+        RecyclerView recyclerView = view.findViewById(R.id.tab_reminder_recyclerview);
+        mLayout = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayout);
 
-        switch(type) {
-            case MEETINGS_TAG:
-                addBlock(getResources().getStringArray(R.array.meetings_a_while_ago));
-                break;
-            case TEXTING_TAG:
-                addBlock(getResources().getStringArray(R.array.texting_a_while_ago));
-                break;
-            case CALLS_TAG:
-                addBlock(getResources().getStringArray(R.array.call_a_while_ago));
-                break;
-        }
-    }
-
-    private void addBlock(String[] entries){
-
-        if(entries.length > 0){
-            for(String entry : entries){
-                TextView m = new TextView(getContext());
-                m.setText(entry);
-                mLayout.addView(m);
-            }
-        }
-
+        ReminderAdapter mAdapter = new ReminderAdapter(getContext(), mReminderData);
+        recyclerView.setAdapter(mAdapter);
     }
 }
