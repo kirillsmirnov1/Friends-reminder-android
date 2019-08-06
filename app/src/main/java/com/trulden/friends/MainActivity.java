@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.meetings));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.friends));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.log));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.texting));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.calls));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

@@ -20,6 +20,12 @@ public class TabReminder extends Fragment {
     private LinearLayout mLayout;
     private String type;
 
+    private final static String TYPE_ARGUMENT = "TYPE_ARGUMENT";
+
+    public final static String MEETINGS_TAG = "MEETINGS_TAG";
+    public final static String TEXTING_TAG = "TEXTING_TAG";
+    public final static String CALLS_TAG = "CALLS_TAG";
+
     public TabReminder() {
         // Required empty public constructor
     }
@@ -28,7 +34,7 @@ public class TabReminder extends Fragment {
         TabReminder tr = new TabReminder();
 
         Bundle args = new Bundle();
-        args.putString("type", type);
+        args.putString(TYPE_ARGUMENT, type);
         tr.setArguments(args);
 
         return tr;
@@ -38,7 +44,7 @@ public class TabReminder extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        type = getArguments().getString("type");
+        type = getArguments().getString(TYPE_ARGUMENT);
     }
 
     @Override
@@ -55,27 +61,21 @@ public class TabReminder extends Fragment {
         mLayout = getView().findViewById(R.id.tab_reminder_layout);
 
         switch(type) {
-            case "meeting":
-                addBlock("Meetings", getResources().getStringArray(R.array.meetings_a_while_ago));
+            case MEETINGS_TAG:
+                addBlock(getResources().getStringArray(R.array.meetings_a_while_ago));
                 break;
-            case "texting":
-                addBlock("\nTextings", getResources().getStringArray(R.array.texting_a_while_ago));
+            case TEXTING_TAG:
+                addBlock(getResources().getStringArray(R.array.texting_a_while_ago));
                 break;
-            case "call":
-                addBlock("\nCalls", getResources().getStringArray(R.array.call_a_while_ago));
+            case CALLS_TAG:
+                addBlock(getResources().getStringArray(R.array.call_a_while_ago));
                 break;
         }
     }
 
-    private void addBlock(String name, String[] entries){
+    private void addBlock(String[] entries){
 
         if(entries.length > 0){
-
-            TextView meetingsLabel = new TextView(getContext());
-            meetingsLabel.setText(name);
-            meetingsLabel.setTypeface(null, Typeface.BOLD);
-            mLayout.addView(meetingsLabel);
-
             for(String entry : entries){
                 TextView m = new TextView(getContext());
                 m.setText(entry);
