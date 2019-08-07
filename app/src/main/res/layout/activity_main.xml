@@ -55,6 +55,7 @@
                 app:itemTextColor="@drawable/bottom_navigation_colors"
                 app:menu="@menu/bottom_navigation_menu"
                 android:layout_alignParentBottom="true"
+                app:labelVisibilityMode="selected"
                 />
 
     </RelativeLayout>
