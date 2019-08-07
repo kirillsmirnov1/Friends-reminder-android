@@ -99,13 +99,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (menuItem.getItemId()){
             case R.id.bottom_log:
-                Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
+                fragment = new LogFragment();
                 break;
             case R.id.bottom_reminder:
                 fragment = new ReminderFragment();
                 break;
             case R.id.bottom_friends:
-                Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
+                fragment = new FriendsFragment();
         }
 
         return loadFragment(fragment);

@@ -21,7 +21,6 @@ import java.util.Arrays;
  * A simple {@link Fragment} subclass.
  */
 public class TabReminder extends Fragment {
-    private RecyclerView.LayoutManager mLayout;
     private String type;
 
     private final static String TYPE_ARGUMENT = "TYPE_ARGUMENT";
@@ -77,7 +76,7 @@ public class TabReminder extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = view.findViewById(R.id.tab_reminder_recyclerview);
-        mLayout = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 
         ReminderAdapter mAdapter = new ReminderAdapter(getContext(), mReminderData);
