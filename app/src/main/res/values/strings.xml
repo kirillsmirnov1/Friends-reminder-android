@@ -17,6 +17,7 @@
     <string name="meetings">Meetings</string>
     <string name="texting">Texting</string>
     <string name="calls">Calls</string>
+    <string name="reminder">Reminder</string>
 
     <string-array name="interaction_types">
         <item>Meeting</item>
