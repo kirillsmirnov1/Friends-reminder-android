@@ -26,22 +26,10 @@
 
 <!--    </com.google.android.material.appbar.AppBarLayout>-->
 
-    <com.google.android.material.tabs.TabLayout
-            android:id="@+id/reminder_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            />
-
-    <androidx.viewpager.widget.ViewPager
-            android:id="@+id/reminder_pager"
+    <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/reminder_tab_layout"
-            android:layout_above="@id/bottom_navigation"
             />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
