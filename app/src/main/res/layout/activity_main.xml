@@ -27,7 +27,7 @@
 <!--    </com.google.android.material.appbar.AppBarLayout>-->
 
     <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+            android:id="@+id/reminder_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -37,10 +37,10 @@
             />
 
     <androidx.viewpager.widget.ViewPager
-            android:id="@+id/pager"
+            android:id="@+id/reminder_pager"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/tab_layout"
+            android:layout_below="@id/reminder_tab_layout"
             android:layout_above="@id/bottom_navigation"
             />
 

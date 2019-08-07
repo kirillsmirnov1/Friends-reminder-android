@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTabsAndPageViewer() {
-        mTabLayout = findViewById(R.id.tab_layout);
+        mTabLayout = findViewById(R.id.reminder_tab_layout);
 
         TabCounterView tcv0 = new TabCounterView(this, "Meetings", getResources().getStringArray(R.array.meetings_a_while_ago).length);
         TabCounterView tcv1 = new TabCounterView(this, "Texting", getResources().getStringArray(R.array.texting_a_while_ago).length);
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = findViewById(R.id.pager);
+        final ViewPager viewPager = findViewById(R.id.reminder_pager);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
