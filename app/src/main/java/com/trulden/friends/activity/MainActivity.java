@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int NEW_INTERACTION_REQUEST = 1;
 
     private Toolbar mToolbar;
+    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,25 +32,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTabsAndPageViewer() {
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        mTabLayout = findViewById(R.id.tab_layout);
 
-        TabCounterView tcv = new TabCounterView(this, "Meetings", 0);
+        TabCounterView tcv0 = new TabCounterView(this, "Meetings", getResources().getStringArray(R.array.meetings_a_while_ago).length);
+        TabCounterView tcv1 = new TabCounterView(this, "Texting", getResources().getStringArray(R.array.texting_a_while_ago).length);
+        TabCounterView tcv2 = new TabCounterView(this, "Calls", getResources().getStringArray(R.array.call_a_while_ago).length);
 
-        tabLayout.addTab(tabLayout.newTab().setCustomView(tcv)); // TODO имена и прочие параметры вкладок должны браться не из констант
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.texting));         // Но это когда я настрою бд
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.calls));
+        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv0)); // TODO имена и прочие параметры вкладок должны браться не из констант
+        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv1));         // Но это когда я настрою бд
+        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv2));
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new
-                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
