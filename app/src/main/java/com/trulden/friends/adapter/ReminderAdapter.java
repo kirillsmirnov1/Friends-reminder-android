@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mRemindData;
+    private ArrayList<String> mRemindData; // TODO объекты Remind, а не строки
 
     public ReminderAdapter(Context context, ArrayList<String> remindData){
         mContext = context;

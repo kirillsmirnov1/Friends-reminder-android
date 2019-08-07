@@ -26,7 +26,7 @@ public class TabReminder extends Fragment {
 
     private final static String TYPE_ARGUMENT = "TYPE_ARGUMENT";
 
-    public final static String MEETINGS_TAG = "MEETINGS_TAG";
+    public final static String MEETINGS_TAG = "MEETINGS_TAG"; // TODO тэги должны генериться на лету и точно не здесь
     public final static String TEXTING_TAG = "TEXTING_TAG";
     public final static String CALLS_TAG = "CALLS_TAG";
 
@@ -51,7 +51,7 @@ public class TabReminder extends Fragment {
         super.onCreate(savedInstanceState);
 
         type = getArguments().getString(TYPE_ARGUMENT);
-        switch (type){
+        switch (type){ // TODO эти данные не должны быть зашиты в R
             case MEETINGS_TAG:
                 mReminderData.addAll(Arrays.asList(getResources().getStringArray(R.array.meetings_a_while_ago)));
                 break;

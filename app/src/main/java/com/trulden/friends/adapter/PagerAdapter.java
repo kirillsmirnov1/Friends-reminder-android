@@ -16,7 +16,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position){ // TODO другой селектор
             case 0: return TabReminder.newInstance(TabReminder.MEETINGS_TAG);
             case 1: return TabReminder.newInstance(TabReminder.TEXTING_TAG);
             case 2: return TabReminder.newInstance(TabReminder.CALLS_TAG);
