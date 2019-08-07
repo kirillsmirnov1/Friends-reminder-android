@@ -1,4 +1,4 @@
-package com.trulden.friends;
+package com.trulden.friends.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.trulden.friends.R;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     private Context mContext;
     private ArrayList<String> mRemindData;
 
-    ReminderAdapter(Context context, ArrayList<String> remindData){
+    public ReminderAdapter(Context context, ArrayList<String> remindData){
         mContext = context;
         mRemindData = remindData;
     }

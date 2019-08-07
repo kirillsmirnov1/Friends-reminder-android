@@ -1,9 +1,8 @@
-package com.trulden.friends;
+package com.trulden.friends.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
+import com.trulden.friends.adapter.PagerAdapter;
+import com.trulden.friends.R;
 
 public class MainActivity extends AppCompatActivity {
 

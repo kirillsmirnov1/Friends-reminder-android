@@ -1,4 +1,4 @@
-package com.trulden.friends;
+package com.trulden.friends.activity;
 
 import android.content.Intent;
 import android.view.View;
@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
+import com.trulden.friends.adapter.DatePickerFragment;
+import com.trulden.friends.R;
 
 public class AddInteractionActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{

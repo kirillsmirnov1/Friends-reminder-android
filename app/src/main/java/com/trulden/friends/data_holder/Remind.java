@@ -1,4 +1,4 @@
-package com.trulden.friends;
+package com.trulden.friends.data_holder;
 
 public class Remind {
     private final String name;

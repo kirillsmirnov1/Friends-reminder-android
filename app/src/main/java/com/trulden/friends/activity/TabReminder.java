@@ -1,10 +1,7 @@
-package com.trulden.friends;
+package com.trulden.friends.activity;
 
 
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.trulden.friends.R;
+import com.trulden.friends.adapter.ReminderAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

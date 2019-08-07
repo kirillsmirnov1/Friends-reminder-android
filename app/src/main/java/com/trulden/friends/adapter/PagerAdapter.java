@@ -1,8 +1,9 @@
-package com.trulden.friends;
+package com.trulden.friends.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import com.trulden.friends.activity.TabReminder;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
