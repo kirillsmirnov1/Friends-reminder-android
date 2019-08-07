@@ -15,9 +15,9 @@ import com.trulden.friends.R;
 public class AddInteractionActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
 
-    private Spinner mType;
+    private Spinner  mType;
     private EditText mDate;
-    private EditText mFriends;
+    private EditText mFriends; // TODO набирать друзей из списка
     private EditText mComment;
 
     public static final String EXTRA_NEW_INTERACTION = "EXTRA_NEW_INTERACTION";
@@ -49,7 +49,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
     }
 
     public void saveInteraction(View view) {
-        String result =
+        String result = // TODO обернуть в LogEntry класс
                         mDate.getText().toString() + " • " +
                         mType.getSelectedItem().toString() + "\n" +
                         mFriends.getText().toString() + "\n" +
@@ -62,11 +62,11 @@ public class AddInteractionActivity extends AppCompatActivity implements
     }
 
     public void processDatePickerResult(int year, int month, int date){
-        mDate.setText(year + " " + month + " " + date);
+        mDate.setText(year + "-" + month + "-" + date);
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
     }
 
