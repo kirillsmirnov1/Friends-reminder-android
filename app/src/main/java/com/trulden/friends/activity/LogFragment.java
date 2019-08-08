@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.LogAdapter;
 
+import java.util.Arrays;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -40,7 +42,8 @@ public class LogFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        LogAdapter logAdapter = new LogAdapter(getContext());
+        LogAdapter logAdapter = new LogAdapter(getActivity());
+
         recyclerView.setAdapter(logAdapter);
     }
 }

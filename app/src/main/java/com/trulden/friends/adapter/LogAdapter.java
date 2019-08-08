@@ -15,10 +15,11 @@ import java.util.Arrays;
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mLogData;
+    private ArrayList<String> mLogData = new ArrayList<>();
 
     public LogAdapter(Context context){
         mContext = context;
+
         mLogData.addAll(Arrays.asList(context.getResources().getStringArray(R.array.log_list)));
     }
 
@@ -35,7 +36,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mLogData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
