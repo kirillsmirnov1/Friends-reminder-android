@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.bottom_reminder:
                 fragment = new ReminderFragment();
                 break;
-            case R.id.bottom_friends:
+            case R.id.bottom_persons:
                 fragment = new FriendsFragment();
         }
 

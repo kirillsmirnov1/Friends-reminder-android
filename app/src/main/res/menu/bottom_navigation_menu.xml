@@ -16,7 +16,7 @@
         />
 
     <item
-        android:id="@+id/bottom_friends"
+        android:id="@+id/bottom_persons"
         android:title="@string/friends"
         android:icon="@drawable/ic_people_black"
         android:orderInCategory="3"
