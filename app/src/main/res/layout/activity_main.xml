@@ -60,6 +60,7 @@
                     fab:fab_labelStyle="@style/menu_labels_style"
                     fab:fab_colorNormal="@color/white"
                     fab:fab_colorPressed="@color/white_pressed"
+                    fab:fab_icon="@drawable/ic_watch_later_"
             />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
@@ -71,6 +72,7 @@
                     fab:fab_labelStyle="@style/menu_labels_style"
                     fab:fab_colorNormal="@color/white"
                     fab:fab_colorPressed="@color/white_pressed"
+                    fab:fab_icon="@drawable/ic_person_add_black"
             />
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
