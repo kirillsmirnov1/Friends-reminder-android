@@ -2,24 +2,21 @@ package com.trulden.friends.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.MenuItem;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.trulden.friends.adapter.PagerAdapter;
 import com.trulden.friends.R;
-import com.trulden.friends.adapter.TabCounterView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int NEW_INTERACTION_REQUEST = 1;
+    private static final int NEW_PERSON_REQUEST = 2;
 
     //private Toolbar mToolbar;
     private TabLayout mTabLayout;
@@ -66,7 +63,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return super.onOptionsItemSelected(item);
     }
 
-    public void addMeeting(View view) { // TODO повесить на кнопку несколько действий
+    public void addPerson(View view) {
+        Intent intent = new Intent(this, AddPersonActivity.class);
+        startActivityForResult(intent, NEW_PERSON_REQUEST);
+    }
+
+    public void addMeeting(View view) { // TODO переименовать
         Intent intent = new Intent(this, AddInteractionActivity.class);
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
     }
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == NEW_INTERACTION_REQUEST){
+        if(requestCode == NEW_INTERACTION_REQUEST){ // TODO person request
             if(resultCode == RESULT_OK){
                 String reply = data.getStringExtra(AddInteractionActivity.EXTRA_NEW_INTERACTION);
                 // TODO save as log entry

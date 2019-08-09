@@ -59,6 +59,7 @@
                     fab:fab_colorNormal="@color/white"
                     fab:fab_colorPressed="@color/white_pressed"
                     fab:fab_icon="@drawable/ic_person_add_black"
+                    android:onClick="addPerson"
             />
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
