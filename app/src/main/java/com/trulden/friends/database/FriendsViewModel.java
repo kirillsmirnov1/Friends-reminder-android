@@ -25,7 +25,7 @@ public class FriendsViewModel extends AndroidViewModel {
         return mAllFriends;
     }
 
-    public void addFriend(Friend friend){mRepository.insertFriend(friend);}
+    public void addFriend(Friend friend){mRepository.addFriend(friend);}
     public void updateFriend(Friend friend){mRepository.updateFriend(friend); }
     public void deleteFriend(Friend friend){mRepository.deleteFriend(friend);}
 }

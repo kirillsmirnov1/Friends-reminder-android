@@ -25,7 +25,7 @@ public class FriendsRepository {
 
     LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
 
-    public void insertFriend(Friend friend){
+    public void addFriend(Friend friend){
         new FriendAsyncTask(TaskSelector.ADD_FRIEND, mFriendsDao)
                 .execute(friend);
     }
@@ -55,7 +55,7 @@ public class FriendsRepository {
 
             switch (mTaskSelector){
                 case ADD_FRIEND:
-                    mFriendsDao.insertFriend(friends[0]);
+                    mFriendsDao.addFriend(friends[0]);
                     break;
 
                 case UPDATE_FRIEND:

@@ -13,7 +13,7 @@ import java.util.List;
 public interface FriendsDao {
 
     @Insert
-    void insertFriend(Friend friend);
+    void addFriend(Friend friend);
 
     @Query("SELECT * FROM friend_table")
     LiveData<List<Friend>> getAllFriends();
