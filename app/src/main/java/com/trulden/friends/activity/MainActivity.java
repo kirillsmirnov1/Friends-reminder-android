@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final int NEW_INTERACTION_REQUEST = 1;
     private static final int NEW_PERSON_REQUEST = 2;
 
-    //private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private BottomNavigationView mBottomNavigation;
 
@@ -33,20 +32,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         findViewById(R.id.bottom_reminder).performClick();
     }
-
-
-
-    private void initToolbar() {
-        //mToolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(mToolbar);
-    }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);  // TODO меню сейчас пустое и бесполезное. Оно мне нужно?
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
