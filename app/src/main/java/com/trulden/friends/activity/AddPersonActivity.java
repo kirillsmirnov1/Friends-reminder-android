@@ -9,7 +9,9 @@ import com.trulden.friends.R;
 
 public class AddPersonActivity extends AppCompatActivity {
 
-    private static final String EXTRA_NEW_PERSON = "EXTRA_NEW_PERSON";
+    public static final String EXTRA_FRIEND_NAME = "EXTRA_FRIEND_NAME";
+    public static final String EXTRA_FRIEND_INFO = "EXTRA_FRIEND_INFO";
+
     private EditText mName;
     private EditText mInfo;
 
@@ -23,11 +25,12 @@ public class AddPersonActivity extends AppCompatActivity {
     }
 
     public void savePerson(View view) {
-        String result = // TODO save to db
-            mName.getText().toString() + "\n" + mInfo.getText().toString();
 
         Intent replyIntent = new Intent();
-        replyIntent.putExtra(EXTRA_NEW_PERSON, result);
+
+        replyIntent.putExtra(EXTRA_FRIEND_NAME, mName.getText());
+        replyIntent.putExtra(EXTRA_FRIEND_INFO, mInfo.getText());
+
         setResult(RESULT_OK, replyIntent);
         finish();
     }

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
+import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -66,14 +67,32 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == NEW_INTERACTION_REQUEST){ // TODO person request
-            if(resultCode == RESULT_OK){
-                String reply = data.getStringExtra(AddInteractionActivity.EXTRA_NEW_INTERACTION);
-                // TODO save as log entry
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent resultingIntent) {
+        super.onActivityResult(requestCode, resultCode, resultingIntent);
+
+        switch (requestCode) {
+
+            case NEW_INTERACTION_REQUEST: {
+                if (resultCode == RESULT_OK) {
+                    String reply = resultingIntent.getStringExtra(AddInteractionActivity.EXTRA_NEW_INTERACTION);
+                    // TODO save as log entry
+                }
+                break;
+            }
+
+            case NEW_PERSON_REQUEST:{
+                if(resultCode == RESULT_OK) {
+                    String name = resultingIntent.getStringExtra(AddPersonActivity.EXTRA_FRIEND_NAME);//TODO
+                    String info = resultingIntent.getStringExtra(AddPersonActivity.EXTRA_FRIEND_INFO);
+
+                    Friend friend = new Friend(name, info);
+
+                    mFriendsViewModel.addFriend(friend);
+                }
             }
         }
+
+
     }
 
     private boolean loadFragment(Fragment fragment){
