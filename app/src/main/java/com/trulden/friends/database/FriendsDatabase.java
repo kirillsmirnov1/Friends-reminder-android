@@ -44,7 +44,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
     private static class PopulateDBAsync extends AsyncTask<Void, Void, Void>{
 
-        String[] defaultFriends = {"Aaron, Benjamin, Carol"};
+        String[] defaultFriends = {"Aaron", "Benjamin", "Carol"};
 
         private final FriendsDao mDao;
 
