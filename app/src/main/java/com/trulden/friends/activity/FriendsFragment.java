@@ -9,15 +9,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.FriendsAdapter;
+import com.trulden.friends.database.Friend;
+import com.trulden.friends.database.FriendsViewModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FriendsFragment extends Fragment {
+
+    private FriendsViewModel mFriendsViewModel;
+    private FriendsAdapter mFriendsAdapter;
 
 
     public FriendsFragment() {
@@ -40,8 +49,17 @@ public class FriendsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        FriendsAdapter friendsAdapter = new FriendsAdapter(getActivity());
+        mFriendsAdapter = new FriendsAdapter(getActivity());
 
-        recyclerView.setAdapter(friendsAdapter);
+        recyclerView.setAdapter(mFriendsAdapter);
+
+        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+
+        mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
+            @Override
+            public void onChanged(List<Friend> friends) {
+                mFriendsAdapter.setFriends(friends);
+            }
+        });
     }
 }

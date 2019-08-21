@@ -8,19 +8,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
+import com.trulden.friends.database.Friend;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mFriendsData = new ArrayList<>();
+    private List<Friend> mFriendsData = new ArrayList<>();
 
     public FriendsAdapter(Context context){
         mContext = context;
-
-        mFriendsData.addAll(Arrays.asList(context.getResources().getStringArray(R.array.persons_list)));
     }
 
     @NonNull
@@ -39,6 +39,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         return mFriendsData.size();
     }
 
+    public void setFriends(List<Friend> friends){
+        mFriendsData = friends;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
@@ -49,8 +53,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             mTextView = itemView.findViewById(R.id.friend_entry_text);
         }
 
-        public void bindTo(String s) {
-            mTextView.setText(s);
+        public void bindTo(Friend s) {
+            mTextView.setText(s.getName());
         }
     }
 }

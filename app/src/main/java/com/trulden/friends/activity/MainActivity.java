@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.MenuItem;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
+import com.trulden.friends.database.FriendsViewModel;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
