@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FriendsFragment extends Fragment {
+
+    private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
 
     private FriendsViewModel mFriendsViewModel;
     private FriendsAdapter mFriendsAdapter;
@@ -46,12 +50,9 @@ public class FriendsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = view.findViewById(R.id.friends_recyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-
         mFriendsAdapter = new FriendsAdapter(getActivity());
-
         recyclerView.setAdapter(mFriendsAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
@@ -59,7 +60,10 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onChanged(List<Friend> friends) {
                 mFriendsAdapter.setFriends(friends);
+                // We need to tell adapter to refresh view, otherwise it might not happen
+                mFriendsAdapter.notifyDataSetChanged();
             }
         });
+
     }
 }

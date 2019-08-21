@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private TabLayout mTabLayout;
     private BottomNavigationView mBottomNavigation;
 
+    private FriendsViewModel mFriendsViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
 
         findViewById(R.id.bottom_reminder).performClick();
+
+        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
     }
 
     @Override
