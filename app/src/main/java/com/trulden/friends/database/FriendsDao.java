@@ -23,4 +23,7 @@ public interface FriendsDao {
 
     @Update
     void update(Friend friend);
+
+    @Query("SELECT * from friend_table LIMIT 1")
+    Friend[] getAnyFriend();
 }

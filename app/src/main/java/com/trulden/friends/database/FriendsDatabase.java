@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Friend.class}, version = 1, exportSchema = true)
+@Database(entities = {Friend.class}, version = 1, exportSchema = false)
 public abstract class FriendsDatabase extends RoomDatabase {
 
     private static FriendsDatabase INSTANCE;
@@ -44,6 +44,8 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
     private static class PopulateDBAsync extends AsyncTask<Void, Void, Void>{
 
+        String[] defaultFriends = {"Aaron, Benjamin, Carol"};
+
         private final FriendsDao mDao;
 
         PopulateDBAsync(FriendsDatabase db){
@@ -53,7 +55,11 @@ public abstract class FriendsDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            // TODO implement default interaction types
+            if(mDao.getAnyFriend().length<1){
+                for(String friend : defaultFriends){
+                    mDao.addFriend(new Friend(friend, ""));
+                }
+            }
 
             return null;
         }
