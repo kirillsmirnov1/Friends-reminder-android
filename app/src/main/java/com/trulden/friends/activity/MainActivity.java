@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
@@ -21,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int NEW_INTERACTION_REQUEST = 1;
     private static final int NEW_PERSON_REQUEST = 2;
+
     private BottomNavigationView mBottomNavigation;
+    private FloatingActionsMenu mFabMenu;
 
     private FriendsViewModel mFriendsViewModel;
 
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         loadFragment(new ReminderFragment());
         mBottomNavigation = findViewById(R.id.bottom_navigation);
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
+
+        mFabMenu = findViewById(R.id.fab_main_activity);
 
         findViewById(R.id.bottom_reminder).performClick();
 
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void addPerson(View view) {
         Intent intent = new Intent(this, AddPersonActivity.class);
         startActivityForResult(intent, NEW_PERSON_REQUEST);
+        mFabMenu.collapse();
     }
 
     public void addMeeting(View view) { // TODO переименовать
