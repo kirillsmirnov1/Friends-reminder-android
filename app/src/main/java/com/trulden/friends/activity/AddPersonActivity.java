@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.trulden.friends.R;
 
 public class AddPersonActivity extends AppCompatActivity {
@@ -28,10 +30,20 @@ public class AddPersonActivity extends AppCompatActivity {
 
         Intent replyIntent = new Intent();
 
-        replyIntent.putExtra(EXTRA_FRIEND_NAME, mName.getText().toString());
-        replyIntent.putExtra(EXTRA_FRIEND_INFO, mInfo.getText().toString());
+        String name = mName.getText().toString();
+        String info = mInfo.getText().toString();
 
-        setResult(RESULT_OK, replyIntent);
-        finish();
+        // TODO check if person exists
+
+        if(name.isEmpty()) {
+            Toast.makeText(this, "Empty name", Toast.LENGTH_SHORT).show();
+        } else {
+
+            replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
+            replyIntent.putExtra(EXTRA_FRIEND_INFO, info);
+
+            setResult(RESULT_OK, replyIntent);
+            finish();
+        }
     }
 }
