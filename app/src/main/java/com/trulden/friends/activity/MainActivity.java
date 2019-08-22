@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int NEW_INTERACTION_REQUEST = 1;
     private static final int NEW_PERSON_REQUEST = 2;
-
-    private TabLayout mTabLayout;
     private BottomNavigationView mBottomNavigation;
 
     private FriendsViewModel mFriendsViewModel;
