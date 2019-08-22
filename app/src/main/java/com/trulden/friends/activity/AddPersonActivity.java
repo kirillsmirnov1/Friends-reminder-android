@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.trulden.friends.R;
+import com.trulden.friends.adapter.FriendsAdapter;
+import com.trulden.friends.database.FriendsViewModel;
 
 public class AddPersonActivity extends AppCompatActivity {
 
@@ -33,10 +37,10 @@ public class AddPersonActivity extends AppCompatActivity {
         String name = mName.getText().toString();
         String info = mInfo.getText().toString();
 
-        // TODO check if person exists
-
         if(name.isEmpty()) {
             Toast.makeText(this, "Empty name", Toast.LENGTH_SHORT).show();
+        } else if(FriendsAdapter.friendExists(name)) {
+            Toast.makeText(this, "Friend with name like this already exists", Toast.LENGTH_SHORT).show();
         } else {
 
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);

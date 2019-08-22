@@ -17,7 +17,7 @@ import java.util.List;
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Friend> mFriendsData = new ArrayList<>();
+    private static List<Friend> mFriendsData = new ArrayList<>();
 
     public FriendsAdapter(Context context){
         mContext = context;
@@ -41,6 +41,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     public void setFriends(List<Friend> friends){
         mFriendsData = friends;
+    }
+
+    public static boolean friendExists(String name){
+
+        for(Friend friend : mFriendsData){
+            if(friend.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
