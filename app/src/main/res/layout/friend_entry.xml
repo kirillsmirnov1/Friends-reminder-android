@@ -10,7 +10,9 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_background"
+        >
 
         <ImageView
                 android:id="@+id/friend_entry_image"
