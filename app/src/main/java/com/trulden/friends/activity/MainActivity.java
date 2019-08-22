@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         mFabMenu = findViewById(R.id.fab_main_activity);
 
-        findViewById(R.id.bottom_reminder).performClick();
+        if(savedInstanceState == null) {
+            findViewById(R.id.bottom_reminder).performClick();
+        }
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
     }
