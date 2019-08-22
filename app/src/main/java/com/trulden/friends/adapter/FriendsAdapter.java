@@ -11,7 +11,6 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
