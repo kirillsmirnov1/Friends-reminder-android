@@ -28,8 +28,8 @@ public class AddPersonActivity extends AppCompatActivity {
 
         Intent replyIntent = new Intent();
 
-        replyIntent.putExtra(EXTRA_FRIEND_NAME, mName.getText());
-        replyIntent.putExtra(EXTRA_FRIEND_INFO, mInfo.getText());
+        replyIntent.putExtra(EXTRA_FRIEND_NAME, mName.getText().toString());
+        replyIntent.putExtra(EXTRA_FRIEND_INFO, mInfo.getText().toString());
 
         setResult(RESULT_OK, replyIntent);
         finish();
