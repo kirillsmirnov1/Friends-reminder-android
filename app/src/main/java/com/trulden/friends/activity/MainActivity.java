@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
         mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         loadFragment(mFragmentToLoad);
 
