@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.MenuItem;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -23,10 +25,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final int NEW_INTERACTION_REQUEST = 1;
     private static final int NEW_PERSON_REQUEST = 2;
 
-    private static FragmentToLoad fragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
+    private static FragmentToLoad mFragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
 
     private BottomNavigationView mBottomNavigation;
     private FloatingActionsMenu mFabMenu;
+    private Toolbar mToolbar;
 
     private FriendsViewModel mFriendsViewModel;
 
@@ -35,17 +38,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        switch (fragmentToLoad){
-            case LOG_FRAGMENT:
-                loadFragment(new LogFragment());
-                break;
-            case REMINDER_FRAGMENT:
-                loadFragment(new ReminderFragment());
-                break;
-            case FRIENDS_FRAGMENT:
-                loadFragment(new FriendsFragment());
-                break;
-        }
+        mToolbar = findViewById(R.id.toolbar);
+
+        loadFragment(mFragmentToLoad);
 
         mBottomNavigation = findViewById(R.id.bottom_navigation);
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
@@ -114,6 +109,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
+    private boolean loadFragment(FragmentToLoad fragmentToLoad){
+        mFragmentToLoad = fragmentToLoad;
+        switch (fragmentToLoad){
+            case LOG_FRAGMENT:
+                mToolbar.setTitle("Log");
+                return loadFragment(new LogFragment());
+            case REMINDER_FRAGMENT:
+                mToolbar.setTitle("Reminder");
+                return loadFragment(new ReminderFragment());
+            case FRIENDS_FRAGMENT:
+                mToolbar.setTitle("Friends");
+                return loadFragment(new FriendsFragment());
+        }
+        return false;
+    }
+
     private boolean loadFragment(Fragment fragment){
         if (fragment != null) {
             getSupportFragmentManager()
@@ -127,23 +138,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment fragment = null;
         // FIXME в двух местах, здесь и в onCreate очень похожий код, можно его ужать?
         switch (menuItem.getItemId()){
             case R.id.bottom_log:
-                fragment = new LogFragment();
-                fragmentToLoad = FragmentToLoad.LOG_FRAGMENT;
-                break;
+                return loadFragment(FragmentToLoad.LOG_FRAGMENT);
             case R.id.bottom_reminder:
-                fragment = new ReminderFragment();
-                fragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
-                break;
+                return loadFragment(FragmentToLoad.REMINDER_FRAGMENT);
             case R.id.bottom_persons:
-                fragment = new FriendsFragment();
-                fragmentToLoad = FragmentToLoad.FRIENDS_FRAGMENT;
+                return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
         }
 
-        return loadFragment(fragment);
+        return false;
     }
 
     private enum FragmentToLoad{

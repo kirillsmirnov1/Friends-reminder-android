@@ -12,12 +12,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-    <FrameLayout
-            android:id="@+id/fragment_container"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_above="@id/bottom_navigation"
-            />
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/white"
+            app:title="Stub toolbar title"
+            >
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/toolbar"
+                android:layout_above="@id/bottom_navigation"
+                />
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
                 android:id="@+id/fab_main_activity"
