@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Toolbar mToolbar;
 
     private FriendsViewModel mFriendsViewModel;
+    private Fragment mFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,19 +143,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
+        mFragment = null;
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case LOG_FRAGMENT:
                 mToolbar.setTitle("Log");
-                return loadFragment(new LogFragment());
+                mFragment = new LogFragment();
+                break;
             case REMINDER_FRAGMENT:
                 mToolbar.setTitle("Reminder");
-                return loadFragment(new ReminderFragment());
+                mFragment = new ReminderFragment();
+                break;
             case FRIENDS_FRAGMENT:
                 mToolbar.setTitle("Friends");
-                return loadFragment(new FriendsFragment());
+                mFragment = new FriendsFragment();
+                break;
         }
-        return false;
+        return loadFragment(mFragment);
     }
 
     private boolean loadFragment(Fragment fragment){
