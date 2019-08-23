@@ -12,7 +12,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".activity.AddPersonActivity"
+                android:name=".activity.AddFriendActivity"
                 android:parentActivityName=".activity.MainActivity"
         >
         </activity>

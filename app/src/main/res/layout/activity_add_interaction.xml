@@ -56,23 +56,23 @@
                     />
         </TableRow>
 
-    <!--PERSONS-->
+    <!--Friends-->
 
         <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <TextView
-                    android:text="@string/persons_input_invitation"
+                    android:text="@string/friends_input_invitation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textPersons"/>
+                    android:id="@+id/textFriends"/>
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName|textCapWords"
-                    android:hint="@string/default_persons"
+                    android:hint="@string/default_friends"
                     android:ems="10"
-                    android:id="@+id/editPersons"/>
+                    android:id="@+id/editFriends"/>
         </TableRow>
 
     <!--COMMENT-->

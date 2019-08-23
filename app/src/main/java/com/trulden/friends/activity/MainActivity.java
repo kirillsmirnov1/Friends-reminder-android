@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int NEW_INTERACTION_REQUEST = 1;
-    private static final int NEW_PERSON_REQUEST = 2;
+    private static final int NEW_FRIEND_REQUEST = 2;
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
 
@@ -69,9 +69,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return super.onOptionsItemSelected(item);
     }
 
-    public void addPerson(View view) {
-        Intent intent = new Intent(this, AddPersonActivity.class);
-        startActivityForResult(intent, NEW_PERSON_REQUEST);
+    public void addFriend(View view) {
+        Intent intent = new Intent(this, AddFriendActivity.class);
+        startActivityForResult(intent, NEW_FRIEND_REQUEST);
         mFabMenu.collapse();
     }
 
@@ -94,10 +94,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             }
 
-            case NEW_PERSON_REQUEST:{
+            case NEW_FRIEND_REQUEST:{
                 if(resultCode == RESULT_OK) {
-                    String name = resultingIntent.getStringExtra(AddPersonActivity.EXTRA_FRIEND_NAME);//TODO
-                    String info = resultingIntent.getStringExtra(AddPersonActivity.EXTRA_FRIEND_INFO);
+                    String name = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_NAME);//TODO
+                    String info = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_INFO);
 
                     Friend friend = new Friend(name, info);
 
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return loadFragment(FragmentToLoad.LOG_FRAGMENT);
             case R.id.bottom_reminder:
                 return loadFragment(FragmentToLoad.REMINDER_FRAGMENT);
-            case R.id.bottom_persons:
+            case R.id.bottom_friends:
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
         }
 

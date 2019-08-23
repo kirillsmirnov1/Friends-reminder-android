@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.AddPersonActivity">
+        tools:context=".activity.AddFriendActivity">
 
     <TableLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,7 +38,7 @@
             />
 
             <EditText
-                android:id="@+id/edit_persons_name"
+                android:id="@+id/edit_friends_name"
                 android:inputType="textPersonName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             />
 
             <EditText
-                android:id="@+id/edit_persons_info"
+                android:id="@+id/edit_friends_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine|textCapSentences"
@@ -77,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:onClick="savePerson"
+            android:onClick="saveFriend"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

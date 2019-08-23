@@ -29,7 +29,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         mType = findViewById(R.id.interaction_type_spinner);
         mDate = findViewById(R.id.editDate);
-        mFriends = findViewById(R.id.editPersons);
+        mFriends = findViewById(R.id.editFriends);
         mComment = findViewById(R.id.editComment);
 
         initInteractionTypeSpinner();

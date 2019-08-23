@@ -70,9 +70,9 @@
                     fab:fab_labelStyle="@style/menu_labels_style"
                     fab:fab_colorNormal="@color/white"
                     fab:fab_colorPressed="@color/white_pressed"
-                    fab:fab_icon="@drawable/ic_person_add_black"
-                    android:onClick="addPerson"
-            />
+                    fab:fab_icon="@drawable/ic_friend_add_black"
+                    android:onClick="addFriend"
+                />
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
