@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        // FIXME в двух местах, здесь и в onCreate очень похожий код, можно его ужать?
         switch (menuItem.getItemId()){
             case R.id.bottom_log:
                 return loadFragment(FragmentToLoad.LOG_FRAGMENT);
