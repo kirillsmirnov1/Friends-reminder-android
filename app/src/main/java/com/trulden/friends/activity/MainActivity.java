@@ -182,13 +182,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
+    public void setSelectionMenuState(SelectionMenuState selectionMenuState) {
+        mSelectionMenuState = selectionMenuState;
+        invalidateOptionsMenu();
+    }
+
     private enum FragmentToLoad{
         LOG_FRAGMENT,
         REMINDER_FRAGMENT,
         FRIENDS_FRAGMENT
     }
 
-    private enum SelectionMenuState {
+    public enum SelectionMenuState {
         HIDE,
         DELETE,
         EDIT_AND_DELETE
