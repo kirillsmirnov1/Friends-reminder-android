@@ -12,7 +12,7 @@
     <string name="persons_input_invitation">Persons:</string>
     <string name="default_persons">Ivan, Vasiliy, Georgy</string>
     <string name="comment_input_invitation">Comment:</string>
-    <string name="default_meeting_comment">It was a fine ride with my friends.</string>
+    <string name="default_interaction_comment">It was a fine ride with my friends.</string>
     <string name="save">Save</string>
     <string name="meetings">Meetings</string>
     <string name="texting">Texting</string>

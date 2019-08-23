@@ -10,7 +10,7 @@
 
     <TextView
             android:id="@+id/tab_label"
-            android:text="Meetings"
+            android:text="Inter. type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"

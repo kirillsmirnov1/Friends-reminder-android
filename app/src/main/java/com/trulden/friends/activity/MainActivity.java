@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mFabMenu.collapse();
     }
 
-    public void addMeeting(View view) { // TODO переименовать
+    public void addInteraction(View view) {
         Intent intent = new Intent(this, AddInteractionActivity.class);
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
     }

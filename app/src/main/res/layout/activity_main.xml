@@ -53,7 +53,7 @@
                     app:fab_title="Add Interaction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="addMeeting"
+                    android:onClick="addInteraction"
                     app:fab_size="mini"
                     fab:fab_labelStyle="@style/menu_labels_style"
                     fab:fab_colorNormal="@color/white"
