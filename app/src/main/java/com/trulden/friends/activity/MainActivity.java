@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.MenuItem;
 
@@ -53,6 +56,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.selection_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
