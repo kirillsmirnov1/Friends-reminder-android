@@ -94,9 +94,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if(mFragment instanceof FragmentWithSelection){
+
+            if(id == R.id.clear_selection){
+                ((FragmentWithSelection) mFragment).clearSelection();
+            }
+
+            if(id == R.id.edit_selection) {
+                ((FragmentWithSelection) mFragment).editSelection();
+            }
+
+            if(id == R.id.delete_selection){
+                ((FragmentWithSelection) mFragment).deleteSelection();
+            }
         }
 
         return super.onOptionsItemSelected(item);
