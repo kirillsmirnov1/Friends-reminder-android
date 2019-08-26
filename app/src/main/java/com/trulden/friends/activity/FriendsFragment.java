@@ -69,7 +69,7 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
 
     @Override
     public void clearSelection() {
-        mSelectionTracker.clearSelection();
+        // TODO
     }
 
     @Override
