@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final int NEW_INTERACTION_REQUEST = 1;
     private static final int NEW_PERSON_REQUEST = 2;
 
+    private static FragmentToLoad fragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
+
     private BottomNavigationView mBottomNavigation;
     private FloatingActionsMenu mFabMenu;
 
@@ -33,7 +35,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadFragment(new ReminderFragment());
+        switch (fragmentToLoad){
+            case LOG_FRAGMENT:
+                loadFragment(new LogFragment());
+                break;
+            case REMINDER_FRAGMENT:
+                loadFragment(new ReminderFragment());
+                break;
+            case FRIENDS_FRAGMENT:
+                loadFragment(new FriendsFragment());
+                break;
+        }
+
         mBottomNavigation = findViewById(R.id.bottom_navigation);
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
 
@@ -115,18 +128,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
-
+        // FIXME в двух местах, здесь и в onCreate очень похожий код, можно его ужать?
         switch (menuItem.getItemId()){
             case R.id.bottom_log:
                 fragment = new LogFragment();
+                fragmentToLoad = FragmentToLoad.LOG_FRAGMENT;
                 break;
             case R.id.bottom_reminder:
                 fragment = new ReminderFragment();
+                fragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
                 break;
             case R.id.bottom_persons:
                 fragment = new FriendsFragment();
+                fragmentToLoad = FragmentToLoad.FRIENDS_FRAGMENT;
         }
 
         return loadFragment(fragment);
+    }
+
+    private enum FragmentToLoad{
+        LOG_FRAGMENT,
+        REMINDER_FRAGMENT,
+        FRIENDS_FRAGMENT
     }
 }
