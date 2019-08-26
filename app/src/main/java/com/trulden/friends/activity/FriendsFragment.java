@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FriendsFragment extends Fragment {
+public class FriendsFragment extends Fragment implements FragmentWithSelection{
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
 
@@ -65,5 +65,20 @@ public class FriendsFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void clearSelection() {
+        mSelectionTracker.clearSelection();
+    }
+
+    @Override
+    public void editSelection() {
+        // TODO
+    }
+
+    @Override
+    public void deleteSelection() {
+        // TODO
     }
 }
