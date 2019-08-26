@@ -1,6 +1,7 @@
 package com.trulden.friends.adapter;
 
 import android.content.Context;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,18 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     private Context mContext;
     private static List<Friend> mFriendsData = new ArrayList<>();
+    private OnClickListener onClickListener = null;
+
+    private SparseBooleanArray selectedItems;
+    private int mCurrentSelectedId = -1;
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     public FriendsAdapter(Context context){
         mContext = context;
+        selectedItems = new SparseBooleanArray();
     }
 
     @NonNull
@@ -29,8 +39,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, int position) {
-        holder.bindTo(mFriendsData.get(position));
+    public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, final int position) {
+        holder.bindTo(mFriendsData.get(position), position);
     }
 
     @Override
@@ -51,18 +61,68 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         return false;
     }
 
+    public void clearSelections() {
+        selectedItems.clear();
+        notifyDataSetChanged();
+    }
+
+    public int getSelectedItemCount() {
+        return selectedItems.size();
+    }
+
+    public void toggleSelection(int pos) {
+        mCurrentSelectedId = pos;
+        if(selectedItems.get(pos, false)){
+            selectedItems.delete(pos);
+        } else {
+            selectedItems.put(pos, true);
+        }
+        notifyItemChanged(pos);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
+        private View mFriendEntryLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mTextView = itemView.findViewById(R.id.friend_entry_text);
+            mFriendEntryLayout = itemView.findViewById(R.id.friend_entry_layout);
         }
 
-        public void bindTo(Friend s) {
-            mTextView.setText(s.getName());
+        public void bindTo(final Friend friend, final int position) {
+            mTextView.setText(friend.getName());
+            mFriendEntryLayout.setActivated(selectedItems.get(position, false));
+
+            mFriendEntryLayout.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    if(onClickListener == null)
+                        return;
+                    onClickListener.onItemClick(v, friend, position);
+                }
+            });
+
+            mFriendEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (onClickListener == null)
+                        return false;
+
+                    onClickListener.onItemLongClick(v, friend, position);
+                    return true;
+                }
+            });
+
+            // TODO probably might need to change color
         }
+    }
+
+    public interface OnClickListener {
+        void onItemClick(View view, Friend obj, int pos);
+
+        void onItemLongClick(View view, Friend obj, int pos);
     }
 }

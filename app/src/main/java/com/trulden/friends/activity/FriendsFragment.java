@@ -4,12 +4,17 @@ package com.trulden.friends.activity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,6 +37,9 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
     private FriendsViewModel mFriendsViewModel;
     private FriendsAdapter mFriendsAdapter;
 
+
+    private ActionModeCallback mActionModeCallback;
+    private ActionMode mActionMode;
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -65,6 +73,44 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
             }
         });
 
+        mFriendsAdapter.setOnClickListener(new FriendsAdapter.OnClickListener() {
+            @Override
+            public void onItemClick(View view, Friend obj, int pos) {
+                if(mFriendsAdapter.getSelectedItemCount() > 0){
+                    enableActionMode(pos);
+                } else {
+                    // TODO open friend page
+                    Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onItemLongClick(View view, Friend obj, int pos) {
+                enableActionMode(pos);
+            }
+        });
+
+        mActionModeCallback = new ActionModeCallback();
+
+    }
+
+    private void enableActionMode(int pos) {
+        if(mActionMode == null){
+            mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mActionModeCallback);
+        }
+        toggleSelection(pos);
+    }
+
+    private void toggleSelection(int pos) {
+        mFriendsAdapter.toggleSelection(pos);
+        int count = mFriendsAdapter.getSelectedItemCount();
+
+        if(count == 0){
+            mActionMode.finish();
+        } else {
+            mActionMode.setTitle(String.valueOf(count));
+            mActionMode.invalidate();
+        }
     }
 
     @Override
@@ -80,5 +126,49 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
     @Override
     public void deleteSelection() {
         // TODO
+    }
+
+    private class ActionModeCallback implements ActionMode.Callback{
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+            switch(item.getItemId()) {
+                case R.id.delete_selection: {
+                    deleteSelection();
+                    mode.finish();
+                    return true;
+                }
+                case R.id.edit_selection: {
+                    editSelection();
+                    mode.finish();
+                    return true;
+                }
+                case R.id.clear_selection: {
+                    clearSelection();
+                    mode.finish();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mFriendsAdapter.clearSelections();
+            mActionMode = null;
+        }
     }
 }

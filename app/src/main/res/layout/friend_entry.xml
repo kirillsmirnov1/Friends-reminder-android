@@ -9,9 +9,12 @@
         >
 
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_background"
+        android:id="@+id/friend_entry_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_background"
+        android:clickable="true"
+        android:focusable="true"
         >
 
         <ImageView
