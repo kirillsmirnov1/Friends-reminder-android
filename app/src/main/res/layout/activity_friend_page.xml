@@ -15,6 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="Friend's name"
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/white"
         />
 
         <ScrollView
@@ -27,6 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Friend's info"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:padding="8dp"
             />
 
         </ScrollView>
