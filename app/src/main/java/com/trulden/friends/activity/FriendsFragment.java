@@ -26,6 +26,7 @@ import com.trulden.friends.adapter.FriendsAdapter;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -34,13 +35,15 @@ import java.util.List;
 public class FriendsFragment extends Fragment implements FragmentWithSelection{
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
+    private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
     private FriendsAdapter mFriendsAdapter;
 
-
     private ActionModeCallback mActionModeCallback;
     private ActionMode mActionMode;
+
+    private HashSet<Integer> selectedFriendsPositions = new HashSet<>();
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -58,8 +61,12 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_FRIENDS_POSITIONS)){
+            selectedFriendsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
+        }
+
         RecyclerView recyclerView = view.findViewById(R.id.friends_recyclerView);
-        mFriendsAdapter = new FriendsAdapter(getActivity());
+        mFriendsAdapter = new FriendsAdapter(getActivity(), selectedFriendsPositions);
         recyclerView.setAdapter(mFriendsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -93,6 +100,14 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
 
         mActionModeCallback = new ActionModeCallback();
 
+        if(selectedFriendsPositions.size() > 0)
+            enableActionMode(-1);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(SELECTED_FRIENDS_POSITIONS, selectedFriendsPositions);
     }
 
     private void enableActionMode(int pos) {
@@ -103,7 +118,10 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
     }
 
     private void toggleSelection(int pos) {
-        mFriendsAdapter.toggleSelection(pos);
+        if(pos != -1) {
+            mFriendsAdapter.toggleSelection(pos);
+        }
+
         int count = mFriendsAdapter.getSelectedItemCount();
 
         if(count == 0){

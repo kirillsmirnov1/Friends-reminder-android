@@ -1,7 +1,6 @@
 package com.trulden.friends.adapter;
 
 import android.content.Context;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
@@ -20,16 +20,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     private static List<Friend> mFriendsData = new ArrayList<>();
     private OnClickListener onClickListener = null;
 
-    private SparseBooleanArray selectedItems;
-    private int mCurrentSelectedId = -1;
+    private HashSet<Integer> selectedFriendsPositions;
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
-    public FriendsAdapter(Context context){
+    public FriendsAdapter(Context context, @NonNull HashSet<Integer> selectedFriendsPositions){
         mContext = context;
-        selectedItems = new SparseBooleanArray();
+        this.selectedFriendsPositions = selectedFriendsPositions;
     }
 
     @NonNull
@@ -40,7 +39,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mFriendsData.get(position), position);
+        holder.bindTo(mFriendsData.get(position), position, selectedFriendsPositions.contains(position));
     }
 
     @Override
@@ -62,28 +61,27 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     }
 
     public void clearSelections() {
-        selectedItems.clear();
+        selectedFriendsPositions.clear();
         notifyDataSetChanged();
     }
 
     public int getSelectedItemCount() {
-        return selectedItems.size();
+        return selectedFriendsPositions.size();
     }
 
     public void toggleSelection(int pos) {
-        mCurrentSelectedId = pos;
-        if(selectedItems.get(pos, false)){
-            selectedItems.delete(pos);
+        if(selectedFriendsPositions.contains(pos)){
+            selectedFriendsPositions.remove(pos);
         } else {
-            selectedItems.put(pos, true);
+            selectedFriendsPositions.add(pos);
         }
         notifyItemChanged(pos);
     }
 
     public List<Friend> getSelectedFriends() {
-        List <Friend> selectedFriends = new ArrayList<>(selectedItems.size());
-        for(int i = 0; i < selectedItems.size(); ++i){
-            selectedFriends.add(mFriendsData.get(selectedItems.keyAt(i)));
+        List <Friend> selectedFriends = new ArrayList<>(selectedFriendsPositions.size());
+        for(Integer position : selectedFriendsPositions){
+            selectedFriends.add(mFriendsData.get(position));
         }
         return selectedFriends;
     }
@@ -100,9 +98,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             mFriendEntryLayout = itemView.findViewById(R.id.friend_entry_layout);
         }
 
-        public void bindTo(final Friend friend, final int position) {
+        public void bindTo(final Friend friend, final int position, boolean selected) {
             mTextView.setText(friend.getName());
-            mFriendEntryLayout.setActivated(selectedItems.get(position, false));
+            mFriendEntryLayout.setActivated(selectedFriendsPositions.contains(position));
 
             mFriendEntryLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -123,8 +121,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                     return true;
                 }
             });
-
-            // TODO probably might need to change color
         }
     }
 
