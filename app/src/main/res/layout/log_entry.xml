@@ -9,11 +9,12 @@
         >
 
     <TextView
-            android:id="@+id/log_entry_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            />
+        android:id="@+id/log_entry_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:text="That will be the log entry. There will be lots of text. Maybe. Maybe not."
+        />
 
 </androidx.cardview.widget.CardView>
