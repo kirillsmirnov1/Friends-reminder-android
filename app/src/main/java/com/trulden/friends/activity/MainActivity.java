@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private FriendsViewModel mFriendsViewModel;
     private Fragment mFragment = null;
 
+    private static boolean once = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +48,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        setToolbarTitle();
 
-        loadFragment(mFragmentToLoad);
+        if(once) {
+            loadFragment(mFragmentToLoad);
+            once = false;
+        }
 
         mBottomNavigation = findViewById(R.id.bottom_navigation);
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
@@ -147,19 +153,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case LOG_FRAGMENT:
-                mToolbar.setTitle("Log");
                 mFragment = new LogFragment();
                 break;
             case REMINDER_FRAGMENT:
-                mToolbar.setTitle("Reminder");
                 mFragment = new ReminderFragment();
                 break;
             case FRIENDS_FRAGMENT:
-                mToolbar.setTitle("Friends");
                 mFragment = new FriendsFragment();
                 break;
         }
+        setToolbarTitle();
         return loadFragment(mFragment);
+    }
+
+    public void setToolbarTitle(){
+        switch (mFragmentToLoad){
+            case LOG_FRAGMENT:
+                mToolbar.setTitle("Log");
+                break;
+            case REMINDER_FRAGMENT:
+                mToolbar.setTitle("Reminder");
+                break;
+            case FRIENDS_FRAGMENT:
+                mToolbar.setTitle("Friends");
+                break;
+        }
     }
 
     private boolean loadFragment(Fragment fragment){
