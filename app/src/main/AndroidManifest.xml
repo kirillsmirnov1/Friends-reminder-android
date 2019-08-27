@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.trulden.friends">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.trulden.friends">
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="GoogleAppIndexingWarning">
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.FriendPageActivity"></activity>
         <activity
-                android:name=".activity.AddFriendActivity"
-                android:parentActivityName=".activity.MainActivity"
-        >
-        </activity>
+            android:name=".activity.AddFriendActivity"
+            android:parentActivityName=".activity.MainActivity"></activity>
         <activity
-                android:name=".activity.AddInteractionActivity"
-                android:label="@string/add_interaction"
-                android:parentActivityName=".activity.MainActivity">
+            android:name=".activity.AddInteractionActivity"
+            android:label="@string/add_interaction"
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.trulden.friends.activity.MainActivity"/>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trulden.friends.activity.MainActivity" />
         </activity>
         <activity
-                android:name=".activity.MainActivity"
-                android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
