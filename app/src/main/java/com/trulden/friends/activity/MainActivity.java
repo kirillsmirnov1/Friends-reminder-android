@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case DELETE:
                 menu.findItem(R.id.edit_selection).setVisible(false);
                 menu.findItem(R.id.delete_selection).setVisible(true);
-                menu.findItem(R.id.clear_selection).setVisible(true);
                 break;
         }
 
@@ -95,10 +94,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         int id = item.getItemId();
 
         if(mFragment instanceof FragmentWithSelection){
-
-            if(id == R.id.clear_selection){
-                ((FragmentWithSelection) mFragment).clearSelection();
-            }
 
             if(id == R.id.edit_selection) {
                 ((FragmentWithSelection) mFragment).editSelection();
