@@ -110,6 +110,13 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
         } else {
             mActionMode.setTitle(String.valueOf(count));
             mActionMode.invalidate();
+
+            if(count == 1){
+                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(true);
+            } else {
+                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
+            }
+
         }
     }
 
@@ -130,6 +137,7 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
+
             return true;
         }
 
