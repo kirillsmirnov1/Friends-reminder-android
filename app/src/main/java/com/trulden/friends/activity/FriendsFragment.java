@@ -114,11 +114,6 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
     }
 
     @Override
-    public void clearSelection() {
-        // TODO
-    }
-
-    @Override
     public void editSelection() {
         // TODO
     }
@@ -154,11 +149,6 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
                 }
                 case R.id.edit_selection: {
                     editSelection();
-                    mode.finish();
-                    return true;
-                }
-                case R.id.clear_selection: {
-                    clearSelection();
                     mode.finish();
                     return true;
                 }
