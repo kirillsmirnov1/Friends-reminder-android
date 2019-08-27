@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.MenuItem;
 
@@ -17,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
@@ -40,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Fragment mFragment = null;
 
     private static boolean once = true;
+
+    public static FragmentToLoad getFragmentToLoad() {
+        return mFragmentToLoad;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
-    private enum FragmentToLoad{
+    public enum FragmentToLoad{
         LOG_FRAGMENT,
         REMINDER_FRAGMENT,
         FRIENDS_FRAGMENT

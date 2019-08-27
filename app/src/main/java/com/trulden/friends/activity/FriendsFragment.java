@@ -140,6 +140,14 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.FRIENDS_FRAGMENT) {
+            mActionMode.finish();
+        }
+    }
+
+    @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), AddFriendActivity.class);
         Friend friend = mFriendsAdapter.getSelectedFriends().get(0);
