@@ -25,8 +25,10 @@ import com.trulden.friends.database.FriendsViewModel;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private static final int NEW_INTERACTION_REQUEST = 1;
-    private static final int NEW_FRIEND_REQUEST = 2;
+
+    private static final int NEW_INTERACTION_REQUEST    = 1;
+    private static final int NEW_FRIEND_REQUEST         = 2;
+    public  static final int UPDATE_FRIEND_REQUEST      = 3;
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
 
@@ -116,12 +118,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case NEW_FRIEND_REQUEST:{
                 if(resultCode == RESULT_OK) {
-                    String name = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_NAME);//TODO
+                    String name = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_NAME);
                     String info = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_INFO);
 
                     Friend friend = new Friend(name, info);
 
                     mFriendsViewModel.addFriend(friend);
+                }
+            }
+
+            case UPDATE_FRIEND_REQUEST: {
+                if(resultCode == RESULT_OK) {
+                    int id = resultingIntent.getIntExtra(AddFriendActivity.EXTRA_FRIEND_ID, -1);
+                    if(id != -1){
+                        String name = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_NAME);
+                        String info = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_INFO);
+
+                        Friend friend = new Friend(id, name, info);
+                        mFriendsViewModel.updateFriend(friend);
+                    }
                 }
             }
         }

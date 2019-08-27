@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -122,7 +123,14 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
 
     @Override
     public void editSelection() {
-        // TODO
+        Intent intent = new Intent(getActivity(), AddFriendActivity.class);
+        Friend friend = mFriendsAdapter.getSelectedFriends().get(0);
+
+        intent.putExtra(AddFriendActivity.EXTRA_FRIEND_ID, friend.getId());
+        intent.putExtra(AddFriendActivity.EXTRA_FRIEND_NAME, friend.getName());
+        intent.putExtra(AddFriendActivity.EXTRA_FRIEND_INFO, friend.getInfo());
+
+        getActivity().startActivityForResult(intent, MainActivity.UPDATE_FRIEND_REQUEST);
     }
 
     @Override
