@@ -125,7 +125,9 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
 
     @Override
     public void deleteSelection() {
-        // TODO
+        for (Friend friend : mFriendsAdapter.getSelectedFriends()){
+            mFriendsViewModel.deleteFriend(friend);
+        }
     }
 
     private class ActionModeCallback implements ActionMode.Callback{

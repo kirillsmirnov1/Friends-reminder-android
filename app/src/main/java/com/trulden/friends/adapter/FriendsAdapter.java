@@ -80,6 +80,14 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         notifyItemChanged(pos);
     }
 
+    public List<Friend> getSelectedFriends() {
+        List <Friend> selectedFriends = new ArrayList<>(selectedItems.size());
+        for(int i = 0; i < selectedItems.size(); ++i){
+            selectedFriends.add(mFriendsData.get(selectedItems.keyAt(i)));
+        }
+        return selectedFriends;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
