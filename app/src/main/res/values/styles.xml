@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">#F9DB22</item>
+        <item name="actionModeBackground">@color/colorPrimaryDark</item>
         <item name="windowActionModeOverlay">true</item>
     </style>
     <style name="AppTheme.NoActionBar">
