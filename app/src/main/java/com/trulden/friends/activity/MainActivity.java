@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final int NEW_FRIEND_REQUEST = 2;
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
-    private static SelectionMenuState mSelectionMenuState = SelectionMenuState.HIDE;
 
     private BottomNavigationView mBottomNavigation;
     private FloatingActionsMenu mFabMenu;
@@ -63,25 +62,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.selection_menu, menu);
-
-        switch (mSelectionMenuState){
-            case HIDE:
-                for (int i = 0; i < menu.size(); ++i){
-                    menu.getItem(i).setVisible(false);
-                }
-                break;
-            case EDIT_AND_DELETE:
-                for (int i = 0; i < menu.size(); ++i){
-                    menu.getItem(i).setVisible(true);
-                }
-                break;
-            case DELETE:
-                menu.findItem(R.id.edit_selection).setVisible(false);
-                menu.findItem(R.id.delete_selection).setVisible(true);
-                break;
-        }
+        //MenuInflater menuInflater = getMenuInflater();
+        //menuInflater.inflate(R.menu.selection_menu, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -143,8 +125,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }
         }
-
-
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
@@ -192,20 +172,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
-    public void setSelectionMenuState(SelectionMenuState selectionMenuState) {
-        mSelectionMenuState = selectionMenuState;
-        invalidateOptionsMenu();
-    }
-
     private enum FragmentToLoad{
         LOG_FRAGMENT,
         REMINDER_FRAGMENT,
         FRIENDS_FRAGMENT
-    }
-
-    public enum SelectionMenuState {
-        HIDE,
-        DELETE,
-        EDIT_AND_DELETE
     }
 }
