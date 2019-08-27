@@ -12,6 +12,8 @@ import androidx.fragment.app.DialogFragment;
 import com.trulden.friends.adapter.DatePickerFragment;
 import com.trulden.friends.R;
 
+import static com.trulden.friends.util.Util.*;
+
 public class AddInteractionActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
 
@@ -19,8 +21,6 @@ public class AddInteractionActivity extends AppCompatActivity implements
     private EditText mDate;
     private EditText mFriends; // TODO набирать друзей из списка
     private EditText mComment;
-
-    public static final String EXTRA_NEW_INTERACTION = "EXTRA_NEW_INTERACTION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -20,13 +20,11 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
+import static com.trulden.friends.util.Util.*;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-
-    private static final int NEW_INTERACTION_REQUEST    = 1;
-    private static final int NEW_FRIEND_REQUEST         = 2;
-    public  static final int UPDATE_FRIEND_REQUEST      = 3;
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
 
@@ -118,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case NEW_INTERACTION_REQUEST: {
                 if (resultCode == RESULT_OK) {
-                    String reply = resultingIntent.getStringExtra(AddInteractionActivity.EXTRA_NEW_INTERACTION);
+                    String reply = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION);
                     // TODO save as log entry
                 }
                 break;
@@ -126,8 +124,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case NEW_FRIEND_REQUEST:{
                 if(resultCode == RESULT_OK) {
-                    String name = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_NAME);
-                    String info = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_INFO);
+                    String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
+                    String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
 
                     Friend friend = new Friend(name, info);
 
@@ -137,10 +135,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case UPDATE_FRIEND_REQUEST: {
                 if(resultCode == RESULT_OK) {
-                    int id = resultingIntent.getIntExtra(AddFriendActivity.EXTRA_FRIEND_ID, -1);
+                    int id = resultingIntent.getIntExtra(EXTRA_FRIEND_ID, -1);
                     if(id != -1){
-                        String name = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_NAME);
-                        String info = resultingIntent.getStringExtra(AddFriendActivity.EXTRA_FRIEND_INFO);
+                        String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
+                        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
 
                         Friend friend = new Friend(id, name, info);
                         mFriendsViewModel.updateFriend(friend);

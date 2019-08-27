@@ -29,6 +29,8 @@ import com.trulden.friends.database.FriendsViewModel;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.trulden.friends.util.Util.*;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -154,11 +156,11 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
         Intent intent = new Intent(getActivity(), AddFriendActivity.class);
         Friend friend = mFriendsAdapter.getSelectedFriends().get(0);
 
-        intent.putExtra(AddFriendActivity.EXTRA_FRIEND_ID, friend.getId());
-        intent.putExtra(AddFriendActivity.EXTRA_FRIEND_NAME, friend.getName());
-        intent.putExtra(AddFriendActivity.EXTRA_FRIEND_INFO, friend.getInfo());
+        intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
+        intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
+        intent.putExtra(EXTRA_FRIEND_INFO, friend.getInfo());
 
-        getActivity().startActivityForResult(intent, MainActivity.UPDATE_FRIEND_REQUEST);
+        getActivity().startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
     }
 
     @Override

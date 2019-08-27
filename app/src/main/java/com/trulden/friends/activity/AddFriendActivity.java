@@ -11,11 +11,9 @@ import android.widget.Toast;
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.FriendsAdapter;
 
-public class AddFriendActivity extends AppCompatActivity {
+import static com.trulden.friends.util.Util.*;
 
-    public static final String EXTRA_FRIEND_ID   = "EXTRA_FRIEND_ID";
-    public static final String EXTRA_FRIEND_NAME = "EXTRA_FRIEND_NAME";
-    public static final String EXTRA_FRIEND_INFO = "EXTRA_FRIEND_INFO";
+public class AddFriendActivity extends AppCompatActivity {
 
     private EditText mName;
     private EditText mInfo;
