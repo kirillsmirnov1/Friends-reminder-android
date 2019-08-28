@@ -100,10 +100,10 @@ public class AddInteractionActivity extends AppCompatActivity implements
     }
 
     private boolean allFriendsExist(String[] friends) {
-        for(String friend : friends){
-            if(!friendsMap.containsKey(friend)){
+        for(String friendName : friends){
+            if(!friendsMap.containsKey(friendName)){
 
-                FriendNotFoundDialog dialog = new FriendNotFoundDialog();
+                FriendNotFoundDialog dialog = new FriendNotFoundDialog(friendName);
                 dialog.show(getSupportFragmentManager(), "friendNotFoundDialog");
 
                 return false;
@@ -129,5 +129,9 @@ public class AddInteractionActivity extends AppCompatActivity implements
     public void pickADate(View view) {
         DialogFragment f = new DatePickerFragment();
         f.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void createFriendByName(String name){
+        mFriendsViewModel.addFriend(new Friend(name, ""));
     }
 }

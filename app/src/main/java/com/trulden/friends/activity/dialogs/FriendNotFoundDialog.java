@@ -9,17 +9,26 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.trulden.friends.activity.AddInteractionActivity;
+
 public class FriendNotFoundDialog extends DialogFragment {
+
+    private String name;
+
+    public FriendNotFoundDialog(String name){
+        this.name = name;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setMessage("You don't have friend named like this") // TODO set name
+        builder.setMessage("You don't have friend named «" + name + "»") // TODO set name
                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       // TODO add him
+                       ((AddInteractionActivity)getActivity()).createFriendByName(name);
                    }
                })
                .setNeutralButton("I'll edit", new DialogInterface.OnClickListener() {
