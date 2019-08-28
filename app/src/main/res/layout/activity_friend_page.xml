@@ -10,19 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/friend_page_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="Friend's name"
-            android:background="@color/colorPrimary"
-            app:titleTextColor="@color/white"
-        />
-
         <ScrollView
-            android:layout_below="@id/friend_page_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <TextView
                 android:id="@+id/friend_page_info"

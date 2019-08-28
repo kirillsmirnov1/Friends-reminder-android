@@ -13,7 +13,6 @@ import static com.trulden.friends.util.Util.*;
 
 public class FriendPageActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
     private TextView mPersonInfo;
 
     private int personId;
@@ -23,12 +22,11 @@ public class FriendPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_page);
 
-        mToolbar = findViewById(R.id.friend_page_toolbar);
         mPersonInfo = findViewById(R.id.friend_page_info);
 
         Intent intent = getIntent();
         personId = intent.getIntExtra(EXTRA_FRIEND_ID, -1);
-        mToolbar.setTitle(intent.getStringExtra(EXTRA_FRIEND_NAME));
+        getSupportActionBar().setTitle(intent.getStringExtra(EXTRA_FRIEND_NAME));
         mPersonInfo.setText(intent.getStringExtra(EXTRA_FRIEND_INFO));
     }
 
