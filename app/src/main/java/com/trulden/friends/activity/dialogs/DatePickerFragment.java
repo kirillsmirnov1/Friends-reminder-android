@@ -1,4 +1,4 @@
-package com.trulden.friends.dialogs;
+package com.trulden.friends.activity.dialogs;
 
 
 import android.app.DatePickerDialog;
