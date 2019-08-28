@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,8 @@ import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -133,5 +136,12 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
     public void createFriendByName(String name){
         mFriendsViewModel.addFriend(new Friend(name, ""));
+    }
+
+    public void removeFriendName(String name) {
+        ArrayList<String> friendNames = new ArrayList<>(Arrays.asList(
+                mFriends.getText().toString().split("\\s*,\\s*")));
+        friendNames.remove(name);
+        mFriends.setText(TextUtils.join(", ", friendNames.toArray(new String[0])));
     }
 }

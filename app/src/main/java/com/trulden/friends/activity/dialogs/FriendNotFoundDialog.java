@@ -43,7 +43,7 @@ public class FriendNotFoundDialog extends DialogFragment {
                .setNegativeButton("Forget", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       // TODO remove a friend
+                       ((AddInteractionActivity)getActivity()).removeFriendName(name);
                    }
                });
 
