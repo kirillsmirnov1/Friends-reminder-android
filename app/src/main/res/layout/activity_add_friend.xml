@@ -6,63 +6,69 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.AddFriendActivity">
-
-    <TableLayout
+    
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:stretchColumns="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".activity.AddFriendActivityActivity">
+        android:layout_height="match_parent">
 
-        <TableRow
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:stretchColumns="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".activity.AddFriendActivityActivity">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="Name:" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/edit_friends_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".8"
-                android:inputType="textPersonName" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:text="Name:" />
 
-        </TableRow>
+                <EditText
+                    android:id="@+id/edit_friends_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
+                    android:inputType="textPersonName" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            </TableRow>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="Info:" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/edit_friends_info"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".8"
-                android:inputType="textMultiLine|textCapSentences" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:text="Info:" />
 
-        </TableRow>
+                <EditText
+                    android:id="@+id/edit_friends_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
+                    android:inputType="textMultiLine|textCapSentences" />
 
-    </TableLayout>
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
 
     <Button
             android:id="@+id/button_save_friend"
