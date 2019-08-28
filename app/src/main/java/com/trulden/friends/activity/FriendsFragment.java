@@ -89,9 +89,6 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
                 if(mFriendsAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 } else {
-                    // TODO open friend page
-                    Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
-
                     Intent intent = new Intent(getActivity(), FriendPageActivity.class);
                     intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
                     intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
