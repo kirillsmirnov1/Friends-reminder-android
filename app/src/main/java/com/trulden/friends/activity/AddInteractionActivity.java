@@ -5,21 +5,35 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.trulden.friends.adapter.DatePickerFragment;
 import com.trulden.friends.R;
+import com.trulden.friends.database.Friend;
+import com.trulden.friends.database.FriendsViewModel;
+
+import java.util.HashMap;
+import java.util.List;
 
 import static com.trulden.friends.util.Util.*;
 
 public class AddInteractionActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
 
+    FriendsViewModel mFriendsViewModel;
+    private HashMap<String, Integer> friendsMap = new HashMap<>();
+
     private Spinner  mType;
     private EditText mDate;
-    private EditText mFriends; // TODO набирать друзей из списка
+    private AppCompatMultiAutoCompleteTextView mFriends;
     private EditText mComment;
 
     @Override
@@ -27,10 +41,29 @@ public class AddInteractionActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_interaction);
 
+        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+
+        // Set friend names from database to corresponding dropdown list
+        mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
+            @Override
+            public void onChanged(List<Friend> friends) {
+                for(Friend friend : friends){
+                    if(!friendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
+                        friendsMap.put(friend.getName(), friend.getId());
+                    }
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
+                        android.R.layout.simple_dropdown_item_1line, friendsMap.keySet().toArray(new String[0]));
+
+                mFriends.setAdapter(adapter);
+            }
+        });
+
         mType = findViewById(R.id.interaction_type_spinner);
         mDate = findViewById(R.id.editDate);
         mFriends = findViewById(R.id.editFriends);
         mComment = findViewById(R.id.editComment);
+        mFriends.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
         initInteractionTypeSpinner();
     }
