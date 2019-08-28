@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.activity.dialogs.DatePickerFragment;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
@@ -101,7 +102,10 @@ public class AddInteractionActivity extends AppCompatActivity implements
     private boolean allFriendsExist(String[] friends) {
         for(String friend : friends){
             if(!friendsMap.containsKey(friend)){
-                Toast.makeText(this, "You don't have friend named «" + friend + "»", Toast.LENGTH_SHORT).show();
+
+                FriendNotFoundDialog dialog = new FriendNotFoundDialog();
+                dialog.show(getSupportFragmentManager(), "friendNotFoundDialog");
+
                 return false;
             }
         }
