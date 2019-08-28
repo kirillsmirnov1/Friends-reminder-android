@@ -3,6 +3,7 @@ package com.trulden.friends.activity.dialogs;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,7 +35,8 @@ public class FriendNotFoundDialog extends DialogFragment {
                .setNeutralButton("I'll edit", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       // TODO do nothing, actually
+                       // There might be a better way of doing this
+                       Toast.makeText(getActivity(), "Fix «" + name + "» up",Toast.LENGTH_SHORT).show();
                    }
                })
                .setNegativeButton("Forget", new DialogInterface.OnClickListener() {
