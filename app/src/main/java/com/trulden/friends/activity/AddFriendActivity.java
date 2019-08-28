@@ -43,7 +43,7 @@ public class AddFriendActivity extends AppCompatActivity {
 
         if(name.isEmpty()) {
             Toast.makeText(this, "Empty name", Toast.LENGTH_SHORT).show();
-        } else if(FriendsAdapter.friendExists(name)) {
+        } else if(updatedFriendId == -1 && FriendsAdapter.friendExists(name)) {
             Toast.makeText(this, "Friend with name like this already exists", Toast.LENGTH_SHORT).show();
         } else {
 

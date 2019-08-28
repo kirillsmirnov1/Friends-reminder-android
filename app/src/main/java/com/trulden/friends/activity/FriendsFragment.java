@@ -85,12 +85,18 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection{
 
         mFriendsAdapter.setOnClickListener(new FriendsAdapter.OnClickListener() {
             @Override
-            public void onItemClick(View view, Friend obj, int pos) {
+            public void onItemClick(View view, Friend friend, int pos) {
                 if(mFriendsAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 } else {
                     // TODO open friend page
                     Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getActivity(), FriendPageActivity.class);
+                    intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
+                    intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
+                    intent.putExtra(EXTRA_FRIEND_INFO, friend.getInfo());
+                    getActivity().startActivity(intent);
                 }
             }
 
