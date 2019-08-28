@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.trulden.friends.activity.AddInteractionActivity;
 
+// This dialog is created when user enters name of friend who is not in a database yet
 public class FriendNotFoundDialog extends DialogFragment {
 
     private String name;
