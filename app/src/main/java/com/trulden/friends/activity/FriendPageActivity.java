@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -39,10 +40,15 @@ public class FriendPageActivity extends AppCompatActivity {
                 intent.getStringExtra(EXTRA_FRIEND_NAME),
                 intent.getStringExtra(EXTRA_FRIEND_INFO));
 
-        getSupportActionBar().setTitle(friend.getName());
-        mPersonInfo.setText(friend.getInfo());
+        setFriendInfo(friend);
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+    }
+
+    private void setFriendInfo(Friend friend){
+        this.friend = friend;
+        getSupportActionBar().setTitle(friend.getName());
+        mPersonInfo.setText(friend.getInfo());
     }
 
     @Override
@@ -58,7 +64,13 @@ public class FriendPageActivity extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.edit_selection: {
-                // TODO
+                Intent intent = new Intent(this, AddFriendActivity.class);
+
+                intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
+                intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
+                intent.putExtra(EXTRA_FRIEND_INFO, friend.getInfo());
+
+                startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
                 break;
             }
 
@@ -71,5 +83,26 @@ public class FriendPageActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent resultingIntent) {
+        super.onActivityResult(requestCode, resultCode, resultingIntent);
+
+        switch (requestCode){
+            case UPDATE_FRIEND_REQUEST: {
+                if(resultCode == RESULT_OK) {
+                    int id = resultingIntent.getIntExtra(EXTRA_FRIEND_ID, -1);
+                    if(id != -1){
+                        String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
+                        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
+
+                        Friend friend = new Friend(id, name, info);
+                        setFriendInfo(friend);
+                        mFriendsViewModel.updateFriend(friend);
+                    }
+                }
+            }
+        }
     }
 }
