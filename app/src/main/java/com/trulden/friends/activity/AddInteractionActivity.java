@@ -136,6 +136,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
     public void createFriendByName(String name){
         mFriendsViewModel.addFriend(new Friend(name, ""));
+        Toast.makeText(this, "«" + name + "» is created", Toast.LENGTH_SHORT).show();
     }
 
     public void removeFriendName(String name) {
@@ -143,5 +144,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
                 mFriends.getText().toString().split("\\s*,\\s*")));
         friendNames.remove(name);
         mFriends.setText(TextUtils.join(", ", friendNames.toArray(new String[0])));
+
+        Toast.makeText(this, "«" + name + "» is forgotten", Toast.LENGTH_SHORT).show();
     }
 }
