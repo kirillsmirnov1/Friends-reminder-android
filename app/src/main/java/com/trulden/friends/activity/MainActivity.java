@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void addInteraction(View view) {
         Intent intent = new Intent(this, AddInteractionActivity.class);
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
+        mFabMenu.collapse();
     }
 
     @Override
