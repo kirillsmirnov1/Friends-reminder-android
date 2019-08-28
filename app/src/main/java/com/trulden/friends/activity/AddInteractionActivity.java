@@ -16,7 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.trulden.friends.adapter.DatePickerFragment;
+import com.trulden.friends.dialogs.DatePickerFragment;
 import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
