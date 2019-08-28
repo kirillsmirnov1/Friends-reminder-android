@@ -2,6 +2,7 @@ package com.trulden.friends.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -68,7 +69,13 @@ public class AddInteractionActivity extends AppCompatActivity implements
         });
 
         mType = findViewById(R.id.interaction_type_spinner);
+
         mDate = findViewById(R.id.editDate);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // I guess, 15% which still uses android 4 will have to suffer
+            mDate.setShowSoftInputOnFocus(false);
+        }
+
         mFriends = findViewById(R.id.editFriends);
         mComment = findViewById(R.id.editComment);
 
