@@ -2,6 +2,7 @@ package com.trulden.friends.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -68,7 +69,15 @@ public class AddInteractionActivity extends AppCompatActivity implements
         mDate = findViewById(R.id.editDate);
         mFriends = findViewById(R.id.editFriends);
         mComment = findViewById(R.id.editComment);
+
         mFriends.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        mFriends.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mFriends.showDropDown();
+                return false;
+            }
+        });
 
         initInteractionTypeSpinner();
     }
