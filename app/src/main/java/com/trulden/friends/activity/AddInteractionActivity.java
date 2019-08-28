@@ -9,6 +9,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
@@ -82,16 +83,29 @@ public class AddInteractionActivity extends AppCompatActivity implements
     }
 
     public void saveInteraction(View view) {
+        String[] friends = mFriends.getText().toString().split("\\s*,\\s*");
         String result = // TODO обернуть в LogEntry класс
                         mDate.getText().toString() + " • " +
                         mType.getSelectedItem().toString() + "\n" +
                         mFriends.getText().toString() + "\n" +
                         mComment.getText().toString() + "\n";
 
-        Intent replyIntent = new Intent();
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION, result);
-        setResult(RESULT_OK, replyIntent);
-        finish();
+        if(allFriendsExist(friends)){
+            Intent replyIntent = new Intent();
+            replyIntent.putExtra(EXTRA_NEW_INTERACTION, result);
+            setResult(RESULT_OK, replyIntent);
+            finish();
+        }
+    }
+
+    private boolean allFriendsExist(String[] friends) {
+        for(String friend : friends){
+            if(!friendsMap.containsKey(friend)){
+                Toast.makeText(this, "You don't have friend named «" + friend + "»", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
     }
 
     public void processDatePickerResult(int year, int month, int date){
