@@ -1,5 +1,6 @@
 package com.trulden.friends.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -42,6 +43,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
     private AppCompatMultiAutoCompleteTextView mFriends;
     private EditText mComment;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
