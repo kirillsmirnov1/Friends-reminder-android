@@ -61,6 +61,8 @@ public class AddFriendActivity extends AppCompatActivity {
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
             replyIntent.putExtra(EXTRA_FRIEND_INFO, info);
 
+            makeToast(this, updatedFriendId == -1 ? "Friend created" : "Friend updated");
+
             setResult(RESULT_OK, replyIntent);
             finish();
         }
