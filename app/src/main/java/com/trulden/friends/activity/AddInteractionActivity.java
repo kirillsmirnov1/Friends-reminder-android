@@ -120,6 +120,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
             Intent replyIntent = new Intent();
             replyIntent.putExtra(EXTRA_NEW_INTERACTION, result);
             setResult(RESULT_OK, replyIntent);
+            makeToast(this, "Interaction saved");
             finish();
         }
     }
