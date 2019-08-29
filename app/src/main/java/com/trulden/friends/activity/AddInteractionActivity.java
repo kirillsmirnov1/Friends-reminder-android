@@ -108,7 +108,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
             mType.setAdapter(adapter);
     }
 
-    public void saveInteraction(View view) {
+    public void saveInteraction() {
         String[] friends = mFriends.getText().toString().split("\\s*,\\s*");
         String result = // TODO обернуть в LogEntry класс
                         mDate.getText().toString() + " • " +
@@ -184,7 +184,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         switch (item.getItemId()){
             case R.id.icon_save: {
-                saveInteraction(null);
+                saveInteraction();
                 return true;
             }
 
