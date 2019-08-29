@@ -1,5 +1,8 @@
 package com.trulden.friends.util;
 
+import android.content.Context;
+import android.widget.Toast;
+
 public class Util {
     public static final int NEW_INTERACTION_REQUEST    = 1;
     public static final int NEW_FRIEND_REQUEST         = 2;
@@ -10,4 +13,8 @@ public class Util {
     public static final String EXTRA_FRIEND_ID   = "EXTRA_FRIEND_ID";
     public static final String EXTRA_FRIEND_NAME = "EXTRA_FRIEND_NAME";
     public static final String EXTRA_FRIEND_INFO = "EXTRA_FRIEND_INFO";
+
+    public static void makeToast(Context context, String text){
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
 }
