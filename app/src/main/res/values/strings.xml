@@ -24,6 +24,8 @@
     <string name="action_bar_title_add_friend">Add friend</string>
     <string name="action_bar_title_edit_friend">Edit friend</string>
     <string name="icon_title_save">Save</string>
+    <string name="import_database">Import database</string>
+    <string name="export_database">Export database</string>
 
     <string-array name="interaction_types">
         <item>Meeting</item>
