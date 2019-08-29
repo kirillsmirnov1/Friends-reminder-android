@@ -12,6 +12,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {Friend.class}, version = 1, exportSchema = false)
 public abstract class FriendsDatabase extends RoomDatabase {
 
+    public static final String DATABASE_NAME = "friends_database";
+
     private static FriendsDatabase INSTANCE;
 
     private static RoomDatabase.Callback sRoomDataBaseCallback = new RoomDatabase.Callback(){
@@ -29,7 +31,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
             synchronized (FriendsDatabase.class){
                 if(INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            FriendsDatabase.class, "friends_database")
+                            FriendsDatabase.class, DATABASE_NAME)
                             .fallbackToDestructiveMigration()
                             .addCallback(sRoomDataBaseCallback)
                             .build();
