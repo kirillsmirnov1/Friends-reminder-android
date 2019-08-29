@@ -17,25 +17,28 @@
         android:focusable="true"
         >
 
-        <ImageView
-                android:id="@+id/friend_entry_image"
-                android:padding="4dp"
-                card_view:srcCompat="@drawable/ic_sentiment_very_satisfied_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+<!--        I'm going to add some friend photos, but later-->
+
+<!--        <ImageView-->
+<!--                android:id="@+id/friend_entry_image"-->
+<!--                android:padding="4dp"-->
+<!--                card_view:srcCompat="@drawable/ic_sentiment_very_satisfied_black"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                />-->
 
         <TextView
-                android:id="@+id/friend_entry_text"
-                android:text="Андрюшка"
-                android:textSize="24sp"
-                android:layout_toRightOf="@id/friend_entry_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                style="@style/TextAppearance.AppCompat.Subhead"
-                android:layout_toEndOf="@id/friend_entry_image"
-                />
+            android:id="@+id/friend_entry_text"
+            android:text="Андрюшка"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            style="@style/TextAppearance.AppCompat.Subhead"
+        />
+
+<!--        android:layout_toRightOf="@id/friend_entry_image"-->
+<!--        android:layout_toEndOf="@id/friend_entry_image"-->
 
     </RelativeLayout>
 
