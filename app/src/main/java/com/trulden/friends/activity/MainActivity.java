@@ -80,20 +80,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        if(mFragment instanceof FragmentWithSelection){
-
-            if(id == R.id.edit_selection) {
-                ((FragmentWithSelection) mFragment).editSelection();
-            }
-
-            if(id == R.id.delete_selection){
-                ((FragmentWithSelection) mFragment).deleteSelection();
-            }
+        switch (item.getItemId()) {
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void addFriend(View view) {
