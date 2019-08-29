@@ -82,6 +82,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
+            case R.id.action_export_database: {
+                makeToast(this, "Need to export database");
+                return true;
+            }
+
+            case R.id.action_import_database: {
+                makeToast(this, "Need to import database");
+                return true;
+            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
