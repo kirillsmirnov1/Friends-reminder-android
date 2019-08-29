@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
+import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 import static com.trulden.friends.util.Util.*;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()) {
             case R.id.action_export_database: {
-                makeToast(this, "Need to export database");
+                exportDatabase();
                 return true;
             }
 
@@ -95,6 +97,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void exportDatabase() {
+        String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
+        makeToast(this, dbPath);
+        Log.d("database path", dbPath);
     }
 
     public void addFriend(View view) {
