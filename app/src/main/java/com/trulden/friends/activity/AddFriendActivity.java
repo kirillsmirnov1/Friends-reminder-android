@@ -44,7 +44,7 @@ public class AddFriendActivity extends AppCompatActivity {
         }
     }
 
-    public void saveFriend(View view) {
+    public void saveFriend() {
 
         Intent replyIntent = new Intent();
 
@@ -79,7 +79,7 @@ public class AddFriendActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.icon_save:{
-                saveFriend(null);
+                saveFriend();
                 return true;
             }
 
