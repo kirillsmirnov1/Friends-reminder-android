@@ -76,7 +76,7 @@ public class FriendPageActivity extends AppCompatActivity {
 
             case R.id.delete_selection: {
                 mFriendsViewModel.deleteFriend(friend);
-                Toast.makeText(this, friend.getName() + " deleted", Toast.LENGTH_SHORT).show();
+                makeToast(this, friend.getName() + " deleted");
                 finish();
                 break;
             }

@@ -52,9 +52,9 @@ public class AddFriendActivity extends AppCompatActivity {
         String info = mInfo.getText().toString();
 
         if(name.isEmpty()) {
-            Toast.makeText(this, "Empty name", Toast.LENGTH_SHORT).show();
+            makeToast(this, "Empty name");
         } else if(updatedFriendId == -1 && FriendsAdapter.friendExists(name)) {
-            Toast.makeText(this, "Friend with name like this already exists", Toast.LENGTH_SHORT).show();
+            makeToast(this, "Friend with name like this already exists");
         } else {
 
             replyIntent.putExtra(EXTRA_FRIEND_ID, updatedFriendId);

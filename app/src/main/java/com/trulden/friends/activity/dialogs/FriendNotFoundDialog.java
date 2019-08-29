@@ -12,6 +12,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.trulden.friends.activity.AddInteractionActivity;
 
+import static com.trulden.friends.util.Util.*;
+
 // This dialog is created when user enters name of friend who is not in a database yet
 public class FriendNotFoundDialog extends DialogFragment {
 
@@ -37,7 +39,7 @@ public class FriendNotFoundDialog extends DialogFragment {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
                        // There might be a better way of doing this
-                       Toast.makeText(getActivity(), "Fix «" + name + "» up",Toast.LENGTH_SHORT).show();
+                       makeToast(getActivity(), "Fix «" + name + "» up");
                    }
                })
                .setNegativeButton("Forget", new DialogInterface.OnClickListener() {
