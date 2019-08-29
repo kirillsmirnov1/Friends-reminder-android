@@ -32,6 +32,12 @@ public class AddFriendActivity extends AppCompatActivity {
         updatedFriendId = intent.getIntExtra(EXTRA_FRIEND_ID, -1);
         mName.setText(intent.getStringExtra(EXTRA_FRIEND_NAME));
         mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_INFO));
+
+        if(updatedFriendId == -1){
+            getSupportActionBar().setTitle(getString(R.string.action_bar_title_add_friend));
+        } else {
+            getSupportActionBar().setTitle(getString(R.string.action_bar_title_edit_friend));
+        }
     }
 
     public void saveFriend(View view) {
