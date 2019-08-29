@@ -1,8 +1,12 @@
 package com.trulden.friends.activity;
 
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -59,6 +63,28 @@ public class AddFriendActivity extends AppCompatActivity {
 
             setResult(RESULT_OK, replyIntent);
             finish();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_save, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.icon_save:{
+                saveFriend(null);
+                return true;
+            }
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

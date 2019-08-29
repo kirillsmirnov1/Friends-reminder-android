@@ -23,6 +23,7 @@
     <string name="clear_selection">Clear selection</string>
     <string name="action_bar_title_add_friend">Add friend</string>
     <string name="action_bar_title_edit_friend">Edit friend</string>
+    <string name="icon_title_save">Save</string>
 
     <string-array name="interaction_types">
         <item>Meeting</item>
