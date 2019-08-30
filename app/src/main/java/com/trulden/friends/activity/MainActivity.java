@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
 
             case R.id.action_import_database: {
-                importDatabase();
+                onClickImportDatabase();
                 return true;
             }
 
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    private void importDatabase() {
+    private void onClickImportDatabase() {
         makeToast(this, "Need to import database");
     }
 
