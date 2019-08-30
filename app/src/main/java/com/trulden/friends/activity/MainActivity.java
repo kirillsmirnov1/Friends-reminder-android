@@ -22,11 +22,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.util.ZipUtil;
 
 import java.io.File;
+import java.io.IOException;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
-import static com.trulden.friends.util.KUtilKt.copyDataFromOneToAnother;
 import static com.trulden.friends.util.Util.*;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -90,7 +91,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()) {
             case R.id.action_export_database: {
-                exportDatabase();
+                try {
+                    exportDatabase();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
 
@@ -104,31 +109,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    private void exportDatabase() {
+    private void exportDatabase() throws IOException {
         String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
-        String backupPath = getFilesDir().getAbsolutePath() + "/backup";
-//        makeToast(this, dbPath);
-        Log.d("database path", dbPath);
-        Log.d("Context.getFilesDir()", this.getFilesDir().getAbsolutePath());
+        String[] dbFiles = {dbPath, dbPath + "-wal", dbPath + "-shm"};
+        String backupPath = getFilesDir().getAbsolutePath() + "/backup.zip";
 
-        try {
-            copyDataFromOneToAnother(dbPath, backupPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        File outputFile = new File(backupPath);
+        outputFile.createNewFile();
+
+        ZipUtil.zip(dbFiles, backupPath);
 
         Uri contentUri = FileProvider.getUriForFile(this,
-                "com.trulden.friends.FileProvider", new File(backupPath));
+                "com.trulden.friends.FileProvider", outputFile);
 
         Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_CREATE_DOCUMENT);
+        // The better action would be ACTION_CREATE_DOCUMENT, but I need to write some
+        // more code for it  and I'm lazy
+        // example can be found here
+        // https://stackoverflow.com/questions/8586691/how-to-open-file-save-dialog-in-android
+        intent.setAction(Intent.ACTION_SEND);
 
-        intent.setDataAndType(contentUri, "file/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.putExtra(Intent.EXTRA_TITLE, "friends_database.db");
+        intent.setType("application/zip");
+        intent.putExtra(Intent.EXTRA_STREAM, contentUri);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        startActivity(intent);
+        startActivity(Intent.createChooser(intent, "Save database"));
     }
 
     public void addFriend(View view) {
