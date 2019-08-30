@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.MenuItem;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -21,7 +23,10 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
+import java.io.File;
+
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
+import static com.trulden.friends.util.KUtilKt.copyDataFromOneToAnother;
 import static com.trulden.friends.util.Util.*;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -101,8 +106,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void exportDatabase() {
         String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
-        makeToast(this, dbPath);
+        String backupPath = getFilesDir().getAbsolutePath() + "/backup";
+//        makeToast(this, dbPath);
         Log.d("database path", dbPath);
+        Log.d("Context.getFilesDir()", this.getFilesDir().getAbsolutePath());
+
+        try {
+            copyDataFromOneToAnother(dbPath, backupPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Uri contentUri = FileProvider.getUriForFile(this,
+                "com.trulden.friends.FileProvider", new File(backupPath));
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_CREATE_DOCUMENT);
+
+        intent.setDataAndType(contentUri, "file/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_TITLE, "friends_database.db");
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        startActivity(intent);
     }
 
     public void addFriend(View view) {
