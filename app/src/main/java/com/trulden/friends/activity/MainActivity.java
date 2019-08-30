@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
@@ -193,7 +194,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     }
                 }
             }
+
+            case IMPORT_DATABASE_REQUEST: {
+                if(resultCode == RESULT_OK){
+                    Uri uri = null;
+                    if (resultingIntent != null) {
+                        uri = resultingIntent.getData();
+                        Log.i(LOG_TAG, "Uri: " + uri.toString());
+                        importDatabaseFromUri(uri);
+                    }
+                }
+            }
         }
+    }
+
+    private void importDatabaseFromUri(Uri databaseUri) {
+        // TODO, obviously
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
