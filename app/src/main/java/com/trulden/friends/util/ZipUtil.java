@@ -11,6 +11,9 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtil {
 
+    // Taken from here
+    // https://stackoverflow.com/questions/25562262/how-to-compress-files-into-zip-folder-in-android
+
     private static final int BUFFER = 4096;
 
     public static void zip(String[] _files, String zipFileName) {
