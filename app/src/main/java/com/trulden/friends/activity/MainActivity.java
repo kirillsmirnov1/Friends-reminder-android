@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 try {
                     exportDatabase();
                 } catch (IOException e) {
+                    makeToast(this, "Couldn't export database");
                     e.printStackTrace();
                 }
                 return true;
