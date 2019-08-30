@@ -110,7 +110,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void onClickImportDatabase() {
-        makeToast(this, "Need to import database");
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/zip");
+        startActivityForResult(intent, IMPORT_DATABASE_REQUEST);
     }
 
     private void exportDatabase() throws IOException {
