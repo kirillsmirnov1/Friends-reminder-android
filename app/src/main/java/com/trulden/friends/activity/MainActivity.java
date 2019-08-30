@@ -101,13 +101,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
 
             case R.id.action_import_database: {
-                makeToast(this, "Need to import database");
+                importDatabase();
                 return true;
             }
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void importDatabase() {
+        makeToast(this, "Need to import database");
     }
 
     private void exportDatabase() throws IOException {
