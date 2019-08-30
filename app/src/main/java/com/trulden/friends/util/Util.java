@@ -8,6 +8,8 @@ public class Util {
     public static final int NEW_FRIEND_REQUEST         = 2;
     public static final int UPDATE_FRIEND_REQUEST      = 3;
 
+    public static final int IMPORT_DATABASE_REQUEST    = 4;
+
     public static final String EXTRA_NEW_INTERACTION = "EXTRA_NEW_INTERACTION";
 
     public static final String EXTRA_FRIEND_ID   = "EXTRA_FRIEND_ID";
