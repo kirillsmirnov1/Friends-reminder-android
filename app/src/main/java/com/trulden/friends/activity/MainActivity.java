@@ -112,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void exportDatabase() throws IOException {
         String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
         String[] dbFiles = {dbPath, dbPath + "-wal", dbPath + "-shm"};
-        String backupPath = getFilesDir().getAbsolutePath() + "/backup.zip";
+        // TODO specify db version, date and time of backup
+        String backupPath = getFilesDir().getAbsolutePath() + "/friends_database.zip";
 
         File outputFile = new File(backupPath);
         outputFile.createNewFile();
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         intent.putExtra(Intent.EXTRA_STREAM, contentUri);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        startActivity(Intent.createChooser(intent, "Save database"));
+        startActivity(Intent.createChooser(intent, "Save friends database"));
     }
 
     public void addFriend(View view) {
