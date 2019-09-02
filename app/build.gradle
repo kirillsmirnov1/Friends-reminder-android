@@ -44,6 +44,8 @@ dependencies {
     compile "androidx.core:core-ktx:+"
     compile "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "org.apache.directory.studio:org.apache.commons.io:2.4"
 }
 
 repositories {
