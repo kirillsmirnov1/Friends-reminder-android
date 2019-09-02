@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
         String[] dbFiles = {dbPath, dbPath + "-wal", dbPath + "-shm"};
         // TODO specify db version, date and time of backup
-        String backupPath = getFilesDir().getAbsolutePath() + "/friends_database.zip";
+        String backupPath = getInnerBackupFilePath(this);
 
         File outputFile = new File(backupPath);
         outputFile.createNewFile();
@@ -218,8 +218,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     // TODO, obviously
     private void importDatabaseFromUri(Uri uri) {
 
-        // TODO save backup filename as constant
-        File file = new File(getFilesDir().getAbsolutePath() + "/friends_database.zip");
+        File file = new File(getInnerBackupFilePath(this));
 
         try(InputStream inputStream = getContentResolver().openInputStream(uri);
             OutputStream outputStream = new FileOutputStream(file)){
