@@ -24,8 +24,14 @@ import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.util.ZipUtil;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 import static com.trulden.friends.util.Util.*;
@@ -136,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // more code for it  and I'm lazy
         // example can be found here
         // https://stackoverflow.com/questions/8586691/how-to-open-file-save-dialog-in-android
+        // //https://developer.android.com/guide/topics/providers/document-provider
         intent.setAction(Intent.ACTION_SEND);
 
         intent.setType("application/zip");
@@ -208,9 +215,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    private void importDatabaseFromUri(Uri databaseUri) {
-        //https://developer.android.com/guide/topics/providers/document-provider
-        // TODO, obviously
+    // TODO, obviously
+    private void importDatabaseFromUri(Uri uri) {
+
+        // TODO save backup filename as constant
+        File file = new File(getFilesDir().getAbsolutePath() + "/friends_database.zip");
+
+        try(InputStream inputStream = getContentResolver().openInputStream(uri);
+            OutputStream outputStream = new FileOutputStream(file)){
+
+            IOUtils.copy(inputStream, outputStream);
+
+            // TODO unzip
+        } catch (Exception e){
+            e.printStackTrace();
+            makeToast(this, "Import failed");
+        }
+
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
