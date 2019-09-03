@@ -275,7 +275,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void wipeDatabase() {
         String[] dbPaths = getDbPaths();
         for(String str : dbPaths){
-            new File(str).delete();
+            if(! new File(str).delete()){
+                Log.e(LOG_TAG, "Error wiping database");
+            }
         }
     }
 
