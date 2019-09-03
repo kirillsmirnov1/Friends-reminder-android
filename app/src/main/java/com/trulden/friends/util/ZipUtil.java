@@ -4,9 +4,11 @@ import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class ZipUtil {
@@ -44,5 +46,40 @@ public class ZipUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void unzip(String _zipFile, String _targetLocation) {
+
+        //create target location folder if not exist
+        dirChecker(_targetLocation);
+
+        try {
+            FileInputStream fin = new FileInputStream(_zipFile);
+            ZipInputStream zin = new ZipInputStream(fin);
+            ZipEntry ze = null;
+            while ((ze = zin.getNextEntry()) != null) {
+
+                //create dir if required while unzipping
+                if (ze.isDirectory()) {
+                    dirChecker(ze.getName());
+                } else {
+                    FileOutputStream fout = new FileOutputStream(_targetLocation + ze.getName());
+                    for (int c = zin.read(); c != -1; c = zin.read()) {
+                        fout.write(c);
+                    }
+
+                    zin.closeEntry();
+                    fout.close();
+                }
+
+            }
+            zin.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void dirChecker(String targetLocation) {
+        new File(targetLocation).mkdirs();
     }
 }
