@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private FriendsViewModel mFriendsViewModel;
     private Fragment mFragment = null;
 
-    private static boolean once = true;
 
     public static FragmentToLoad getFragmentToLoad() {
         return mFragmentToLoad;
@@ -68,12 +67,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         if(getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD) != null){
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
-            once = true;
-        }
-
-        if(once) {
-            loadFragment(Objects.requireNonNull(mFragmentToLoad));
-            once = false;
         }
 
         mBottomNavigation = findViewById(R.id.bottom_navigation);
