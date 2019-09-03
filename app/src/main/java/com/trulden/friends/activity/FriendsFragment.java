@@ -9,13 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -31,10 +29,7 @@ import java.util.List;
 
 import static com.trulden.friends.util.Util.*;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FriendsFragment extends Fragment implements FragmentWithSelection{
+public class FriendsFragment extends Fragment implements FragmentWithSelection {
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
     private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
