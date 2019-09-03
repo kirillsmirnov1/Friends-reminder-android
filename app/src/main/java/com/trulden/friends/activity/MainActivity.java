@@ -31,9 +31,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
+import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.*;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -215,17 +215,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    // TODO, obviously
     private void importDatabaseFromUri(Uri uri) {
 
-        File file = new File(getInnerBackupFilePath(this));
+        String innerBackupFilePath = getInnerBackupFilePath(this);
+        String databasePath = getDatabasePath(DATABASE_NAME).getParentFile().getAbsolutePath() + "/";
 
+        File innerBackupFile = new File(innerBackupFilePath);
+
+        // TODO run filework in another thread
         try(InputStream inputStream = getContentResolver().openInputStream(uri);
-            OutputStream outputStream = new FileOutputStream(file)){
+            OutputStream outputStream = new FileOutputStream(innerBackupFile)){
 
             IOUtils.copy(inputStream, outputStream);
 
-            // TODO unzip
+            getDatabase(this).close();
+
+            ZipUtil.unzip(innerBackupFilePath, databasePath);
+
+            this.recreate();
+
         } catch (Exception e){
             e.printStackTrace();
             makeToast(this, "Import failed");
