@@ -23,6 +23,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.util.Util;
 import com.trulden.friends.util.ZipUtil;
 
 import org.apache.commons.io.IOUtils;
@@ -133,8 +134,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         intent.setType("application/zip");
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        // TODO specify db version, date and time of backup
-        intent.putExtra(Intent.EXTRA_TITLE, "friends_database.zip");
+        intent.putExtra(Intent.EXTRA_TITLE, Util.generateBackupFileName());
 
         startActivityForResult(intent, EXPORT_DATABASE_REQUEST);
     }

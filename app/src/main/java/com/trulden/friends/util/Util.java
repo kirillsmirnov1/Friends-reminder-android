@@ -3,6 +3,9 @@ package com.trulden.friends.util;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Util {
 
     // Can't access db version from Room in runtime, but want to save backup with version in name
@@ -30,5 +33,13 @@ public class Util {
 
     public static String getInnerBackupFilePath(Context context){
         return context.getFilesDir().getAbsolutePath() + "/backup.zip";
+    }
+
+    public static String generateBackupFileName() {
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+
+        String backupFileName = String.format("friends_db_v:%d_d:%s.zip", DATABASE_VERSION, date);
+
+        return backupFileName;
     }
 }
