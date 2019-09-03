@@ -119,32 +119,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void exportDatabase() {
-        String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
-        String[] dbFiles = {dbPath, dbPath + "-wal", dbPath + "-shm"};
-        // TODO specify db version, date and time of backup
-        String backupPath = getInnerBackupFilePath(this);
 
-        File outputFile = new File(backupPath);
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
 
-        ZipUtil.zip(dbFiles, backupPath);
-
-        Uri contentUri = FileProvider.getUriForFile(this,
-                "com.trulden.friends.FileProvider", outputFile);
-
-        Intent intent = new Intent();
-        // The better action would be ACTION_CREATE_DOCUMENT, but I need to write some
-        // more code for it  and I'm lazy
-        // example can be found here
-        // https://stackoverflow.com/questions/8586691/how-to-open-file-save-dialog-in-android
-        // //https://developer.android.com/guide/topics/providers/document-provider
-        intent.setAction(Intent.ACTION_SEND);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
 
         intent.setType("application/zip");
-        intent.putExtra(Intent.EXTRA_STREAM, contentUri);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        startActivity(Intent.createChooser(intent, "Save friends database"));
-        // TODO do I need to remove zip archive in the end?
+        // TODO specify db version, date and time of backup
+        intent.putExtra(Intent.EXTRA_TITLE, "friends_database.zip");
+
+        startActivityForResult(intent, EXPORT_DATABASE_REQUEST);
     }
 
     public void addFriend(View view) {
@@ -209,6 +195,40 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     }
                 }
                 break;
+            }
+
+            case EXPORT_DATABASE_REQUEST:{
+                if(resultCode == RESULT_OK){
+
+                    getDatabase(this).close();
+
+                    // TODO zip in another thread
+                    String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
+                    String[] dbFiles = {dbPath, dbPath + "-wal", dbPath + "-shm"};
+                    String backupPath = getInnerBackupFilePath(this);
+                    ZipUtil.zip(dbFiles, backupPath);
+
+                    Uri uriDest = resultingIntent.getData();
+
+                    File outputFile = new File(backupPath);
+
+                    Uri uriSrc = FileProvider.getUriForFile(this,
+                            "com.trulden.friends.FileProvider", outputFile);
+
+                    try(InputStream inputStream = getContentResolver().openInputStream(uriSrc);
+                        OutputStream outputStream = getContentResolver().openOutputStream(uriDest)){
+
+                        IOUtils.copy(inputStream, outputStream);
+                        makeToast(this, "Export succeeded");
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                        makeToast(this, "Export failed");
+                    }
+
+                    this.recreate();
+                }
             }
         }
     }
