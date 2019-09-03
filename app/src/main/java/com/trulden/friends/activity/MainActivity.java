@@ -32,7 +32,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Objects;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
@@ -48,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Toolbar mToolbar;
 
     private FriendsViewModel mFriendsViewModel;
-    private Fragment mFragment = null;
-
 
     public static FragmentToLoad getFragmentToLoad() {
         return mFragmentToLoad;
@@ -288,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
-        mFragment = null;
+        Fragment mFragment = null;
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case LOG_FRAGMENT:
