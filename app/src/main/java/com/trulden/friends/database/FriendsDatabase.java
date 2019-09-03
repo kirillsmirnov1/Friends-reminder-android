@@ -9,7 +9,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Friend.class}, version = 1, exportSchema = false)
+import com.trulden.friends.util.Util;
+
+@Database(entities = {Friend.class}, version = Util.DATABASE_VERSION, exportSchema = false)
 public abstract class FriendsDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "friends_database";
