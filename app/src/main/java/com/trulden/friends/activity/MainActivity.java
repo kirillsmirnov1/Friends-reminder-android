@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     Uri uri;
                     if (resultingIntent != null) {
                         uri = resultingIntent.getData();
+                        assert uri != null;
                         Log.i(LOG_TAG, "Uri: " + uri.toString());
                         importDatabaseFromUri(uri);
                     }
