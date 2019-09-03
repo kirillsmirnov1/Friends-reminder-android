@@ -25,6 +25,10 @@ public abstract class FriendsDatabase extends RoomDatabase {
         }
     };
 
+    public static void wipeDatabaseInstance(){
+        INSTANCE = null;
+    }
+
     public static FriendsDatabase getDatabase(final Context context){
 
         if(INSTANCE == null){
