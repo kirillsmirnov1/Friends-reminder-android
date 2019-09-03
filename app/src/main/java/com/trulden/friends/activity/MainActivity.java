@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (requestCode) {
 
             case NEW_INTERACTION_REQUEST: {
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK && resultingIntent != null) {
                     String reply = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION);
                     // TODO save as log entry
                 }
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
 
             case NEW_FRIEND_REQUEST:{
-                if(resultCode == RESULT_OK) {
+                if(resultCode == RESULT_OK && resultingIntent != null) {
                     String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
                     String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
 
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
 
             case UPDATE_FRIEND_REQUEST: {
-                if(resultCode == RESULT_OK) {
+                if(resultCode == RESULT_OK && resultingIntent != null) {
                     int id = resultingIntent.getIntExtra(EXTRA_FRIEND_ID, -1);
                     if(id != -1){
                         String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
 
             case EXPORT_DATABASE_REQUEST:{
-                if(resultCode == RESULT_OK){
+                if(resultCode == RESULT_OK && resultingIntent != null) {
 
                     getDatabase(this).close();
 
