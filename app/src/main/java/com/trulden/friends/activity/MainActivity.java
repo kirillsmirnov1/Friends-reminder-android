@@ -230,7 +230,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             ZipUtil.unzip(innerBackupFilePath, databasePath);
 
-            this.recreate();
+            recreate();
+
+            makeToast(this, "Import succeeded");
 
         } catch (Exception e){
             e.printStackTrace();
