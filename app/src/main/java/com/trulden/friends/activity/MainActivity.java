@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     mFriendsViewModel.addFriend(friend);
                 }
+                break;
             }
 
             case UPDATE_FRIEND_REQUEST: {
@@ -195,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         mFriendsViewModel.updateFriend(friend);
                     }
                 }
+                break;
             }
 
             case IMPORT_DATABASE_REQUEST: {
@@ -206,6 +208,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         importDatabaseFromUri(uri);
                     }
                 }
+                break;
             }
         }
     }
