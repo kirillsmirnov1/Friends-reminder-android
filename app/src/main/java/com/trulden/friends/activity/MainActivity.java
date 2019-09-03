@@ -161,6 +161,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case NEW_INTERACTION_REQUEST: {
                 if (resultCode == RESULT_OK && resultingIntent != null) {
                     String reply = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION);
+                    assert reply != null;
+                    Log.d(LOG_TAG, reply);
                     // TODO save as log entry
                 }
                 break;
