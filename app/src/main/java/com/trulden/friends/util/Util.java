@@ -17,6 +17,8 @@ public class Util {
     public static final String EXTRA_FRIEND_NAME = "EXTRA_FRIEND_NAME";
     public static final String EXTRA_FRIEND_INFO = "EXTRA_FRIEND_INFO";
 
+    public static final String EXTRA_FRAGMENT_TO_LOAD = "EXTRA_FRAGMENT_TO_LOAD";
+
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
