@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setSupportActionBar(mToolbar);
         setToolbarTitle();
 
-        // FIXME it should work, but it doesn't. Something call fragmentToLoad with another fragment
         if(getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD) != null){
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
             once = true;
@@ -83,7 +82,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mFabMenu = findViewById(R.id.fab_main_activity);
 
         if(savedInstanceState == null) {
-            findViewById(R.id.bottom_reminder).performClick();
+            switch (mFragmentToLoad){
+                case LOG_FRAGMENT:
+                    findViewById(R.id.bottom_log).performClick();
+                    break;
+                case REMINDER_FRAGMENT:
+                    findViewById(R.id.bottom_reminder).performClick();
+                    break;
+                case FRIENDS_FRAGMENT:
+                    findViewById(R.id.bottom_friends).performClick();
+                    break;
+            }
         }
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
