@@ -21,6 +21,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trulden.friends.R;
 import com.trulden.friends.database.Friend;
+import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.util.ZipUtil;
 
@@ -203,10 +204,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     getDatabase(this).close();
 
                     // TODO zip in another thread
-                    String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
-                    String[] dbFiles = {dbPath, dbPath + "-wal", dbPath + "-shm"};
                     String backupPath = getInnerBackupFilePath(this);
-                    ZipUtil.zip(dbFiles, backupPath);
+                    ZipUtil.zip(getDbPaths(), backupPath);
 
                     Uri uriDest = resultingIntent.getData();
 
@@ -247,18 +246,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             IOUtils.copy(inputStream, outputStream);
 
             getDatabase(this).close();
+            wipeDatabase();
 
             ZipUtil.unzip(innerBackupFilePath, databasePath);
 
-            recreate();
+            FriendsDatabase.wipeDatabaseInstance();
 
             makeToast(this, "Import succeeded");
+
+            // TODO add fragmentToLoad
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
 
         } catch (Exception e){
             e.printStackTrace();
             makeToast(this, "Import failed");
         }
 
+    }
+
+    private void wipeDatabase() {
+        String[] dbPaths = getDbPaths();
+        for(String str : dbPaths){
+            new File(str).delete();
+        }
+    }
+
+    private String[] getDbPaths() {
+        String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
+        return new String[]{dbPath, dbPath + "-wal", dbPath + "-shm"};
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
