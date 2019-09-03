@@ -171,8 +171,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
                     String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
 
+                    assert name != null;
                     Friend friend = new Friend(name, info);
-
                     mFriendsViewModel.addFriend(friend);
                 }
                 break;
@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
                         String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
 
+                        assert name != null;
                         Friend friend = new Friend(id, name, info);
                         mFriendsViewModel.updateFriend(friend);
                     }
