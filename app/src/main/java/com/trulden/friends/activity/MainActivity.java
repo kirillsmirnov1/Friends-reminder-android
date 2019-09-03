@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         try(InputStream inputStream = getContentResolver().openInputStream(uri);
             OutputStream outputStream = new FileOutputStream(innerBackupFile)){
 
-            IOUtils.copy(inputStream, outputStream);
+            IOUtils.copy(Objects.requireNonNull(inputStream), outputStream);
 
             getDatabase(this).close();
             wipeDatabase();
