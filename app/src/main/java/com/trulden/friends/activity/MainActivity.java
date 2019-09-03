@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
@@ -238,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void importDatabaseFromUri(Uri uri) {
 
         String innerBackupFilePath = getInnerBackupFilePath(this);
-        String databasePath = getDatabasePath(DATABASE_NAME).getParentFile().getAbsolutePath() + "/";
+        String databasePath = Objects.requireNonNull(getDatabasePath(DATABASE_NAME).getParentFile()).getAbsolutePath() + "/";
 
         File innerBackupFile = new File(innerBackupFilePath);
 
