@@ -97,12 +97,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()) {
             case R.id.action_export_database: {
-                try {
-                    exportDatabase();
-                } catch (IOException e) {
-                    makeToast(this, "Couldn't export database");
-                    e.printStackTrace();
-                }
+                exportDatabase();
                 return true;
             }
 
@@ -123,14 +118,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivityForResult(intent, IMPORT_DATABASE_REQUEST);
     }
 
-    private void exportDatabase() throws IOException {
+    private void exportDatabase() {
         String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
         String[] dbFiles = {dbPath, dbPath + "-wal", dbPath + "-shm"};
         // TODO specify db version, date and time of backup
         String backupPath = getInnerBackupFilePath(this);
 
         File outputFile = new File(backupPath);
-        outputFile.createNewFile();
 
         ZipUtil.zip(dbFiles, backupPath);
 
@@ -150,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         startActivity(Intent.createChooser(intent, "Save friends database"));
+        // TODO do I need to remove zip archive in the end?
     }
 
     public void addFriend(View view) {
