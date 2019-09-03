@@ -221,12 +221,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             "com.trulden.friends.FileProvider", outputFile);
 
                     try(InputStream inputStream = getContentResolver().openInputStream(uriSrc);
-                        OutputStream outputStream = getContentResolver().openOutputStream(uriDest)){
+                        OutputStream outputStream = getContentResolver().openOutputStream(Objects.requireNonNull(uriDest))){
 
-                        IOUtils.copy(inputStream, outputStream);
+                        IOUtils.copy(Objects.requireNonNull(inputStream), outputStream);
                         makeToast(this, "Export succeeded");
 
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
 
                         makeToast(this, "Export failed");
