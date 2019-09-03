@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
 
-    private BottomNavigationView mBottomNavigation;
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
 
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
         }
 
-        mBottomNavigation = findViewById(R.id.bottom_navigation);
+        BottomNavigationView mBottomNavigation = findViewById(R.id.bottom_navigation);
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
 
         mFabMenu = findViewById(R.id.fab_main_activity);
