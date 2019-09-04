@@ -29,8 +29,6 @@ import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
 
-import java.io.File;
-
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.*;
 
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()) {
             case R.id.action_export_database: {
-                exportDatabase();
+                onClickExportDatabase();
                 return true;
             }
 
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivityForResult(intent, IMPORT_DATABASE_REQUEST);
     }
 
-    private void exportDatabase() {
+    private void onClickExportDatabase() {
 
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
 
