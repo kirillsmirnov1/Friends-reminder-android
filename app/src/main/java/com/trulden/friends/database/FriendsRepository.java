@@ -37,6 +37,10 @@ class FriendsRepository {
         REMOVE_INTERACTION_TYPE
     }
 
+    // -----------------------------------------
+    // Friend
+    // -----------------------------------------
+
     void add(Friend friend){
         new FriendAsyncTask(TaskSelector.ADD_FRIEND, mFriendsDao)
                 .execute(friend);
