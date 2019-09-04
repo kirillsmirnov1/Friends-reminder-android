@@ -1,11 +1,13 @@
 package com.trulden.friends.async;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.core.content.FileProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.trulden.friends.util.ZipUtil;
 
@@ -18,9 +20,9 @@ import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
-import static com.trulden.friends.util.Util.getInnerBackupFilePath;
+import static com.trulden.friends.util.Util.*;
 
-public class ExportDatabaseAsyncTask extends AsyncTask<Bundle, Void, Void> {
+public class ExportDatabaseAsyncTask extends AsyncTask<Bundle, Void, Boolean> {
 
     private WeakReference<Context> mContext;
 
@@ -29,7 +31,7 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Bundle, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Bundle... bundles) {
+    protected Boolean doInBackground(Bundle... bundles) {
 
         String backupPath = getInnerBackupFilePath(mContext.get());
         ZipUtil.zip(getDbPaths(), backupPath);
@@ -45,15 +47,21 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Bundle, Void, Void> {
             OutputStream outputStream = mContext.get().getContentResolver().openOutputStream(Objects.requireNonNull(uriDest))){
 
             IOUtils.copy(Objects.requireNonNull(inputStream), outputStream);
-            //makeToast(mContext.get(), "Export succeeded");
+
+            return true;
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            //makeToast(mContext.get(), "Export failed");
         }
 
-        return null;
+        return false;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean exportResult) {
+        Intent broadcast = new Intent(ACTION_CUSTOM_BROADCAST);
+        broadcast.putExtra(EXTRA_EXPORT_RESULT, exportResult);
+        LocalBroadcastManager.getInstance(mContext.get()).sendBroadcast(broadcast);
     }
 
     private String[] getDbPaths() {
