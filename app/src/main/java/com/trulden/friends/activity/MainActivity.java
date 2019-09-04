@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
         intent.setType("application/zip");
-        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         intent.putExtra(Intent.EXTRA_TITLE, Util.generateBackupFileName());
 
