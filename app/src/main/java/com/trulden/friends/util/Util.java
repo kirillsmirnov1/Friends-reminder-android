@@ -2,8 +2,10 @@ package com.trulden.friends.util;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
 
 import java.io.File;
@@ -45,6 +47,10 @@ public class Util {
 
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void makeSnackbar(View view, String text){
+        Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
     }
 
     public static String getInnerBackupFilePath(Context context){
