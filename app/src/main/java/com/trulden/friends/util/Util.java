@@ -8,6 +8,8 @@ import com.trulden.friends.BuildConfig;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
+
 public class Util {
 
     // Can't access db version from Room in runtime, but want to save backup with version in name
@@ -51,5 +53,10 @@ public class Util {
         String backupFileName = String.format("friends_db_v%d_%s.zip", DATABASE_VERSION, date);
 
         return backupFileName;
+    }
+
+    public static String[] getDbPaths(Context context) {
+        String dbPath = context.getDatabasePath(DATABASE_NAME).getAbsolutePath();
+        return new String[]{dbPath, dbPath + "-wal", dbPath + "-shm"};
     }
 }

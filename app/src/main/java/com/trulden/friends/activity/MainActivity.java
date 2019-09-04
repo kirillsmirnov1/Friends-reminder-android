@@ -242,17 +242,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void wipeDatabase() {
-        String[] dbPaths = getDbPaths();
+        String[] dbPaths = getDbPaths(this);
         for(String str : dbPaths){
             if(! new File(str).delete()){
                 Log.e(LOG_TAG, "Error wiping database");
             }
         }
-    }
-
-    private String[] getDbPaths() {
-        String dbPath = getDatabasePath(DATABASE_NAME).getAbsolutePath();
-        return new String[]{dbPath, dbPath + "-wal", dbPath + "-shm"};
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){

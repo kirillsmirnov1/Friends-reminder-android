@@ -34,7 +34,7 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
     protected Boolean doInBackground(Uri... uris) {
 
         String backupPath = getInnerBackupFilePath(mContext.get());
-        ZipUtil.zip(getDbPaths(), backupPath);
+        ZipUtil.zip(getDbPaths(mContext.get()), backupPath);
 
         Uri uriDest = uris[0];
 
@@ -62,10 +62,5 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
         Intent broadcast = new Intent(ACTION_DATABASE_EXPORT_FINISHED);
         broadcast.putExtra(EXTRA_EXPORT_RESULT, exportResult);
         LocalBroadcastManager.getInstance(mContext.get()).sendBroadcast(broadcast);
-    }
-
-    private String[] getDbPaths() {
-        String dbPath = mContext.get().getDatabasePath(DATABASE_NAME).getAbsolutePath();
-        return new String[]{dbPath, dbPath + "-wal", dbPath + "-shm"};
     }
 }
