@@ -24,7 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trulden.friends.R;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.async.ImportDatabaseAsyncTask;
-import com.trulden.friends.database.Friend;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;

@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
@@ -27,7 +26,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.trulden.friends.activity.dialogs.DatePickerFragment;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
-import com.trulden.friends.database.Friend;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
 import java.util.ArrayList;

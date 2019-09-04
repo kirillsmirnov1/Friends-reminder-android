@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
-import com.trulden.friends.database.Friend;
+import com.trulden.friends.database.entity.Friend;
 
 import java.util.ArrayList;
 import java.util.HashSet;

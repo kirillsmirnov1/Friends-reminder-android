@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.FriendsAdapter;
-import com.trulden.friends.database.Friend;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
 import java.util.HashSet;

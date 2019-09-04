@@ -9,6 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.util.Util;
 
 @Database(entities = {Friend.class}, version = Util.DATABASE_VERSION, exportSchema = false)

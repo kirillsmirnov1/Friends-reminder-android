@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.trulden.friends.database.entity.Friend;
+
 import java.util.List;
 
 public class FriendsRepository {

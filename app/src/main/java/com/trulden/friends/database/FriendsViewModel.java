@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.trulden.friends.database.entity.Friend;
+
 import java.util.List;
 
 public class FriendsViewModel extends AndroidViewModel {

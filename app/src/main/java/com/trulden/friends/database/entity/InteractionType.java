@@ -1,4 +1,4 @@
-package com.trulden.friends.database;
+package com.trulden.friends.database.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

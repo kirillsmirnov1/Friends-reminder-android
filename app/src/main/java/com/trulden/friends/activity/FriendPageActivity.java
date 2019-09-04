@@ -10,10 +10,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.trulden.friends.R;
-import com.trulden.friends.database.Friend;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 
 import static com.trulden.friends.util.Util.*;
