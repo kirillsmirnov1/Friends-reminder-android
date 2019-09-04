@@ -14,6 +14,10 @@ import java.util.List;
 @Dao
 public interface FriendsDao {
 
+    // -----------------------------------------
+    // Friend
+    // -----------------------------------------
+
     @Insert
     void addFriend(Friend friend);
 
