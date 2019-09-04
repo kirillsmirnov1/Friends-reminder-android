@@ -36,9 +36,9 @@ public class Util {
     }
 
     public static String generateBackupFileName() {
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+        String date = new SimpleDateFormat("dd-MMM-yyyy").format(Calendar.getInstance().getTime());
 
-        String backupFileName = String.format("friends_db_v:%d_d:%s.zip", DATABASE_VERSION, date);
+        String backupFileName = String.format("friends_db_v%d_%s.zip", DATABASE_VERSION, date);
 
         return backupFileName;
     }
