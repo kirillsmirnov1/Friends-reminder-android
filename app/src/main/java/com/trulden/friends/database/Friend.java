@@ -28,6 +28,10 @@ public class Friend {
         this.info = info;
     }
 
+    // -----------------------------------------
+    // Getters and setters
+    // -----------------------------------------
+
     public int getId() {
         return id;
     }
