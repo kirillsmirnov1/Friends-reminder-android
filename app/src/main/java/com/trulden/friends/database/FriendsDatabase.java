@@ -91,8 +91,12 @@ public abstract class FriendsDatabase extends RoomDatabase {
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE interaction_type_table (id INTEGER, interactionTypeName TEXT, frequency INTEGER, PRIMARY KEY(id))");
+            database.execSQL(
+                    "CREATE TABLE interaction_type_table (" +
+                            "id INTEGER NOT NULL, " +
+                            "interactionTypeName TEXT NOT NULL, " +
+                            "frequency INTEGER NOT NULL, " +
+                            "PRIMARY KEY(id))");
         }
     };
-
 }
