@@ -47,8 +47,11 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                         makeToast(context, "Import failed");
                     }
 
-                    mMainActivity.get().findViewById(R.id.progress_bar_main).setVisibility(View.INVISIBLE);
-                    mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Intent restartIntent = new Intent(context, MainActivity.class);
+                    restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
+
+                    mMainActivity.get().finish();
+                    mMainActivity.get().startActivity(restartIntent);
 
                     break;
 
