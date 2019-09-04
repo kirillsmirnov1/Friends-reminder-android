@@ -9,7 +9,7 @@ import com.trulden.friends.database.entity.Friend;
 
 import java.util.List;
 
-public class FriendsRepository {
+class FriendsRepository {
 
     private FriendsDao mFriendsDao;
     private LiveData<List<Friend>> mAllFriends;
@@ -27,17 +27,17 @@ public class FriendsRepository {
 
     LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
 
-    public void addFriend(Friend friend){
+    void addFriend(Friend friend){
         new FriendAsyncTask(TaskSelector.ADD_FRIEND, mFriendsDao)
                 .execute(friend);
     }
 
-    public void updateFriend(Friend friend){
+    void updateFriend(Friend friend){
         new FriendAsyncTask(TaskSelector.UPDATE_FRIEND, mFriendsDao)
                 .execute(friend);
     }
 
-    public void deleteFriend(Friend friend){
+    void deleteFriend(Friend friend){
         new FriendAsyncTask(TaskSelector.REMOVE_FRIEND, mFriendsDao)
                 .execute(friend);
     }
