@@ -33,11 +33,11 @@ public class FriendsViewModel extends AndroidViewModel {
         return mAllInteractionTypes;
     }
 
-    public void add(Friend friend){mRepository.add(friend);}
-    public void update(Friend friend){mRepository.update(friend); }
-    public void delete(Friend friend){mRepository.delete(friend);}
+    public void add(Friend friend)    { mRepository.add(friend);    }
+    public void update(Friend friend) { mRepository.update(friend); }
+    public void delete(Friend friend) { mRepository.delete(friend); }
 
-    public void add(InteractionType interactionType){mRepository.add(interactionType);}
-    public void update(InteractionType interactionType){mRepository.update(interactionType);}
-    public void delete(InteractionType interactionType){mRepository.delete(interactionType);}
+    public void add(InteractionType interactionType)    { mRepository.add(interactionType);    }
+    public void update(InteractionType interactionType) { mRepository.update(interactionType); }
+    public void delete(InteractionType interactionType) { mRepository.delete(interactionType); }
 }
