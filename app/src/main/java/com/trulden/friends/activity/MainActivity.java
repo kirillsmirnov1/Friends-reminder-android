@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     assert name != null;
                     Friend friend = new Friend(name, info);
-                    mFriendsViewModel.addFriend(friend);
+                    mFriendsViewModel.add(friend);
                 }
                 break;
             }
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                         assert name != null;
                         Friend friend = new Friend(id, name, info);
-                        mFriendsViewModel.updateFriend(friend);
+                        mFriendsViewModel.update(friend);
                     }
                 }
                 break;

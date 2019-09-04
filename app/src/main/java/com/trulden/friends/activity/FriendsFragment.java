@@ -164,7 +164,7 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection {
     @Override
     public void deleteSelection() {
         for (Friend friend : mFriendsAdapter.getSelectedFriends()){
-            mFriendsViewModel.deleteFriend(friend);
+            mFriendsViewModel.delete(friend);
         }
     }
 

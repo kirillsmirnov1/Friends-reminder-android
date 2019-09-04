@@ -157,7 +157,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
     }
 
     public void createFriendByName(String name){
-        mFriendsViewModel.addFriend(new Friend(name, ""));
+        mFriendsViewModel.add(new Friend(name, ""));
         makeToast(this, "«" + name + "» is created");
     }
 

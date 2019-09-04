@@ -74,7 +74,7 @@ public class FriendPageActivity extends AppCompatActivity {
             }
 
             case R.id.delete_selection: {
-                mFriendsViewModel.deleteFriend(friend);
+                mFriendsViewModel.delete(friend);
                 makeToast(this, friend.getName() + " deleted");
                 finish();
                 break;
@@ -98,7 +98,7 @@ public class FriendPageActivity extends AppCompatActivity {
 
                         Friend friend = new Friend(id, name, info);
                         setFriendInfo(friend);
-                        mFriendsViewModel.updateFriend(friend);
+                        mFriendsViewModel.update(friend);
                     }
                 }
             }
