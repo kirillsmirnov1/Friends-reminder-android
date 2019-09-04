@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.List;
 
@@ -13,10 +14,13 @@ class FriendsRepository {
 
     private FriendsDao mFriendsDao;
     private LiveData<List<Friend>> mAllFriends;
+    private LiveData<List<InteractionType>> mAllInteractionTypes;
 
     FriendsRepository(Application application){
         mFriendsDao = FriendsDatabase.getDatabase(application).friendsDao();
+
         mAllFriends = mFriendsDao.getAllFriends();
+        mAllInteractionTypes = mFriendsDao.getAllInteractionTypes();
     }
 
     enum TaskSelector{
@@ -26,6 +30,7 @@ class FriendsRepository {
     }
 
     LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
+    LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
 
     void addFriend(Friend friend){
         new FriendAsyncTask(TaskSelector.ADD_FRIEND, mFriendsDao)
