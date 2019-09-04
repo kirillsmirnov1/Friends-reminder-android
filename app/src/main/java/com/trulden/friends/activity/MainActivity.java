@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,6 +25,7 @@ import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
 import com.trulden.friends.util.ZipUtil;
 
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Toolbar mToolbar;
 
     private FriendsViewModel mFriendsViewModel;
+
+    private CustomBroadcastReceiver mReceiver = new CustomBroadcastReceiver();
 
     public static FragmentToLoad getFragmentToLoad() {
         return mFragmentToLoad;
@@ -86,6 +91,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(mReceiver, new IntentFilter(ACTION_DATABASE_EXPORT_FINISHED));
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        LocalBroadcastManager.getInstance(this)
+                .unregisterReceiver(mReceiver);
+
+        super.onDestroy();
     }
 
     @Override
