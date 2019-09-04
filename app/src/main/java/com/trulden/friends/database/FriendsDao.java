@@ -51,5 +51,5 @@ public interface FriendsDao {
     void update(InteractionType interactionType);
 
     @Query("SELECT * from interaction_type_table LIMIT 1")
-    Friend[] getAnyInteractionType();
+    InteractionType[] getAnyInteractionType();
 }
