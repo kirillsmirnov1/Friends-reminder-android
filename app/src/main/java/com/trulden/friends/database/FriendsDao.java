@@ -26,7 +26,7 @@ public interface FriendsDao {
     LiveData<List<Friend>> getAllFriends();
 
     @Delete
-    void deleteFriend(Friend friend);
+    void delete(Friend friend);
 
     @Update
     void update(Friend friend);

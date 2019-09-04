@@ -65,7 +65,7 @@ public class FriendsRepository {
                     break;
 
                 case REMOVE_FRIEND:
-                    mFriendsDao.deleteFriend(friends[0]);
+                    mFriendsDao.delete(friends[0]);
                     break;
 
                 default:
