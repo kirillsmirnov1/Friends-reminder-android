@@ -13,13 +13,13 @@ import android.view.View;
 import android.view.MenuItem;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trulden.friends.R;
+import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.database.Friend;
 import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.database.FriendsViewModel;
@@ -211,28 +211,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     getDatabase(this).close();
 
-                    // TODO zip in another thread
-                    String backupPath = getInnerBackupFilePath(this);
-                    ZipUtil.zip(getDbPaths(), backupPath);
+                    // TODO show status
+                    //findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
 
-                    Uri uriDest = resultingIntent.getData();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("uriDest", resultingIntent.getData());
 
-                    File outputFile = new File(backupPath);
-
-                    Uri uriSrc = FileProvider.getUriForFile(this,
-                            "com.trulden.friends.FileProvider", outputFile);
-
-                    try(InputStream inputStream = getContentResolver().openInputStream(uriSrc);
-                        OutputStream outputStream = getContentResolver().openOutputStream(Objects.requireNonNull(uriDest))){
-
-                        IOUtils.copy(Objects.requireNonNull(inputStream), outputStream);
-                        makeToast(this, "Export succeeded");
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-
-                        makeToast(this, "Export failed");
-                    }
+                    new ExportDatabaseAsyncTask(this).execute(bundle);
                 }
             }
         }
