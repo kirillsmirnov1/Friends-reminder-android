@@ -39,13 +39,13 @@ public interface FriendsDao {
     // -----------------------------------------
 
     @Insert
-    void addInteractionType(InteractionType type);
+    void add(InteractionType type);
 
     @Query("SELECT * FROM interaction_type_table")
     LiveData<List<InteractionType>> getAllInteractionTypes();
 
     @Delete
-    void deleteInteractionType(InteractionType interactionType);
+    void delete(InteractionType interactionType);
 
     @Update
     void update(InteractionType interactionType);
