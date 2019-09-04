@@ -234,8 +234,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                    getDatabase(this).close();
-
                     new ExportDatabaseAsyncTask(this).execute(resultingIntent.getData());
                 }
             }
