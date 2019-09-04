@@ -30,7 +30,11 @@ class FriendsRepository {
     enum TaskSelector{
         ADD_FRIEND,
         UPDATE_FRIEND,
-        REMOVE_FRIEND
+        REMOVE_FRIEND,
+
+        ADD_INTERACTION_TYPE,
+        UPDATE_INTERACTION_TYPE,
+        REMOVE_INTERACTION_TYPE
     }
 
     void addFriend(Friend friend){
