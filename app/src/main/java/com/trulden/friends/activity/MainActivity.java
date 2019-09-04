@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -228,9 +229,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case EXPORT_DATABASE_REQUEST:{
                 if(resultCode == RESULT_OK && resultingIntent != null) {
 
-                    getDatabase(this).close();
-
                     findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
+
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                    getDatabase(this).close();
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("uriDest", resultingIntent.getData());

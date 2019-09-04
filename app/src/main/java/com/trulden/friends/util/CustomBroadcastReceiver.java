@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.MainActivity;
@@ -35,6 +36,7 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     mMainActivity.get().findViewById(R.id.progress_bar_main).setVisibility(View.INVISIBLE);
+                    mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                     break;
             }
