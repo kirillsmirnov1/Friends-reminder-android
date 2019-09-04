@@ -1,16 +1,20 @@
 package com.trulden.friends.util;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.trulden.friends.BuildConfig;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 
 public class Util {
+
+    private static final String LOG_TAG = Util.class.getSimpleName();
 
     // Can't access db version from Room in runtime, but want to save backup with version in name
     // Probably not the best way to do it, but can't think of something else
@@ -58,5 +62,14 @@ public class Util {
     public static String[] getDbPaths(Context context) {
         String dbPath = context.getDatabasePath(DATABASE_NAME).getAbsolutePath();
         return new String[]{dbPath, dbPath + "-wal", dbPath + "-shm"};
+    }
+
+    public static void wipeDatabase(Context context) {
+        String[] dbPaths = getDbPaths(context);
+        for(String str : dbPaths){
+            if(! new File(str).delete()){
+                Log.e(LOG_TAG, "Error wiping database");
+            }
+        }
     }
 }

@@ -31,7 +31,6 @@ import com.trulden.friends.util.Util;
 
 import java.io.File;
 
-import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.*;
 
@@ -236,18 +235,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         getDatabase(this).close();
-        wipeDatabase();
+        wipeDatabase(this);
 
         new ImportDatabaseAsyncTask(this).execute(uri);
-    }
-
-    private void wipeDatabase() {
-        String[] dbPaths = getDbPaths(this);
-        for(String str : dbPaths){
-            if(! new File(str).delete()){
-                Log.e(LOG_TAG, "Error wiping database");
-            }
-        }
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
