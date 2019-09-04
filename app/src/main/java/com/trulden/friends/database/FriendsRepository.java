@@ -26,7 +26,6 @@ class FriendsRepository {
     LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
 
-    // TODO InteractionType tasks
     enum TaskSelector{
         ADD_FRIEND,
         UPDATE_FRIEND,
@@ -80,6 +79,59 @@ class FriendsRepository {
 
                 case REMOVE_FRIEND:
                     mFriendsDao.delete(friends[0]);
+                    break;
+
+                default:
+                    // Do nothing
+            }
+
+            return null;
+        }
+    }
+
+    // -----------------------------------------
+    // InteractionType
+    // -----------------------------------------
+
+    void add(InteractionType interactionType){
+        new InteractionTypeAsyncTask(TaskSelector.ADD_INTERACTION_TYPE, mFriendsDao)
+                .execute(interactionType);
+    }
+
+    void update(InteractionType interactionType){
+        new InteractionTypeAsyncTask(TaskSelector.UPDATE_INTERACTION_TYPE, mFriendsDao)
+                .execute(interactionType);
+    }
+
+    void delete(InteractionType interactionType){
+        new InteractionTypeAsyncTask(TaskSelector.REMOVE_INTERACTION_TYPE, mFriendsDao)
+                .execute(interactionType);
+    }
+
+    private static class InteractionTypeAsyncTask extends AsyncTask<InteractionType, Void, Void>{
+
+        private FriendsDao mFriendsDao;
+        private TaskSelector mTaskSelector;
+
+        InteractionTypeAsyncTask(TaskSelector taskSelector, FriendsDao friendsDao){
+            mFriendsDao = friendsDao;
+            mTaskSelector = taskSelector;
+        }
+
+        @Override
+        protected Void doInBackground(InteractionType... interactionTypes) {
+
+            switch (mTaskSelector){
+                case ADD_INTERACTION_TYPE:
+                    mFriendsDao.add(interactionTypes[0]);
+                    break;
+
+                case UPDATE_INTERACTION_TYPE:
+                    mFriendsDao.update(interactionTypes[0]);
+                    break;
+
+                case REMOVE_INTERACTION_TYPE:
+                    mFriendsDao.delete(interactionTypes[0]);
                     break;
 
                 default:
