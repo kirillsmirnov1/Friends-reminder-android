@@ -11,6 +11,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.util.Util;
 
 @Database(entities = {Friend.class}, version = Util.DATABASE_VERSION)
@@ -59,6 +60,9 @@ public abstract class FriendsDatabase extends RoomDatabase {
                  "Jacob", "Kate", "Leonard", "Michael", "Nikolas", "Oprah", "Peter", "Quynh",
                  "Richard", "Stephen", "Thomas", "Utah", "Victor", "Wilfred", "Xan", "Yan", "Zorro"};
 
+        String[] defaultInteractionsNames = {"Meetings", "Texting", "Calls"};
+        int[]    defaultInteractionsFrequency = {30, 7, 30};
+
         private final FriendsDao mDao;
 
         PopulateDBAsync(FriendsDatabase db){
@@ -71,6 +75,12 @@ public abstract class FriendsDatabase extends RoomDatabase {
             if(mDao.getAnyFriend().length<1){
                 for(String friend : defaultFriends){
                     mDao.add(new Friend(friend, ""));
+                }
+            }
+
+            if(mDao.getAnyInteractionType().length<1){
+                for(int i = 0; i < defaultInteractionsNames.length; ++i){
+                    mDao.add(new InteractionType(defaultInteractionsNames[i], defaultInteractionsFrequency[i]));
                 }
             }
 
