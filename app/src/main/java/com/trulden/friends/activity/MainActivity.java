@@ -55,10 +55,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private CustomBroadcastReceiver mReceiver;
 
-    public static FragmentToLoad getFragmentToLoad() {
-        return mFragmentToLoad;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -355,5 +351,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         LOG_FRAGMENT,
         REMINDER_FRAGMENT,
         FRIENDS_FRAGMENT
+    }
+
+    public static FragmentToLoad getFragmentToLoad() {
+        return mFragmentToLoad;
     }
 }
