@@ -69,7 +69,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
             if(mDao.getAnyFriend().length<1){
                 for(String friend : defaultFriends){
-                    mDao.addFriend(new Friend(friend, ""));
+                    mDao.add(new Friend(friend, ""));
                 }
             }
 

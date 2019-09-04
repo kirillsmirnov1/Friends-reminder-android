@@ -20,7 +20,7 @@ public interface FriendsDao {
     // -----------------------------------------
 
     @Insert
-    void addFriend(Friend friend);
+    void add(Friend friend);
 
     @Query("SELECT * FROM friend_table ORDER BY name COLLATE NOCASE ASC")
     LiveData<List<Friend>> getAllFriends();

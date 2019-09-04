@@ -57,7 +57,7 @@ public class FriendsRepository {
 
             switch (mTaskSelector){
                 case ADD_FRIEND:
-                    mFriendsDao.addFriend(friends[0]);
+                    mFriendsDao.add(friends[0]);
                     break;
 
                 case UPDATE_FRIEND:
