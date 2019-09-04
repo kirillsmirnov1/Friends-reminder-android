@@ -37,17 +37,17 @@ class FriendsRepository {
         REMOVE_INTERACTION_TYPE
     }
 
-    void addFriend(Friend friend){
+    void add(Friend friend){
         new FriendAsyncTask(TaskSelector.ADD_FRIEND, mFriendsDao)
                 .execute(friend);
     }
 
-    void updateFriend(Friend friend){
+    void update(Friend friend){
         new FriendAsyncTask(TaskSelector.UPDATE_FRIEND, mFriendsDao)
                 .execute(friend);
     }
 
-    void deleteFriend(Friend friend){
+    void delete(Friend friend){
         new FriendAsyncTask(TaskSelector.REMOVE_FRIEND, mFriendsDao)
                 .execute(friend);
     }
