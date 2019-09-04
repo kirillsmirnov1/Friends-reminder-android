@@ -208,12 +208,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case IMPORT_DATABASE_REQUEST: {
                 if(resultCode == RESULT_OK){
-                    Uri uri;
                     if (resultingIntent != null) {
-                        uri = resultingIntent.getData();
-                        assert uri != null;
-                        Log.i(LOG_TAG, "Uri: " + uri.toString());
-                        importDatabaseFromUri(uri);
+                        importDatabaseFromUri(resultingIntent.getData());
                     }
                 }
                 break;
@@ -238,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
 
         getDatabase(this).close();
         wipeDatabase();
