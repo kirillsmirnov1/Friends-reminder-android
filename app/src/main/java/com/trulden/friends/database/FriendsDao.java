@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.List;
 
@@ -32,4 +33,23 @@ public interface FriendsDao {
 
     @Query("SELECT * from friend_table LIMIT 1")
     Friend[] getAnyFriend();
+
+    // -----------------------------------------
+    // InteractionType
+    // -----------------------------------------
+
+    @Insert
+    void addInteractionType(InteractionType type);
+
+    @Query("SELECT * FROM interaction_type_table")
+    LiveData<List<InteractionType>> getAllInteractionTypes();
+
+    @Delete
+    void deleteInteractionType(InteractionType interactionType);
+
+    @Update
+    void update(InteractionType interactionType);
+
+    @Query("SELECT * from interaction_type_table LIMIT 1")
+    Friend[] getAnyInteractionType();
 }
