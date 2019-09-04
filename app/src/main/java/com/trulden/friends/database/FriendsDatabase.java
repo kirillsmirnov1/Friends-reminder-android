@@ -7,12 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.util.Util;
 
-@Database(entities = {Friend.class}, version = Util.DATABASE_VERSION, exportSchema = false)
+@Database(entities = {Friend.class}, version = Util.DATABASE_VERSION)
 public abstract class FriendsDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "friends_database";
@@ -39,7 +40,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             FriendsDatabase.class, DATABASE_NAME)
-                            .fallbackToDestructiveMigration()
+                            .addMigrations(MIGRATION_1_2)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -76,5 +77,12 @@ public abstract class FriendsDatabase extends RoomDatabase {
             return null;
         }
     }
+
+    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE interaction_type_table (id INTEGER, interactionTypeName TEXT, frequency INTEGER, PRIMARY KEY(id))");
+        }
+    };
 
 }
