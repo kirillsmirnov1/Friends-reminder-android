@@ -39,6 +39,19 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                     break;
+
+                case ACTION_DATABASE_IMPORT_FINISHED:
+                    if(intent.getBooleanExtra(EXTRA_IMPORT_RESULT, false)){
+                        makeToast(context, "Import succeeded");
+                    } else {
+                        makeToast(context, "Import failed");
+                    }
+
+                    mMainActivity.get().findViewById(R.id.progress_bar_main).setVisibility(View.INVISIBLE);
+                    mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                    break;
+
             }
         }
 
