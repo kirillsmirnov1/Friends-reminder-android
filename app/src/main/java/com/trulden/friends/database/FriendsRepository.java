@@ -23,14 +23,15 @@ class FriendsRepository {
         mAllInteractionTypes = mFriendsDao.getAllInteractionTypes();
     }
 
+    LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
+    LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
+
+    // TODO InteractionType tasks
     enum TaskSelector{
         ADD_FRIEND,
         UPDATE_FRIEND,
         REMOVE_FRIEND
     }
-
-    LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
-    LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
 
     void addFriend(Friend friend){
         new FriendAsyncTask(TaskSelector.ADD_FRIEND, mFriendsDao)
