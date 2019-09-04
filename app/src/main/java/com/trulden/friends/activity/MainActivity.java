@@ -236,10 +236,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     getDatabase(this).close();
 
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("uriDest", resultingIntent.getData());
-
-                    new ExportDatabaseAsyncTask(this).execute(bundle);
+                    new ExportDatabaseAsyncTask(this).execute(resultingIntent.getData());
                 }
             }
         }

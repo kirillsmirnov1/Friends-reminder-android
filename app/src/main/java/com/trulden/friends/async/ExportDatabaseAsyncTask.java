@@ -22,7 +22,7 @@ import java.util.Objects;
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 import static com.trulden.friends.util.Util.*;
 
-public class ExportDatabaseAsyncTask extends AsyncTask<Bundle, Void, Boolean> {
+public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
 
     private WeakReference<Context> mContext;
 
@@ -31,12 +31,12 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Bundle, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Bundle... bundles) {
+    protected Boolean doInBackground(Uri... uris) {
 
         String backupPath = getInnerBackupFilePath(mContext.get());
         ZipUtil.zip(getDbPaths(), backupPath);
 
-        Uri uriDest = bundles[0].getParcelable("uriDest");
+        Uri uriDest = uris[0];
 
         File outputFile = new File(backupPath);
 
