@@ -91,8 +91,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         mReceiver = new CustomBroadcastReceiver(this);
 
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_DATABASE_EXPORT_FINISHED);
+        intentFilter.addAction(ACTION_DATABASE_IMPORT_FINISHED);
+
         LocalBroadcastManager.getInstance(this)
-                .registerReceiver(mReceiver, new IntentFilter(ACTION_DATABASE_EXPORT_FINISHED));
+                .registerReceiver(mReceiver, intentFilter);
     }
 
     @Override
