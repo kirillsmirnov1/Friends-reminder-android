@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private FriendsViewModel mFriendsViewModel;
 
-    private CustomBroadcastReceiver mReceiver = new CustomBroadcastReceiver();
+    private CustomBroadcastReceiver mReceiver;
 
     public static FragmentToLoad getFragmentToLoad() {
         return mFragmentToLoad;
@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+
+        mReceiver = new CustomBroadcastReceiver(this);
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, new IntentFilter(ACTION_DATABASE_EXPORT_FINISHED));
@@ -228,8 +230,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     getDatabase(this).close();
 
-                    // TODO show status
-                    //findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
+                    findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("uriDest", resultingIntent.getData());

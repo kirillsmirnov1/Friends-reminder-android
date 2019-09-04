@@ -3,10 +3,23 @@ package com.trulden.friends.util;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+
+import com.trulden.friends.R;
+import com.trulden.friends.activity.MainActivity;
+
+import java.lang.ref.WeakReference;
 
 import static com.trulden.friends.util.Util.*;
 
 public class CustomBroadcastReceiver extends BroadcastReceiver {
+
+    private WeakReference<MainActivity> mMainActivity;
+
+    public CustomBroadcastReceiver(MainActivity mainActivity){
+        mMainActivity = new WeakReference<>(mainActivity);
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -20,7 +33,9 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     } else {
                         makeToast(context, "Export failed");
                     }
-                    // TODO progress bar
+
+                    mMainActivity.get().findViewById(R.id.progress_bar_main).setVisibility(View.INVISIBLE);
+
                     break;
             }
         }
