@@ -59,7 +59,7 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Bundle, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean exportResult) {
-        Intent broadcast = new Intent(ACTION_CUSTOM_BROADCAST);
+        Intent broadcast = new Intent(ACTION_DATABASE_EXPORT_FINISHED);
         broadcast.putExtra(EXTRA_EXPORT_RESULT, exportResult);
         LocalBroadcastManager.getInstance(mContext.get()).sendBroadcast(broadcast);
     }

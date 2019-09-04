@@ -31,8 +31,8 @@ public class Util {
 
     public static final String EXTRA_EXPORT_RESULT = "EXTRA_EXPORT_RESULT";
 
-    public static final String ACTION_CUSTOM_BROADCAST =
-            BuildConfig.APPLICATION_ID + ".ACTION_CUSTOM_BROADCAST";
+    public static final String ACTION_DATABASE_EXPORT_FINISHED =
+            BuildConfig.APPLICATION_ID + ".ACTION_DATABASE_EXPORT_FINISHED";
 
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
