@@ -14,7 +14,7 @@ import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.util.Util;
 
-@Database(entities = {Friend.class}, version = Util.DATABASE_VERSION)
+@Database(entities = {Friend.class, InteractionType.class}, version = Util.DATABASE_VERSION)
 public abstract class FriendsDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "friends_database";
