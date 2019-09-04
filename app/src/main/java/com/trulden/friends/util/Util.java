@@ -3,6 +3,8 @@ package com.trulden.friends.util;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.trulden.friends.BuildConfig;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -26,6 +28,11 @@ public class Util {
     public static final String EXTRA_FRIEND_INFO = "EXTRA_FRIEND_INFO";
 
     public static final String EXTRA_FRAGMENT_TO_LOAD = "EXTRA_FRAGMENT_TO_LOAD";
+
+    public static final String EXTRA_EXPORT_RESULT = "EXTRA_EXPORT_RESULT";
+
+    public static final String ACTION_CUSTOM_BROADCAST =
+            BuildConfig.APPLICATION_ID + ".ACTION_CUSTOM_BROADCAST";
 
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
