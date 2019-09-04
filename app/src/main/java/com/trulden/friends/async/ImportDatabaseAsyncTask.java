@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.trulden.friends.activity.MainActivity;
 import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.util.ZipUtil;
 
