@@ -260,8 +260,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             makeToast(this, "Import succeeded");
 
-            // TODO add fragmentToLoad
-
             Intent restartIntent = new Intent(this, MainActivity.class);
             restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, mFragmentToLoad);
 
