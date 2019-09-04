@@ -23,20 +23,13 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trulden.friends.R;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
+import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.Friend;
-import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
-import com.trulden.friends.util.ZipUtil;
-
-import org.apache.commons.io.IOUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Objects;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
@@ -242,37 +235,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void importDatabaseFromUri(Uri uri) {
 
-        String innerBackupFilePath = getInnerBackupFilePath(this);
-        String databasePath = Objects.requireNonNull(getDatabasePath(DATABASE_NAME).getParentFile()).getAbsolutePath() + "/";
+        findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-        File innerBackupFile = new File(innerBackupFilePath);
 
-        // TODO run filework in another thread
-        try(InputStream inputStream = getContentResolver().openInputStream(uri);
-            OutputStream outputStream = new FileOutputStream(innerBackupFile)){
+        getDatabase(this).close();
+        wipeDatabase();
 
-            IOUtils.copy(Objects.requireNonNull(inputStream), outputStream);
-
-            getDatabase(this).close();
-            wipeDatabase();
-
-            ZipUtil.unzip(innerBackupFilePath, databasePath);
-
-            FriendsDatabase.wipeDatabaseInstance();
-
-            makeToast(this, "Import succeeded");
-
-            Intent restartIntent = new Intent(this, MainActivity.class);
-            restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, mFragmentToLoad);
-
-            finish();
-            startActivity(restartIntent);
-
-        } catch (Exception e){
-            e.printStackTrace();
-            makeToast(this, "Import failed");
-        }
-
+        new ImportDatabaseAsyncTask(this).execute(uri);
     }
 
     private void wipeDatabase() {
