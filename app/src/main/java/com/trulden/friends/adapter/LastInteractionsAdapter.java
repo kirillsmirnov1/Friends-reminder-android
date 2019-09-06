@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractionsAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mLastInteractions; // TODO объекты Remind, а не строки
+    private ArrayList<String> mLastInteractions; // TODO объекты LastInteraction, а не строки
 
     public LastInteractionsAdapter(Context context, ArrayList<String> lastInteractions){
         mContext = context;
@@ -24,7 +24,7 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.reminder_entry, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.last_interaction_entry, parent, false));
     }
 
     @Override
