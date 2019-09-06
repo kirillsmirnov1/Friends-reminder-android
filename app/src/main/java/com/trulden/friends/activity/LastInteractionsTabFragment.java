@@ -29,7 +29,7 @@ public class LastInteractionsTabFragment extends Fragment {
     public final static String TEXTING_TAG = "TEXTING_TAG";
     public final static String CALLS_TAG = "CALLS_TAG";
 
-    private ArrayList<String> mReminderData = new ArrayList<>();
+    private ArrayList<String> mLastInteractions = new ArrayList<>();
 
     public LastInteractionsTabFragment() {
         // Required empty public constructor
@@ -52,13 +52,13 @@ public class LastInteractionsTabFragment extends Fragment {
         type = getArguments().getString(TYPE_ARGUMENT);
         switch (type){ // TODO эти данные не должны быть зашиты в R
             case MEETINGS_TAG:
-                mReminderData.addAll(Arrays.asList(getResources().getStringArray(R.array.meetings_a_while_ago)));
+                mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.meetings_a_while_ago)));
                 break;
             case TEXTING_TAG:
-                mReminderData.addAll(Arrays.asList(getResources().getStringArray(R.array.texting_a_while_ago)));
+                mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.texting_a_while_ago)));
                 break;
             case CALLS_TAG:
-                mReminderData.addAll(Arrays.asList(getResources().getStringArray(R.array.call_a_while_ago)));
+                mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.call_a_while_ago)));
                 break;
         }
 
@@ -79,7 +79,7 @@ public class LastInteractionsTabFragment extends Fragment {
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 
-        LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext(), mReminderData);
+        LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext(), mLastInteractions);
         recyclerView.setAdapter(mAdapter);
     }
 }
