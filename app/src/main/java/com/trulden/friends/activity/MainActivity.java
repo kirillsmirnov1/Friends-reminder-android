@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 mFragment = new LogFragment();
                 break;
             case REMINDER_FRAGMENT:
-                mFragment = new ReminderFragment();
+                mFragment = new LastInteractionsFragment();
                 break;
             case FRIENDS_FRAGMENT:
                 mFragment = new FriendsFragment();

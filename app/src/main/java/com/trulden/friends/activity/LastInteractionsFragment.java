@@ -18,11 +18,11 @@ import com.trulden.friends.adapter.TabCounterView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReminderFragment extends Fragment {
+public class LastInteractionsFragment extends Fragment {
 
     TabLayout mTabLayout;
 
-    public ReminderFragment() {
+    public LastInteractionsFragment() {
         // Required empty public constructor
     }
 
@@ -31,7 +31,7 @@ public class ReminderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_reminder, container, false);
+        return inflater.inflate(R.layout.fragment_last_interactions, container, false);
     }
 
     @Override
