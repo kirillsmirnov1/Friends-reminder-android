@@ -20,7 +20,7 @@ import java.util.Arrays;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TabReminder extends Fragment {
+public class LastInteractionsTabFragment extends Fragment {
     private String type;
 
     private final static String TYPE_ARGUMENT = "TYPE_ARGUMENT";
@@ -31,12 +31,12 @@ public class TabReminder extends Fragment {
 
     private ArrayList<String> mReminderData = new ArrayList<>();
 
-    public TabReminder() {
+    public LastInteractionsTabFragment() {
         // Required empty public constructor
     }
 
-    public static TabReminder newInstance(String type){
-        TabReminder tr = new TabReminder();
+    public static LastInteractionsTabFragment newInstance(String type){
+        LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
 
         Bundle args = new Bundle();
         args.putString(TYPE_ARGUMENT, type);

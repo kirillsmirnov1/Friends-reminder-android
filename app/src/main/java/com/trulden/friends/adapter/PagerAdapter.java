@@ -3,7 +3,7 @@ package com.trulden.friends.adapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import com.trulden.friends.activity.TabReminder;
+import com.trulden.friends.activity.LastInteractionsTabFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
@@ -17,9 +17,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){ // TODO другой селектор
-            case 0: return TabReminder.newInstance(TabReminder.MEETINGS_TAG);
-            case 1: return TabReminder.newInstance(TabReminder.TEXTING_TAG);
-            case 2: return TabReminder.newInstance(TabReminder.CALLS_TAG);
+            case 0: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.MEETINGS_TAG);
+            case 1: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.TEXTING_TAG);
+            case 2: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.CALLS_TAG);
             default: return null;
         }
     }
