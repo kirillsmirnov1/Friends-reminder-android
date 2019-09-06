@@ -11,14 +11,14 @@ import com.trulden.friends.R;
 
 import java.util.ArrayList;
 
-public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
+public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractionsAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mRemindData; // TODO объекты Remind, а не строки
+    private ArrayList<String> mLastInteractions; // TODO объекты Remind, а не строки
 
-    public ReminderAdapter(Context context, ArrayList<String> remindData){
+    public LastInteractionsAdapter(Context context, ArrayList<String> lastInteractions){
         mContext = context;
-        mRemindData = remindData;
+        mLastInteractions = lastInteractions;
     }
 
     @NonNull
@@ -29,12 +29,12 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindTo(mRemindData.get(position));
+        holder.bindTo(mLastInteractions.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mRemindData.size();
+        return mLastInteractions.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

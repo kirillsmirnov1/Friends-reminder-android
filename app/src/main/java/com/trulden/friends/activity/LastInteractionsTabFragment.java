@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
-import com.trulden.friends.adapter.ReminderAdapter;
+import com.trulden.friends.adapter.LastInteractionsAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,7 +79,7 @@ public class LastInteractionsTabFragment extends Fragment {
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 
-        ReminderAdapter mAdapter = new ReminderAdapter(getContext(), mReminderData);
+        LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext(), mReminderData);
         recyclerView.setAdapter(mAdapter);
     }
 }
