@@ -61,6 +61,10 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
     public abstract FriendsDao friendsDao();
 
+    // -----------------------------------------
+    // Populate db at start
+    // -----------------------------------------
+
     private static class PopulateDBAsync extends AsyncTask<Void, Void, Void>{
 
         String[] defaultFriends =
@@ -95,6 +99,10 @@ public abstract class FriendsDatabase extends RoomDatabase {
             return null;
         }
     }
+
+    // -----------------------------------------
+    // MIGRATIONS
+    // -----------------------------------------
 
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
