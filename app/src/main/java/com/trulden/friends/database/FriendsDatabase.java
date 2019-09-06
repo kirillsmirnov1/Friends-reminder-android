@@ -117,7 +117,8 @@ public abstract class FriendsDatabase extends RoomDatabase {
                     "date INTEGER NOT NULL," +
                     "comment TEXT," +
                     "PRIMARY KEY(id)," +
-                    "FOREIGN KEY(interactionTypeId) REFERENCES interaction_type_table(id));"
+                    "FOREIGN KEY(interactionTypeId) REFERENCES interaction_type_table(id) ON DELETE CASCADE" +
+                    ")"
             );
 
             database.execSQL(
@@ -125,8 +126,9 @@ public abstract class FriendsDatabase extends RoomDatabase {
                     "friendId INTEGER NOT NULL, " +
                     "interactionId INTEGER NOT NULL, " +
                     "PRIMARY KEY(friendId, interactionId), " +
-                    "FOREIGN KEY(friendId) REFERENCES friend_table(id), " +
-                    "FOREIGN KEY(interactionId) REFERENCES interaction_table(id) )"
+                    "FOREIGN KEY(friendId) REFERENCES friend_table(id) ON DELETE CASCADE, " +
+                    "FOREIGN KEY(interactionId) REFERENCES interaction_table(id) ON DELETE CASCADE" +
+                    ")"
             );
         }
     };
