@@ -1,4 +1,4 @@
-package com.trulden.friends.database;
+package com.trulden.friends.util;
 
 import androidx.room.TypeConverter;
 

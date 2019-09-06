@@ -15,6 +15,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.util.CalendarConverter;
 import com.trulden.friends.util.Util;
 
 @Database(
