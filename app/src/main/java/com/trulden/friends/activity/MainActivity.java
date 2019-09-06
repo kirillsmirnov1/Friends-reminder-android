@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     findViewById(R.id.bottom_log).performClick();
                     break;
                 case LAST_INTERACTIONS_FRAGMENT:
-                    findViewById(R.id.bottom_reminder).performClick();
+                    findViewById(R.id.bottom_last_interactions).performClick();
                     break;
                 case FRIENDS_FRAGMENT:
                     findViewById(R.id.bottom_friends).performClick();
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (menuItem.getItemId()){
             case R.id.bottom_log:
                 return loadFragment(FragmentToLoad.LOG_FRAGMENT);
-            case R.id.bottom_reminder:
+            case R.id.bottom_last_interactions:
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
             case R.id.bottom_friends:
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);

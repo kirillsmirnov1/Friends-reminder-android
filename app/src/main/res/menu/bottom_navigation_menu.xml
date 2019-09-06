@@ -9,7 +9,7 @@
         />
 
     <item
-        android:id="@+id/bottom_reminder"
+        android:id="@+id/bottom_last_interactions"
         android:title="@string/reminder"
         android:icon="@drawable/ic_schedule_black"
         android:orderInCategory="2"
