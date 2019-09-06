@@ -28,6 +28,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +41,9 @@ public class AddInteractionActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
 
     FriendsViewModel mFriendsViewModel;
+
     private HashMap<String, Integer> friendsMap = new HashMap<>();
+    private HashMap<String, Integer> typesMap = new HashMap<>();
 
     private Spinner  mType;
     private EditText mDate;
@@ -71,6 +74,23 @@ public class AddInteractionActivity extends AppCompatActivity implements
             }
         });
 
+        // Set interaction types from db
+        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+            @Override
+            public void onChanged(List<InteractionType> interactionTypes) {
+                for(InteractionType interactionType : interactionTypes){
+                    if(!typesMap.containsKey(interactionType.getInteractionTypeName())) { // putIfAbsent requires API 24
+                        typesMap.put(interactionType.getInteractionTypeName(), interactionType.getId());
+                    }
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
+                        android.R.layout.simple_spinner_dropdown_item, typesMap.keySet().toArray(new String[0]));
+
+                if(mType != null)
+                    mType.setAdapter(adapter);
+            }
+        });
+
         mType = findViewById(R.id.interaction_type_spinner);
 
         mDate = findViewById(R.id.editDate);
@@ -98,13 +118,6 @@ public class AddInteractionActivity extends AppCompatActivity implements
         if(mType != null){
             mType.setOnItemSelectedListener(this);
         }
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.interaction_types, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        if(mType != null)
-            mType.setAdapter(adapter);
     }
 
     public void saveInteraction() {
