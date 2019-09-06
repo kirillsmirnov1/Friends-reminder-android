@@ -32,7 +32,9 @@ import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.trulden.friends.util.Util.*;
@@ -49,6 +51,8 @@ public class AddInteractionActivity extends AppCompatActivity implements
     private EditText mDate;
     private AppCompatMultiAutoCompleteTextView mFriends;
     private EditText mComment;
+
+    private Calendar pickedDate;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -121,17 +125,28 @@ public class AddInteractionActivity extends AppCompatActivity implements
     }
 
     public void saveInteraction() {
-        String[] friends = mFriends.getText().toString().split("\\s*,\\s*");
-        String result = // TODO обернуть в LogEntry класс
-                        mDate.getText().toString() + " • " +
-                        mType.getSelectedItem().toString() + "\n" +
-                        mFriends.getText().toString() + "\n" +
-                        mComment.getText().toString() + "\n";
-
         Intent replyIntent = new Intent();
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION, result);
+
+        // Get friend names, get ids and put them into intent
+
+        String[] friendNames = mFriends.getText().toString().split("\\s*,\\s*");
+
+        HashSet<Integer> friendsIds = new HashSet<>();
+        for(String friendName : friendNames){
+            friendsIds.add(friendsMap.get(friendName));
+        }
+        replyIntent.putExtra(EXTRA_NEW_INTERACTION_FRIENDS, friendsIds);
+
+        // And all of the others
+
+        replyIntent.putExtra(EXTRA_NEW_INTERACTION_TYPE, typesMap.get(mType.getSelectedItem().toString()));
+        replyIntent.putExtra(EXTRA_NEW_INTERACTION_DATE, pickedDate.getTimeInMillis());
+        replyIntent.putExtra(EXTRA_NEW_INTERACTION_COMMENT, mComment.getText());
+
         setResult(RESULT_OK, replyIntent);
-        makeToast(this, "Interaction saved");
+
+        makeToast(this, "Interaction saved (not really)");
+
         finish();
     }
 
@@ -152,6 +167,8 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
     public void processDatePickerResult(int year, int month, int date){
         mDate.setText(year + "-" + month + "-" + date);
+        pickedDate = Calendar.getInstance();
+        pickedDate.set(year, month, date);
     }
 
     @Override

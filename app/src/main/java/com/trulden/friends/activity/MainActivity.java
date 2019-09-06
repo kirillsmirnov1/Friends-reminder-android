@@ -29,6 +29,8 @@ import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
 
+import java.util.HashSet;
+
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.*;
 
@@ -168,10 +170,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case NEW_INTERACTION_REQUEST: {
                 if (resultCode == RESULT_OK && resultingIntent != null) {
-                    String reply = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION);
-                    assert reply != null;
-                    Log.d(LOG_TAG, reply);
-                    // TODO save as log entry
+
+                    // Getting data from intent
+
+                    HashSet<Integer> friendsIds = (HashSet<Integer>)
+                            resultingIntent.getSerializableExtra(EXTRA_NEW_INTERACTION_FRIENDS);
+                    int interactionTypeId = resultingIntent.getIntExtra(EXTRA_NEW_INTERACTION_TYPE, -1);
+                    long date = resultingIntent.getLongExtra(EXTRA_NEW_INTERACTION_DATE, -1);
+                    String comment = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION_COMMENT);
+
+                    // TODO write out to db
                 }
                 break;
             }
