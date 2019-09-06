@@ -41,7 +41,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             FriendsDatabase.class, DATABASE_NAME)
-                            .addMigrations(MIGRATION_1_2)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -97,6 +97,30 @@ public abstract class FriendsDatabase extends RoomDatabase {
                             "interactionTypeName TEXT NOT NULL, " +
                             "frequency INTEGER NOT NULL, " +
                             "PRIMARY KEY(id))");
+        }
+    };
+
+    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL(
+                    "CREATE TABLE interaction_table (" +
+                    "id INTEGER NOT NULL," +
+                    "interactionTypeId INTEGER NOT NULL," +
+                    "date INTEGER NOT NULL," +
+                    "comment TEXT," +
+                    "PRIMARY KEY(id)," +
+                    "FOREIGN KEY(interactionTypeId) REFERENCES interaction_type_table(id));"
+            );
+
+            database.execSQL(
+                    "CREATE TABLE bind_friend_interaction_table (" +
+                    "friendId INTEGER NOT NULL, " +
+                    "interactionId INTEGER NOT NULL, " +
+                    "PRIMARY KEY(friendId, interactionId), " +
+                    "FOREIGN KEY(friendId) REFERENCES friend_table(id), " +
+                    "FOREIGN KEY(interactionId) REFERENCES interaction_table(id) )"
+            );
         }
     };
 }
