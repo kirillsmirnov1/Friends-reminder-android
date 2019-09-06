@@ -128,16 +128,16 @@ public class AddInteractionActivity extends AppCompatActivity implements
                         mFriends.getText().toString() + "\n" +
                         mComment.getText().toString() + "\n";
 
-        if(allFriendsExist(friends)){
-            Intent replyIntent = new Intent();
-            replyIntent.putExtra(EXTRA_NEW_INTERACTION, result);
-            setResult(RESULT_OK, replyIntent);
-            makeToast(this, "Interaction saved");
-            finish();
-        }
+        Intent replyIntent = new Intent();
+        replyIntent.putExtra(EXTRA_NEW_INTERACTION, result);
+        setResult(RESULT_OK, replyIntent);
+        makeToast(this, "Interaction saved");
+        finish();
     }
 
-    private boolean allFriendsExist(String[] friends) {
+    private boolean allFriendsExist() {
+        String[] friends = mFriends.getText().toString().split("\\s*,\\s*");
+
         for(String friendName : friends){
             if(!friendsMap.containsKey(friendName)){
 
@@ -196,7 +196,9 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         switch (item.getItemId()){
             case R.id.icon_save: {
-                saveInteraction();
+                if(allFriendsExist()) {
+                    saveInteraction();
+                }
                 return true;
             }
 
