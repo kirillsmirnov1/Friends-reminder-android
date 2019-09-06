@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private static FragmentToLoad mFragmentToLoad = FragmentToLoad.REMINDER_FRAGMENT;
+    private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
 
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case LOG_FRAGMENT:
                     findViewById(R.id.bottom_log).performClick();
                     break;
-                case REMINDER_FRAGMENT:
+                case LAST_INTERACTIONS_FRAGMENT:
                     findViewById(R.id.bottom_reminder).performClick();
                     break;
                 case FRIENDS_FRAGMENT:
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case LOG_FRAGMENT:
                 mFragment = new LogFragment();
                 break;
-            case REMINDER_FRAGMENT:
+            case LAST_INTERACTIONS_FRAGMENT:
                 mFragment = new LastInteractionsFragment();
                 break;
             case FRIENDS_FRAGMENT:
@@ -263,8 +263,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case LOG_FRAGMENT:
                 mToolbar.setTitle("Log");
                 break;
-            case REMINDER_FRAGMENT:
-                mToolbar.setTitle("Reminder");
+            case LAST_INTERACTIONS_FRAGMENT:
+                mToolbar.setTitle("Last Interactions");
                 break;
             case FRIENDS_FRAGMENT:
                 mToolbar.setTitle("Friends");
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.bottom_log:
                 return loadFragment(FragmentToLoad.LOG_FRAGMENT);
             case R.id.bottom_reminder:
-                return loadFragment(FragmentToLoad.REMINDER_FRAGMENT);
+                return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
             case R.id.bottom_friends:
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
         }
@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public enum FragmentToLoad{
         LOG_FRAGMENT,
-        REMINDER_FRAGMENT,
+        LAST_INTERACTIONS_FRAGMENT,
         FRIENDS_FRAGMENT
     }
 
