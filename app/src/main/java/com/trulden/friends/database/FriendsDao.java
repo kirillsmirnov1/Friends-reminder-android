@@ -7,7 +7,9 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.List;
@@ -52,4 +54,34 @@ public interface FriendsDao {
 
     @Query("SELECT * from interaction_type_table LIMIT 1")
     InteractionType[] getAnyInteractionType();
+
+    // -----------------------------------------
+    // Interaction
+    // -----------------------------------------
+
+    @Insert
+    long add(Interaction interaction);
+
+    @Query("SELECT * FROM interaction_table")
+    LiveData<List<Interaction>> getAllInteractions();
+
+    @Delete
+    void delete(Interaction interaction);
+
+    @Update
+    void update(Interaction interaction);
+
+    // -----------------------------------------
+    // BindFriendInteraction
+    // -----------------------------------------
+
+    @Insert
+    void add(BindFriendInteraction bindFriendInteraction);
+
+    @Delete
+    void delete(BindFriendInteraction bindFriendInteraction);
+
+    // TODO get friends ids from interaction id
+    // TODO get interactions of friend
+
 }
