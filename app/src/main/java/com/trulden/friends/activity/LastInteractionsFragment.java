@@ -42,7 +42,7 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     private void initTabsAndPageViewer(View view) {
-        mTabLayout = view.findViewById(R.id.reminder_tab_layout);
+        mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
 
         TabCounterView tcv0 = new TabCounterView(getContext(), "Meetings", getResources().getStringArray(R.array.meetings_a_while_ago).length);
         TabCounterView tcv1 = new TabCounterView(getContext(), "Texting", getResources().getStringArray(R.array.texting_a_while_ago).length);
@@ -54,7 +54,7 @@ public class LastInteractionsFragment extends Fragment {
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = view.findViewById(R.id.reminder_pager);
+        final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
         final PagerAdapter adapter = new PagerAdapter(getFragmentManager(), mTabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);

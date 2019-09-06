@@ -44,7 +44,7 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mTextView = itemView.findViewById(R.id.reminder_entry_text);
+            mTextView = itemView.findViewById(R.id.last_interaction_entry_text);
         }
 
         public void bindTo(String remind) {

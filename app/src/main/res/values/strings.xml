@@ -17,7 +17,7 @@
     <string name="meetings">Meetings</string>
     <string name="texting">Texting</string>
     <string name="calls">Calls</string>
-    <string name="reminder">Reminder</string>
+    <string name="last_interactions">Last Interactions</string>
     <string name="edit_selection">Edit selection</string>
     <string name="delete_selection">Delete selection</string>
     <string name="clear_selection">Clear selection</string>
