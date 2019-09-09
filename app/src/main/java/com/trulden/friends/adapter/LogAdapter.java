@@ -112,14 +112,14 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
             mTypeAndNames.setText(interactionTypeName + " with " + interaction.getFriendNames());
             mDate.setText(dateFormat.format(interaction.getDate()));
-
-            if(interaction.getComment() == null || interaction.getComment().isEmpty()){
-                mComment.setPadding(0, 0, 0, 0);
-                mComment.setHeight(0);
-
-                int p = mDate.getPaddingStart();
-                mDate.setPadding(p, 0, p, p);
-            }
+            // FIXME
+//            if(interaction.getComment() == null || interaction.getComment().isEmpty()){
+//                mComment.setPadding(0, 0, 0, 0);
+//                mComment.setHeight(0);
+//
+//                int p = mDate.getPaddingStart();
+//                mDate.setPadding(p, 0, p, p);
+//            }
 
             mComment.setText(interaction.getComment());
 
