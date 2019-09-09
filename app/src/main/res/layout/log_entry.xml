@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-        android:id="@+id/log_entry_layout"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         card_view:cardMaxElevation="5dp"
@@ -10,9 +9,12 @@
         >
 
     <LinearLayout
+        android:id="@+id/log_entry_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/item_background"
+        >
 
         <TextView
             android:id="@+id/log_entry_type_and_names"
