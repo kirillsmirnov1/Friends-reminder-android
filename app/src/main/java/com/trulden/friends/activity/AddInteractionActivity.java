@@ -169,9 +169,19 @@ public class AddInteractionActivity extends AppCompatActivity implements
     }
 
     public void processDatePickerResult(int year, int month, int date){
-        mDate.setText(year + "-" + month + "-" + date);
         pickedDate = Calendar.getInstance();
-        pickedDate.set(year, month, date);
+        //                   Sincerely, fuck you, developers of Calendar class
+        pickedDate.set(year, month-1, date);
+
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DATE, 1);
+
+        if(pickedDate.before(tomorrow)) {
+            mDate.setText(year + "-" + month + "-" + date);
+        } else {
+            makeToast(this, "Can't interact in the future");
+            pickedDate = null;
+        }
     }
 
     @Override
