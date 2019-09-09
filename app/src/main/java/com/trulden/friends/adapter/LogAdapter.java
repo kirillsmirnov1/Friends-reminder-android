@@ -17,7 +17,7 @@ import java.util.List;
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Interaction> mLogData = new ArrayList<>();
+    private List<Interaction> mInteractions = new ArrayList<>();
 
     public LogAdapter(Context context){
         mContext = context;
@@ -31,16 +31,16 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindTo(mLogData.get(position));
+        holder.bindTo(mInteractions.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mLogData.size();
+        return mInteractions.size();
     }
 
     public void setInteractions(List<Interaction> interactions) {
-        mLogData = interactions;
+        mInteractions = interactions;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
