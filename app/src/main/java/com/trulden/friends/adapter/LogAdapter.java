@@ -70,8 +70,16 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
             mTypeAndNames.setText(interactionTypeName + " with " + interaction.getFriendNames());
             mDate.setText(new SimpleDateFormat("dd MMM yyyy").format(interaction.getDate().getTimeInMillis()));
+
+            if(interaction.getComment() == null || interaction.getComment().isEmpty()){
+                mComment.setPadding(0, 0, 0, 0);
+                mComment.setHeight(0);
+
+                int p = mDate.getPaddingStart();
+                mDate.setPadding(p, 0, p, p);
+            }
+
             mComment.setText(interaction.getComment());
-            // TODO hide comment if empty
         }
     }
 }
