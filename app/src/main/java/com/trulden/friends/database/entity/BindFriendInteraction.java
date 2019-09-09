@@ -24,10 +24,10 @@ import static androidx.room.ForeignKey.CASCADE;
 )
 public class BindFriendInteraction {
 
-    private int friendId;
-    private int interactionId;
+    private long friendId;
+    private long interactionId;
 
-    public BindFriendInteraction(int friendId, int interactionId) {
+    public BindFriendInteraction(long friendId, long interactionId) {
         this.friendId = friendId;
         this.interactionId = interactionId;
     }
@@ -36,19 +36,19 @@ public class BindFriendInteraction {
     // Getters and setters
     // -----------------------------------------
 
-    public int getFriendId() {
+    public long getFriendId() {
         return friendId;
     }
 
-    public void setFriendId(int friendId) {
+    public void setFriendId(long friendId) {
         this.friendId = friendId;
     }
 
-    public int getInteractionId() {
+    public long getInteractionId() {
         return interactionId;
     }
 
-    public void setInteractionId(int interactionId) {
+    public void setInteractionId(long interactionId) {
         this.interactionId = interactionId;
     }
 }

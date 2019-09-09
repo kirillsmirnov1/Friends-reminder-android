@@ -22,9 +22,9 @@ import static androidx.room.ForeignKey.CASCADE;
 public class Interaction {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
-    private int interactionTypeId;
+    private long interactionTypeId;
 
     @NonNull
     private Calendar date;
@@ -33,7 +33,7 @@ public class Interaction {
 
     private String friendNames;
 
-    public Interaction(int interactionTypeId, @NonNull Calendar date, String comment, String friendNames) {
+    public Interaction(long interactionTypeId, @NonNull Calendar date, String comment, String friendNames) {
         this.interactionTypeId = interactionTypeId;
         this.date = date;
         this.comment = comment;
@@ -41,7 +41,7 @@ public class Interaction {
     }
 
     @Ignore
-    public Interaction(int id, int interactionTypeId, @NonNull Calendar date, String comment, String friendNames) {
+    public Interaction(long id, long interactionTypeId, @NonNull Calendar date, String comment, String friendNames) {
         this.id = id;
         this.interactionTypeId = interactionTypeId;
         this.date = date;
@@ -53,19 +53,19 @@ public class Interaction {
     // Getters and setters
     // -----------------------------------------
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getInteractionTypeId() {
+    public long getInteractionTypeId() {
         return interactionTypeId;
     }
 
-    public void setInteractionTypeId(int interactionTypeId) {
+    public void setInteractionTypeId(long interactionTypeId) {
         this.interactionTypeId = interactionTypeId;
     }
 

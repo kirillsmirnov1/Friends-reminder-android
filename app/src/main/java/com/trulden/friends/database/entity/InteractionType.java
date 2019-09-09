@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 public class InteractionType {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
     @NonNull
     private String interactionTypeName;
@@ -22,7 +22,7 @@ public class InteractionType {
     }
 
     @Ignore
-    public InteractionType(int id, @NonNull String interactionTypeName, int frequency){
+    public InteractionType(long id, @NonNull String interactionTypeName, int frequency){
         this.id = id;
         this.interactionTypeName = interactionTypeName;
         this.frequency = frequency;
@@ -32,11 +32,11 @@ public class InteractionType {
     // Getters and setters
     // -----------------------------------------
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

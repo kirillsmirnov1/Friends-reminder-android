@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 public class Friend {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
     @NonNull
     private String name;
@@ -22,7 +22,7 @@ public class Friend {
     }
 
     @Ignore
-    public Friend(int id, @NonNull String name, String info){
+    public Friend(long id, @NonNull String name, String info){
         this.id = id;
         this.name = name;
         this.info = info;
@@ -32,11 +32,11 @@ public class Friend {
     // Getters and setters
     // -----------------------------------------
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

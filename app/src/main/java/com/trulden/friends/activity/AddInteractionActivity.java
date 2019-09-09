@@ -44,8 +44,8 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
     FriendsViewModel mFriendsViewModel;
 
-    private HashMap<String, Integer> friendsMap = new HashMap<>();
-    private HashMap<String, Integer> typesMap = new HashMap<>();
+    private HashMap<String, Long> friendsMap = new HashMap<>();
+    private HashMap<String, Long> typesMap = new HashMap<>();
 
     private Spinner  mType;
     private EditText mDate;
@@ -134,7 +134,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         replyIntent.putExtra(EXTRA_NEW_INTERACTION_FRIEND_NAMES, friendNames);
 
-        HashSet<Integer> friendsIds = new HashSet<>();
+        HashSet<Long> friendsIds = new HashSet<>();
         for(String friendName : friendNames){
             friendsIds.add(friendsMap.get(friendName));
         }
