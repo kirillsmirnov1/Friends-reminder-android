@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
@@ -174,7 +175,14 @@ class FriendsRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             switch (mTaskSelector){
-                case ADD_INTERACTION: // TODO
+                case ADD_INTERACTION:
+
+                    long interactionId = mFriendsDao.add(interaction);
+
+                    for(Integer friendId : friendIds){
+                        mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
+                    }
+
                     break;
 
                 case UPDATE_INTERACTION: // TODO

@@ -148,7 +148,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         setResult(RESULT_OK, replyIntent);
 
-        makeToast(this, "Interaction saved (not really)");
+        makeToast(this, "Interaction saved");
 
         finish();
     }
