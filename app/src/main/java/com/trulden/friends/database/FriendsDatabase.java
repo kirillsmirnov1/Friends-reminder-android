@@ -69,7 +69,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                  "Jacob", "Kate", "Leonard", "Michael", "Nikolas", "Oprah", "Peter", "Quynh",
                  "Richard", "Stephen", "Thomas", "Utah", "Victor", "Wilfred", "Xan", "Yan", "Zorro"};
 
-        String[] defaultInteractionsNames = {"Meetings", "Texting", "Calls"};
+        String[] defaultInteractionsNames = {"Meeting", "Texting", "Call"};
         int[]    defaultInteractionsFrequency = {30, 7, 30};
 
         private final FriendsDao mDao;
