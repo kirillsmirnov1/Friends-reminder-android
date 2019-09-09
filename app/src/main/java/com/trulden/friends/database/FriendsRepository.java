@@ -16,18 +16,23 @@ import java.util.List;
 class FriendsRepository {
 
     private FriendsDao mFriendsDao;
+
     private LiveData<List<Friend>> mAllFriends;
     private LiveData<List<InteractionType>> mAllInteractionTypes;
+    private LiveData<List<Interaction>> mAllInteractions;
 
     FriendsRepository(Application application){
         mFriendsDao = FriendsDatabase.getDatabase(application).friendsDao();
 
         mAllFriends = mFriendsDao.getAllFriends();
         mAllInteractionTypes = mFriendsDao.getAllInteractionTypes();
+        mAllInteractions = mFriendsDao.getAllInteractions();
     }
 
     LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
+    LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
+
 
     enum TaskSelector{
         ADD_FRIEND,

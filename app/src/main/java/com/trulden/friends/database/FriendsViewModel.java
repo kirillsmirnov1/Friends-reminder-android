@@ -16,15 +16,19 @@ import java.util.List;
 public class FriendsViewModel extends AndroidViewModel {
 
     private FriendsRepository mRepository;
+
     private LiveData<List<Friend>> mAllFriends;
     private LiveData<List<InteractionType>> mAllInteractionTypes;
+    private LiveData<List<Interaction>> mAllInteractions;
 
     public FriendsViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = new FriendsRepository(application);
+
         mAllFriends = mRepository.getAllFriends();
         mAllInteractionTypes = mRepository.getAllInteractionTypes();
+        mAllInteractions = mRepository.getAllInteractions();
     }
 
 
@@ -33,6 +37,9 @@ public class FriendsViewModel extends AndroidViewModel {
     }
     public LiveData<List<InteractionType>> getAllInteractionTypes() {
         return mAllInteractionTypes;
+    }
+    public LiveData<List<Interaction>> getAllInteractions() {
+        return mAllInteractions;
     }
 
     public void add(Friend friend)    { mRepository.add(friend);    }
