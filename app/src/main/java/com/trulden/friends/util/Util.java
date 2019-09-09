@@ -18,6 +18,8 @@ public class Util {
 
     private static final String LOG_TAG = Util.class.getSimpleName();
 
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+
     // Can't access db version from Room in runtime, but want to save backup with version in name
     // Probably not the best way to do it, but can't think of something else
     public static final int DATABASE_VERSION = 4;
