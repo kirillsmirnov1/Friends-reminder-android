@@ -55,18 +55,4 @@
         <item>Darina • 100 days ago</item>
     </string-array>
 
-    <string-array name="log_list">
-        <item>2019–07–25 \nTexting with [Darina]\n Поболтали за музыку</item>
-        <item>2019–07–21 \nQuality time with [Tasya, Dad, Mom] \nЕздили на дачу</item>
-        <item>2019–07–21 \nTexting with [Datsenko] \nСпросил что-то о «золотом теленке»</item>
-        <item>2019–07–17 \nTexting with [Datsenko] \nСпросил про sql</item>
-        <item>2019–07–17 \nTexting with [Ira] \nПоболтали за ST3</item>
-        <item>2019–07–15 \nQuality time with [Tasya, Dad, Mom] \nХодили в овраг стрелять из лука</item>
-        <item>2019–07–13 \nQuality time with [Pasha Ilin, Katya Borisova] \nПоболтали за Цысиня на встрече Пенумбры.</item>
-        <item>2019–07–11 \nQuality time with [Ira] \nХодили в МАММ смотреть на лёд и в книжные.</item>
-        <item>2019–05–25 \nQuality time with [Tasya, Dad, Mom] \nМой др на даче. Шашлыки, жгли блокноты.</item>
-        <item>2019–05–19 \nQuality time with [Tasya, Dad, Mom, Datsenko] \nВелопарад по садовому. Андрюша на ВТБ-байке, Папа с Тасей угнали вперед, а маман ждёт на старте/финише.</item>
-        <item>2018–10–10 \nCall with [Darina] \nПоболтали за жизулю и NY.</item>
-    </string-array>
-
 </resources>
