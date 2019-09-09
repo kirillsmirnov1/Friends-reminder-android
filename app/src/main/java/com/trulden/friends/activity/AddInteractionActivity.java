@@ -129,13 +129,16 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         // Get friend names, get ids and put them into intent
 
-        String[] friendNames = mFriends.getText().toString().split("\\s*,\\s*");
+        HashSet<String> friendNames = new HashSet<>(Arrays.asList(
+                mFriends.getText().toString().split("\\s*,\\s*")));
+
+        replyIntent.putExtra(EXTRA_NEW_INTERACTION_FRIEND_NAMES, friendNames);
 
         HashSet<Integer> friendsIds = new HashSet<>();
         for(String friendName : friendNames){
             friendsIds.add(friendsMap.get(friendName));
         }
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION_FRIENDS, friendsIds);
+        replyIntent.putExtra(EXTRA_NEW_INTERACTION_FRIEND_IDS, friendsIds);
 
         // And all of the others
 

@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
@@ -173,8 +172,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     // Getting data from intent
 
+                    HashSet<String> friendNames = (HashSet<String>)
+                            resultingIntent.getSerializableExtra(EXTRA_NEW_INTERACTION_FRIEND_NAMES);
                     HashSet<Integer> friendsIds = (HashSet<Integer>)
-                            resultingIntent.getSerializableExtra(EXTRA_NEW_INTERACTION_FRIENDS);
+                            resultingIntent.getSerializableExtra(EXTRA_NEW_INTERACTION_FRIEND_IDS);
                     int interactionTypeId = resultingIntent.getIntExtra(EXTRA_NEW_INTERACTION_TYPE, -1);
                     long date = resultingIntent.getLongExtra(EXTRA_NEW_INTERACTION_DATE, -1);
                     String comment = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION_COMMENT);
