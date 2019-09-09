@@ -62,7 +62,7 @@ public interface FriendsDao {
     @Insert
     long add(Interaction interaction);
 
-    @Query("SELECT * FROM interaction_table")
+    @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     LiveData<List<Interaction>> getAllInteractions();
 
     @Delete
