@@ -226,7 +226,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         switch (item.getItemId()){
             case R.id.icon_save: {
-                if(allFriendsExist()) {
+                if(argsFilled() && allFriendsExist()) {
                     saveInteraction();
                 }
                 return true;
@@ -235,5 +235,20 @@ public class AddInteractionActivity extends AppCompatActivity implements
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean argsFilled() {
+
+        if(mDate.getText().toString().isEmpty()){
+            makeToast(this, "Fill date");
+            return false;
+        }
+
+        if(mFriends.getText().toString().isEmpty()){
+            makeToast(this, "Fill friends");
+            return false;
+        }
+
+        return true;
     }
 }
