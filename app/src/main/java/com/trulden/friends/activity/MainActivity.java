@@ -182,11 +182,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     long date = resultingIntent.getLongExtra(EXTRA_NEW_INTERACTION_DATE, -1);
                     String comment = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION_COMMENT);
 
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(date);
-
                     Interaction interaction = new Interaction(
-                            interactionTypeId, calendar,
+                            interactionTypeId, date,
                             comment, friendNames.toString().replaceAll("\\[|\\]", ""));
 
                     mFriendsViewModel.add(interaction, friendsIds);

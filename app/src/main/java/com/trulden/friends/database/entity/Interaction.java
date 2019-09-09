@@ -26,14 +26,13 @@ public class Interaction {
 
     private long interactionTypeId;
 
-    @NonNull
-    private Calendar date;
+    private long date;
 
     private String comment;
 
     private String friendNames;
 
-    public Interaction(long interactionTypeId, @NonNull Calendar date, String comment, String friendNames) {
+    public Interaction(long interactionTypeId, long date, String comment, String friendNames) {
         this.interactionTypeId = interactionTypeId;
         this.date = date;
         this.comment = comment;
@@ -41,7 +40,7 @@ public class Interaction {
     }
 
     @Ignore
-    public Interaction(long id, long interactionTypeId, @NonNull Calendar date, String comment, String friendNames) {
+    public Interaction(long id, long interactionTypeId, long date, String comment, String friendNames) {
         this.id = id;
         this.interactionTypeId = interactionTypeId;
         this.date = date;
@@ -69,12 +68,11 @@ public class Interaction {
         this.interactionTypeId = interactionTypeId;
     }
 
-    @NonNull
-    public Calendar getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(@NonNull Calendar date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

@@ -68,7 +68,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
             String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
 
             mTypeAndNames.setText(interactionTypeName + " with " + interaction.getFriendNames());
-            mDate.setText(dateFormat.format(interaction.getDate().getTimeInMillis()));
+            mDate.setText(dateFormat.format(interaction.getDate()));
 
             if(interaction.getComment() == null || interaction.getComment().isEmpty()){
                 mComment.setPadding(0, 0, 0, 0);

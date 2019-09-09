@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
@@ -15,14 +14,12 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
-import com.trulden.friends.util.CalendarConverter;
 import com.trulden.friends.util.Util;
 
 @Database(
         entities = {Friend.class, InteractionType.class, Interaction.class, BindFriendInteraction.class},
         version = Util.DATABASE_VERSION
 )
-@TypeConverters(CalendarConverter.class)
 public abstract class FriendsDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "friends_database";
