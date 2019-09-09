@@ -177,7 +177,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
         tomorrow.add(Calendar.DATE, 1);
 
         if(pickedDate.before(tomorrow)) {
-            mDate.setText(year + "-" + month + "-" + date);
+            mDate.setText(dateFormat.format(pickedDate.getTime()));
         } else {
             makeToast(this, "Can't interact in the future");
             pickedDate = null;

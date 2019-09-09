@@ -9,13 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.Interaction;
-import com.trulden.friends.database.entity.InteractionType;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
+
+import static com.trulden.friends.util.Util.*;
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
@@ -69,7 +68,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
             String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
 
             mTypeAndNames.setText(interactionTypeName + " with " + interaction.getFriendNames());
-            mDate.setText(new SimpleDateFormat("dd MMM yyyy").format(interaction.getDate().getTimeInMillis()));
+            mDate.setText(dateFormat.format(interaction.getDate().getTimeInMillis()));
 
             if(interaction.getComment() == null || interaction.getComment().isEmpty()){
                 mComment.setPadding(0, 0, 0, 0);
