@@ -9,18 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.LogAdapter;
+import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.Interaction;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class LogFragment extends Fragment {
 
+    private FriendsViewModel mFriendsViewModel;
 
     public LogFragment() {
         // Required empty public constructor
@@ -42,8 +47,18 @@ public class LogFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        LogAdapter logAdapter = new LogAdapter(getActivity());
+        final LogAdapter logAdapter = new LogAdapter(getActivity());
 
         recyclerView.setAdapter(logAdapter);
+
+        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+
+        mFriendsViewModel.getAllInteractions().observe(this, new Observer<List<Interaction>>() {
+            @Override
+            public void onChanged(List<Interaction> interactions) {
+                logAdapter.setInteractions(interactions);
+                logAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }

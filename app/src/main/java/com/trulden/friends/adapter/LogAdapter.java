@@ -8,19 +8,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
+import com.trulden.friends.database.entity.Interaction;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mLogData = new ArrayList<>();
+    private List<Interaction> mLogData = new ArrayList<>();
 
     public LogAdapter(Context context){
         mContext = context;
-
-        mLogData.addAll(Arrays.asList(context.getResources().getStringArray(R.array.log_list)));
     }
 
     @NonNull
@@ -39,18 +39,30 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
         return mLogData.size();
     }
 
+    public void setInteractions(List<Interaction> interactions) {
+        mLogData = interactions;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTextView;
+        private TextView mTypeAndNames;
+        private TextView mDate;
+        private TextView mComment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mTextView = itemView.findViewById(R.id.log_entry_comment);
+            mTypeAndNames = itemView.findViewById(R.id.log_entry_type_and_names);
+            mDate = itemView.findViewById(R.id.log_entry_date);
+            mComment = itemView.findViewById(R.id.log_entry_comment);
         }
 
-        public void bindTo(String s) {
-            mTextView.setText(s);
+        public void bindTo(Interaction interaction) {
+            // FIXME get NAME of activity, not id
+            mTypeAndNames.setText(interaction.getInteractionTypeId() + " with " + interaction.getFriendNames());
+            mDate.setText(new SimpleDateFormat("dd MMM yyyy").format(interaction.getDate().getTimeInMillis()));
+            mComment.setText(interaction.getComment());
+            // TODO hide comment if empty
         }
     }
 }
