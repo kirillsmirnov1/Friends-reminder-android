@@ -49,7 +49,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             FriendsDatabase.class, DATABASE_NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -139,6 +139,13 @@ public abstract class FriendsDatabase extends RoomDatabase {
                     "FOREIGN KEY(interactionId) REFERENCES interaction_table(id) ON DELETE CASCADE" +
                     ")"
             );
+        }
+    };
+
+    private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE interaction_table ADD friendNames TEXT");
         }
     };
 }

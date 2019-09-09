@@ -20,7 +20,7 @@ public class Util {
 
     // Can't access db version from Room in runtime, but want to save backup with version in name
     // Probably not the best way to do it, but can't think of something else
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     public static final int NEW_INTERACTION_REQUEST    = 1;
     public static final int NEW_FRIEND_REQUEST         = 2;

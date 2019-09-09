@@ -31,18 +31,22 @@ public class Interaction {
 
     private String comment;
 
-    public Interaction(int interactionTypeId, @NonNull Calendar date, String comment) {
+    private String friendNames;
+
+    public Interaction(int interactionTypeId, @NonNull Calendar date, String comment, String friendNames) {
         this.interactionTypeId = interactionTypeId;
         this.date = date;
         this.comment = comment;
+        this.friendNames = friendNames;
     }
 
     @Ignore
-    public Interaction(int id, int interactionTypeId, @NonNull Calendar date, String comment) {
+    public Interaction(int id, int interactionTypeId, @NonNull Calendar date, String comment, String friendNames) {
         this.id = id;
         this.interactionTypeId = interactionTypeId;
         this.date = date;
         this.comment = comment;
+        this.friendNames = friendNames;
     }
 
     // -----------------------------------------
@@ -80,5 +84,13 @@ public class Interaction {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getFriendNames() {
+        return friendNames;
+    }
+
+    public void setFriendNames(String friendNames) {
+        this.friendNames = friendNames;
     }
 }
