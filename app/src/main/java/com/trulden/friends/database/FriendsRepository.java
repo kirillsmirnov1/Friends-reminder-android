@@ -6,8 +6,10 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 
+import java.util.HashSet;
 import java.util.List;
 
 class FriendsRepository {
@@ -33,7 +35,11 @@ class FriendsRepository {
 
         ADD_INTERACTION_TYPE,
         UPDATE_INTERACTION_TYPE,
-        REMOVE_INTERACTION_TYPE
+        REMOVE_INTERACTION_TYPE,
+
+        ADD_INTERACTION,
+        UPDATE_INTERACTION,
+        REMOVE_INTERACTION
     }
 
     // -----------------------------------------
@@ -132,6 +138,49 @@ class FriendsRepository {
 
                 case REMOVE_INTERACTION_TYPE:
                     mFriendsDao.delete(interactionTypes[0]);
+                    break;
+
+                default:
+                    // Do nothing
+            }
+
+            return null;
+        }
+    }
+
+    // -----------------------------------------
+    // Interaction
+    // -----------------------------------------
+
+    public void add(Interaction interaction, HashSet<Integer> friendsIds) {
+
+    }
+
+    private static class InteractionAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        private FriendsDao mFriendsDao;
+        private TaskSelector mTaskSelector;
+
+        private Interaction interaction;
+        private HashSet<Integer> friendIds;
+
+        public InteractionAsyncTask(FriendsDao mFriendsDao, TaskSelector mTaskSelector, Interaction interaction, HashSet<Integer> friendIds) {
+            this.mFriendsDao = mFriendsDao;
+            this.mTaskSelector = mTaskSelector;
+            this.interaction = interaction;
+            this.friendIds = friendIds;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            switch (mTaskSelector){
+                case ADD_INTERACTION: // TODO
+                    break;
+
+                case UPDATE_INTERACTION: // TODO
+                    break;
+
+                case REMOVE_INTERACTION: // TODO
                     break;
 
                 default:

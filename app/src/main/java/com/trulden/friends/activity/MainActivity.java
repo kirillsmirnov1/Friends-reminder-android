@@ -189,9 +189,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             interactionTypeId, calendar,
                             comment, friendNames.toString());
 
-                    //mFriendsViewModel.add(interaction, friendsIds);
+                    mFriendsViewModel.add(interaction, friendsIds);
 
-                    // TODO write out to db
+                    // TODO update interaction
                 }
                 break;
             }
