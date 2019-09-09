@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     Interaction interaction = new Interaction(
                             interactionTypeId, calendar,
-                            comment, friendNames.toString());
+                            comment, friendNames.toString().replaceAll("\\[|\\]", ""));
 
                     mFriendsViewModel.add(interaction, friendsIds);
 
