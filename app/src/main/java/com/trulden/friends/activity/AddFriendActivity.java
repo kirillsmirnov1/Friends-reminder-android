@@ -22,7 +22,7 @@ public class AddFriendActivity extends AppCompatActivity {
     private EditText mName;
     private EditText mInfo;
 
-    private int updatedFriendId;
+    private long updatedFriendId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class AddFriendActivity extends AppCompatActivity {
         mInfo = findViewById(R.id.edit_friends_info);
 
         Intent intent = getIntent();
-        updatedFriendId = intent.getIntExtra(EXTRA_FRIEND_ID, -1);
+        updatedFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
         mName.setText(intent.getStringExtra(EXTRA_FRIEND_NAME));
         mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_INFO));
 

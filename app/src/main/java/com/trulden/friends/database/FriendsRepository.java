@@ -153,7 +153,9 @@ class FriendsRepository {
     // Interaction
     // -----------------------------------------
 
-    public void add(Interaction interaction, HashSet<Integer> friendsIds) {
+    public void add(Interaction interaction, HashSet<Long> friendsIds) {
+
+        new InteractionAsyncTask(mFriendsDao, TaskSelector.ADD_INTERACTION, interaction, friendsIds).execute();
 
     }
 
@@ -163,9 +165,9 @@ class FriendsRepository {
         private TaskSelector mTaskSelector;
 
         private Interaction interaction;
-        private HashSet<Integer> friendIds;
+        private HashSet<Long> friendIds;
 
-        public InteractionAsyncTask(FriendsDao mFriendsDao, TaskSelector mTaskSelector, Interaction interaction, HashSet<Integer> friendIds) {
+        public InteractionAsyncTask(FriendsDao mFriendsDao, TaskSelector mTaskSelector, Interaction interaction, HashSet<Long> friendIds) {
             this.mFriendsDao = mFriendsDao;
             this.mTaskSelector = mTaskSelector;
             this.interaction = interaction;
@@ -179,7 +181,7 @@ class FriendsRepository {
 
                     long interactionId = mFriendsDao.add(interaction);
 
-                    for(Integer friendId : friendIds){
+                    for(Long friendId : friendIds){
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
                     }
 

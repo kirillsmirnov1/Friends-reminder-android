@@ -176,9 +176,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     HashSet<String> friendNames = (HashSet<String>)
                             resultingIntent.getSerializableExtra(EXTRA_NEW_INTERACTION_FRIEND_NAMES);
-                    HashSet<Integer> friendsIds = (HashSet<Integer>)
+                    HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_NEW_INTERACTION_FRIEND_IDS);
-                    int interactionTypeId = resultingIntent.getIntExtra(EXTRA_NEW_INTERACTION_TYPE, -1);
+                    long interactionTypeId = resultingIntent.getLongExtra(EXTRA_NEW_INTERACTION_TYPE, -1);
                     long date = resultingIntent.getLongExtra(EXTRA_NEW_INTERACTION_DATE, -1);
                     String comment = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION_COMMENT);
 
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case UPDATE_FRIEND_REQUEST: {
                 if(resultCode == RESULT_OK && resultingIntent != null) {
-                    int id = resultingIntent.getIntExtra(EXTRA_FRIEND_ID, -1);
+                    long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
                     if(id != -1){
                         String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
                         String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);

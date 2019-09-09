@@ -35,7 +35,7 @@ public class FriendPageActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         friend = new Friend(
-                intent.getIntExtra(EXTRA_FRIEND_ID, -1),
+                intent.getLongExtra(EXTRA_FRIEND_ID, -1),
                 intent.getStringExtra(EXTRA_FRIEND_NAME),
                 intent.getStringExtra(EXTRA_FRIEND_INFO));
 
@@ -91,7 +91,7 @@ public class FriendPageActivity extends AppCompatActivity {
         switch (requestCode){
             case UPDATE_FRIEND_REQUEST: {
                 if(resultCode == RESULT_OK) {
-                    int id = resultingIntent.getIntExtra(EXTRA_FRIEND_ID, -1);
+                    long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
                     if(id != -1){
                         String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
                         String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);

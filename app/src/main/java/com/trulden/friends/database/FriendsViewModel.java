@@ -43,7 +43,7 @@ public class FriendsViewModel extends AndroidViewModel {
     public void update(InteractionType interactionType) { mRepository.update(interactionType); }
     public void delete(InteractionType interactionType) { mRepository.delete(interactionType); }
 
-    public void add(Interaction interaction, HashSet<Integer> friendsIds) {
+    public void add(Interaction interaction, HashSet<Long> friendsIds) {
         mRepository.add(interaction, friendsIds);
     }
 
