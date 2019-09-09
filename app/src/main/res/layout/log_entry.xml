@@ -8,13 +8,42 @@
         style="@style/card"
         >
 
-    <TextView
-        android:id="@+id/log_entry_text"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        style="@style/TextAppearance.AppCompat.Subhead"
-        android:text="That will be the log entry. There will be lots of text. Maybe. Maybe not."
-        />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/log_entry_type_and_names"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="Meeting with [Jack, John, Joan]"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            />
+
+        <TextView
+            android:id="@+id/log_entry_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="12 May 2019"
+            />
+
+        <TextView
+            android:id="@+id/log_entry_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:text="That will be the log entry. There will be lots of text. Maybe. Maybe not."
+            />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

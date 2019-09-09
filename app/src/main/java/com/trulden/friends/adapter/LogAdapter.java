@@ -46,7 +46,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mTextView = itemView.findViewById(R.id.log_entry_text);
+            mTextView = itemView.findViewById(R.id.log_entry_comment);
         }
 
         public void bindTo(String s) {
