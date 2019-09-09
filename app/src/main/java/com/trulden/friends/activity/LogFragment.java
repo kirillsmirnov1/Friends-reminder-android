@@ -63,6 +63,7 @@ public class LogFragment extends Fragment {
                     typeMap.put(type.getId(), type.getInteractionTypeName());
                 }
                 logAdapter.setInteractionTypes(typeMap);
+                logAdapter.notifyDataSetChanged();
             }
         });
 
