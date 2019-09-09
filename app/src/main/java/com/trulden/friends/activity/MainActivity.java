@@ -25,9 +25,11 @@ import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
 
+import java.util.Calendar;
 import java.util.HashSet;
 
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
@@ -179,6 +181,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     int interactionTypeId = resultingIntent.getIntExtra(EXTRA_NEW_INTERACTION_TYPE, -1);
                     long date = resultingIntent.getLongExtra(EXTRA_NEW_INTERACTION_DATE, -1);
                     String comment = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION_COMMENT);
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(date);
+
+                    Interaction interaction = new Interaction(
+                            interactionTypeId, calendar,
+                            comment, friendNames.toString());
+
+                    //mFriendsViewModel.add(interaction, friendsIds);
 
                     // TODO write out to db
                 }
