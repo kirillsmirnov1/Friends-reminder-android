@@ -144,7 +144,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         replyIntent.putExtra(EXTRA_NEW_INTERACTION_TYPE, typesMap.get(mType.getSelectedItem().toString()));
         replyIntent.putExtra(EXTRA_NEW_INTERACTION_DATE, pickedDate.getTimeInMillis());
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION_COMMENT, mComment.getText());
+        replyIntent.putExtra(EXTRA_NEW_INTERACTION_COMMENT, mComment.getText().toString());
 
         setResult(RESULT_OK, replyIntent);
 
