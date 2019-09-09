@@ -9,15 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.database.entity.InteractionType;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     private Context mContext;
     private List<Interaction> mInteractions = new ArrayList<>();
+    private HashMap<Long, String> mInteractionTypes = new HashMap<>();
 
     public LogAdapter(Context context){
         mContext = context;
@@ -43,6 +47,10 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
         mInteractions = interactions;
     }
 
+    public void setInteractionTypes(HashMap<Long, String> interactionTypes){
+        mInteractionTypes = interactionTypes;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTypeAndNames;
@@ -58,8 +66,9 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
         }
 
         public void bindTo(Interaction interaction) {
-            // FIXME get NAME of activity, not id
-            mTypeAndNames.setText(interaction.getInteractionTypeId() + " with " + interaction.getFriendNames());
+            String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
+
+            mTypeAndNames.setText(interactionTypeName + " with " + interaction.getFriendNames());
             mDate.setText(new SimpleDateFormat("dd MMM yyyy").format(interaction.getDate().getTimeInMillis()));
             mComment.setText(interaction.getComment());
             // TODO hide comment if empty

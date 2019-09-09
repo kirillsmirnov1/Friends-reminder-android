@@ -17,7 +17,9 @@ import com.trulden.friends.R;
 import com.trulden.friends.adapter.LogAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.database.entity.InteractionType;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,6 +53,18 @@ public class LogFragment extends Fragment {
         recyclerView.setAdapter(logAdapter);
 
         mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+
+        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+            @Override
+            public void onChanged(List<InteractionType> interactionTypes) {
+                HashMap<Long, String> typeMap = new HashMap<>();
+
+                for(InteractionType type : interactionTypes){
+                    typeMap.put(type.getId(), type.getInteractionTypeName());
+                }
+                logAdapter.setInteractionTypes(typeMap);
+            }
+        });
 
         mFriendsViewModel.getAllInteractions().observe(this, new Observer<List<Interaction>>() {
             @Override
