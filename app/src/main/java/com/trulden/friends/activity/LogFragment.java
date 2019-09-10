@@ -57,6 +57,10 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_INTERACTIONS_POSITIONS)){
+            selectedInteractionsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
+        }
+
         RecyclerView recyclerView = view.findViewById(R.id.log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
