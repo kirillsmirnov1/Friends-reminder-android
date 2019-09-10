@@ -29,7 +29,6 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
 
-import java.util.Calendar;
 import java.util.HashSet;
 
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
@@ -175,12 +174,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     // Getting data from intent
 
                     HashSet<String> friendNames = (HashSet<String>)
-                            resultingIntent.getSerializableExtra(EXTRA_NEW_INTERACTION_FRIEND_NAMES);
+                            resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_NAMES);
                     HashSet<Long> friendsIds = (HashSet<Long>)
-                            resultingIntent.getSerializableExtra(EXTRA_NEW_INTERACTION_FRIEND_IDS);
-                    long interactionTypeId = resultingIntent.getLongExtra(EXTRA_NEW_INTERACTION_TYPE, -1);
-                    long date = resultingIntent.getLongExtra(EXTRA_NEW_INTERACTION_DATE, -1);
-                    String comment = resultingIntent.getStringExtra(EXTRA_NEW_INTERACTION_COMMENT);
+                            resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
+                    long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE, -1);
+                    long date = resultingIntent.getLongExtra(EXTRA_INTERACTION_DATE, -1);
+                    String comment = resultingIntent.getStringExtra(EXTRA_INTERACTION_COMMENT);
 
                     Interaction interaction = new Interaction(
                             interactionTypeId, date,

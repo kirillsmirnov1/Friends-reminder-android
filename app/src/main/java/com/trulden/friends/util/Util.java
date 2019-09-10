@@ -31,11 +31,11 @@ public class Util {
     public static final int IMPORT_DATABASE_REQUEST    = 4;
     public static final int EXPORT_DATABASE_REQUEST    = 5;
 
-    public static final String EXTRA_NEW_INTERACTION_FRIEND_NAMES = "EXTRA_NEW_INTERACTION_FRIEND_NAMES";
-    public static final String EXTRA_NEW_INTERACTION_FRIEND_IDS = "EXTRA_NEW_INTERACTION_FRIEND_IDS";
-    public static final String EXTRA_NEW_INTERACTION_TYPE = "EXTRA_NEW_INTERACTION_TYPE";
-    public static final String EXTRA_NEW_INTERACTION_DATE = "EXTRA_NEW_INTERACTION_DATE";
-    public static final String EXTRA_NEW_INTERACTION_COMMENT = "EXTRA_NEW_INTERACTION_COMMENT";
+    public static final String EXTRA_INTERACTION_FRIEND_NAMES = "EXTRA_INTERACTION_FRIEND_NAMES";
+    public static final String EXTRA_INTERACTION_FRIEND_IDS = "EXTRA_INTERACTION_FRIEND_IDS";
+    public static final String EXTRA_INTERACTION_TYPE = "EXTRA_INTERACTION_TYPE";
+    public static final String EXTRA_INTERACTION_DATE = "EXTRA_INTERACTION_DATE";
+    public static final String EXTRA_INTERACTION_COMMENT = "EXTRA_INTERACTION_COMMENT";
 
     public static final String EXTRA_FRIEND_ID   = "EXTRA_FRIEND_ID";
     public static final String EXTRA_FRIEND_NAME = "EXTRA_FRIEND_NAME";

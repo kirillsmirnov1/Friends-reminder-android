@@ -132,19 +132,19 @@ public class AddInteractionActivity extends AppCompatActivity implements
         HashSet<String> friendNames = new HashSet<>(Arrays.asList(
                 mFriends.getText().toString().split("\\s*,\\s*")));
 
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION_FRIEND_NAMES, friendNames);
+        replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, friendNames);
 
         HashSet<Long> friendsIds = new HashSet<>();
         for(String friendName : friendNames){
             friendsIds.add(friendsMap.get(friendName));
         }
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION_FRIEND_IDS, friendsIds);
+        replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_IDS, friendsIds);
 
         // And all of the others
 
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION_TYPE, typesMap.get(mType.getSelectedItem().toString()));
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION_DATE, pickedDate.getTimeInMillis());
-        replyIntent.putExtra(EXTRA_NEW_INTERACTION_COMMENT, mComment.getText().toString());
+        replyIntent.putExtra(EXTRA_INTERACTION_TYPE, typesMap.get(mType.getSelectedItem().toString()));
+        replyIntent.putExtra(EXTRA_INTERACTION_DATE, pickedDate.getTimeInMillis());
+        replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mComment.getText().toString());
 
         setResult(RESULT_OK, replyIntent);
 
