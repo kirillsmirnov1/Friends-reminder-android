@@ -8,10 +8,12 @@
 
     <EditText
         android:id="@+id/edit_interaction_type_name"
-        android:inputType="text"
+        android:inputType="textCapWords"
         android:hint="@string/type_of_interaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         />
 
     <EditText
@@ -20,6 +22,8 @@
         android:hint="@string/frequency_of_interaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         />
 
 </LinearLayout>
