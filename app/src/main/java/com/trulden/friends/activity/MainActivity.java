@@ -187,6 +187,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
                 mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
+
+                break;
             }
 
             case NEW_FRIEND_REQUEST:{
