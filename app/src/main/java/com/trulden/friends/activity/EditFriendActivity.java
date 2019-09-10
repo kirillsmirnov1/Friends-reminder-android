@@ -3,21 +3,19 @@ package com.trulden.friends.activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.FriendsAdapter;
 
 import static com.trulden.friends.util.Util.*;
 
-public class AddFriendActivity extends AppCompatActivity {
+public class EditFriendActivity extends AppCompatActivity {
 
     private EditText mName;
     private EditText mInfo;
@@ -27,7 +25,7 @@ public class AddFriendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_friend);
+        setContentView(R.layout.activity_edit_friend);
 
         mName = findViewById(R.id.edit_friends_name);
         mInfo = findViewById(R.id.edit_friends_info);

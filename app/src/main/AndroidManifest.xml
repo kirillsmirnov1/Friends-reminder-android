@@ -28,7 +28,7 @@
         <activity android:name=".activity.FriendPageActivity" />
 
         <activity
-            android:name=".activity.AddFriendActivity"
+            android:name=".activity.EditFriendActivity"
             android:parentActivityName=".activity.MainActivity"
             />
 

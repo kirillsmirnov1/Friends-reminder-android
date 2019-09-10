@@ -151,7 +151,7 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection {
 
     @Override
     public void editSelection() {
-        Intent intent = new Intent(getActivity(), AddFriendActivity.class);
+        Intent intent = new Intent(getActivity(), EditFriendActivity.class);
         Friend friend = mFriendsAdapter.getSelectedFriends().get(0);
 
         intent.putExtra(EXTRA_FRIEND_ID, friend.getId());

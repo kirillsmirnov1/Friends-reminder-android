@@ -63,7 +63,7 @@ public class FriendPageActivity extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.edit_selection: {
-                Intent intent = new Intent(this, AddFriendActivity.class);
+                Intent intent = new Intent(this, EditFriendActivity.class);
 
                 intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
                 intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());

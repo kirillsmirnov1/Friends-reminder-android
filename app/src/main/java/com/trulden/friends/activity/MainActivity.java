@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void addFriend(View view) {
-        Intent intent = new Intent(this, AddFriendActivity.class);
+        Intent intent = new Intent(this, EditFriendActivity.class);
         startActivityForResult(intent, NEW_FRIEND_REQUEST);
         mFabMenu.collapse();
     }
