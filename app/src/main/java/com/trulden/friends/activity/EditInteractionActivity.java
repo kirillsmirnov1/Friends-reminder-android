@@ -230,8 +230,6 @@ public class EditInteractionActivity extends AppCompatActivity implements
         if(adapterView.getItemAtPosition(position).toString().equals(getResources().getString(R.string.add_new))){
             makeToast(this, "Yo");
 
-            // TODO show dialog
-
             new EditInteractionTypeDialog().show(getSupportFragmentManager(), "editInteractionType");
 
             // TODO set new
