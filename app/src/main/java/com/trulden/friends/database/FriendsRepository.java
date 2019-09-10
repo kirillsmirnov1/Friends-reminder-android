@@ -202,7 +202,6 @@ class FriendsRepository {
 
                 case REMOVE_INTERACTION: {
 
-                    mFriendsDao.deleteBindingsByInteractionId(interaction.getId());
                     mFriendsDao.delete(interaction);
 
                     break;
