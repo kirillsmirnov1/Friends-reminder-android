@@ -193,28 +193,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case NEW_FRIEND_REQUEST:{
                 if(resultCode == RESULT_OK && resultingIntent != null) {
-                    String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
-                    String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
-
-                    assert name != null;
-                    Friend friend = new Friend(name, info);
-                    mFriendsViewModel.add(friend);
+                    mFriendsViewModel.add(getFriendFromIntent(resultingIntent));
                 }
                 break;
             }
 
             case UPDATE_FRIEND_REQUEST: {
                 if(resultCode == RESULT_OK && resultingIntent != null) {
-                    long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
-                    if(id != -1){
-                        String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
-                        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
-
-                        assert name != null;
-                        Friend friend = new Friend(id, name, info);
-                        mFriendsViewModel.update(friend);
-                    }
+                        mFriendsViewModel.update(getFriendFromIntent(resultingIntent));
                 }
+
                 break;
             }
 
@@ -240,6 +228,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }
         }
+    }
+
+    private Friend getFriendFromIntent(Intent resultingIntent) {
+        long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
+        String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
+        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
+
+        assert name != null;
+
+        return
+            id == -1
+            ? new Friend(name, info)
+            : new Friend(id, name, info);
     }
 
     private Interaction getInteractionFromIntent(Intent resultingIntent) {
