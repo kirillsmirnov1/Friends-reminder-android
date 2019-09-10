@@ -59,6 +59,7 @@ public class EditInteractionActivity extends AppCompatActivity implements
     private Calendar pickedDate;
 
     private long mInteractionId;
+    private String mTypeToSelect = null;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -106,7 +107,11 @@ public class EditInteractionActivity extends AppCompatActivity implements
                 if(mType != null)
                     mType.setAdapter(mSpinnerAdapter);
 
-                mType.setSelection(mSpinnerAdapter.getPosition(getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)));
+                mType.setSelection(mSpinnerAdapter.getPosition(
+                        mTypeToSelect == null
+                        ? getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)
+                        : mTypeToSelect
+                ));
             }
         });
 
@@ -301,11 +306,7 @@ public class EditInteractionActivity extends AppCompatActivity implements
 
         mFriendsViewModel.add(type);
 
-        // FIXME select, -1, why?
-
-        int newPos = ((ArrayAdapter)mType.getAdapter()).getPosition(name);
-
-        mType.setSelection(newPos);
+        mTypeToSelect = name;
 
     }
 }
