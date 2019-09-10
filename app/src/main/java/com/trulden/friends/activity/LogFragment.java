@@ -38,7 +38,7 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
     public static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
-    private LogAdapter mLogAdapter;
+    private LogAdapter mInteractionsAdapter;
 
     private ActionModeCallback mActionModeCallback;
     private ActionMode mActionMode;
@@ -68,9 +68,9 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
         RecyclerView recyclerView = view.findViewById(R.id.log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mLogAdapter = new LogAdapter(getActivity(), selectedInteractionsPositions);
+        mInteractionsAdapter = new LogAdapter(getActivity(), selectedInteractionsPositions);
 
-        recyclerView.setAdapter(mLogAdapter);
+        recyclerView.setAdapter(mInteractionsAdapter);
 
         mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
@@ -82,23 +82,23 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
                 for(InteractionType type : interactionTypes){
                     mTypeMap.put(type.getId(), type.getInteractionTypeName());
                 }
-                mLogAdapter.setInteractionTypes(mTypeMap);
-                mLogAdapter.notifyDataSetChanged();
+                mInteractionsAdapter.setInteractionTypes(mTypeMap);
+                mInteractionsAdapter.notifyDataSetChanged();
             }
         });
 
         mFriendsViewModel.getAllInteractions().observe(this, new Observer<List<Interaction>>() {
             @Override
             public void onChanged(List<Interaction> interactions) {
-                mLogAdapter.setInteractions(interactions);
-                mLogAdapter.notifyDataSetChanged();
+                mInteractionsAdapter.setInteractions(interactions);
+                mInteractionsAdapter.notifyDataSetChanged();
             }
         });
 
-        mLogAdapter.setOnClickListener(new LogAdapter.OnClickListener() {
+        mInteractionsAdapter.setOnClickListener(new LogAdapter.OnClickListener() {
             @Override
             public void onItemClick(View view, Interaction obj, int pos) {
-                if(mLogAdapter.getSelectedItemCount() > 0){
+                if(mInteractionsAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 } else {
                     // TODO open log entry
@@ -126,10 +126,10 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
 
     private void toggleSelection(int pos) {
         if(pos != -1) {
-            mLogAdapter.toggleSelection(pos);
+            mInteractionsAdapter.toggleSelection(pos);
         }
 
-        int count = mLogAdapter.getSelectedItemCount();
+        int count = mInteractionsAdapter.getSelectedItemCount();
 
         if(count == 0){
             mActionMode.finish();
@@ -155,7 +155,7 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), AddInteractionActivity.class);
-        Interaction interaction = mLogAdapter.getSelectedInteractions().get(0);
+        Interaction interaction = mInteractionsAdapter.getSelectedInteractions().get(0);
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
         intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypeMap.get(interaction.getInteractionTypeId()));
@@ -168,7 +168,7 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
 
     @Override
     public void deleteSelection() {
-        for(Interaction interaction : mLogAdapter.getSelectedInteractions()) {
+        for(Interaction interaction : mInteractionsAdapter.getSelectedInteractions()) {
             mFriendsViewModel.delete(interaction);
         }
         makeToast(getContext(), "Interactions deleted");
@@ -210,7 +210,7 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            mLogAdapter.clearSelections();
+            mInteractionsAdapter.clearSelections();
             mActionMode = null;
         }
     }
