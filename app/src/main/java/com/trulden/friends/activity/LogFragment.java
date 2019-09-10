@@ -100,8 +100,6 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
             public void onItemClick(View view, Interaction obj, int pos) {
                 if(mInteractionsAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
-                } else {
-                    // TODO open log entry
                 }
             }
 

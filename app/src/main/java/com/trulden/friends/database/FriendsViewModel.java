@@ -54,6 +54,4 @@ public class FriendsViewModel extends AndroidViewModel {
     public void update(Interaction interaction, HashSet<Long> friendsIds) { mRepository.update(interaction, friendsIds); }
     public void delete(Interaction interaction)                           { mRepository.delete(interaction); }
 
-    // TODO update interaction
-    // TODO delete interaction
 }

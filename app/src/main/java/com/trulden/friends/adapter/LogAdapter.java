@@ -114,7 +114,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
             mDate.setText(dateFormat.format(interaction.getDate()));
             mComment.setText(interaction.getComment());
 
-//            // FIXME strange reaction on click when selected — cards with comment hide it
+//            // Strange reaction on click when selected — cards with comment hide it
 //            // Couldn't figure why
 
 //            int p = mDate.getPaddingStart();

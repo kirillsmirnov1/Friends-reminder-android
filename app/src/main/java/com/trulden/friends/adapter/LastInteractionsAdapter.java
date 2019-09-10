@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractionsAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mLastInteractions; // TODO объекты LastInteraction, а не строки
+    private ArrayList<String> mLastInteractions;
 
     public LastInteractionsAdapter(Context context, ArrayList<String> lastInteractions){
         mContext = context;

@@ -5,7 +5,6 @@ import androidx.room.ColumnInfo;
 
 import java.util.Calendar;
 
-// TODO get LI objects by direct query from database
 public class LastInteraction {
 
     @ColumnInfo(name = "interaction_type_name")

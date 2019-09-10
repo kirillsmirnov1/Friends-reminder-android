@@ -16,7 +16,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){ // TODO другой селектор
+        switch (position){
             case 0: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.MEETINGS_TAG);
             case 1: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.TEXTING_TAG);
             case 2: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.CALLS_TAG);

@@ -48,8 +48,8 @@ public class LastInteractionsFragment extends Fragment {
         TabCounterView tcv1 = new TabCounterView(getContext(), "Texting", getResources().getStringArray(R.array.texting_a_while_ago).length);
         TabCounterView tcv2 = new TabCounterView(getContext(), "Calls", getResources().getStringArray(R.array.call_a_while_ago).length);
 
-        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv0)); // TODO имена и прочие параметры вкладок должны браться не из констант
-        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv1));         // Но это когда я настрою бд
+        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv0));
+        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv1));
         mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv2));
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

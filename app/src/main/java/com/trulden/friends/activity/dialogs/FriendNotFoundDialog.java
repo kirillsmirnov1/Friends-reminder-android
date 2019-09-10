@@ -27,7 +27,7 @@ public class FriendNotFoundDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setMessage("You don't have friend named «" + name + "»") // TODO check all friends in row, not one by one after clicking save
+        builder.setMessage("You don't have friend named «" + name + "»")
                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
@@ -38,7 +38,7 @@ public class FriendNotFoundDialog extends DialogFragment {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
                        // There might be a better way of doing this
-                       makeToast(getActivity(), "Fix «" + name + "» up"); // TODO show edit form
+                       makeToast(getActivity(), "Fix «" + name + "» up");
                    }
                })
                .setNegativeButton("Forget", new DialogInterface.OnClickListener() {
