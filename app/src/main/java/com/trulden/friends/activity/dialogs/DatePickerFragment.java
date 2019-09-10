@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import com.trulden.friends.activity.AddInteractionActivity;
+import com.trulden.friends.activity.EditInteractionActivity;
 
 import java.util.Calendar;
 
@@ -32,6 +32,6 @@ public class DatePickerFragment extends DialogFragment
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        ((AddInteractionActivity)getActivity()).processDatePickerResult(year, month + 1, day);
+        ((EditInteractionActivity)getActivity()).processDatePickerResult(year, month + 1, day);
     }
 }

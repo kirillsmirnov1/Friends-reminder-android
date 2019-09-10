@@ -39,7 +39,7 @@ import java.util.List;
 
 import static com.trulden.friends.util.Util.*;
 
-public class AddInteractionActivity extends AppCompatActivity implements
+public class EditInteractionActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
 
     FriendsViewModel mFriendsViewModel;
@@ -62,7 +62,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_interaction);
+        setContentView(R.layout.activity_edit_interaction);
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 

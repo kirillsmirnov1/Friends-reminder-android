@@ -33,7 +33,7 @@
             />
 
         <activity
-            android:name=".activity.AddInteractionActivity"
+            android:name=".activity.EditInteractionActivity"
             android:label="@string/add_interaction"
             android:parentActivityName=".activity.MainActivity">
 

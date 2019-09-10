@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.trulden.friends.activity.AddInteractionActivity;
+import com.trulden.friends.activity.EditInteractionActivity;
 
 import static com.trulden.friends.util.Util.*;
 
@@ -31,7 +31,7 @@ public class FriendNotFoundDialog extends DialogFragment {
                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       ((AddInteractionActivity)getActivity()).createFriendByName(name);
+                       ((EditInteractionActivity)getActivity()).createFriendByName(name);
                    }
                })
                .setNeutralButton("I'll edit", new DialogInterface.OnClickListener() {
@@ -44,7 +44,7 @@ public class FriendNotFoundDialog extends DialogFragment {
                .setNegativeButton("Forget", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       ((AddInteractionActivity)getActivity()).removeFriendName(name);
+                       ((EditInteractionActivity)getActivity()).removeFriendName(name);
                    }
                });
 
