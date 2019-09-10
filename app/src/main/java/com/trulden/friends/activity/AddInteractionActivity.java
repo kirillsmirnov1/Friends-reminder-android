@@ -48,11 +48,15 @@ public class AddInteractionActivity extends AppCompatActivity implements
     private HashMap<String, Long> typesMap = new HashMap<>();
 
     private Spinner  mType;
+    private ArrayAdapter<String> mSpinnerAdapter;
+
     private EditText mDate;
     private AppCompatMultiAutoCompleteTextView mFriends;
     private EditText mComment;
 
     private Calendar pickedDate;
+
+    private long mInteractionId;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -87,11 +91,13 @@ public class AddInteractionActivity extends AppCompatActivity implements
                         typesMap.put(interactionType.getInteractionTypeName(), interactionType.getId());
                     }
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
+                mSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
                         android.R.layout.simple_spinner_dropdown_item, typesMap.keySet().toArray(new String[0]));
 
                 if(mType != null)
-                    mType.setAdapter(adapter);
+                    mType.setAdapter(mSpinnerAdapter);
+
+                mType.setSelection(mSpinnerAdapter.getPosition(getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)));
             }
         });
 
@@ -116,6 +122,27 @@ public class AddInteractionActivity extends AppCompatActivity implements
         });
 
         initInteractionTypeSpinner();
+
+        // Get info from intent and set it to views
+
+        Intent intent = getIntent();
+
+        mInteractionId = intent.getLongExtra(EXTRA_INTERACTION_ID, -1);
+
+        if(mInteractionId == -1){
+            getSupportActionBar().setTitle("Add interaction");
+        } else {
+            getSupportActionBar().setTitle("Edit interaction");
+
+            mComment.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
+
+            pickedDate = Calendar.getInstance();
+            pickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, -1));
+
+            mDate.setText(dateFormat.format(pickedDate.getTime()));
+
+            mFriends.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
+        }
     }
 
     private void initInteractionTypeSpinner() {
@@ -142,7 +169,7 @@ public class AddInteractionActivity extends AppCompatActivity implements
 
         // And all of the others
 
-        replyIntent.putExtra(EXTRA_INTERACTION_TYPE, typesMap.get(mType.getSelectedItem().toString()));
+        replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, typesMap.get(mType.getSelectedItem().toString()));
         replyIntent.putExtra(EXTRA_INTERACTION_DATE, pickedDate.getTimeInMillis());
         replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mComment.getText().toString());
 
