@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.activity.dialogs.DatePickerFragment;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
@@ -230,6 +231,8 @@ public class EditInteractionActivity extends AppCompatActivity implements
             makeToast(this, "Yo");
 
             // TODO show dialog
+
+            new EditInteractionTypeDialog().show(getSupportFragmentManager(), "editInteractionType");
 
             // TODO set new
             adapterView.setSelection(0);
