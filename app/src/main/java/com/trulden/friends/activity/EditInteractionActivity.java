@@ -228,12 +228,8 @@ public class EditInteractionActivity extends AppCompatActivity implements
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
         if(adapterView.getItemAtPosition(position).toString().equals(getResources().getString(R.string.add_new))){
-            makeToast(this, "Yo");
 
             new EditInteractionTypeDialog().show(getSupportFragmentManager(), "editInteractionType");
-
-            // TODO set new
-            adapterView.setSelection(0);
         }
     }
 
@@ -298,5 +294,18 @@ public class EditInteractionActivity extends AppCompatActivity implements
         }
 
         return true;
+    }
+
+    public void createInteractionType(String name, int freq) {
+        InteractionType type = new InteractionType(name, freq);
+
+        mFriendsViewModel.add(type);
+
+        // FIXME select, -1, why?
+
+        int newPos = ((ArrayAdapter)mType.getAdapter()).getPosition(name);
+
+        mType.setSelection(newPos);
+
     }
 }
