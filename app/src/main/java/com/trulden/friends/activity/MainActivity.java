@@ -181,6 +181,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             }
 
+            case UPDATE_INTERACTION_REQUEST: {
+
+                HashSet<Long> friendsIds = (HashSet<Long>)
+                        resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
+
+                mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
+            }
+
             case NEW_FRIEND_REQUEST:{
                 if(resultCode == RESULT_OK && resultingIntent != null) {
                     String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);

@@ -33,7 +33,6 @@ class FriendsRepository {
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
 
-
     enum TaskSelector{
         ADD_FRIEND,
         UPDATE_FRIEND,
@@ -168,6 +167,11 @@ class FriendsRepository {
                 .execute();
     }
 
+    public void update(Interaction interaction, HashSet<Long> friendsIds) {
+        new InteractionAsyncTask(mFriendsDao, TaskSelector.UPDATE_INTERACTION, interaction, friendsIds)
+                .execute();
+    }
+
     private static class InteractionAsyncTask extends AsyncTask<Void, Void, Void>{
 
         private FriendsDao mFriendsDao;
@@ -197,8 +201,20 @@ class FriendsRepository {
                     break;
                 }
 
-                case UPDATE_INTERACTION: // TODO
+                case UPDATE_INTERACTION: {
+
+                    long interactionId = interaction.getId();
+
+                    mFriendsDao.deleteBindingsByInteractionId(interactionId);
+
+                    mFriendsDao.update(interaction);
+
+                    for (Long friendId : friendIds) {
+                        mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
+                    }
+
                     break;
+                }
 
                 case REMOVE_INTERACTION: {
 
