@@ -112,16 +112,21 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
             mTypeAndNames.setText(interactionTypeName + " with " + interaction.getFriendNames());
             mDate.setText(dateFormat.format(interaction.getDate()));
-            // FIXME
-//            if(interaction.getComment() == null || interaction.getComment().isEmpty()){
+            mComment.setText(interaction.getComment());
+
+//            // FIXME strange reaction on click when selected — cards with comment hide it
+//            // Couldn't figure why
+
+//            int p = mDate.getPaddingStart();
+//            if(mComment.getText().toString().isEmpty() || interaction.getComment() == null || interaction.getComment().isEmpty()){
 //                mComment.setPadding(0, 0, 0, 0);
 //                mComment.setHeight(0);
-//
-//                int p = mDate.getPaddingStart();
 //                mDate.setPadding(p, 0, p, p);
+//            } else {
+//                mComment.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+//                mComment.setPadding(p, 0, p, p);
+//                mDate.setPadding(p, 0, p, 0);
 //            }
-
-            mComment.setText(interaction.getComment());
 
             // Set click listeners
 
