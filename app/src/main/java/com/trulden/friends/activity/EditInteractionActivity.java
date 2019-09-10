@@ -92,8 +92,15 @@ public class EditInteractionActivity extends AppCompatActivity implements
                         typesMap.put(interactionType.getInteractionTypeName(), interactionType.getId());
                     }
                 }
+
+                String[] spinnerOptions = new String[typesMap.size() + 1];
+
+                System.arraycopy(typesMap.keySet().toArray(new String[0]), 0, spinnerOptions, 0, typesMap.size());
+
+                spinnerOptions[spinnerOptions.length-1] = getResources().getString(R.string.add_new);
+
                 mSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
-                        android.R.layout.simple_spinner_dropdown_item, typesMap.keySet().toArray(new String[0]));
+                        android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
 
                 if(mType != null)
                     mType.setAdapter(mSpinnerAdapter);
@@ -219,6 +226,10 @@ public class EditInteractionActivity extends AppCompatActivity implements
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
+        if(adapterView.getItemAtPosition(position).toString().equals(getResources().getString(R.string.add_new))){
+            makeToast(this, "Yo");
+            adapterView.setSelection(0);
+        }
     }
 
     @Override
