@@ -161,6 +161,7 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
         intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypeMap.get(interaction.getInteractionTypeId()));
         intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
         intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
+        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, interaction.getFriendNames());
 
         getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
     }
