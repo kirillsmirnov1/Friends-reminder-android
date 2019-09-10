@@ -154,6 +154,8 @@ public class AddInteractionActivity extends AppCompatActivity implements
     public void saveInteraction() {
         Intent replyIntent = new Intent();
 
+        replyIntent.putExtra(EXTRA_INTERACTION_ID, mInteractionId);
+
         // Get friend names, get ids and put them into intent
 
         HashSet<String> friendNames = new HashSet<>(Arrays.asList(
