@@ -173,8 +173,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     // Getting data from intent
 
-                    HashSet<String> friendNames = (HashSet<String>)
-                            resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_NAMES);
+                    String friendNames = resultingIntent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES);
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
                     long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE_ID, -1);
@@ -183,11 +182,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     Interaction interaction = new Interaction(
                             interactionTypeId, date,
-                            comment, friendNames.toString().replaceAll("\\[|\\]", ""));
+                            comment, friendNames);
 
                     mFriendsViewModel.add(interaction, friendsIds);
-
-                    // TODO update interaction
                 }
                 break;
             }
