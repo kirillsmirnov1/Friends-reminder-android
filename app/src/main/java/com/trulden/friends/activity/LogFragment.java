@@ -44,6 +44,7 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
     private ActionMode mActionMode;
 
     private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
+    private HashMap<Long, String> mTypeMap;
 
     public LogFragment() {
         // Required empty public constructor
@@ -76,12 +77,12 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
         mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
-                HashMap<Long, String> typeMap = new HashMap<>();
+                mTypeMap = new HashMap<>();
 
                 for(InteractionType type : interactionTypes){
-                    typeMap.put(type.getId(), type.getInteractionTypeName());
+                    mTypeMap.put(type.getId(), type.getInteractionTypeName());
                 }
-                mLogAdapter.setInteractionTypes(typeMap);
+                mLogAdapter.setInteractionTypes(mTypeMap);
                 mLogAdapter.notifyDataSetChanged();
             }
         });
