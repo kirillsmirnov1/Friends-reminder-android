@@ -42,6 +42,7 @@ import static com.trulden.friends.util.Util.*;
 public class EditInteractionActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
 
+    private static final String LOG_TAG = EditInteractionActivity.class.getSimpleName();
     FriendsViewModel mFriendsViewModel;
 
     private HashMap<String, Long> friendsMap = new HashMap<>();
