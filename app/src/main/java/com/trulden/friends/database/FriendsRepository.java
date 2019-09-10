@@ -159,9 +159,13 @@ class FriendsRepository {
     // -----------------------------------------
 
     public void add(Interaction interaction, HashSet<Long> friendsIds) {
+        new InteractionAsyncTask(mFriendsDao, TaskSelector.ADD_INTERACTION, interaction, friendsIds)
+                .execute();
+    }
 
-        new InteractionAsyncTask(mFriendsDao, TaskSelector.ADD_INTERACTION, interaction, friendsIds).execute();
-
+    public void delete(Interaction interaction) {
+        new InteractionAsyncTask(mFriendsDao, TaskSelector.REMOVE_INTERACTION, interaction, null)
+                .execute();
     }
 
     private static class InteractionAsyncTask extends AsyncTask<Void, Void, Void>{
@@ -182,21 +186,27 @@ class FriendsRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             switch (mTaskSelector){
-                case ADD_INTERACTION:
+                case ADD_INTERACTION: {
 
                     long interactionId = mFriendsDao.add(interaction);
 
-                    for(Long friendId : friendIds){
+                    for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
                     }
 
                     break;
+                }
 
                 case UPDATE_INTERACTION: // TODO
                     break;
 
-                case REMOVE_INTERACTION: // TODO
+                case REMOVE_INTERACTION: {
+
+                    mFriendsDao.deleteBindingsByInteractionId(interaction.getId());
+                    mFriendsDao.delete(interaction);
+
                     break;
+                }
 
                 default:
                     // Do nothing

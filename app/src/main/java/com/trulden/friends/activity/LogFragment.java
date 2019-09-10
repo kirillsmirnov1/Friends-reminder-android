@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.trulden.friends.util.Util.makeToast;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -155,7 +157,10 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
 
     @Override
     public void deleteSelection() {
-        // TODO
+        for(Interaction interaction : mLogAdapter.getSelectedInteractions()) {
+            mFriendsViewModel.delete(interaction);
+        }
+        makeToast(getContext(), "Interactions deleted");
     }
 
 

@@ -81,6 +81,9 @@ public interface FriendsDao {
     @Delete
     void delete(BindFriendInteraction bindFriendInteraction);
 
+    @Query("DELETE FROM bind_friend_interaction_table WHERE interactionId = :interactionId;")
+    void deleteBindingsByInteractionId(long interactionId);
+
     // TODO get friends ids from interaction id
     // TODO get interactions of friend
 
