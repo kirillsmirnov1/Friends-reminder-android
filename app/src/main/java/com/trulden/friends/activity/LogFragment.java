@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.trulden.friends.util.Util.makeToast;
+import static com.trulden.friends.util.Util.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -152,7 +153,15 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
 
     @Override
     public void editSelection() {
-        // TODO
+        Intent intent = new Intent(getActivity(), AddInteractionActivity.class);
+        Interaction interaction = mLogAdapter.getSelectedInteractions().get(0);
+
+        intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
+        intent.putExtra(EXTRA_INTERACTION_TYPE, interaction.getInteractionTypeId());
+        intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
+        intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
+
+        getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
     }
 
     @Override
