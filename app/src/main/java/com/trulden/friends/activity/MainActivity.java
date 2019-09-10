@@ -173,18 +173,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     // Getting data from intent
 
-                    String friendNames = resultingIntent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES);
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
-                    long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE_ID, -1);
-                    long date = resultingIntent.getLongExtra(EXTRA_INTERACTION_DATE, -1);
-                    String comment = resultingIntent.getStringExtra(EXTRA_INTERACTION_COMMENT);
 
-                    Interaction interaction = new Interaction(
-                            interactionTypeId, date,
-                            comment, friendNames);
-
-                    mFriendsViewModel.add(interaction, friendsIds);
+                    mFriendsViewModel.add(getInteractionFromIntent(resultingIntent), friendsIds);
                 }
                 break;
             }
@@ -238,6 +230,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }
         }
+    }
+
+    private Interaction getInteractionFromIntent(Intent resultingIntent) {
+
+        long id = resultingIntent.getLongExtra(EXTRA_INTERACTION_ID, -1);
+        String friendNames = resultingIntent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES);
+        long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE_ID, -1);
+        long date = resultingIntent.getLongExtra(EXTRA_INTERACTION_DATE, -1);
+        String comment = resultingIntent.getStringExtra(EXTRA_INTERACTION_COMMENT);
+
+        return
+            id == -1
+                ? new Interaction(interactionTypeId, date, comment, friendNames)
+                : new Interaction(id, interactionTypeId, date, comment, friendNames);
     }
 
     private void importDatabaseFromUri(Uri uri) {
