@@ -26,11 +26,14 @@ public class Util {
 
     public static final int NEW_INTERACTION_REQUEST    = 1;
     public static final int NEW_FRIEND_REQUEST         = 2;
+
     public static final int UPDATE_FRIEND_REQUEST      = 3;
+    public static final int UPDATE_INTERACTION_REQUEST = 4;
 
-    public static final int IMPORT_DATABASE_REQUEST    = 4;
-    public static final int EXPORT_DATABASE_REQUEST    = 5;
+    public static final int IMPORT_DATABASE_REQUEST    = 5;
+    public static final int EXPORT_DATABASE_REQUEST    = 6;
 
+    public static final String EXTRA_INTERACTION_ID = "EXTRA_INTERACTION_ID";
     public static final String EXTRA_INTERACTION_FRIEND_NAMES = "EXTRA_INTERACTION_FRIEND_NAMES";
     public static final String EXTRA_INTERACTION_FRIEND_IDS = "EXTRA_INTERACTION_FRIEND_IDS";
     public static final String EXTRA_INTERACTION_TYPE = "EXTRA_INTERACTION_TYPE";
