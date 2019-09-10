@@ -36,7 +36,7 @@ public class Util {
     public static final String EXTRA_INTERACTION_ID = "EXTRA_INTERACTION_ID";
     public static final String EXTRA_INTERACTION_FRIEND_NAMES = "EXTRA_INTERACTION_FRIEND_NAMES";
     public static final String EXTRA_INTERACTION_FRIEND_IDS = "EXTRA_INTERACTION_FRIEND_IDS";
-    public static final String EXTRA_INTERACTION_TYPE = "EXTRA_INTERACTION_TYPE";
+    public static final String EXTRA_INTERACTION_TYPE_ID = "EXTRA_INTERACTION_TYPE_ID";
     public static final String EXTRA_INTERACTION_DATE = "EXTRA_INTERACTION_DATE";
     public static final String EXTRA_INTERACTION_COMMENT = "EXTRA_INTERACTION_COMMENT";
 

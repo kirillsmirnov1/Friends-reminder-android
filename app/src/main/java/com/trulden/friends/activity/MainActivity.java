@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_NAMES);
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
-                    long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE, -1);
+                    long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE_ID, -1);
                     long date = resultingIntent.getLongExtra(EXTRA_INTERACTION_DATE, -1);
                     String comment = resultingIntent.getStringExtra(EXTRA_INTERACTION_COMMENT);
 

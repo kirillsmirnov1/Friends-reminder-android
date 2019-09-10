@@ -157,7 +157,7 @@ public class LogFragment extends Fragment implements FragmentWithSelection{
         Interaction interaction = mLogAdapter.getSelectedInteractions().get(0);
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
-        intent.putExtra(EXTRA_INTERACTION_TYPE, interaction.getInteractionTypeId());
+        intent.putExtra(EXTRA_INTERACTION_TYPE_ID, interaction.getInteractionTypeId());
         intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
         intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
 
