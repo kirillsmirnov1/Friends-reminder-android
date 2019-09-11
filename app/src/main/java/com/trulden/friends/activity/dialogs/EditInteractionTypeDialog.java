@@ -75,7 +75,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         }
 
                         // If everything is fine — pass type information back to activity
-                        parentActivity.createInteractionType(name, frequency);
+                        parentActivity.saveInteractionType(name, frequency);
 
                         makeToast(parentActivity, "Type created!");
 

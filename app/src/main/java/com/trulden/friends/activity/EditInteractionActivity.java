@@ -294,7 +294,7 @@ public class EditInteractionActivity extends AppCompatActivity implements
         return true;
     }
 
-    public void createInteractionType(String name, int freq) {
+    public void saveInteractionType(String name, int freq) {
         InteractionType type = new InteractionType(name, freq);
 
         mFriendsViewModel.add(type);
