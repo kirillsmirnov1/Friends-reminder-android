@@ -51,7 +51,11 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mInteractionTypes.size();
+    }
+
+    public void setInteractionTypes(List<InteractionType> interactionTypes){
+        mInteractionTypes = interactionTypes;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
