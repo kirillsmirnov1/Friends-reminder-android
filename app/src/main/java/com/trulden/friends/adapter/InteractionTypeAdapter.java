@@ -1,12 +1,14 @@
 package com.trulden.friends.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.trulden.friends.R;
 import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.ArrayList;
@@ -33,7 +35,8 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return new ViewHolder(LayoutInflater.from(mContext)
+                .inflate(R.layout.interaction_type_entry, parent, false));
     }
 
     @Override
