@@ -3,23 +3,24 @@ package com.trulden.friends.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.FragmentWithSelection;
+import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.adapter.LogAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
@@ -29,12 +30,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
+import static com.trulden.friends.util.Util.makeToast;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LogFragment extends Fragment implements FragmentWithSelection {
+public class LogFragment extends Fragment implements ActivityWithSelection {
 
     public static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 

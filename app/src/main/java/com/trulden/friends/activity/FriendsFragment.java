@@ -3,34 +3,37 @@ package com.trulden.friends.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.FragmentWithSelection;
+import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.adapter.FriendsAdapter;
-import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.Friend;
 
 import java.util.HashSet;
 import java.util.List;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_INFO;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
+import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 
-public class FriendsFragment extends Fragment implements FragmentWithSelection {
+public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
     private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";

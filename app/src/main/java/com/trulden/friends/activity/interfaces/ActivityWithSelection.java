@@ -1,6 +1,6 @@
 package com.trulden.friends.activity.interfaces;
 
-public interface FragmentWithSelection {
+public interface ActivityWithSelection {
     void editSelection();
     void deleteSelection();
 }
