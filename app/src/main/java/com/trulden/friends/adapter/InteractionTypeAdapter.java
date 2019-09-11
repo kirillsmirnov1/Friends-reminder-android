@@ -41,7 +41,12 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder
+            .bindTo(
+                mInteractionTypes.get(position),
+                position,
+                selectedPositions.contains(position)
+            );
     }
 
     @Override
@@ -52,6 +57,10 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+        }
+
+        public void bindTo(InteractionType interactionType, int position, boolean contains) {
+
         }
     }
 
