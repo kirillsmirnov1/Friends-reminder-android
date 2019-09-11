@@ -127,13 +127,6 @@ public class EditInteractionActivity extends AppCompatActivity implements
         mComment = findViewById(R.id.editComment);
 
         mFriends.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-        mFriends.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                mFriends.showDropDown();
-                return false;
-            }
-        });
 
         initInteractionTypeSpinner();
 
