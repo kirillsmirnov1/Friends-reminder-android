@@ -4,12 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
-import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.ArrayList;
@@ -45,9 +45,7 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
         holder
             .bindTo(
                 mInteractionTypes.get(position),
-                position,
-                selectedPositions.contains(position)
-            );
+                position);
     }
 
     @Override
@@ -94,15 +92,49 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+
+        private TextView mInteractionName;
+        private TextView mInteractionFrequency;
+        private View mInteractionTypeEntryLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            mInteractionName = itemView.findViewById(R.id.interaction_type_entry_name);
+            mInteractionFrequency = itemView.findViewById(R.id.interaction_type_entry_frequency);
+
+            mInteractionTypeEntryLayout = itemView.findViewById(R.id.interaction_type_entry_layout);
         }
 
-        public void bindTo(InteractionType interactionType, int position, boolean contains) {
+        public void bindTo(final InteractionType interactionType, final int position) {
+            mInteractionName.setText(interactionType.getInteractionTypeName());
+            mInteractionFrequency.setText("per " + interactionType.getFrequency() + " days");
 
+            mInteractionTypeEntryLayout.setActivated(selectedPositions.contains(position));
+
+            mInteractionTypeEntryLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onClickListener == null)
+                        return;
+                    onClickListener.onItemClick(view, interactionType, position);
+                }
+            });
+
+            mInteractionTypeEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(onClickListener == null)
+                        return false;
+
+                    onClickListener.onItemLongClick(view, interactionType, position);
+                    return true;
+                }
+            });
         }
     }
 
+    // FIXME  I have a feeling, that it should not be inner class
     public interface OnClickListener {
         void onItemClick(View view, InteractionType obj, int pos);
         void onItemLongClick(View view, InteractionType obj, int pos);
