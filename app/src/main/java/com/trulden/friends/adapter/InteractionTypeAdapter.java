@@ -21,6 +21,15 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
 
     private static List<InteractionType> mInteractionTypes = new ArrayList<>();
 
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public InteractionTypeAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
+        mContext = context;
+        this.selectedPositions = selectedPositions;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
