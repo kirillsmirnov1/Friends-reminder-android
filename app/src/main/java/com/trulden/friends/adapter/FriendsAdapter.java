@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.Friend;
 
@@ -43,8 +45,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         holder
             .bindTo(
                 mFriendsData.get(position),
-                position,
-                selectedFriendsPositions.contains(position));
+                position);
     }
 
     @Override
@@ -102,7 +103,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             mFriendEntryLayout = itemView.findViewById(R.id.friend_entry_layout);
         }
 
-        public void bindTo(final Friend friend, final int position, boolean selected) {
+        public void bindTo(final Friend friend, final int position) {
             mTextView.setText(friend.getName());
             mFriendEntryLayout.setActivated(selectedFriendsPositions.contains(position));
 
