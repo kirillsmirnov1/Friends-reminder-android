@@ -36,13 +36,18 @@ public class EditInteractionTypeDialog extends DialogFragment {
             .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    ((EditInteractionActivity)getActivity()) // FIXME mName is null
-                            .createInteractionType(mName.getText().toString(), Integer.parseInt(mFrequency.getText().toString()));
+
+                    // If everything is fine — pass type information back to activity
+                    ((EditInteractionActivity)getActivity())
+                            .createInteractionType(
+                                    mName.getText().toString(),
+                                    Integer.parseInt(mFrequency.getText().toString()));
                 }
             })
             .setNegativeButton("Discard", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    // Do nothing
                 }
             });
 
