@@ -41,8 +41,8 @@ dependencies {
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycleVersion"
-    compile "androidx.core:core-ktx:+"
-    compile "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "org.apache.directory.studio:org.apache.commons.io:2.4"
