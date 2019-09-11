@@ -24,6 +24,7 @@ public class InteractionTypesActivity extends AppCompatActivity {
     private ActionMode mActionMode;
 
     private HashSet<Integer> selectedPositions = new HashSet<>();
+    public static final String SELECTED_TYPES_POSITIONS = "SELECTED_TYPES_POSITIONS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
