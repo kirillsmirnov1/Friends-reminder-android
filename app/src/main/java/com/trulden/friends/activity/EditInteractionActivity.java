@@ -40,8 +40,10 @@ import java.util.List;
 
 import static com.trulden.friends.util.Util.*;
 
-public class EditInteractionActivity extends AppCompatActivity implements
-        AdapterView.OnItemSelectedListener{
+public class EditInteractionActivity
+        extends AppCompatActivity
+        implements
+            AdapterView.OnItemSelectedListener {
 
     private static final String LOG_TAG = EditInteractionActivity.class.getSimpleName();
     FriendsViewModel mFriendsViewModel;
