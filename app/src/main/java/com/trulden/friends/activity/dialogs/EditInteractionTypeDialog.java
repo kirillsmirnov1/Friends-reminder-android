@@ -36,14 +36,14 @@ public class EditInteractionTypeDialog extends DialogFragment {
             .setPositiveButton("Save", null)     // Set it later
             .setNegativeButton("Discard", null); // Need only text on that one
 
-        final Dialog dialog = builder.create();
+        final AlertDialog dialog = builder.create();
 
         // To check values in dialog, I need to set listener like that
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                ((AlertDialog)dialog).getButton(AlertDialog.BUTTON_POSITIVE)
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                         .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
