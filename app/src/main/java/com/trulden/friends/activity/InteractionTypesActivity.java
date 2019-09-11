@@ -2,14 +2,8 @@ package com.trulden.friends.activity;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-
-import android.view.View;
 
 import com.trulden.friends.R;
 import com.trulden.friends.database.FriendsViewModel;
