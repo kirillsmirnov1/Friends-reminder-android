@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.ArrayList;
@@ -73,6 +74,23 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
 
     public int getSelectedItemCount() {
         return selectedPositions.size();
+    }
+
+    public void toggleSelection(int pos) {
+        if(selectedPositions.contains(pos)){
+            selectedPositions.remove(pos);
+        } else {
+            selectedPositions.add(pos);
+        }
+        notifyItemChanged(pos);
+    }
+
+    public List<InteractionType> getSelectedFriends() {
+        List <InteractionType> selectedFriends = new ArrayList<>(selectedPositions.size());
+        for(Integer position : selectedPositions){
+            selectedFriends.add(mInteractionTypes.get(position));
+        }
+        return selectedFriends;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
