@@ -50,6 +50,8 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         String name = mName.getText().toString();
                         int frequency = -1;
 
+                        // Actually, what may be some other activity
+                        // FIXME implement this as interface
                         EditInteractionActivity parentActivity = (EditInteractionActivity) getActivity();
 
                         try {
