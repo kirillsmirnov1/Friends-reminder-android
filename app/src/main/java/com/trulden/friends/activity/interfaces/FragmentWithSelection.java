@@ -1,4 +1,4 @@
-package com.trulden.friends.activity;
+package com.trulden.friends.activity.interfaces;
 
 public interface FragmentWithSelection {
     void editSelection();

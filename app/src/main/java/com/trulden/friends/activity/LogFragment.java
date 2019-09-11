@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.FragmentWithSelection;
 import com.trulden.friends.adapter.LogAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
@@ -33,7 +34,7 @@ import static com.trulden.friends.util.Util.*;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LogFragment extends Fragment implements FragmentWithSelection{
+public class LogFragment extends Fragment implements FragmentWithSelection {
 
     public static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
