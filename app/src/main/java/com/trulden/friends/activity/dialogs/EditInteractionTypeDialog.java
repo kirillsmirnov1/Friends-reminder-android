@@ -58,8 +58,6 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         String name = mName.getText().toString();
                         int frequency = -1;
 
-                        // TODO check if working with existing type correctly
-
                         EditInteractionType parentActivity = (EditInteractionType) getActivity();
 
                         try {
@@ -73,7 +71,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
                             return;
                         }
 
-                        if(parentActivity.typeExists(name)){
+                        if(mType == null && parentActivity.typeExists(name)){
                             makeToast(getActivity(), "Type already exists!");
                         }
 
@@ -91,8 +89,6 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
                         // If everything is fine — pass type information back to activity
                         parentActivity.saveType(mType);
-
-                        makeToast(getActivity(), "Type created!");
 
                         dialog.dismiss();
                     }
