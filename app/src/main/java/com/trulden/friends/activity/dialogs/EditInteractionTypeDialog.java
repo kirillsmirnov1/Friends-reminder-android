@@ -50,6 +50,8 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         String name = mName.getText().toString();
                         int frequency = -1;
 
+                        EditInteractionActivity parentActivity = (EditInteractionActivity) getActivity();
+
                         try {
                             frequency = Integer.parseInt(mFrequency.getText().toString());
                         } catch (NumberFormatException e){
@@ -57,18 +59,23 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         }
 
                         if(name.isEmpty()){
-                            makeToast(getActivity(), "Empty name!");
+                            makeToast(parentActivity, "Empty name!");
                             return;
                         }
 
+                        if(parentActivity.typeExists(name)){
+                            makeToast(parentActivity, "Type already exists!");
+                        }
+
                         if(frequency < 0){
-                            makeToast(getActivity(), "Empty frequency!");
+                            makeToast(parentActivity, "Empty frequency!");
                             return;
                         }
 
                         // If everything is fine — pass type information back to activity
-                        ((EditInteractionActivity)getActivity())
-                                .createInteractionType(name, frequency);
+                        parentActivity.createInteractionType(name, frequency);
+
+                        makeToast(parentActivity, "Type created!");
 
                         dialog.dismiss();
                     }

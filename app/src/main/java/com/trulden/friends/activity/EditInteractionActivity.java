@@ -309,4 +309,8 @@ public class EditInteractionActivity extends AppCompatActivity implements
         mTypeToSelect = name;
 
     }
+
+    public boolean typeExists(String name) {
+        return typesMap.containsKey(name);
+    }
 }
