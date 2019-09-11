@@ -40,7 +40,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mFriendsData.get(position), position, selectedFriendsPositions.contains(position));
+        holder
+            .bindTo(
+                mFriendsData.get(position),
+                position,
+                selectedFriendsPositions.contains(position));
     }
 
     @Override
