@@ -33,13 +33,8 @@ public class EditInteractionTypeDialog extends DialogFragment {
         builder
             .setTitle("Edit interaction type")
             .setView(dialogView)
-            .setPositiveButton("Save", null)
-            .setNegativeButton("Discard", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    // Do nothing
-                }
-            });
+            .setPositiveButton("Save", null)     // Set it later
+            .setNegativeButton("Discard", null); // Need only text on that one
 
         final Dialog dialog = builder.create();
 
