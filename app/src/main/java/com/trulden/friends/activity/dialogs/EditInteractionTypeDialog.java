@@ -33,17 +33,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
         builder
             .setTitle("Edit interaction type")
             .setView(dialogView)
-            .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                    // If everything is fine — pass type information back to activity
-                    ((EditInteractionActivity)getActivity())
-                            .createInteractionType(
-                                    mName.getText().toString(),
-                                    Integer.parseInt(mFrequency.getText().toString()));
-                }
-            })
+            .setPositiveButton("Save", null)
             .setNegativeButton("Discard", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -51,7 +41,45 @@ public class EditInteractionTypeDialog extends DialogFragment {
                 }
             });
 
-        Dialog dialog = builder.create();
+        final Dialog dialog = builder.create();
+
+        // To check values in dialog, I need to set listener like that
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                ((AlertDialog)dialog).getButton(AlertDialog.BUTTON_POSITIVE)
+                        .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String name = mName.getText().toString();
+                        int frequency = -1;
+
+                        try {
+                            frequency = Integer.parseInt(mFrequency.getText().toString());
+                        } catch (NumberFormatException e){
+                            e.printStackTrace();
+                        }
+
+                        if(name.isEmpty()){
+                            makeToast(getActivity(), "Empty name!");
+                            return;
+                        }
+
+                        if(frequency < 0){
+                            makeToast(getActivity(), "Empty frequency!");
+                            return;
+                        }
+
+                        // If everything is fine — pass type information back to activity
+                        ((EditInteractionActivity)getActivity())
+                                .createInteractionType(name, frequency);
+
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
 
         mName = dialogView.findViewById(R.id.edit_interaction_type_name);
         mFrequency = dialogView.findViewById(R.id.edit_interaction_type_frequency);
