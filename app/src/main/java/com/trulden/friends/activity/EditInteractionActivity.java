@@ -307,5 +307,7 @@ public class EditInteractionActivity
     public void saveType(InteractionType interactionType) {
         mFriendsViewModel.add(interactionType);
         mTypeToSelect = interactionType.getInteractionTypeName();
+
+        makeToast(this, "Type created!");
     }
 }
