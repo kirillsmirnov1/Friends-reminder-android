@@ -31,6 +31,8 @@
     <string name="frequency_of_interaction">Frequency of interaction in days</string>
     <string name="manage_interaction_types">Manage interaction types</string>
 
+    <string name="title_activity_interaction_types">Interaction types</string>
+
     <string-array name="interaction_types">
         <item>Meeting</item>
         <item>Texting</item>
@@ -54,7 +56,6 @@
         <item>Anton • 8 days ago</item>
         <item>Ivan • 16 days ago </item>
     </string-array>
-
     <string-array name="call_a_while_ago">
         <item>Darina • 100 days ago</item>
     </string-array>
