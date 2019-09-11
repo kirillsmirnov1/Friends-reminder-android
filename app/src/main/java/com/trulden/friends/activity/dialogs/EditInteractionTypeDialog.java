@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.EditInteractionActivity;
+import com.trulden.friends.database.entity.InteractionType;
 
 import static com.trulden.friends.util.Util.*;
 
@@ -21,6 +22,12 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
     private EditText mName;
     private EditText mFrequency;
+
+    private InteractionType mType;
+
+    public EditInteractionTypeDialog(InteractionType type){
+        mType = type;
+    }
 
     @NonNull
     @Override
@@ -87,6 +94,11 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
         mName = dialogView.findViewById(R.id.edit_interaction_type_name);
         mFrequency = dialogView.findViewById(R.id.edit_interaction_type_frequency);
+
+        if(mType != null){
+            mName.setText(mType.getInteractionTypeName());
+            mFrequency.setText(mType.getFrequency());
+        }
 
         return dialog;
     }

@@ -226,7 +226,7 @@ public class EditInteractionActivity extends AppCompatActivity implements
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
         if(adapterView.getItemAtPosition(position).toString().equals(getResources().getString(R.string.add_new))){
-            new EditInteractionTypeDialog().show(getSupportFragmentManager(), "editInteractionType");
+            new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionType");
             mType.setSelection(0);
         }
     }
