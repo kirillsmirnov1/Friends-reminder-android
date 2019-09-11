@@ -125,6 +125,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             }
 
+            case R.id.manage_interaction_types: {
+                Intent intent = new Intent(this, InteractionTypesActivity.class);
+                startActivity(intent);
+            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
