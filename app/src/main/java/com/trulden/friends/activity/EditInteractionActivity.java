@@ -27,6 +27,7 @@ import com.trulden.friends.activity.dialogs.DatePickerFragment;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
+import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
@@ -43,7 +44,8 @@ import static com.trulden.friends.util.Util.*;
 public class EditInteractionActivity
         extends AppCompatActivity
         implements
-            AdapterView.OnItemSelectedListener {
+            AdapterView.OnItemSelectedListener,
+            EditInteractionType {
 
     private static final String LOG_TAG = EditInteractionActivity.class.getSimpleName();
     FriendsViewModel mFriendsViewModel;
@@ -296,16 +298,14 @@ public class EditInteractionActivity
         return true;
     }
 
-    public void saveInteractionType(String name, int freq) {
-        InteractionType type = new InteractionType(name, freq);
-
-        mFriendsViewModel.add(type);
-
-        mTypeToSelect = name;
-
-    }
-
+    @Override
     public boolean typeExists(String name) {
         return typesMap.containsKey(name);
+    }
+
+    @Override
+    public void saveType(InteractionType interactionType) {
+        mFriendsViewModel.add(interactionType);
+        mTypeToSelect = interactionType.getInteractionTypeName();
     }
 }

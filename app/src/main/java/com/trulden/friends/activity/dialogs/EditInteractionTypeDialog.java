@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.EditInteractionActivity;
+import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.database.entity.InteractionType;
 
 import static com.trulden.friends.util.Util.*;
@@ -57,9 +58,9 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         String name = mName.getText().toString();
                         int frequency = -1;
 
-                        // Actually, what may be some other activity
-                        // FIXME implement this as interface
-                        EditInteractionActivity parentActivity = (EditInteractionActivity) getActivity();
+                        // TODO check if working with existing type correctly
+
+                        EditInteractionType parentActivity = (EditInteractionType) getActivity();
 
                         try {
                             frequency = Integer.parseInt(mFrequency.getText().toString());
@@ -68,23 +69,30 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         }
 
                         if(name.isEmpty()){
-                            makeToast(parentActivity, "Empty name!");
+                            makeToast(getActivity(), "Empty name!");
                             return;
                         }
 
                         if(parentActivity.typeExists(name)){
-                            makeToast(parentActivity, "Type already exists!");
+                            makeToast(getActivity(), "Type already exists!");
                         }
 
                         if(frequency < 0){
-                            makeToast(parentActivity, "Empty frequency!");
+                            makeToast(getActivity(), "Empty frequency!");
                             return;
                         }
 
-                        // If everything is fine — pass type information back to activity
-                        parentActivity.saveInteractionType(name, frequency);
+                        if(mType == null){
+                            mType = new InteractionType(name, frequency);
+                        } else {
+                            mType.setInteractionTypeName(name);
+                            mType.setFrequency(frequency);
+                        }
 
-                        makeToast(parentActivity, "Type created!");
+                        // If everything is fine — pass type information back to activity
+                        parentActivity.saveType(mType);
+
+                        makeToast(getActivity(), "Type created!");
 
                         dialog.dismiss();
                     }
