@@ -142,12 +142,12 @@ public class FriendsFragment extends Fragment implements FragmentWithSelection {
 
     @Override
     public void onDetach() {
-        super.onDetach();
         if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.FRIENDS_FRAGMENT) {
             if(mActionMode != null) {
                 mActionMode.finish();
             }
         }
+        super.onDetach();
     }
 
     @Override
