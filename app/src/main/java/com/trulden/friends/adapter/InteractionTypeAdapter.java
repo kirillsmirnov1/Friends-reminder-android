@@ -58,6 +58,23 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
         mInteractionTypes = interactionTypes;
     }
 
+    public static boolean InteractionTypeExists(String name){
+        for(InteractionType interactionType : mInteractionTypes){
+            if(interactionType.getInteractionTypeName().equals(name))
+                return true;
+        }
+        return false;
+    }
+
+    public void clearSelections() {
+        selectedPositions.clear();
+        notifyDataSetChanged();
+    }
+
+    public int getSelectedItemCount() {
+        return selectedPositions.size();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -57,7 +57,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     }
 
     public static boolean friendExists(String name){
-
         for(Friend friend : mFriendsData){
             if(friend.getName().equals(name))
                 return true;
