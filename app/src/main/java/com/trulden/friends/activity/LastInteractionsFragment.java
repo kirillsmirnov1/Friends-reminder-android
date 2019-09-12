@@ -88,7 +88,10 @@ public class LastInteractionsFragment extends Fragment {
         mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
 
         for(InteractionType type : types){
-            TabCounterView tcv = new TabCounterView(getContext(), type.getInteractionTypeName(), 0); // FIXME rly 0?
+
+            int size = lastInteractionsMap.get(type.getInteractionTypeName()).size();
+
+            TabCounterView tcv = new TabCounterView(getContext(), type.getInteractionTypeName(), size);
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
         }
 
