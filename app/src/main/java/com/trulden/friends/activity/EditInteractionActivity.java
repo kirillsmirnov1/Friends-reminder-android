@@ -3,10 +3,10 @@ package com.trulden.friends.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,20 +16,18 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-
 import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.trulden.friends.activity.dialogs.DatePickerFragment;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.dialogs.DatePickerFragment;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
-import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.ArrayList;
@@ -39,7 +37,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.dateFormat;
+import static com.trulden.friends.util.Util.makeToast;
 
 public class EditInteractionActivity
         extends AppCompatActivity
@@ -170,6 +176,9 @@ public class EditInteractionActivity
         // Get friend names, get ids and put them into intent
 
         String friendNamesString = mFriends.getText().toString();
+
+        if(friendNamesString.endsWith(", "))
+            friendNamesString = friendNamesString.substring(0, friendNamesString.lastIndexOf(", "));
 
         HashSet<String> friendNamesSet = new HashSet<>(Arrays.asList(
                 friendNamesString.split("\\s*,\\s*")));
