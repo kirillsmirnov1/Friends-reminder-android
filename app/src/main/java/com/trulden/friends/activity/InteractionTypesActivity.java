@@ -89,6 +89,14 @@ public class InteractionTypesActivity
         outState.putSerializable(SELECTED_TYPES_POSITIONS, selectedPositions);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_add, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void enableActionMode(int pos){
         if(mActionMode == null){
             mActionMode = startSupportActionMode(mActionModeCallback); // FIXME turns out to be null
