@@ -13,6 +13,9 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import static com.trulden.friends.util.Util.MILLISECONDS_IN_DAYS;
 
 public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractionsAdapter.ViewHolder> {
 
@@ -42,16 +45,26 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTextView;
+        private TextView mName;
+        private TextView mTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mTextView = itemView.findViewById(R.id.last_interaction_name);
+            mName = itemView.findViewById(R.id.last_interaction_name);
+            mTime = itemView.findViewById(R.id.last_interaction_time);
         }
 
         public void bindTo(LastInteraction lastInteraction) {
-            mTextView.setText(lastInteraction.getFriend() + " at date " + lastInteraction.getDate());
+            mName.setText(lastInteraction.getFriend());
+
+            long timePassed = Calendar.getInstance().getTimeInMillis() - lastInteraction.getDate();
+
+            int daysPassed = (int) ( timePassed / MILLISECONDS_IN_DAYS );
+
+            String dateString = daysPassed + " days ago";
+
+            mTime.setText(dateString);
         }
     }
 }
