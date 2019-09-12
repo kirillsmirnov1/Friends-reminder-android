@@ -155,7 +155,7 @@ public class InteractionTypesActivity
 
     @Override
     public void saveType(InteractionType interactionType) {
-        if(interactionType.getId() == -1){ // FIXME orly?
+        if(interactionType.getId() == 0){
             mFriendsViewModel.add(interactionType);
         } else {
             mFriendsViewModel.update(interactionType);
