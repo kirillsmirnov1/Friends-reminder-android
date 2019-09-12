@@ -1,54 +1,46 @@
 package com.trulden.friends.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-
-import java.util.Calendar;
 
 public class LastInteraction {
 
-    @ColumnInfo(name = "interaction_type_name")
-    private String interactionType;
+    private String type;
 
-    @NonNull
-    @ColumnInfo(name = "date")
-    private Calendar date;
+    private long date;
 
-    @ColumnInfo(name = "friend_name")
-    private String friendName;
+    private String friend;
 
-    public LastInteraction(@NonNull String interactionType, @NonNull Calendar date, String friendName){
-        this.interactionType = interactionType;
+    public LastInteraction(@NonNull String type, long date, String friend){
+        this.type = type;
         this.date = date;
-        this.friendName = friendName;
+        this.friend = friend;
     }
 
     // -----------------------------------------
     // Getters and setters
     // -----------------------------------------
 
-    public String getInteractionTypeId() {
-        return interactionType;
+    public String getType() {
+        return type;
     }
 
-    public void setInteractionTypeId(String interactionType) {
-        this.interactionType = interactionType;
+    public void setType(String interactionType) {
+        this.type = interactionType;
     }
 
-    @NonNull
-    public Calendar getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(@NonNull Calendar date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
-    public String getFriendName() {
-        return friendName;
+    public String getFriend() {
+        return friend;
     }
 
-    public void setFriendName(String friendName) {
-        this.friendName = friendName;
+    public void setFriend(String friend) {
+        this.friend = friend;
     }
 }
