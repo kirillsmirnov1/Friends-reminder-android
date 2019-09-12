@@ -21,7 +21,10 @@ import com.trulden.friends.database.entity.InteractionType;
 import java.util.HashSet;
 import java.util.List;
 
-public class InteractionTypesActivity extends AppCompatActivity implements ActivityWithSelection {
+public class InteractionTypesActivity
+        extends AppCompatActivity
+        implements
+            ActivityWithSelection {
 
     private FriendsViewModel mFriendsViewModel;
 
