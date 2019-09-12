@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +42,7 @@ public class FriendsViewModel extends AndroidViewModel {
     public LiveData<List<Interaction>> getAllInteractions() {
         return mAllInteractions;
     }
+    public LiveData<List<LastInteraction>> getLastInteractions(long currDate) { return mRepository.getLastInteractions(currDate); }
 
     public void add(Friend friend)    { mRepository.add(friend);    }
     public void update(Friend friend) { mRepository.update(friend); }

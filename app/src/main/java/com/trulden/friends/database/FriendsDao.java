@@ -11,6 +11,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.List;
 
@@ -83,4 +84,22 @@ public interface FriendsDao {
 
     @Query("DELETE FROM bind_friend_interaction_table WHERE interactionId = :interactionId;")
     void deleteBindingsByInteractionId(long interactionId);
+
+    // -----------------------------------------
+    // LastInteraction
+    // -----------------------------------------
+
+    @Query("SELECT type, friend, date FROM\n" +
+            "(SELECT interactionTypeName AS type, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
+            " FROM \n" +
+            " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
+            "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +
+            "  INNER JOIN interaction_type_table\n" +
+            "  ON interaction_table.interactionTypeId = interaction_type_table.id)\n" +
+            "  INNER JOIN friend_table\n" +
+            "  ON bind_friend_interaction_table.friendId = friend_table.id)\n" +
+            " GROUP BY friendId, interactionTypeId\n" +
+            " ORDER BY interactionTypeId, date DESC)" +
+            " WHERE date < :currDate")
+    LiveData<List<LastInteraction>> getLastInteractions(long currDate);
 }

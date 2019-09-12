@@ -9,6 +9,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,7 @@ class FriendsRepository {
     LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
+    LiveData<List<LastInteraction>> getLastInteractions(long currDate) { return mFriendsDao.getLastInteractions(currDate); }
 
     enum TaskSelector{
         ADD_FRIEND,
