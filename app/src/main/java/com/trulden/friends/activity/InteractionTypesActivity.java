@@ -136,8 +136,7 @@ public class InteractionTypesActivity extends AppCompatActivity implements Activ
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-
-            // TODO add menu
+            mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
 
             return true;
         }
