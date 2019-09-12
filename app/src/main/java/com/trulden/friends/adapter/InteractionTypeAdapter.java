@@ -83,12 +83,12 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
         notifyItemChanged(pos);
     }
 
-    public List<InteractionType> getSelectedFriends() {
-        List <InteractionType> selectedFriends = new ArrayList<>(selectedPositions.size());
+    public List<InteractionType> getSelectedTypes() {
+        List <InteractionType> selectedTypes = new ArrayList<>(selectedPositions.size());
         for(Integer position : selectedPositions){
-            selectedFriends.add(mInteractionTypes.get(position));
+            selectedTypes.add(mInteractionTypes.get(position));
         }
-        return selectedFriends;
+        return selectedTypes;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
