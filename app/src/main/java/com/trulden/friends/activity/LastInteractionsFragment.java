@@ -20,7 +20,7 @@ import com.trulden.friends.adapter.TabCounterView;
  */
 public class LastInteractionsFragment extends Fragment {
 
-    TabLayout mTabLayout;
+    private TabLayout mTabLayout;
 
     public LastInteractionsFragment() {
         // Required empty public constructor
