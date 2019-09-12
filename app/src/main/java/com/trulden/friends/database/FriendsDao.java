@@ -99,7 +99,7 @@ public interface FriendsDao {
             "  INNER JOIN friend_table\n" +
             "  ON bind_friend_interaction_table.friendId = friend_table.id)\n" +
             " GROUP BY friendId, interactionTypeId\n" +
-            " ORDER BY interactionTypeId, date DESC)" +
+            " ORDER BY interactionTypeId, date ASC)" +
             " WHERE date < :currDate")
     LiveData<List<LastInteraction>> getLastInteractions(long currDate);
 }
