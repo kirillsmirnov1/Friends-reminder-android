@@ -149,7 +149,18 @@ public class InteractionTypesActivity extends AppCompatActivity implements Activ
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
-            // TODO add menu options
+            switch(item.getItemId()) {
+                case R.id.delete_selection: {
+                    deleteSelection();
+                    mode.finish();
+                    return true;
+                }
+                case R.id.edit_selection: {
+                    editSelection();
+                    mode.finish();
+                    return true;
+                }
+            }
 
             return false;
         }
