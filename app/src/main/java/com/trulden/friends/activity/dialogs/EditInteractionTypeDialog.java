@@ -13,11 +13,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.trulden.friends.R;
-import com.trulden.friends.activity.EditInteractionActivity;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.database.entity.InteractionType;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.makeToast;
 
 public class EditInteractionTypeDialog extends DialogFragment {
 
@@ -101,7 +100,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
         if(mType != null){
             mName.setText(mType.getInteractionTypeName());
-            mFrequency.setText(mType.getFrequency());
+            mFrequency.setText(String.valueOf(mType.getFrequency()));
         }
 
         return dialog;
