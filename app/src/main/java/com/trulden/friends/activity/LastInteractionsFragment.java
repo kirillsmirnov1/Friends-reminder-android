@@ -72,10 +72,12 @@ public class LastInteractionsFragment extends Fragment {
                         for(LastInteraction interaction : lastInteractions){
                             lastInteractionsMap.get(interaction.getType()).add(interaction);
                         }
+
+                        initTabsAndPageViewer(view);
                     }
                 });
 
-                initTabsAndPageViewer(view);
+
             }
         });
 
