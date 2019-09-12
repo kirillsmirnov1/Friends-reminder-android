@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.lifecycle.Observer;
@@ -95,6 +96,17 @@ public class InteractionTypesActivity
         getMenuInflater().inflate(R.menu.menu_add, menu);
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.add){
+            new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionTypeDialog");
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void enableActionMode(int pos){
