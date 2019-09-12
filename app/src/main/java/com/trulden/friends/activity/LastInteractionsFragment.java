@@ -69,9 +69,15 @@ public class LastInteractionsFragment extends Fragment {
                 friendsViewModel.getLastInteractions(Calendar.getInstance().getTimeInMillis()).observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
                     @Override
                     public void onChanged(List<LastInteraction> lastInteractions) {
+
+                        for(InteractionType type : types){
+                            lastInteractionsMap.get(type.getInteractionTypeName()).clear();
+                        }
+
                         for(LastInteraction interaction : lastInteractions){
                             lastInteractionsMap.get(interaction.getType()).add(interaction);
                         }
+
 
                         initTabsAndPageViewer(view);
                     }
