@@ -111,7 +111,7 @@ public class InteractionTypesActivity
 
     private void enableActionMode(int pos){
         if(mActionMode == null){
-            mActionMode = startSupportActionMode(mActionModeCallback); // FIXME turns out to be null
+            mActionMode = startSupportActionMode(mActionModeCallback);
         }
         toggleSelection(pos);
     }
@@ -148,8 +148,6 @@ public class InteractionTypesActivity
 
     @Override
     public void editSelection() {
-        // TODO
-
         InteractionType interactionType = mInteractionTypeAdapter.getSelectedTypes().get(0);
 
         new EditInteractionTypeDialog(interactionType).show(getSupportFragmentManager(), "editInteractionType");
@@ -159,7 +157,6 @@ public class InteractionTypesActivity
     public void deleteSelection() {
         for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedTypes()){
             mFriendsViewModel.delete(interactionType);
-            // TODO manage interactions delete?
         }
     }
 
