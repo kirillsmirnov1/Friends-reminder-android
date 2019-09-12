@@ -139,7 +139,7 @@ public class InteractionTypesActivity extends AppCompatActivity implements Activ
 
             // TODO add menu
 
-            return false;
+            return true;
         }
 
         @Override
