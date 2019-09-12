@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.adapter.InteractionTypeAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
@@ -24,7 +26,8 @@ import java.util.List;
 public class InteractionTypesActivity
         extends AppCompatActivity
         implements
-            ActivityWithSelection {
+            ActivityWithSelection,
+            EditInteractionType {
 
     private FriendsViewModel mFriendsViewModel;
 
@@ -126,6 +129,10 @@ public class InteractionTypesActivity
     @Override
     public void editSelection() {
         // TODO
+
+        InteractionType interactionType = mInteractionTypeAdapter.getSelectedTypes().get(0);
+
+        new EditInteractionTypeDialog(interactionType).show(getSupportFragmentManager(), "editInteractionType");
     }
 
     @Override
@@ -133,6 +140,25 @@ public class InteractionTypesActivity
         for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedTypes()){
             mFriendsViewModel.delete(interactionType);
             // TODO manage interactions delete?
+        }
+    }
+
+    @Override
+    public boolean typeExists(String typeName) {
+
+        for(InteractionType interactionType : mInteractionTypeAdapter.getTypes()){
+            if(interactionType.getInteractionTypeName().equals(typeName))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void saveType(InteractionType interactionType) {
+        if(interactionType.getId() == -1){ // FIXME orly?
+            mFriendsViewModel.add(interactionType);
+        } else {
+            mFriendsViewModel.update(interactionType);
         }
     }
 

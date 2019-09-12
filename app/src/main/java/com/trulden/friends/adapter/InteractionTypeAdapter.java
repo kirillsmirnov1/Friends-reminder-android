@@ -91,6 +91,10 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
         return selectedTypes;
     }
 
+    public List<InteractionType> getTypes() {
+        return mInteractionTypes;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView mInteractionName;
