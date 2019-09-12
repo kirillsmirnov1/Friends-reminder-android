@@ -5,18 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.trulden.friends.R;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
 
 public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractionsAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> mLastInteractions;
+    private ArrayList<LastInteraction> mLastInteractions;
 
-    public LastInteractionsAdapter(Context context, ArrayList<String> lastInteractions){
+    public LastInteractionsAdapter(Context context, ArrayList<LastInteraction> lastInteractions){
         mContext = context;
         mLastInteractions = lastInteractions;
     }
@@ -47,8 +50,8 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
             mTextView = itemView.findViewById(R.id.last_interaction_entry_text);
         }
 
-        public void bindTo(String remind) {
-            mTextView.setText(remind);
+        public void bindTo(LastInteraction lastInteraction) {
+            mTextView.setText(lastInteraction.getFriend() + " at date " + lastInteraction.getDate());
         }
     }
 }

@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsAdapter;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
@@ -27,18 +27,16 @@ public class LastInteractionsTabFragment extends Fragment {
 
     private final static String TYPE_ARGUMENT = "TYPE_ARGUMENT";
 
-    private ArrayList<String> mLastInteractions = new ArrayList<>();
+    private ArrayList<LastInteraction> mLastInteractions = new ArrayList<>();
 
     public LastInteractionsTabFragment() {
         // Required empty public constructor
     }
 
-    public static LastInteractionsTabFragment newInstance(String type){
+    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteraction> lastInteractions){
         LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
 
-        Bundle args = new Bundle();
-        args.putString(TYPE_ARGUMENT, type);
-        tr.setArguments(args);
+        tr.setLastInteractions(lastInteractions);
 
         return tr;
     }
@@ -47,19 +45,10 @@ public class LastInteractionsTabFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        type = getArguments().getString(TYPE_ARGUMENT);
-        switch (type){
-            case "Meeting" :
-                mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.meetings_a_while_ago)));
-                break;
-            case "Texting" :
-                mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.texting_a_while_ago)));
-                break;
-            case "Call" :
-                mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.call_a_while_ago)));
-                break;
-        }
+    }
 
+    public void setLastInteractions(ArrayList<LastInteraction> mLastInteractions) {
+        this.mLastInteractions = mLastInteractions;
     }
 
     @Override
