@@ -127,7 +127,10 @@ public class InteractionTypesActivity extends AppCompatActivity implements Activ
 
     @Override
     public void deleteSelection() {
-        // TODO
+        for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedTypes()){
+            mFriendsViewModel.delete(interactionType);
+            // TODO manage interactions delete?
+        }
     }
 
     // FIXME can this be turned into outer class?
