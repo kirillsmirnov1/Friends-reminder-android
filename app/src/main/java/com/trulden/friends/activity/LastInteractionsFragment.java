@@ -92,9 +92,9 @@ public class LastInteractionsFragment extends Fragment {
 
     private void initTabsAndPageViewer(View view) {
         mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
+        mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
-
             int size = lastInteractionsMap.get(type.getInteractionTypeName()).size();
 
             TabCounterView tcv = new TabCounterView(getContext(), type.getInteractionTypeName(), size);
