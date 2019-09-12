@@ -103,12 +103,11 @@ public class InteractionTypesActivity extends AppCompatActivity implements Activ
             mActionMode.setTitle(String.valueOf(count));
             mActionMode.invalidate();
 
-            // TODO
-//            if(count == 1){
-//                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(true);
-//            } else {
-//                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
-//            }
+            if(count == 1){
+                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(true);
+            } else {
+                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
+            }
 
         }
     }
