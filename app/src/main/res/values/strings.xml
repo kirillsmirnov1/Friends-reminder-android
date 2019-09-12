@@ -34,31 +34,4 @@
     <string name="title_activity_interaction_types">Interaction types</string>
     <string name="add">Add</string>
 
-    <string-array name="interaction_types">
-        <item>Meeting</item>
-        <item>Texting</item>
-        <item>Call</item>
-    </string-array>
-
-    <string-array name="meetings_a_while_ago">
-        <item>Andrey \n68 days ago</item>
-        <item>Sasha \n35 days ago</item>
-        <item>Andrey \n68 days ago</item>
-        <item>Sasha \n35 days ago</item>
-        <item>Andrey \n68 days ago</item>
-        <item>Sasha \n35 days ago</item>
-        <item>Andrey \n68 days ago</item>
-        <item>Sasha \n35 days ago</item>
-        <item>Andrey \n68 days ago</item>
-        <item>Sasha \n35 days ago</item>
-    </string-array>
-
-    <string-array name="texting_a_while_ago">
-        <item>Anton • 8 days ago</item>
-        <item>Ivan • 16 days ago </item>
-    </string-array>
-    <string-array name="call_a_while_ago">
-        <item>Darina • 100 days ago</item>
-    </string-array>
-
 </resources>
