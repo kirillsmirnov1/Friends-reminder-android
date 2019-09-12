@@ -19,8 +19,11 @@ import com.trulden.friends.adapter.PagerAdapter;
 import com.trulden.friends.adapter.TabCounterView;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,8 +31,11 @@ import java.util.List;
  */
 public class LastInteractionsFragment extends Fragment {
 
+    public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
+
     private FriendsViewModel friendsViewModel;
     private List<InteractionType> types = new ArrayList<>();
+    private HashMap<String, List<LastInteraction>> lastInteractionsMap = new HashMap<>();
 
     private TabLayout mTabLayout;
 
@@ -55,9 +61,25 @@ public class LastInteractionsFragment extends Fragment {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 types = interactionTypes;
+
+                for(InteractionType type : types){
+                    lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
+                }
+
+                friendsViewModel.getLastInteractions(Calendar.getInstance().getTimeInMillis()).observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
+                    @Override
+                    public void onChanged(List<LastInteraction> lastInteractions) {
+                        for(LastInteraction interaction : lastInteractions){
+                            lastInteractionsMap.get(interaction.getType()).add(interaction);
+                        }
+                    }
+                });
+
                 initTabsAndPageViewer(view);
             }
         });
+
+
     }
 
     private void initTabsAndPageViewer(View view) {
