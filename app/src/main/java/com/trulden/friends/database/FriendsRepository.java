@@ -10,6 +10,7 @@ import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.util.Util;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +34,10 @@ class FriendsRepository {
     LiveData<List<Friend>> getAllFriends() { return mAllFriends; }
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
-    LiveData<List<LastInteraction>> getLastInteractions(long currDate) { return mFriendsDao.getLastInteractions(currDate); }
+
+    LiveData<List<LastInteraction>> getLastInteractions(long currDate) {
+        return mFriendsDao.getLastInteractions(currDate, Util.MILLISECONDS_IN_DAYS);
+    }
 
     enum TaskSelector{
         ADD_FRIEND,
