@@ -18,6 +18,8 @@ public class Util {
 
     private static final String LOG_TAG = Util.class.getSimpleName();
 
+    public static final int MILLISECONDS_IN_DAYS = 1000 * 60 * 60 * 24;
+
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
 
     // Can't access db version from Room in runtime, but want to save backup with version in name
