@@ -2,14 +2,16 @@ package com.trulden.friends.activity;
 
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsAdapter;
 
@@ -24,10 +26,6 @@ public class LastInteractionsTabFragment extends Fragment {
     private String type;
 
     private final static String TYPE_ARGUMENT = "TYPE_ARGUMENT";
-
-    public final static String MEETINGS_TAG = "MEETINGS_TAG";
-    public final static String TEXTING_TAG = "TEXTING_TAG";
-    public final static String CALLS_TAG = "CALLS_TAG";
 
     private ArrayList<String> mLastInteractions = new ArrayList<>();
 
@@ -51,13 +49,13 @@ public class LastInteractionsTabFragment extends Fragment {
 
         type = getArguments().getString(TYPE_ARGUMENT);
         switch (type){
-            case MEETINGS_TAG:
+            case "Meeting" :
                 mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.meetings_a_while_ago)));
                 break;
-            case TEXTING_TAG:
+            case "Texting" :
                 mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.texting_a_while_ago)));
                 break;
-            case CALLS_TAG:
+            case "Call" :
                 mLastInteractions.addAll(Arrays.asList(getResources().getStringArray(R.array.call_a_while_ago)));
                 break;
         }

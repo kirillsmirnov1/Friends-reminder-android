@@ -71,7 +71,7 @@ public class LastInteractionsFragment extends Fragment {
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
-        final PagerAdapter adapter = new PagerAdapter(getFragmentManager(), mTabLayout.getTabCount());
+        final PagerAdapter adapter = new PagerAdapter(getFragmentManager(), types);
 
         viewPager.setAdapter(adapter);
 

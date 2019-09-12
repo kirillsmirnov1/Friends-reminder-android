@@ -3,29 +3,27 @@ package com.trulden.friends.adapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.trulden.friends.activity.LastInteractionsTabFragment;
+import com.trulden.friends.database.entity.InteractionType;
+
+import java.util.List;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
-    private int mNumOfTabs;
+    private List<InteractionType> types;
 
-    public PagerAdapter(FragmentManager fm, int numOfTabs) {
+    public PagerAdapter(FragmentManager fm, List<InteractionType> types) {
         super(fm);
-
-        mNumOfTabs = numOfTabs;
+        this.types = types;
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.MEETINGS_TAG);
-            case 1: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.TEXTING_TAG);
-            case 2: return LastInteractionsTabFragment.newInstance(LastInteractionsTabFragment.CALLS_TAG);
-            default: return null;
-        }
+        return LastInteractionsTabFragment.newInstance(types.get(position).getInteractionTypeName());
     }
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return types.size();
     }
 }
