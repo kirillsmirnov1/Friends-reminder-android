@@ -46,7 +46,7 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         friendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
@@ -55,22 +55,18 @@ public class LastInteractionsFragment extends Fragment {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 types = interactionTypes;
+                initTabsAndPageViewer(view);
             }
         });
-
-        initTabsAndPageViewer(view);
     }
 
     private void initTabsAndPageViewer(View view) {
         mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
 
-        TabCounterView tcv0 = new TabCounterView(getContext(), "Meetings", getResources().getStringArray(R.array.meetings_a_while_ago).length);
-        TabCounterView tcv1 = new TabCounterView(getContext(), "Texting", getResources().getStringArray(R.array.texting_a_while_ago).length);
-        TabCounterView tcv2 = new TabCounterView(getContext(), "Calls", getResources().getStringArray(R.array.call_a_while_ago).length);
-
-        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv0));
-        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv1));
-        mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv2));
+        for(InteractionType type : types){
+            TabCounterView tcv = new TabCounterView(getContext(), type.getInteractionTypeName(), 0); // FIXME rly 0?
+            mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
+        }
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
