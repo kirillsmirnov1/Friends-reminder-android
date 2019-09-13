@@ -1,16 +1,22 @@
 package com.trulden.friends.activity.dialogs;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.trulden.friends.R;
+
 public class EditFriendNameDialog extends DialogFragment {
 
     private String name;
+    private EditText editName;
 
     EditFriendNameDialog(String name){
         this.name = name;
@@ -21,7 +27,21 @@ public class EditFriendNameDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setMessage("Edit name");
+        View dialogView = requireActivity().getLayoutInflater()
+                .inflate(R.layout.dialog_edit_friend_name, null);
+
+        editName = dialogView.findViewById(R.id.dialog_edit_friend_name);
+        editName.setText(name);
+
+        builder
+            .setTitle("Edit name")
+            .setView(dialogView)
+            .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
 
         return builder.create();
     }

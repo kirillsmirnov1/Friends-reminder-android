@@ -11,8 +11,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.trulden.friends.activity.EditInteractionActivity;
 
-import static com.trulden.friends.util.Util.*;
-
 // This dialog is created when user enters name of friend who is not in a database yet
 public class FriendNotFoundDialog extends DialogFragment {
 
@@ -34,11 +32,11 @@ public class FriendNotFoundDialog extends DialogFragment {
                        ((EditInteractionActivity)getActivity()).createFriendByName(name);
                    }
                })
-               .setNeutralButton("I'll edit", new DialogInterface.OnClickListener() {
+               .setNeutralButton("Edit", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       // There might be a better way of doing this
-                       makeToast(getActivity(), "Fix «" + name + "» up");
+                       EditFriendNameDialog dialog = new EditFriendNameDialog(name);
+                       dialog.show(getActivity().getSupportFragmentManager(), "editFriendNameDialog");
                    }
                })
                .setNegativeButton("Forget", new DialogInterface.OnClickListener() {
