@@ -37,15 +37,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
-import static com.trulden.friends.util.Util.dateFormat;
-import static com.trulden.friends.util.Util.makeToast;
+import static com.trulden.friends.util.Util.*;
 
 public class EditInteractionActivity
         extends AppCompatActivity
