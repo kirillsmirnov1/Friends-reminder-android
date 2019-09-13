@@ -4,12 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
@@ -21,10 +24,12 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
 
     private Context mContext;
     private ArrayList<LastInteraction> mLastInteractions;
+    private InteractionType type;
 
-    public LastInteractionsAdapter(Context context, ArrayList<LastInteraction> lastInteractions){
+    public LastInteractionsAdapter(Context context, InteractionType type, ArrayList<LastInteraction> lastInteractions){
         mContext = context;
         mLastInteractions = lastInteractions;
+        this.type = type;
     }
 
     @NonNull
@@ -48,11 +53,15 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
         private TextView mName;
         private TextView mTime;
 
+        private RelativeLayout layout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mName = itemView.findViewById(R.id.last_interaction_name);
             mTime = itemView.findViewById(R.id.last_interaction_time);
+
+            layout = itemView.findViewById(R.id.last_interaction_entry_layout);
         }
 
         public void bindTo(LastInteraction lastInteraction) {
@@ -65,6 +74,10 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
             String dateString = daysPassed + " days ago";
 
             mTime.setText(dateString);
+
+            if(daysPassed < type.getFrequency()) {
+                layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_backgroung_grey));
+            }
         }
     }
 }

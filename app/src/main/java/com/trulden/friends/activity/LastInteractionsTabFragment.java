@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsAdapter;
+import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
@@ -24,16 +25,19 @@ import java.util.ArrayList;
  */
 public class LastInteractionsTabFragment extends Fragment {
 
+    private InteractionType type;
+
     private ArrayList<LastInteraction> mLastInteractions = new ArrayList<>();
 
     public LastInteractionsTabFragment() {
         // Required empty public constructor
     }
 
-    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteraction> lastInteractions){
+    public static LastInteractionsTabFragment newInstance(InteractionType type, ArrayList<LastInteraction> lastInteractions){
         LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
 
         tr.setLastInteractions(lastInteractions);
+        tr.setType(type);
 
         return tr;
     }
@@ -46,6 +50,10 @@ public class LastInteractionsTabFragment extends Fragment {
 
     public void setLastInteractions(ArrayList<LastInteraction> mLastInteractions) {
         this.mLastInteractions = mLastInteractions;
+    }
+
+    public void setType(InteractionType type) {
+        this.type = type;
     }
 
     @Override
@@ -63,7 +71,7 @@ public class LastInteractionsTabFragment extends Fragment {
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 
-        LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext(), mLastInteractions);
+        LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext(), type, mLastInteractions);
         recyclerView.setAdapter(mAdapter);
     }
 }
