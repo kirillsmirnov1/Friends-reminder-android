@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,10 +48,8 @@ public class EditInteractionActivity
             EditInteractionType {
 
     private static final String LOG_TAG = EditInteractionActivity.class.getSimpleName();
-    FriendsViewModel mFriendsViewModel;
 
-    private HashMap<String, Long> friendsMap = new HashMap<>();
-    private HashMap<String, Long> typesMap = new HashMap<>();
+    FriendsViewModel mFriendsViewModel;
 
     private Spinner  mType;
     private ArrayAdapter<String> mSpinnerAdapter;
@@ -61,13 +60,13 @@ public class EditInteractionActivity
 
     private Calendar pickedDate;
 
+    private HashMap<String, Long> friendsMap = new HashMap<>();
+    private HashMap<String, Long> typesMap = new HashMap<>();
+
     private long mInteractionId;
     private String mTypeToSelect = null;
 
-    private ListIterator<String> checkFriendsIter = null;
-    private ArrayList<String> checkFriendsList = null;
-    private HashSet<String> newbies = new HashSet<>();
-    private boolean timeToSaveInteraction = false;
+    private SaveInteractionHandler saveHandler = new SaveInteractionHandler();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -85,8 +84,8 @@ public class EditInteractionActivity
                     if(!friendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
                         friendsMap.put(friend.getName(), friend.getId());
 
-                        if(newbies.contains(friend.getName())){
-                            newbies.remove(friend.getName());
+                        if(saveHandler.newbies.contains(friend.getName())){
+                            saveHandler.newbies.remove(friend.getName());
                         }
                     }
                 }
@@ -95,9 +94,9 @@ public class EditInteractionActivity
 
                 mFriends.setAdapter(adapter);
 
-                // Saving interaction after all friends are checked and added #actualsave
-                if(timeToSaveInteraction && checkFriendsList != null && newbies.isEmpty()){
-                    saveInteraction();
+                // Saving interaction after all friends are checked and added #postponed_save
+                if(saveHandler.canSaveNow()){
+                    saveHandler.saveInteraction();
                 }
             }
         });
@@ -175,39 +174,6 @@ public class EditInteractionActivity
         }
     }
 
-    public void saveInteraction() {
-
-        Intent replyIntent = new Intent();
-        HashSet<String> friendNamesSet = new HashSet<>(checkFriendsList);
-
-        replyIntent.putExtra(EXTRA_INTERACTION_ID, mInteractionId);
-
-        // Get friend names, get ids and put them into intent
-
-        String friendNamesString = TextUtils.join(", ", checkFriendsList);
-
-        replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, friendNamesString);
-
-        // FIXME tries to get values before they are added to db
-        HashSet<Long> friendsIds = new HashSet<>();
-        for(String friendName : friendNamesSet){
-            friendsIds.add(friendsMap.get(friendName));
-        }
-        replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_IDS, friendsIds);
-
-        // And all of the others
-
-        replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, typesMap.get(mType.getSelectedItem().toString()));
-        replyIntent.putExtra(EXTRA_INTERACTION_DATE, pickedDate.getTimeInMillis());
-        replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mComment.getText().toString());
-
-        setResult(RESULT_OK, replyIntent);
-
-        makeToast(this, "Interaction saved");
-
-        finish();
-    }
-
     public void processDatePickerResult(int year, int month, int date){
         pickedDate = Calendar.getInstance();
         //                   Sincerely, fuck you, developers of Calendar class
@@ -243,21 +209,6 @@ public class EditInteractionActivity
         f.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void createFriendByName(String name){
-        mFriendsViewModel.add(new Friend(name, ""));
-
-        newbies.add(name);
-
-        makeToast(this, "«" + name + "» is created"); // Not actually, lol
-        checkNextFriend();
-    }
-
-    public void removeFriendName(String name) {
-        checkFriendsIter.remove();
-        makeToast(this, "«" + name + "» is forgotten");
-        checkNextFriend();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -271,70 +222,13 @@ public class EditInteractionActivity
 
         switch (item.getItemId()){
             case R.id.icon_save: {
-                if(argsFilled()) {
-                    startCheckingFriends();
-                }
+                saveHandler.startCheckingFriends();
                 return true;
             }
 
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void startCheckingFriends() {
-        checkFriendsList = new ArrayList<>(Arrays.asList(
-                mFriends.getText().toString().split("\\s*,\\s*")));
-
-        checkFriendsIter = checkFriendsList.listIterator();
-
-        checkNextFriend();
-    }
-
-    private void checkNextFriend() {
-        if(checkFriendsIter.hasNext()){
-            String friendName = checkFriendsIter.next();
-            checkFriend(friendName);
-        } else {
-            timeToSaveInteraction = true;
-
-            // When all friends are checked, we might have to wait, while new ones are added to database
-            // In that case, we can't save interaction from here, because it will break flow and cause NPE
-            // I'm saving it from friends observer, look it up by #actualsave
-
-            if (newbies.isEmpty()) {
-                saveInteraction();
-            }
-        }
-    }
-
-    public void updateAndCheckFriend(String name) {
-        checkFriendsIter.set(name);
-        checkFriend(name);
-    }
-
-    private void checkFriend(String name) {
-        if(friendsMap.containsKey(name)) {
-            checkNextFriend();
-        } else {
-            FriendNotFoundDialog dialog = new FriendNotFoundDialog(name);
-            dialog.show(getSupportFragmentManager(), "friendNotFoundDialog");
-        }
-    }
-
-    private boolean argsFilled() {
-
-        if(mDate.getText().toString().isEmpty()){
-            makeToast(this, "Fill date");
-            return false;
-        }
-
-        if(mFriends.getText().toString().isEmpty()){
-            makeToast(this, "Fill friends");
-            return false;
-        }
-
-        return true;
     }
 
     @Override
@@ -348,5 +242,132 @@ public class EditInteractionActivity
         mTypeToSelect = interactionType.getInteractionTypeName();
 
         makeToast(this, "Type created!");
+    }
+
+    public void createFriendByName(String name)   { saveHandler.createFriendByName(name);   }
+    public void removeFriendName(String name)     { saveHandler.removeFriendName(name);     }
+    public void updateAndCheckFriend(String name) { saveHandler.updateAndCheckFriend(name); }
+
+    // Handles saving interaction after save icon press
+    // Checks friends for existence, adds and edits them through dialogs, if needed
+    private class SaveInteractionHandler{
+
+        private ListIterator<String> checkFriendsIter = null;
+        private ArrayList<String> checkFriendsList = null;
+        private HashSet<String> newbies = new HashSet<>();
+        private boolean timeToSaveInteraction = false;
+
+        private Context context = EditInteractionActivity.this;
+
+        private void startCheckingFriends() {
+
+            if(argsFilled()) {
+                checkFriendsList = new ArrayList<>(Arrays.asList(
+                        mFriends.getText().toString().split("\\s*,\\s*")));
+
+                checkFriendsIter = checkFriendsList.listIterator();
+
+                checkNextFriend();
+            }
+        }
+
+        private boolean argsFilled() {
+
+            if(mDate.getText().toString().isEmpty()){
+                makeToast(context, "Fill date");
+                return false;
+            }
+
+            if(mFriends.getText().toString().isEmpty()){
+                makeToast(context, "Fill friends");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void checkNextFriend() {
+            if(checkFriendsIter.hasNext()){
+                String friendName = checkFriendsIter.next();
+                checkFriend(friendName);
+            } else {
+                timeToSaveInteraction = true;
+
+                // When all friends are checked, we might have to wait, while new ones are added to database
+                // In that case, we can't save interaction from here, because it will break flow and cause NPE
+                // I'm saving it from friends observer, look it up by #postponed_save
+
+                if (canSaveNow()) {
+                    saveInteraction();
+                }
+            }
+        }
+
+        private void checkFriend(String name) {
+            if(friendsMap.containsKey(name)) {
+                checkNextFriend();
+            } else {
+                FriendNotFoundDialog dialog = new FriendNotFoundDialog(name);
+                dialog.show(getSupportFragmentManager(), "friendNotFoundDialog");
+            }
+        }
+
+        void updateAndCheckFriend(String name) {
+            checkFriendsIter.set(name);
+            checkFriend(name);
+        }
+
+        void createFriendByName(String name){
+            mFriendsViewModel.add(new Friend(name, ""));
+
+            newbies.add(name);
+
+            makeToast(context, "«" + name + "» is created"); // Not actually, lol
+            checkNextFriend();
+        }
+
+        void removeFriendName(String name) {
+            checkFriendsIter.remove();
+            makeToast(context, "«" + name + "» is forgotten");
+            checkNextFriend();
+        }
+
+        boolean canSaveNow(){
+            return timeToSaveInteraction                // checked all friends
+                && saveHandler.checkFriendsList != null // there are some actual friends
+                && saveHandler.newbies.isEmpty();       // all of them saved to db
+        }
+
+        void saveInteraction() {
+
+            Intent replyIntent = new Intent();
+            HashSet<String> friendNamesSet = new HashSet<>(checkFriendsList);
+
+            replyIntent.putExtra(EXTRA_INTERACTION_ID, mInteractionId);
+
+            // Get friend names, get ids and put them into intent
+
+            String friendNamesString = TextUtils.join(", ", checkFriendsList);
+
+            replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, friendNamesString);
+
+            HashSet<Long> friendsIds = new HashSet<>();
+            for(String friendName : friendNamesSet){
+                friendsIds.add(friendsMap.get(friendName));
+            }
+            replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_IDS, friendsIds);
+
+            // And all of the others
+
+            replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, typesMap.get(mType.getSelectedItem().toString()));
+            replyIntent.putExtra(EXTRA_INTERACTION_DATE, pickedDate.getTimeInMillis());
+            replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mComment.getText().toString());
+
+            setResult(RESULT_OK, replyIntent);
+
+            makeToast(context, "Interaction saved");
+
+            finish();
+        }
     }
 }
