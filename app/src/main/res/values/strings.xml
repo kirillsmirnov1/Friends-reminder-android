@@ -33,5 +33,6 @@
 
     <string name="title_activity_interaction_types">Interaction types</string>
     <string name="add">Add</string>
+    <string name="friend_name">Friend name</string>
 
 </resources>
