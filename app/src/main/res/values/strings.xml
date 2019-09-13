@@ -8,9 +8,9 @@
     <string name="type_input_invitation">Type:</string>
     <string name="meeting_input_invitation">Meeting</string>
     <string name="date_input_invitation">Date:</string>
-    <string name="default_date">28.07.2019</string>
+    <string name="default_date">Enter date</string>
     <string name="friends_input_invitation">Friends:</string>
-    <string name="default_friends">Ivan, Vasiliy, Georgy</string>
+    <string name="default_friends">Enter friend names</string>
     <string name="comment_input_invitation">Comment:</string>
     <string name="default_interaction_comment">Write something about this interaction</string>
     <string name="save">Save</string>
