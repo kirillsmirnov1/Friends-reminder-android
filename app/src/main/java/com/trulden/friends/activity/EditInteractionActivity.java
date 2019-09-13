@@ -66,6 +66,8 @@ public class EditInteractionActivity
 
     private ListIterator<String> checkFriendsIter = null;
     private ArrayList<String> checkFriendsList = null;
+    private HashSet<String> newbies = new HashSet<>();
+    private boolean timeToSaveInteraction = false;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -82,12 +84,21 @@ public class EditInteractionActivity
                 for(Friend friend : friends){
                     if(!friendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
                         friendsMap.put(friend.getName(), friend.getId());
+
+                        if(newbies.contains(friend.getName())){
+                            newbies.remove(friend.getName());
+                        }
                     }
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
                         android.R.layout.simple_dropdown_item_1line, friendsMap.keySet().toArray(new String[0]));
 
                 mFriends.setAdapter(adapter);
+
+                // Saving interaction after all friends are checked and added #actualsave
+                if(timeToSaveInteraction && checkFriendsList != null && newbies.isEmpty()){
+                    saveInteraction();
+                }
             }
         });
 
@@ -234,7 +245,10 @@ public class EditInteractionActivity
 
     public void createFriendByName(String name){
         mFriendsViewModel.add(new Friend(name, ""));
-        makeToast(this, "«" + name + "» is created");
+
+        newbies.add(name);
+
+        makeToast(this, "«" + name + "» is created"); // Not actually, lol
         checkNextFriend();
     }
 
@@ -282,7 +296,15 @@ public class EditInteractionActivity
             String friendName = checkFriendsIter.next();
             checkFriend(friendName);
         } else {
-            saveInteraction();
+            timeToSaveInteraction = true;
+
+            // When all friends are checked, we might have to wait, while new ones are added to database
+            // In that case, we can't save interaction from here, because it will break flow and cause NPE
+            // I'm saving it from friends observer, look it up by #actualsave
+
+            if (newbies.isEmpty()) {
+                saveInteraction();
+            }
         }
     }
 
