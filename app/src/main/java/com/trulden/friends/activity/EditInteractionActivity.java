@@ -36,6 +36,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 
 import static com.trulden.friends.util.Util.*;
 
@@ -62,6 +63,9 @@ public class EditInteractionActivity
 
     private long mInteractionId;
     private String mTypeToSelect = null;
+
+    private ListIterator<String> checkFriendsIter = null;
+    private ArrayList<String> checkFriendsList = null;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -161,22 +165,19 @@ public class EditInteractionActivity
     }
 
     public void saveInteraction() {
+
         Intent replyIntent = new Intent();
+        HashSet<String> friendNamesSet = new HashSet<>(checkFriendsList);
 
         replyIntent.putExtra(EXTRA_INTERACTION_ID, mInteractionId);
 
         // Get friend names, get ids and put them into intent
 
-        String friendNamesString = mFriends.getText().toString();
-
-        if(friendNamesString.endsWith(", "))
-            friendNamesString = friendNamesString.substring(0, friendNamesString.lastIndexOf(", "));
-
-        HashSet<String> friendNamesSet = new HashSet<>(Arrays.asList(
-                friendNamesString.split("\\s*,\\s*")));
+        String friendNamesString = TextUtils.join(", ", checkFriendsList);
 
         replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, friendNamesString);
 
+        // FIXME tries to get values before they are added to db
         HashSet<Long> friendsIds = new HashSet<>();
         for(String friendName : friendNamesSet){
             friendsIds.add(friendsMap.get(friendName));
@@ -249,15 +250,13 @@ public class EditInteractionActivity
     public void createFriendByName(String name){
         mFriendsViewModel.add(new Friend(name, ""));
         makeToast(this, "«" + name + "» is created");
+        checkNextFriend();
     }
 
     public void removeFriendName(String name) {
-        ArrayList<String> friendNames = new ArrayList<>(Arrays.asList(
-                mFriends.getText().toString().split("\\s*,\\s*")));
-        friendNames.remove(name);
-        mFriends.setText(TextUtils.join(", ", friendNames.toArray(new String[0])));
-
+        checkFriendsIter.remove();
         makeToast(this, "«" + name + "» is forgotten");
+        checkNextFriend();
     }
 
     @Override
@@ -273,14 +272,46 @@ public class EditInteractionActivity
 
         switch (item.getItemId()){
             case R.id.icon_save: {
-                if(argsFilled() && allFriendsExist()) {
-                    saveInteraction();
+                if(argsFilled()) {
+                    startCheckingFriends();
                 }
                 return true;
             }
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void startCheckingFriends() {
+        checkFriendsList = new ArrayList<>(Arrays.asList(
+                mFriends.getText().toString().split("\\s*,\\s*")));
+
+        checkFriendsIter = checkFriendsList.listIterator();
+
+        checkNextFriend();
+    }
+
+    private void checkNextFriend() {
+        if(checkFriendsIter.hasNext()){
+            String friendName = checkFriendsIter.next();
+            checkFriend(friendName);
+        } else {
+            saveInteraction();
+        }
+    }
+
+    public void updateAndCheckFriend(String name) {
+        checkFriendsIter.set(name);
+        checkFriend(name);
+    }
+
+    private void checkFriend(String name) {
+        if(friendsMap.containsKey(name)) {
+            checkNextFriend();
+        } else {
+            FriendNotFoundDialog dialog = new FriendNotFoundDialog(name);
+            dialog.show(getSupportFragmentManager(), "friendNotFoundDialog");
         }
     }
 

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.EditInteractionActivity;
 
 public class EditFriendNameDialog extends DialogFragment {
 
@@ -39,7 +40,8 @@ public class EditFriendNameDialog extends DialogFragment {
             .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
+                    ((EditInteractionActivity)getActivity())
+                            .updateAndCheckFriend(editName.getText().toString());
                 }
             });
 
