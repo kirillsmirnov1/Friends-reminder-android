@@ -197,21 +197,6 @@ public class EditInteractionActivity
         finish();
     }
 
-    private boolean allFriendsExist() {
-        String[] friends = mFriends.getText().toString().split("\\s*,\\s*");
-
-        for(String friendName : friends){
-            if(!friendsMap.containsKey(friendName)){
-
-                FriendNotFoundDialog dialog = new FriendNotFoundDialog(friendName);
-                dialog.show(getSupportFragmentManager(), "friendNotFoundDialog");
-
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void processDatePickerResult(int year, int month, int date){
         pickedDate = Calendar.getInstance();
         //                   Sincerely, fuck you, developers of Calendar class
