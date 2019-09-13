@@ -12,7 +12,7 @@
     <string name="friends_input_invitation">Friends:</string>
     <string name="default_friends">Ivan, Vasiliy, Georgy</string>
     <string name="comment_input_invitation">Comment:</string>
-    <string name="default_interaction_comment">It was a fine ride with my friends.</string>
+    <string name="default_interaction_comment">Write something about this interaction</string>
     <string name="save">Save</string>
     <string name="meetings">Meetings</string>
     <string name="texting">Texting</string>
