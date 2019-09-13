@@ -23,9 +23,6 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class LastInteractionsTabFragment extends Fragment {
-    private String type;
-
-    private final static String TYPE_ARGUMENT = "TYPE_ARGUMENT";
 
     private ArrayList<LastInteraction> mLastInteractions = new ArrayList<>();
 
