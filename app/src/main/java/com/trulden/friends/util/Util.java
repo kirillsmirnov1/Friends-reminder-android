@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
+import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -89,5 +91,14 @@ public class Util {
                 Log.e(LOG_TAG, "Error wiping database");
             }
         }
+    }
+
+    public static boolean itsTime(LastInteraction interaction, InteractionType type){
+
+        long timePassed = Calendar.getInstance().getTimeInMillis() - interaction.getDate();
+
+        int daysPassed = (int) ( timePassed / MILLISECONDS_IN_DAYS );
+
+        return (daysPassed > type.getFrequency());
     }
 }
