@@ -94,11 +94,11 @@ public class Util {
     }
 
     public static boolean itsTime(LastInteraction interaction, InteractionType type){
+        return (daysPassed(interaction) > type.getFrequency());
+    }
 
+    public static int daysPassed(LastInteraction interaction){
         long timePassed = Calendar.getInstance().getTimeInMillis() - interaction.getDate();
-
-        int daysPassed = (int) ( timePassed / MILLISECONDS_IN_DAYS );
-
-        return (daysPassed > type.getFrequency());
+        return (int) ( timePassed / MILLISECONDS_IN_DAYS );
     }
 }
