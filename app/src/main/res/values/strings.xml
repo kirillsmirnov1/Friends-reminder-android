@@ -40,5 +40,6 @@
     <string name="friend_name">Friend name</string>
     <string name="interaction_type">Interaction type</string>
     <string name="interaction_freq_stub">per 100 days</string>
+    <string name="friend_reminder_date_stub">5 days ago</string>
 
 </resources>
