@@ -322,13 +322,15 @@ public class EditInteractionActivity
 
             newbies.add(name);
 
-            makeToast(context, "«" + name + "»" + getResources().getString(R.string.toast_notice_friend_created)); // Not actually, lol
+            makeToast(context, "«" + name + "»"
+                    + getResources().getString(R.string.toast_notice_friend_created)); // Not actually, lol
             checkNextFriend();
         }
 
         void removeFriendName(String name) {
             checkFriendsIter.remove();
-            makeToast(context, "«" + name + "» is forgotten");
+            makeToast(context, "«" + name + "»" +
+                    getResources().getString(R.string.toast_notice_friend_forgotten));
             checkNextFriend();
         }
 

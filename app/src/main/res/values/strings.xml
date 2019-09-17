@@ -51,5 +51,6 @@
     <string name="toast_warning_fill_date">Fill date</string>
     <string name="toast_warning_fill_friends">Fill friends</string>
     <string name="toast_notice_friend_created">is created</string>
+    <string name="toast_notice_friend_forgotten">is forgotten</string>
 
 </resources>
