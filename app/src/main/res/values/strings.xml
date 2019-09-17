@@ -37,7 +37,6 @@
     <string name="friend_s_notes">Friend\'s notes</string>
     <string name="notes">Notes:</string>
     <string name="name">Name:</string>
-    <string name="friend_name">Friend name</string>
     <string name="interaction_type">Interaction type</string>
     <string name="interaction_freq_stub">per 100 days</string>
     <string name="friend_reminder_date_stub">5 days ago</string>
