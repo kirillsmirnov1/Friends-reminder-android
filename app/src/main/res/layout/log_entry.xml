@@ -23,7 +23,7 @@
             android:paddingTop="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="Meeting with [Jack, John, Joan]"
+            android:text="@string/log_entry_title_stub"
             style="@style/TextAppearance.AppCompat.Subhead"
             />
 
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="12 May 2019"
+            android:text="@string/log_entry_date_stub"
             />
 
         <TextView
@@ -44,7 +44,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             style="@style/TextAppearance.AppCompat.Subhead"
-            android:text="That will be the log entry. There will be lots of text. Maybe. Maybe not."
+            android:text="@string/log_entry_comment_stub"
             />
 
     </LinearLayout>
