@@ -66,7 +66,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         }
 
                         if(name.isEmpty()){
-                            makeToast(getActivity(), "Empty name!");
+                            makeToast(getActivity(), getString(R.string.toast_warning_empty_name));
                             return;
                         }
 
