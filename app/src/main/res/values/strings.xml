@@ -44,5 +44,7 @@
     <string name="log_entry_title_stub">Meeting with Jack, John, Joan</string>
     <string name="log_entry_date_stub">12 May 2019</string>
     <string name="log_entry_comment_stub">That will be the log entry. There will be lots of text. Maybe. Maybe not.</string>
+    <string name="tab_inter_type_name_stub">Inter. type</string>
+    <string name="tab_inter_type_count_stub">99</string>
 
 </resources>
