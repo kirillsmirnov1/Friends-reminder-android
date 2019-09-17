@@ -52,5 +52,6 @@
     <string name="toast_notice_friend_created">is created</string>
     <string name="toast_notice_friend_forgotten">is forgotten</string>
     <string name="toast_notice_interaction_saved">Interaction saved</string>
+    <string name="toast_notice_friend_deleted">deleted</string>
 
 </resources>
