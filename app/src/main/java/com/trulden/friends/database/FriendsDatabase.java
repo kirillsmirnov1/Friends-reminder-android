@@ -18,11 +18,15 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.util.Util;
 
+import java.lang.ref.WeakReference;
+
 @Database(
         entities = {Friend.class, InteractionType.class, Interaction.class, BindFriendInteraction.class},
         version = Util.DATABASE_VERSION
 )
 public abstract class FriendsDatabase extends RoomDatabase {
+
+    private static WeakReference<Context> mContext;
 
     public static final String DATABASE_NAME = "friends_database";
 
@@ -42,6 +46,8 @@ public abstract class FriendsDatabase extends RoomDatabase {
     }
 
     public static FriendsDatabase getDatabase(final Context context){
+
+        mContext = new WeakReference<>(context);
 
         if(INSTANCE == null){
             synchronized (FriendsDatabase.class){
@@ -73,9 +79,9 @@ public abstract class FriendsDatabase extends RoomDatabase {
 //                 "Richard", "Stephen", "Thomas", "Utah", "Victor", "Wilfred", "Xan", "Yan", "Zorro"};
 
         String[] defaultInteractionsNames = {
-                Resources.getSystem().getString(R.string.interaction_type_name_meeting),
-                Resources.getSystem().getString(R.string.interaction_type_name_texting),
-                Resources.getSystem().getString(R.string.interaction_type_name_call)
+                mContext.get().getString(R.string.interaction_type_name_meeting),
+                mContext.get().getString(R.string.interaction_type_name_texting),
+                mContext.get().getString(R.string.interaction_type_name_call)
         };
         int[]    defaultInteractionsFrequency = {30, 7, 30};
 
