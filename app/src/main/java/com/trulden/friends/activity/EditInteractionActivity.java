@@ -322,7 +322,7 @@ public class EditInteractionActivity
 
             newbies.add(name);
 
-            makeToast(context, "«" + name + "» is created"); // Not actually, lol
+            makeToast(context, "«" + name + "»" + getResources().getString(R.string.toast_notice_friend_created)); // Not actually, lol
             checkNextFriend();
         }
 
