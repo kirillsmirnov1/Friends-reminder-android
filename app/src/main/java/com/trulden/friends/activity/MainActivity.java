@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Friend getFriendFromIntent(Intent resultingIntent) {
         long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
         String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
-        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
+        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_NOTES);
 
         assert name != null;
 

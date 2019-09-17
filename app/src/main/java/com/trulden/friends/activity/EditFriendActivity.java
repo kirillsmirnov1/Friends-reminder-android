@@ -33,7 +33,7 @@ public class EditFriendActivity extends AppCompatActivity {
         Intent intent = getIntent();
         updatedFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
         mName.setText(intent.getStringExtra(EXTRA_FRIEND_NAME));
-        mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_INFO));
+        mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
         if(updatedFriendId == -1){
             getSupportActionBar().setTitle(getString(R.string.action_bar_title_add_friend));
@@ -57,7 +57,7 @@ public class EditFriendActivity extends AppCompatActivity {
 
             replyIntent.putExtra(EXTRA_FRIEND_ID, updatedFriendId);
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
-            replyIntent.putExtra(EXTRA_FRIEND_INFO, info);
+            replyIntent.putExtra(EXTRA_FRIEND_NOTES, info);
 
             makeToast(this, updatedFriendId == -1 ? "Friend created" : "Friend updated");
 

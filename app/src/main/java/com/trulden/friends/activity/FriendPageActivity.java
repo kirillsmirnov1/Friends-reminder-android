@@ -19,7 +19,7 @@ import static com.trulden.friends.util.Util.*;
 
 public class FriendPageActivity extends AppCompatActivity {
 
-    private TextView mPersonInfo;
+    private TextView mPersonNotes;
 
     private Friend friend;
 
@@ -30,14 +30,14 @@ public class FriendPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_page);
 
-        mPersonInfo = findViewById(R.id.friend_page_info);
+        mPersonNotes = findViewById(R.id.friend_page_notes);
 
         Intent intent = getIntent();
 
         friend = new Friend(
                 intent.getLongExtra(EXTRA_FRIEND_ID, -1),
                 intent.getStringExtra(EXTRA_FRIEND_NAME),
-                intent.getStringExtra(EXTRA_FRIEND_INFO));
+                intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
         setFriendInfo(friend);
 
@@ -47,7 +47,7 @@ public class FriendPageActivity extends AppCompatActivity {
     private void setFriendInfo(Friend friend){
         this.friend = friend;
         getSupportActionBar().setTitle(friend.getName());
-        mPersonInfo.setText(friend.getInfo());
+        mPersonNotes.setText(friend.getInfo());
     }
 
     @Override
@@ -67,7 +67,7 @@ public class FriendPageActivity extends AppCompatActivity {
 
                 intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
                 intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-                intent.putExtra(EXTRA_FRIEND_INFO, friend.getInfo());
+                intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
 
                 startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
                 break;
@@ -94,7 +94,7 @@ public class FriendPageActivity extends AppCompatActivity {
                     long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
                     if(id != -1){
                         String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
-                        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
+                        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_NOTES);
 
                         Friend friend = new Friend(id, name, info);
                         setFriendInfo(friend);
