@@ -1,6 +1,7 @@
 package com.trulden.friends.database;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.trulden.friends.R;
 import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
@@ -70,7 +72,11 @@ public abstract class FriendsDatabase extends RoomDatabase {
 //                 "Jacob", "Kate", "Leonard", "Michael", "Nikolas", "Oprah", "Peter", "Quynh",
 //                 "Richard", "Stephen", "Thomas", "Utah", "Victor", "Wilfred", "Xan", "Yan", "Zorro"};
 
-        String[] defaultInteractionsNames = {"Meeting", "Texting", "Call"};
+        String[] defaultInteractionsNames = {
+                Resources.getSystem().getString(R.string.interaction_type_name_meeting),
+                Resources.getSystem().getString(R.string.interaction_type_name_texting),
+                Resources.getSystem().getString(R.string.interaction_type_name_call)
+        };
         int[]    defaultInteractionsFrequency = {30, 7, 30};
 
         private final FriendsDao mDao;

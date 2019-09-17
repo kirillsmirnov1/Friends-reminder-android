@@ -67,5 +67,8 @@
     <string name="toast_notice_friend_deleted">deleted</string>
     <string name="toast_notice_friend_updated">updated</string>
     <string name="toast_notice_interactions_deleted">Interactions deleted</string>
+    <string name="interaction_type_name_meeting">Meeting</string>
+    <string name="interaction_type_name_texting">Texting</string>
+    <string name="interaction_type_name_call">Call</string>
 
 </resources>
