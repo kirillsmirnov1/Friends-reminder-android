@@ -38,5 +38,7 @@
     <string name="notes">Notes:</string>
     <string name="name">Name:</string>
     <string name="friend_name">Friend name</string>
+    <string name="interaction_type">Interaction type</string>
+    <string name="interaction_freq_stub">per 100 days</string>
 
 </resources>
