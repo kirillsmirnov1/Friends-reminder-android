@@ -367,7 +367,7 @@ public class EditInteractionActivity
 
             setResult(RESULT_OK, replyIntent);
 
-            makeToast(context, "Interaction saved");
+            makeToast(context, getResources().getString(R.string.toast_notice_interaction_saved));
 
             finish();
         }
