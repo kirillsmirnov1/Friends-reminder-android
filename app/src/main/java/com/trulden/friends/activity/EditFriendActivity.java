@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.FriendsAdapter;
+import com.trulden.friends.database.entity.Friend;
 
 import static com.trulden.friends.util.Util.*;
 
@@ -59,7 +60,11 @@ public class EditFriendActivity extends AppCompatActivity {
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
             replyIntent.putExtra(EXTRA_FRIEND_NOTES, info);
 
-            makeToast(this, updatedFriendId == -1 ? "Friend created" : "Friend updated");
+            String toastMessage = updatedFriendId == -1
+                    ? "«" + name + "»" + getString(R.string.toast_notice_friend_created)
+                    : "«" + name + "»" + getString(R.string.toast_notice_friend_updated);
+
+            makeToast(this, toastMessage);
 
             setResult(RESULT_OK, replyIntent);
             finish();

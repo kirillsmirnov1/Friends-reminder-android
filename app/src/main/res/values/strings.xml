@@ -59,5 +59,6 @@
     <string name="toast_notice_import_failed">Import failed</string>
     <string name="toast_warning_empty_name">Empty name</string>
     <string name="toast_warning_friend_exists">Friend with name like this already exists</string>
+    <string name="toast_notice_friend_updated">updated</string>
 
 </resources>
