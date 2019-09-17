@@ -36,5 +36,6 @@
     <string name="friend_name">Friend name</string>
     <string name="friend_s_notes">Friend\'s notes</string>
     <string name="notes">Notes:</string>
+    <string name="name">Name:</string>
 
 </resources>
