@@ -71,7 +71,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         }
 
                         if(mType == null && parentActivity.typeExists(name)){
-                            makeToast(getActivity(), "Type already exists!");
+                            makeToast(getActivity(), getString(R.string.toast_warning_type_exists));
                         }
 
                         if(frequency < 0){
