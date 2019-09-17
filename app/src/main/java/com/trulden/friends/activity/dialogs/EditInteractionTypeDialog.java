@@ -75,7 +75,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
                         }
 
                         if(frequency < 0){
-                            makeToast(getActivity(), "Empty frequency!");
+                            makeToast(getActivity(), getString(R.string.toast_warning_empty_frequency));
                             return;
                         }
 

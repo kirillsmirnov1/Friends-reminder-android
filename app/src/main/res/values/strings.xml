@@ -54,6 +54,7 @@
     <string name="toast_warning_empty_name">Empty name!</string>
     <string name="toast_warning_friend_exists">Friend with name like that already exists!</string>
     <string name="toast_warning_type_exists">Type already exists!</string>
+    <string name="toast_warning_empty_frequency">Empty frequency!</string>
 
     <string name="toast_notice_interaction_saved">Interaction saved</string>
     <string name="toast_notice_export_succeeded">Export succeeded</string>
