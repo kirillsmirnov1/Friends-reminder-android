@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/friend_entry_text"
-            android:text="Андрюшка"
+            android:text="@string/friend_name"
             android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
