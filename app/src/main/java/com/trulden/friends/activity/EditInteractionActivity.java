@@ -185,7 +185,7 @@ public class EditInteractionActivity
         if(pickedDate.before(tomorrow)) {
             mDate.setText(dateFormat.format(pickedDate.getTime()));
         } else {
-            makeToast(this, "Can't interact in the future");
+            makeToast(this, getResources().getString(R.string.set_date_future_warning));
             pickedDate = null;
         }
     }

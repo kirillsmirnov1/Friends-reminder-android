@@ -46,5 +46,6 @@
     <string name="log_entry_comment_stub">That will be the log entry. There will be lots of text. Maybe. Maybe not.</string>
     <string name="tab_inter_type_name_stub">Inter. type</string>
     <string name="tab_inter_type_count_stub">99</string>
+    <string name="set_date_future_warning">Can\'t interact in the future</string>
 
 </resources>
