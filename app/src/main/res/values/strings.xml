@@ -53,5 +53,9 @@
     <string name="toast_notice_friend_forgotten">is forgotten</string>
     <string name="toast_notice_interaction_saved">Interaction saved</string>
     <string name="toast_notice_friend_deleted">deleted</string>
+    <string name="toast_notice_export_succeeded">Export succeeded</string>
+    <string name="toast_notice_export_failed">Export failed</string>
+    <string name="toast_notice_import_succeeded">Import succeeded</string>
+    <string name="toast_notice_import_failed">Import failed</string>
 
 </resources>
