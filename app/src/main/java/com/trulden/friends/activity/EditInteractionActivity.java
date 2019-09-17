@@ -241,7 +241,7 @@ public class EditInteractionActivity
         mFriendsViewModel.add(interactionType);
         mTypeToSelect = interactionType.getInteractionTypeName();
 
-        makeToast(this, getResources().getString(R.string.toast_type_created));
+        makeToast(this, getResources().getString(R.string.toast_notice_type_created));
     }
 
     public void createFriendByName(String name)   { saveHandler.createFriendByName(name);   }
