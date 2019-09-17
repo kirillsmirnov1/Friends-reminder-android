@@ -51,9 +51,9 @@ public class EditFriendActivity extends AppCompatActivity {
         String info = mInfo.getText().toString();
 
         if(name.isEmpty()) {
-            makeToast(this, getResources().getString(R.string.toast_warning_empty_name));
+            makeToast(this, getString(R.string.toast_warning_empty_name));
         } else if(updatedFriendId == -1 && FriendsAdapter.friendExists(name)) {
-            makeToast(this, getResources().getString(R.string.toast_warning_friend_exists));
+            makeToast(this, getString(R.string.toast_warning_friend_exists));
         } else {
 
             replyIntent.putExtra(EXTRA_FRIEND_ID, updatedFriendId);
