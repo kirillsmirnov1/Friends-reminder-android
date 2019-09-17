@@ -274,7 +274,7 @@ public class EditInteractionActivity
         private boolean argsFilled() {
 
             if(mDate.getText().toString().isEmpty()){
-                makeToast(context, "Fill date");
+                makeToast(context, getResources().getString(R.string.toast_warning_fill_date));
                 return false;
             }
 
