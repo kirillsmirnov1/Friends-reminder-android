@@ -279,7 +279,7 @@ public class EditInteractionActivity
             }
 
             if(mFriends.getText().toString().isEmpty()){
-                makeToast(context, "Fill friends");
+                makeToast(context, getResources().getString(R.string.toast_warning_fill_friends));
                 return false;
             }
 

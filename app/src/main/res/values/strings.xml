@@ -49,5 +49,6 @@
     <string name="set_date_future_warning">Can\'t interact in the future</string>
     <string name="toast_type_created">Type created!</string>
     <string name="toast_warning_fill_date">Fill date</string>
+    <string name="toast_warning_fill_friends">Fill friends</string>
 
 </resources>
