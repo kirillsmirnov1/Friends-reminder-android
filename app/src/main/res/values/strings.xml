@@ -66,5 +66,6 @@
     <string name="toast_notice_friend_forgotten">is forgotten</string>
     <string name="toast_notice_friend_deleted">deleted</string>
     <string name="toast_notice_friend_updated">updated</string>
+    <string name="toast_notice_interactions_deleted">Interactions deleted</string>
 
 </resources>

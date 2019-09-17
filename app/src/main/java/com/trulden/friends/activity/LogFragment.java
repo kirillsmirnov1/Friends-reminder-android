@@ -177,7 +177,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
         for(Interaction interaction : mInteractionsAdapter.getSelectedInteractions()) {
             mFriendsViewModel.delete(interaction);
         }
-        makeToast(getContext(), "Interactions deleted");
+        makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
     }
 
 
