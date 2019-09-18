@@ -16,22 +16,21 @@ import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import static com.trulden.friends.util.Util.MILLISECONDS_IN_DAYS;
 import static com.trulden.friends.util.Util.daysPassed;
 import static com.trulden.friends.util.Util.itsTime;
 
-public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractionsAdapter.ViewHolder> {
+// TODO implement selection
 
-    private Context mContext;
-    private ArrayList<LastInteraction> mLastInteractions;
-    private InteractionType type;
+public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteraction> {
+
+    private InteractionType mType;
 
     public LastInteractionsAdapter(Context context, InteractionType type, ArrayList<LastInteraction> lastInteractions){
+        super(context, null);
         mContext = context;
-        mLastInteractions = lastInteractions;
-        this.type = type;
+        mEntries = lastInteractions;
+        mType = type;
     }
 
     @NonNull
@@ -42,12 +41,7 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindTo(mLastInteractions.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mLastInteractions.size();
+        holder.bindTo(mEntries.get(position));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,7 +67,7 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
 
             mTime.setText(dateString);
 
-            if(!itsTime(lastInteraction, type)) {
+            if(!itsTime(lastInteraction, mType)) {
                 layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_backgroung_grey));
             }
         }
