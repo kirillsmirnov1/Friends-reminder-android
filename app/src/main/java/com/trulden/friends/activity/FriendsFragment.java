@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.adapter.FriendsAdapter;
+import com.trulden.friends.adapter.OnClickListener;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 
@@ -83,7 +84,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
             }
         });
 
-        mFriendsAdapter.setOnClickListener(new FriendsAdapter.OnClickListener() {
+        mFriendsAdapter.setOnClickListener(new OnClickListener<Friend>() {
             @Override
             public void onItemClick(View view, Friend friend, int pos) {
                 if(mFriendsAdapter.getSelectedItemCount() > 0){

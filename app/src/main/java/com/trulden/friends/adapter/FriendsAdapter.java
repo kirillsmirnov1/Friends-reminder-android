@@ -128,9 +128,4 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             });
         }
     }
-
-    public interface OnClickListener {
-        void onItemClick(View view, Friend obj, int pos);
-        void onItemLongClick(View view, Friend obj, int pos);
-    }
 }
