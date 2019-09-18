@@ -1,4 +1,5 @@
 <resources>
+<!--    «\u0020» is for space at the beginning or end of line-->
     <string name="app_name">Friends</string>
     <string name="log">Log</string>
     <string name="friends">Friends</string>
@@ -63,5 +64,6 @@
     <string name="interaction_type_name_texting">Texting</string>
     <string name="interaction_type_name_call">Call</string>
     <string name="edit_interaction">Edit interaction</string>
+    <string name="with">\u0020with\u0020</string>
 
 </resources>

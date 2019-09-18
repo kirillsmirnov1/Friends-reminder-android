@@ -54,4 +54,5 @@
     <string name="add_new_interaction_type">Добавить новый...</string>
     <string name="add_friend">Добавить друга</string>
     <string name="edit_interaction">Изменить взаимодействие</string>
+    <string name="with">\u0020с\u0020</string>
 </resources>

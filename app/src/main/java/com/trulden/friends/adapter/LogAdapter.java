@@ -110,7 +110,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
             String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
 
-            mTypeAndNames.setText(interactionTypeName + " with " + interaction.getFriendNames());
+            mTypeAndNames.setText(interactionTypeName + mContext.getString(R.string.with) + interaction.getFriendNames());
             mDate.setText(dateFormat.format(interaction.getDate()));
             mComment.setText(interaction.getComment());
 
