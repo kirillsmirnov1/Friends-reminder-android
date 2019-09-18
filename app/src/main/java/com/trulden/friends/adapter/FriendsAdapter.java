@@ -12,25 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.Friend;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
-
-    private Context mContext;
-    private OnClickListener onClickListener = null;
-    private HashSet<Integer> mSelectedPositions;
-
-    private List<Friend> mEntriesData = new ArrayList<>();
-
-    public void setOnClickListener(OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
+public class FriendsAdapter extends CustomRVAdapter<FriendsAdapter.ViewHolder, Friend> {
 
     public FriendsAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
-        mContext = context;
-        mSelectedPositions = selectedPositions;
+        super(context, selectedPositions);
     }
 
     @NonNull
@@ -41,46 +28,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder
             .bindTo(
-                mEntriesData.get(position),
+                mEntries.get(position),
                 position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mEntriesData.size();
-    }
-
-    public void setEntries(List<Friend> friends){
-        mEntriesData = friends;
-    }
-
-    public void clearSelections() {
-        mSelectedPositions.clear();
-        notifyDataSetChanged();
-    }
-
-    public int getSelectedItemCount() {
-        return mSelectedPositions.size();
-    }
-
-    public void toggleSelection(int pos) {
-        if(mSelectedPositions.contains(pos)){
-            mSelectedPositions.remove(pos);
-        } else {
-            mSelectedPositions.add(pos);
-        }
-        notifyItemChanged(pos);
-    }
-
-    public List<Friend> getSelectedItems() {
-        List <Friend> selectedFriends = new ArrayList<>(mSelectedPositions.size());
-        for(Integer position : mSelectedPositions){
-            selectedFriends.add(mEntriesData.get(position));
-        }
-        return selectedFriends;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -102,19 +54,19 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             mFriendEntryLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    if(onClickListener == null)
+                    if(mOnClickListener == null)
                         return;
-                    onClickListener.onItemClick(v, friend, position);
+                    mOnClickListener.onItemClick(v, friend, position);
                 }
             });
 
             mFriendEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    if (onClickListener == null)
+                    if (mOnClickListener == null)
                         return false;
 
-                    onClickListener.onItemLongClick(v, friend, position);
+                    mOnClickListener.onItemLongClick(v, friend, position);
                     return true;
                 }
             });
