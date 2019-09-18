@@ -21,7 +21,7 @@
     <string name="icon_title_save">Сохранить</string>
     <string name="import_database">Импорт базы данных</string>
     <string name="interaction_freq_stub">Раз в сто дней</string>
-    <string name="interaction_type">Тип взаимодействия</string>
+    <string name="interaction_type">Название</string>
     <string name="interaction_type_name_call">Звонок</string>
     <string name="interaction_type_name_meeting">Встреча</string>
     <string name="interaction_type_name_texting">Переписка</string>
