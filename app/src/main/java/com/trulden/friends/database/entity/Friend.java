@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "friend_table")
-public class Friend {
+public class Friend extends AbstractEntity {
 
     @PrimaryKey(autoGenerate = true)
     private long id;

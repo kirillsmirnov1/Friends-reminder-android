@@ -22,7 +22,7 @@ import static androidx.room.ForeignKey.CASCADE;
                     onDelete = CASCADE)
         }
 )
-public class BindFriendInteraction {
+public class BindFriendInteraction extends AbstractEntity {
 
     private long friendId;
     private long interactionId;

@@ -19,7 +19,7 @@ import static androidx.room.ForeignKey.CASCADE;
                     onDelete = CASCADE)
         })
 
-public class Interaction {
+public class Interaction extends AbstractEntity {
 
     @PrimaryKey(autoGenerate = true)
     private long id;

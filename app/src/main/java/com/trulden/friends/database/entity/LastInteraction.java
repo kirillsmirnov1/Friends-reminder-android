@@ -2,7 +2,7 @@ package com.trulden.friends.database.entity;
 
 import androidx.annotation.NonNull;
 
-public class LastInteraction {
+public class LastInteraction extends AbstractEntity {
 
     private String type;
 

@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "interaction_type_table")
-public class InteractionType {
+public class InteractionType extends AbstractEntity {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
