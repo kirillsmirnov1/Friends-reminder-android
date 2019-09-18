@@ -78,7 +78,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
             @Override
             public void onChanged(List<Friend> friends) {
-                mFriendsAdapter.setFriends(friends);
+                mFriendsAdapter.setEntries(friends);
                 // We need to tell adapter to refresh view, otherwise it might not happen
                 mFriendsAdapter.notifyDataSetChanged();
             }
@@ -158,7 +158,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditFriendActivity.class);
-        Friend friend = mFriendsAdapter.getSelectedFriends().get(0);
+        Friend friend = mFriendsAdapter.getSelectedItems().get(0);
 
         intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
         intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
@@ -171,11 +171,11 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
     public void deleteSelection() {
         int countOfSelectedFriends = mFriendsAdapter.getSelectedItemCount();
         if(countOfSelectedFriends == 1){
-            makeToast(getActivity(), "«" + mFriendsAdapter.getSelectedFriends().get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
+            makeToast(getActivity(), "«" + mFriendsAdapter.getSelectedItems().get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
         } else {
             makeToast(getActivity(), getString(R.string.friends_deleted));
         }
-        for (Friend friend : mFriendsAdapter.getSelectedFriends()){
+        for (Friend friend : mFriendsAdapter.getSelectedItems()){
             mFriendsViewModel.delete(friend);
         }
     }

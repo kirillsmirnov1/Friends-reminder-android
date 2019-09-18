@@ -53,7 +53,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         return mEntriesData.size();
     }
 
-    public void setFriends(List<Friend> friends){
+    public void setEntries(List<Friend> friends){
         mEntriesData = friends;
     }
 
@@ -75,7 +75,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         notifyItemChanged(pos);
     }
 
-    public List<Friend> getSelectedFriends() {
+    public List<Friend> getSelectedItems() {
         List <Friend> selectedFriends = new ArrayList<>(mSelectedPositions.size());
         for(Integer position : mSelectedPositions){
             selectedFriends.add(mEntriesData.get(position));
