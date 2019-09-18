@@ -60,27 +60,6 @@ public class FriendPageActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch(item.getItemId()){
-            case R.id.edit_selection: {
-                Intent intent = new Intent(this, EditFriendActivity.class);
-
-                intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
-                intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-                intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
-
-                startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
-                break;
-            }
-
-            case R.id.delete_selection: {
-                mFriendsViewModel.delete(friend);
-                makeToast(this, "«" + friend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
-                finish();
-                break;
-            }
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
