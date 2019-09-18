@@ -62,5 +62,6 @@
     <string name="interaction_type_name_meeting">Meeting</string>
     <string name="interaction_type_name_texting">Texting</string>
     <string name="interaction_type_name_call">Call</string>
+    <string name="edit_interaction">Edit interaction</string>
 
 </resources>

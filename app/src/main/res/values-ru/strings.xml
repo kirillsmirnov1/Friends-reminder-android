@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Друзья</string>
-    <string name="action_bar_title_add_friend">Добавить друга</string>
     <string name="action_bar_title_edit_friend">Изменить друга</string>
     <string name="add">Добавить</string>
     <string name="add_interaction">Добавить взаимодействие</string>
@@ -54,4 +53,5 @@
     <string name="type_of_interaction">Тип взаимодействия</string>
     <string name="add_new_interaction_type">Добавить новый...</string>
     <string name="add_friend">Добавить друга</string>
+    <string name="edit_interaction">Изменить взаимодействие</string>
 </resources>

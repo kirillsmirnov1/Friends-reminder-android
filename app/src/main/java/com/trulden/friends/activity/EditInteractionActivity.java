@@ -153,9 +153,9 @@ public class EditInteractionActivity
         mInteractionId = intent.getLongExtra(EXTRA_INTERACTION_ID, -1);
 
         if(mInteractionId == -1){
-            getSupportActionBar().setTitle("Add interaction");
+            getSupportActionBar().setTitle(getString(R.string.add_interaction));
         } else {
-            getSupportActionBar().setTitle("Edit interaction");
+            getSupportActionBar().setTitle(getString(R.string.edit_interaction));
 
             mComment.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
 
