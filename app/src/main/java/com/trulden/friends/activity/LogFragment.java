@@ -99,7 +99,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
         mFriendsViewModel.getAllInteractions().observe(this, new Observer<List<Interaction>>() {
             @Override
             public void onChanged(List<Interaction> interactions) {
-                mInteractionsAdapter.setInteractions(interactions);
+                mInteractionsAdapter.setEntries(interactions);
                 mInteractionsAdapter.notifyDataSetChanged();
             }
         });
@@ -162,7 +162,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditInteractionActivity.class);
-        Interaction interaction = mInteractionsAdapter.getSelectedInteractions().get(0);
+        Interaction interaction = mInteractionsAdapter.getSelectedItems().get(0);
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
         intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypeMap.get(interaction.getInteractionTypeId()));
@@ -175,7 +175,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
 
     @Override
     public void deleteSelection() {
-        for(Interaction interaction : mInteractionsAdapter.getSelectedInteractions()) {
+        for(Interaction interaction : mInteractionsAdapter.getSelectedItems()) {
             mFriendsViewModel.delete(interaction);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));

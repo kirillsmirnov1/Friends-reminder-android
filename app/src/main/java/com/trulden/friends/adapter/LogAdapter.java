@@ -20,16 +20,16 @@ import static com.trulden.friends.util.Util.*;
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Interaction> mInteractions = new ArrayList<>();
+    private OnClickListener mOnClickListener = null;
+    private HashSet<Integer> mSelectedPositions;
+
+    private List<Interaction> mEntries = new ArrayList<>();
+
     private HashMap<Long, String> mInteractionTypes = new HashMap<>();
-
-    private OnClickListener onClickListener = null;
-
-    private HashSet<Integer> selectedInteractionsPositions;
 
     public LogAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
         mContext = context;
-        this.selectedInteractionsPositions = selectedInteractionsPositions;
+        this.mSelectedPositions = selectedInteractionsPositions;
     }
 
     @NonNull
@@ -40,16 +40,16 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindTo(mInteractions.get(position), position);
+        holder.bindTo(mEntries.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return mInteractions.size();
+        return mEntries.size();
     }
 
-    public void setInteractions(List<Interaction> interactions) {
-        mInteractions = interactions;
+    public void setEntries(List<Interaction> interactions) {
+        mEntries = interactions;
     }
 
     public void setInteractionTypes(HashMap<Long, String> interactionTypes){
@@ -57,31 +57,31 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
+        this.mOnClickListener = onClickListener;
     }
 
     public void clearSelections() {
-        selectedInteractionsPositions.clear();
+        mSelectedPositions.clear();
         notifyDataSetChanged();
     }
 
     public int getSelectedItemCount() {
-        return selectedInteractionsPositions.size();
+        return mSelectedPositions.size();
     }
 
     public void toggleSelection(int pos) {
-        if(selectedInteractionsPositions.contains(pos)){
-            selectedInteractionsPositions.remove(pos);
+        if(mSelectedPositions.contains(pos)){
+            mSelectedPositions.remove(pos);
         } else {
-            selectedInteractionsPositions.add(pos);
+            mSelectedPositions.add(pos);
         }
         notifyItemChanged(pos);
     }
 
-    public List<Interaction> getSelectedInteractions() {
-        List <Interaction> selectedInteractions = new ArrayList<>(selectedInteractionsPositions.size());
-        for(Integer position : selectedInteractionsPositions){
-            selectedInteractions.add(mInteractions.get(position));
+    public List<Interaction> getSelectedItems() {
+        List <Interaction> selectedInteractions = new ArrayList<>(mSelectedPositions.size());
+        for(Integer position : mSelectedPositions){
+            selectedInteractions.add(mEntries.get(position));
         }
         return selectedInteractions;
     }
@@ -130,24 +130,24 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
             // Set click listeners
 
-            mLogEntryLayout.setActivated(selectedInteractionsPositions.contains(position));
+            mLogEntryLayout.setActivated(mSelectedPositions.contains(position));
 
             mLogEntryLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    if(onClickListener == null)
+                    if(mOnClickListener == null)
                         return;
-                    onClickListener.onItemClick(view, interaction, position);
+                    mOnClickListener.onItemClick(view, interaction, position);
                 }
             });
 
             mLogEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if (onClickListener == null)
+                    if (mOnClickListener == null)
                         return false;
 
-                    onClickListener.onItemLongClick(view, interaction, position);
+                    mOnClickListener.onItemLongClick(view, interaction, position);
                     return true;
                 }
             });
