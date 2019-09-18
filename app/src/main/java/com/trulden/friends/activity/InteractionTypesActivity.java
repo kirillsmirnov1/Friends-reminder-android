@@ -183,6 +183,9 @@ public class InteractionTypesActivity
     // FIXME can this be turned into outer class?
     private class ActionModeCallback implements ActionMode.Callback{
 
+        // TODO add inner Activity, actionMode, adapter
+        // TODO adapter methods to interface
+
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
