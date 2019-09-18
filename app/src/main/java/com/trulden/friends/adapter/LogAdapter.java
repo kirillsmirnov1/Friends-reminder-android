@@ -9,27 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.Interaction;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import static com.trulden.friends.util.Util.*;
 
-public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
-
-    private Context mContext;
-    private OnClickListener mOnClickListener = null;
-    private HashSet<Integer> mSelectedPositions;
-
-    private List<Interaction> mEntries = new ArrayList<>();
+public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interaction> {
 
     private HashMap<Long, String> mInteractionTypes = new HashMap<>();
 
     public LogAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
-        mContext = context;
-        this.mSelectedPositions = selectedInteractionsPositions;
+        super(context, selectedInteractionsPositions);
     }
 
     @NonNull
@@ -43,47 +33,8 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
         holder.bindTo(mEntries.get(position), position);
     }
 
-    @Override
-    public int getItemCount() {
-        return mEntries.size();
-    }
-
-    public void setEntries(List<Interaction> interactions) {
-        mEntries = interactions;
-    }
-
     public void setInteractionTypes(HashMap<Long, String> interactionTypes){
         mInteractionTypes = interactionTypes;
-    }
-
-    public void setOnClickListener(OnClickListener onClickListener) {
-        this.mOnClickListener = onClickListener;
-    }
-
-    public void clearSelections() {
-        mSelectedPositions.clear();
-        notifyDataSetChanged();
-    }
-
-    public int getSelectedItemCount() {
-        return mSelectedPositions.size();
-    }
-
-    public void toggleSelection(int pos) {
-        if(mSelectedPositions.contains(pos)){
-            mSelectedPositions.remove(pos);
-        } else {
-            mSelectedPositions.add(pos);
-        }
-        notifyItemChanged(pos);
-    }
-
-    public List<Interaction> getSelectedItems() {
-        List <Interaction> selectedInteractions = new ArrayList<>(mSelectedPositions.size());
-        for(Integer position : mSelectedPositions){
-            selectedInteractions.add(mEntries.get(position));
-        }
-        return selectedInteractions;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
