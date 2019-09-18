@@ -68,4 +68,5 @@
     <string name="edit_name">Изменить имя</string>
     <string name="export_in_progress">Экспорт начался</string>
     <string name="import_in_progress">Импорт начался</string>
+    <string name="friends_deleted">Друзья удалены</string>
 </resources>

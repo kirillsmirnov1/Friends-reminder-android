@@ -78,5 +78,6 @@
     <string name="edit_name">Edit name</string>
     <string name="export_in_progress">Export in progress</string>
     <string name="import_in_progress">Import in progress</string>
+    <string name="friends_deleted">Friends deleted</string>
 
 </resources>

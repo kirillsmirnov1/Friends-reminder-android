@@ -32,6 +32,7 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
+import static com.trulden.friends.util.Util.makeToast;
 
 public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
@@ -167,6 +168,12 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
     @Override
     public void deleteSelection() {
+        int countOfSelectedFriends = mFriendsAdapter.getSelectedItemCount();
+        if(countOfSelectedFriends == 1){
+            makeToast(getActivity(), "«" + mFriendsAdapter.getSelectedFriends().get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
+        } else {
+            makeToast(getActivity(), getString(R.string.friends_deleted));
+        }
         for (Friend friend : mFriendsAdapter.getSelectedFriends()){
             mFriendsViewModel.delete(friend);
         }
