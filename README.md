@@ -14,7 +14,7 @@ Friends is a mobile app that helps to remember about your friends.
 
 ## Installing
 
-While my app is pending in Google Play, you can download apk from [here](https://github.com/kirillsmirnov1/Friends-reminder-android/releases/tag/1.0.0).
+While my app is pending in Google Play, you can download apk from [here](https://github.com/kirillsmirnov1/Friends-reminder-android/releases).
 
 ## Credits
 
