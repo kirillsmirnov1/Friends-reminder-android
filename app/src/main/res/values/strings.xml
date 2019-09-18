@@ -71,5 +71,10 @@
     <string name="edit_interaction_type">Edit interaction type</string>
     <string name="save">Save</string>
     <string name="discard">Discard</string>
+    <string name="dont_have_such_friend">You don\'t have friend named «%s»</string>
+    <string name="create">Create</string>
+    <string name="edit">Edit</string>
+    <string name="forget">Forget</string>
+    <string name="edit_name">Edit name</string>
 
 </resources>

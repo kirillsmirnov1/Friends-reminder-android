@@ -61,4 +61,9 @@
     <string name="edit_interaction_type">Изменить тип взаимодействия</string>
     <string name="new_interaction_type">Новый тип взаимодействия</string>
     <string name="save">Сохранить</string>
+    <string name="dont_have_such_friend">Нет друга по имени «%s»</string>
+    <string name="create">Добавить</string>
+    <string name="edit">Изменить</string>
+    <string name="forget">Забыть</string>
+    <string name="edit_name">Изменить имя</string>
 </resources>
