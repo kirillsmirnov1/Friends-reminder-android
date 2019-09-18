@@ -38,10 +38,10 @@ public class EditInteractionTypeDialog extends DialogFragment {
         View dialogView = inflater.inflate(R.layout.dialog_edit_interaction_type, null);
 
         builder
-            .setTitle(mType == null ? "New interaction type" : "Edit interaction type")
+            .setTitle(mType == null ? getString(R.string.new_interaction_type) : getString(R.string.edit_interaction_type))
             .setView(dialogView)
-            .setPositiveButton("Save", null)     // Set it later
-            .setNegativeButton("Discard", null); // Need only text on that one
+            .setPositiveButton(getString(R.string.save), null)     // Set it later
+            .setNegativeButton(getString(R.string.discard), null); // Need only text on that one
 
         final AlertDialog dialog = builder.create();
 

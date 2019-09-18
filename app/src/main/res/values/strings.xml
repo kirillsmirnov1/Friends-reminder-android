@@ -67,5 +67,9 @@
     <string name="with">\u0020with\u0020</string>
     <string name="days_ago">\u0020days ago</string>
     <string name="per_days">per %d d.</string>
+    <string name="new_interaction_type">New interaction type</string>
+    <string name="edit_interaction_type">Edit interaction type</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
 
 </resources>
