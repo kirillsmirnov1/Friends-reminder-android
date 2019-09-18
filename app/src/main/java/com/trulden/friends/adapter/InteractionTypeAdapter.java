@@ -138,10 +138,4 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
             });
         }
     }
-
-    // FIXME  I have a feeling, that it should not be inner class
-    public interface OnClickListener {
-        void onItemClick(View view, InteractionType obj, int pos);
-        void onItemLongClick(View view, InteractionType obj, int pos);
-    }
 }

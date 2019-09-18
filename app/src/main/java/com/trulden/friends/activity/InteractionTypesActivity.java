@@ -18,6 +18,7 @@ import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.adapter.InteractionTypeAdapter;
+import com.trulden.friends.adapter.OnClickListener;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
 
@@ -64,7 +65,7 @@ public class InteractionTypesActivity
             }
         });
 
-        mInteractionTypeAdapter.setOnClickListener(new InteractionTypeAdapter.OnClickListener() {
+        mInteractionTypeAdapter.setOnClickListener(new OnClickListener<InteractionType>() {
             @Override
             public void onItemClick(View view, InteractionType obj, int pos) {
                 if(mInteractionTypeAdapter.getSelectedItemCount() > 0){
