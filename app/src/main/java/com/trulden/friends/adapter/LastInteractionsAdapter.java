@@ -69,7 +69,7 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
         public void bindTo(LastInteraction lastInteraction) {
             mName.setText(lastInteraction.getFriend());
 
-            String dateString = daysPassed(lastInteraction) + " days ago";
+            String dateString = daysPassed(lastInteraction) + mContext.getString(R.string.days_ago);
 
             mTime.setText(dateString);
 
