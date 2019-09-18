@@ -7,12 +7,17 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
 import com.trulden.friends.R;
-import com.trulden.friends.adapter.FriendsAdapter;
+import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.trulden.friends.util.Util.*;
 
@@ -23,10 +28,21 @@ public class EditFriendActivity extends AppCompatActivity {
 
     private long updatedFriendId;
 
+    private FriendsViewModel mFriendsViewModel;
+    private List<Friend> mFriends = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_friend);
+
+        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
+            @Override
+            public void onChanged(List<Friend> friends) {
+                mFriends = friends;
+            }
+        });
 
         mName = findViewById(R.id.edit_friends_name);
         mInfo = findViewById(R.id.edit_friends_info);
@@ -52,7 +68,7 @@ public class EditFriendActivity extends AppCompatActivity {
 
         if(name.isEmpty()) {
             makeToast(this, getString(R.string.toast_warning_empty_name));
-        } else if(updatedFriendId == -1 && FriendsAdapter.friendExists(name)) {
+        } else if(updatedFriendId == -1 && friendExists(name)) {
             makeToast(this, getString(R.string.toast_warning_friend_exists));
         } else {
 
@@ -91,5 +107,13 @@ public class EditFriendActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public boolean friendExists(String name){
+        for(Friend friend : mFriends){
+            if(friend.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 }
