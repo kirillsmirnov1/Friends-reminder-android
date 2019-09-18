@@ -22,7 +22,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     private OnClickListener onClickListener = null;
     private HashSet<Integer> mSelectedPositions;
 
-    private static List<Friend> mEntriesData = new ArrayList<>();
+    private List<Friend> mEntriesData = new ArrayList<>();
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
@@ -55,14 +55,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     public void setFriends(List<Friend> friends){
         mEntriesData = friends;
-    }
-
-    public static boolean friendExists(String name){
-        for(Friend friend : mEntriesData){
-            if(friend.getName().equals(name))
-                return true;
-        }
-        return false;
     }
 
     public void clearSelections() {
