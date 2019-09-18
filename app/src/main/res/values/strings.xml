@@ -13,7 +13,7 @@
     <string name="last_interactions">Last Interactions</string>
     <string name="edit_selection">Edit selection</string>
     <string name="delete_selection">Delete selection</string>
-    <string name="action_bar_title_add_friend">Add friend</string>
+    <string name="add_friend">Add friend</string>
     <string name="action_bar_title_edit_friend">Edit friend</string>
     <string name="icon_title_save">Save</string>
     <string name="import_database">Import database</string>

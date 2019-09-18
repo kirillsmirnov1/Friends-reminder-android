@@ -52,7 +52,7 @@
                     app:fab_icon="@drawable/ic_watch_later_"
                     app:fab_labelStyle="@style/menu_labels_style"
                     app:fab_size="mini"
-                    app:fab_title="Add Interaction" />
+                    app:fab_title="@string/add_interaction" />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_add_friend"
@@ -64,7 +64,7 @@
                     app:fab_icon="@drawable/ic_friend_add_black"
                     app:fab_labelStyle="@style/menu_labels_style"
                     app:fab_size="mini"
-                    app:fab_title="Add friend" />
+                    app:fab_title="@string/add_friend" />
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

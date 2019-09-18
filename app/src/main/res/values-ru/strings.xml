@@ -53,4 +53,5 @@
     <string name="type_input_invitation">Тип:</string>
     <string name="type_of_interaction">Тип взаимодействия</string>
     <string name="add_new_interaction_type">Добавить новый...</string>
+    <string name="add_friend">Добавить друга</string>
 </resources>
