@@ -115,7 +115,7 @@ public class EditInteractionActivity
 
                 System.arraycopy(typesMap.keySet().toArray(new String[0]), 0, spinnerOptions, 0, typesMap.size());
 
-                spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new);
+                spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
                 mSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
                         android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
@@ -193,7 +193,7 @@ public class EditInteractionActivity
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
-        if(adapterView.getItemAtPosition(position).toString().equals(getString(R.string.add_new))){
+        if(adapterView.getItemAtPosition(position).toString().equals(getString(R.string.add_new_interaction_type))){
             new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionType");
             mType.setSelection(0);
         }

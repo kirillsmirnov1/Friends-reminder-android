@@ -18,7 +18,7 @@
     <string name="icon_title_save">Save</string>
     <string name="import_database">Import database</string>
     <string name="export_database">Export database</string>
-    <string name="add_new">Add new...</string>
+    <string name="add_new_interaction_type">Add new...</string>
     <string name="type_of_interaction">Type of interaction</string>
     <string name="frequency_of_interaction">Frequency of interaction in days</string>
     <string name="manage_interaction_types">Manage interaction types</string>
@@ -32,11 +32,11 @@
     <string name="interaction_type">Interaction type</string>
     <string name="interaction_freq_stub">per 100 days</string>
     <string name="friend_reminder_date_stub">5 days ago</string>
-    <string name="log_entry_title_stub">Meeting with Jack, John, Joan</string>
-    <string name="log_entry_date_stub">12 May 2019</string>
-    <string name="log_entry_comment_stub">That will be the log entry. There will be lots of text. Maybe. Maybe not.</string>
-    <string name="tab_inter_type_name_stub">Inter. type</string>
-    <string name="tab_inter_type_count_stub">99</string>
+    <string name="log_entry_title_stub" translatable="false">Meeting with Jack, John, Joan</string>
+    <string name="log_entry_date_stub" translatable="false">12 May 2019</string>
+    <string name="log_entry_comment_stub" translatable="false">That will be the log entry. There will be lots of text. Maybe. Maybe not.</string>
+    <string name="tab_inter_type_name_stub" translatable="false">Inter. type</string>
+    <string name="tab_inter_type_count_stub" translatable="false">99</string>
     <string name="set_date_future_warning">Can\'t interact in the future</string>
 
 
