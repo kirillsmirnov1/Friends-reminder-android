@@ -66,4 +66,6 @@
     <string name="edit">Изменить</string>
     <string name="forget">Забыть</string>
     <string name="edit_name">Изменить имя</string>
+    <string name="export_in_progress">Экспорт начался</string>
+    <string name="import_in_progress">Импорт начался</string>
 </resources>

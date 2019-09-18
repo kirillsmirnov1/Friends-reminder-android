@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case EXPORT_DATABASE_REQUEST:{
                 if(resultCode == RESULT_OK && resultingIntent != null) {
 
-                    makeSnackbar(findViewById(R.id.root_layout), "Export in progress");
+                    makeToast(this, getString(R.string.export_in_progress));
                     findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
 
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void importDatabaseFromUri(Uri uri) {
 
-        makeSnackbar(findViewById(R.id.root_layout), "Import in progress");
+        makeSnackbar(findViewById(R.id.root_layout), getString(R.string.import_in_progress));
         findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
