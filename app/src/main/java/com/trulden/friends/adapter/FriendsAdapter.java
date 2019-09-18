@@ -27,15 +27,9 @@ public class FriendsAdapter extends CustomRVAdapter<FriendsAdapter.ViewHolder, F
                 .inflate(R.layout.friend_entry, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder
-            .bindTo(
-                mEntries.get(position),
-                position);
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder
+            extends RecyclerView.ViewHolder
+            implements BindableViewHolder<Friend> {
 
         private TextView mTextView;
         private View mFriendEntryLayout;
@@ -48,6 +42,7 @@ public class FriendsAdapter extends CustomRVAdapter<FriendsAdapter.ViewHolder, F
         }
 
         public void bindTo(final Friend friend, final int position) {
+
             mTextView.setText(friend.getName());
             mFriendEntryLayout.setActivated(mSelectedPositions.contains(position));
 

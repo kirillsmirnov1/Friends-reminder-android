@@ -27,15 +27,9 @@ public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapt
                 .inflate(R.layout.interaction_type_entry, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder
-            .bindTo( // TODO make T_E extend some super class for entries
-                mEntries.get(position),
-                position);
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder
+            extends RecyclerView.ViewHolder
+            implements BindableViewHolder<InteractionType> {
 
         private TextView mInteractionName;
         private TextView mInteractionFrequency;
@@ -51,6 +45,7 @@ public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapt
         }
 
         public void bindTo(final InteractionType interactionType, final int position) {
+
             mInteractionName.setText(interactionType.getInteractionTypeName());
             mInteractionFrequency.setText(
                     String.format(mContext.getString(R.string.per_days), interactionType.getFrequency()));

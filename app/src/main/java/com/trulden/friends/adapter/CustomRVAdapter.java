@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.trulden.friends.database.entity.AbstractEntity;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
  * @param <T_VH> class for ViewHolder
  * @param <T_E>  POJO entries of data
  * */
-abstract class CustomRVAdapter<T_VH extends RecyclerView.ViewHolder, T_E> extends RecyclerView.Adapter<T_VH>{
+abstract class CustomRVAdapter<T_VH extends RecyclerView.ViewHolder & BindableViewHolder, T_E extends AbstractEntity> extends RecyclerView.Adapter<T_VH>{
 
     Context mContext;
     OnClickListener mOnClickListener = null;
@@ -34,6 +36,11 @@ abstract class CustomRVAdapter<T_VH extends RecyclerView.ViewHolder, T_E> extend
     @Override
     public int getItemCount() {
         return mEntries.size();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull T_VH holder, int position) {
+        holder.bindTo(mEntries.get(position), position);
     }
 
     public void setEntries(List<T_E> entries){
@@ -59,11 +66,11 @@ abstract class CustomRVAdapter<T_VH extends RecyclerView.ViewHolder, T_E> extend
     }
 
     public List<T_E> getSelectedItems() {
-        List <T_E> selectedItems = new ArrayList<>(mSelectedPositions.size());
+        List <T_E> selectedTypes = new ArrayList<>(mSelectedPositions.size());
         for(Integer position : mSelectedPositions){
-            selectedItems.add(mEntries.get(position));
+            selectedTypes.add(mEntries.get(position));
         }
-        return selectedItems;
+        return selectedTypes;
     }
 
     public List<T_E> getEntries() {

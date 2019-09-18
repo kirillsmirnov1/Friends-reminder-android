@@ -15,8 +15,6 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
-import java.util.ArrayList;
-
 import static com.trulden.friends.util.Util.daysPassed;
 import static com.trulden.friends.util.Util.itsTime;
 
@@ -26,10 +24,9 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
     private InteractionType mType;
 
-    public LastInteractionsAdapter(Context context, InteractionType type, ArrayList<LastInteraction> lastInteractions){
+    public LastInteractionsAdapter(Context context, InteractionType type){
         super(context, null);
         mContext = context;
-        mEntries = lastInteractions;
         mType = type;
     }
 
@@ -39,12 +36,9 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.last_interaction_entry, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindTo(mEntries.get(position));
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder
+            extends RecyclerView.ViewHolder
+            implements BindableViewHolder<LastInteraction> {
 
         private TextView mName;
         private TextView mTime;
@@ -60,7 +54,8 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
             layout = itemView.findViewById(R.id.last_interaction_entry_layout);
         }
 
-        public void bindTo(LastInteraction lastInteraction) {
+        public void bindTo(final LastInteraction lastInteraction, int pos) {
+
             mName.setText(lastInteraction.getFriend());
 
             String dateString = daysPassed(lastInteraction) + mContext.getString(R.string.days_ago);

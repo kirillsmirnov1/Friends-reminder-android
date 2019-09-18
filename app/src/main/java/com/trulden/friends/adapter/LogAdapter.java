@@ -28,16 +28,13 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.log_entry, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindTo(mEntries.get(position), position);
-    }
-
     public void setInteractionTypes(HashMap<Long, String> interactionTypes){
         mInteractionTypes = interactionTypes;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder
+            extends RecyclerView.ViewHolder
+            implements BindableViewHolder<Interaction> {
 
         private TextView mTypeAndNames;
         private TextView mDate;
