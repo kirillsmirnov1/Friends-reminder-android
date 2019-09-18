@@ -35,14 +35,6 @@ public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapt
                 position);
     }
 
-    // TODO make T_E extend some super class for entries
-    public boolean InteractionTypeExists(String name){
-        for(InteractionType interactionType : mEntries){
-            if(interactionType.getInteractionTypeName().equals(name))
-                return true;
-        }
-        return false;
-    }
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView mInteractionName;
