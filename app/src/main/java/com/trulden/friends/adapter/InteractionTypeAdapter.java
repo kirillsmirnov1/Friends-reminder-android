@@ -12,25 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.InteractionType;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionTypeAdapter.ViewHolder> {
-
-    private Context mContext;
-    private OnClickListener onClickListener = null;
-    private HashSet<Integer> selectedPositions;
-
-    private static List<InteractionType> mInteractionTypes = new ArrayList<>();
-
-    public void setOnClickListener(OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
+public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapter.ViewHolder, InteractionType> {
 
     public InteractionTypeAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
-        mContext = context;
-        this.selectedPositions = selectedPositions;
+        super(context, selectedPositions);
     }
 
     @NonNull
@@ -43,58 +30,19 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder
-            .bindTo(
-                mInteractionTypes.get(position),
+            .bindTo( // TODO make T_E extend some super class for entries
+                mEntries.get(position),
                 position);
     }
 
-    @Override
-    public int getItemCount() {
-        return mInteractionTypes.size();
-    }
-
-    public void setInteractionTypes(List<InteractionType> interactionTypes){
-        mInteractionTypes = interactionTypes;
-    }
-
-    public static boolean InteractionTypeExists(String name){
-        for(InteractionType interactionType : mInteractionTypes){
+    // TODO make T_E extend some super class for entries
+    public boolean InteractionTypeExists(String name){
+        for(InteractionType interactionType : mEntries){
             if(interactionType.getInteractionTypeName().equals(name))
                 return true;
         }
         return false;
     }
-
-    public void clearSelections() {
-        selectedPositions.clear();
-        notifyDataSetChanged();
-    }
-
-    public int getSelectedItemCount() {
-        return selectedPositions.size();
-    }
-
-    public void toggleSelection(int pos) {
-        if(selectedPositions.contains(pos)){
-            selectedPositions.remove(pos);
-        } else {
-            selectedPositions.add(pos);
-        }
-        notifyItemChanged(pos);
-    }
-
-    public List<InteractionType> getSelectedTypes() {
-        List <InteractionType> selectedTypes = new ArrayList<>(selectedPositions.size());
-        for(Integer position : selectedPositions){
-            selectedTypes.add(mInteractionTypes.get(position));
-        }
-        return selectedTypes;
-    }
-
-    public List<InteractionType> getTypes() {
-        return mInteractionTypes;
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView mInteractionName;
@@ -115,24 +63,24 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
             mInteractionFrequency.setText(
                     String.format(mContext.getString(R.string.per_days), interactionType.getFrequency()));
 
-            mInteractionTypeEntryLayout.setActivated(selectedPositions.contains(position));
+            mInteractionTypeEntryLayout.setActivated(mSelectedPositions.contains(position));
 
             mInteractionTypeEntryLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(onClickListener == null)
+                    if(mOnClickListener == null)
                         return;
-                    onClickListener.onItemClick(view, interactionType, position);
+                    mOnClickListener.onItemClick(view, interactionType, position);
                 }
             });
 
             mInteractionTypeEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if(onClickListener == null)
+                    if(mOnClickListener == null)
                         return false;
 
-                    onClickListener.onItemLongClick(view, interactionType, position);
+                    mOnClickListener.onItemLongClick(view, interactionType, position);
                     return true;
                 }
             });

@@ -60,7 +60,7 @@ public class InteractionTypesActivity
         mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
-                mInteractionTypeAdapter.setInteractionTypes(interactionTypes);
+                mInteractionTypeAdapter.setEntries(interactionTypes);
                 mInteractionTypeAdapter.notifyDataSetChanged();
             }
         });
@@ -164,7 +164,7 @@ public class InteractionTypesActivity
     @Override
     public boolean typeExists(String typeName) {
 
-        for(InteractionType interactionType : mInteractionTypeAdapter.getTypes()){
+        for(InteractionType interactionType : mInteractionTypeAdapter.getEntries()){
             if(interactionType.getInteractionTypeName().equals(typeName))
                 return true;
         }
