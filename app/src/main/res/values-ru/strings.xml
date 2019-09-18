@@ -56,4 +56,5 @@
     <string name="edit_interaction">Изменить взаимодействие</string>
     <string name="with">\u0020с\u0020</string>
     <string name="days_ago">\u0020д. назад</string>
+    <string name="per_days">раз в %d д.</string>
 </resources>

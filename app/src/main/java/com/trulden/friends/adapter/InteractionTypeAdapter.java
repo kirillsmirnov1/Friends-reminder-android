@@ -112,7 +112,8 @@ public class InteractionTypeAdapter extends RecyclerView.Adapter<InteractionType
 
         public void bindTo(final InteractionType interactionType, final int position) {
             mInteractionName.setText(interactionType.getInteractionTypeName());
-            mInteractionFrequency.setText("per " + interactionType.getFrequency() + " days");
+            mInteractionFrequency.setText(
+                    String.format(mContext.getString(R.string.per_days), interactionType.getFrequency()));
 
             mInteractionTypeEntryLayout.setActivated(selectedPositions.contains(position));
 
