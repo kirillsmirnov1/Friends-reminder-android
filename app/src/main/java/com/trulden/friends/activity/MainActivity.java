@@ -296,13 +296,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void setToolbarTitle(){
         switch (mFragmentToLoad){
             case LOG_FRAGMENT:
-                mToolbar.setTitle("Log");
+                mToolbar.setTitle(getString(R.string.log));
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                mToolbar.setTitle("Last Interactions");
+                mToolbar.setTitle(getString(R.string.last_interactions));
                 break;
             case FRIENDS_FRAGMENT:
-                mToolbar.setTitle("Friends");
+                mToolbar.setTitle(getString(R.string.friends));
                 break;
         }
     }
