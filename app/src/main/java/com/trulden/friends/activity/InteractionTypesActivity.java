@@ -149,14 +149,14 @@ public class InteractionTypesActivity
 
     @Override
     public void editSelection() {
-        InteractionType interactionType = mInteractionTypeAdapter.getSelectedTypes().get(0);
+        InteractionType interactionType = mInteractionTypeAdapter.getSelectedItems().get(0);
 
         new EditInteractionTypeDialog(interactionType).show(getSupportFragmentManager(), "editInteractionType");
     }
 
     @Override
     public void deleteSelection() {
-        for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedTypes()){
+        for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedItems()){
             mFriendsViewModel.delete(interactionType);
         }
     }

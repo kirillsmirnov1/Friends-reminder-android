@@ -58,12 +58,12 @@ abstract class CustomRVAdapter<T_VH extends RecyclerView.ViewHolder, T_E> extend
         notifyItemChanged(pos);
     }
 
-    public List<T_E> getSelectedTypes() {
-        List <T_E> selectedTypes = new ArrayList<>(mSelectedPositions.size());
+    public List<T_E> getSelectedItems() {
+        List <T_E> selectedItems = new ArrayList<>(mSelectedPositions.size());
         for(Integer position : mSelectedPositions){
-            selectedTypes.add(mEntries.get(position));
+            selectedItems.add(mEntries.get(position));
         }
-        return selectedTypes;
+        return selectedItems;
     }
 
     public List<T_E> getEntries() {
