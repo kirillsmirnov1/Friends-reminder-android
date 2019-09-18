@@ -50,7 +50,7 @@
     <string name="toast_warning_friend_exists">Друг с таким именем уже существует</string>
     <string name="toast_warning_type_exists">Тип уже существует!</string>
     <string name="type_input_invitation">Тип:</string>
-    <string name="type_of_interaction">Тип взаимодействия</string>
+    <string name="type_of_interaction">Название</string>
     <string name="add_new_interaction_type">Добавить новый...</string>
     <string name="add_friend">Добавить друга</string>
     <string name="edit_interaction">Изменить взаимодействие</string>
