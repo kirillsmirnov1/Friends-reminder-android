@@ -65,7 +65,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
             mDate.setText(dateFormat.format(interaction.getDate()));
             mComment.setText(interaction.getComment());
 
-            // FIXME
+            // FIXME cards don't collapse correctly
 //            // Strange reaction on click when selected — cards with comment hide it
 //            // Couldn't figure why
 
