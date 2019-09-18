@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.adapter.LogAdapter;
+import com.trulden.friends.adapter.OnClickListener;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
@@ -103,7 +104,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
             }
         });
 
-        mInteractionsAdapter.setOnClickListener(new LogAdapter.OnClickListener() {
+        mInteractionsAdapter.setOnClickListener(new OnClickListener<Interaction>() {
             @Override
             public void onItemClick(View view, Interaction obj, int pos) {
                 if(mInteractionsAdapter.getSelectedItemCount() > 0){

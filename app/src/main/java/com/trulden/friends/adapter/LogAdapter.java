@@ -154,9 +154,4 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
         }
     }
-
-    public interface OnClickListener{
-        void onItemClick(View view, Interaction obj, int pos);
-        void onItemLongClick(View view, Interaction obj, int pos);
-    }
 }
