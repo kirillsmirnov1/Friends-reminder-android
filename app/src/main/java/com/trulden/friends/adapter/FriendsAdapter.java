@@ -19,18 +19,18 @@ import java.util.List;
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
     private Context mContext;
-    private static List<Friend> mFriendsData = new ArrayList<>();
     private OnClickListener onClickListener = null;
+    private HashSet<Integer> mSelectedPositions;
 
-    private HashSet<Integer> selectedFriendsPositions;
+    private static List<Friend> mEntriesData = new ArrayList<>();
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
-    public FriendsAdapter(Context context, @NonNull HashSet<Integer> selectedFriendsPositions){
+    public FriendsAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
         mContext = context;
-        this.selectedFriendsPositions = selectedFriendsPositions;
+        mSelectedPositions = selectedPositions;
     }
 
     @NonNull
@@ -44,21 +44,21 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, final int position) {
         holder
             .bindTo(
-                mFriendsData.get(position),
+                mEntriesData.get(position),
                 position);
     }
 
     @Override
     public int getItemCount() {
-        return mFriendsData.size();
+        return mEntriesData.size();
     }
 
     public void setFriends(List<Friend> friends){
-        mFriendsData = friends;
+        mEntriesData = friends;
     }
 
     public static boolean friendExists(String name){
-        for(Friend friend : mFriendsData){
+        for(Friend friend : mEntriesData){
             if(friend.getName().equals(name))
                 return true;
         }
@@ -66,27 +66,27 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     }
 
     public void clearSelections() {
-        selectedFriendsPositions.clear();
+        mSelectedPositions.clear();
         notifyDataSetChanged();
     }
 
     public int getSelectedItemCount() {
-        return selectedFriendsPositions.size();
+        return mSelectedPositions.size();
     }
 
     public void toggleSelection(int pos) {
-        if(selectedFriendsPositions.contains(pos)){
-            selectedFriendsPositions.remove(pos);
+        if(mSelectedPositions.contains(pos)){
+            mSelectedPositions.remove(pos);
         } else {
-            selectedFriendsPositions.add(pos);
+            mSelectedPositions.add(pos);
         }
         notifyItemChanged(pos);
     }
 
     public List<Friend> getSelectedFriends() {
-        List <Friend> selectedFriends = new ArrayList<>(selectedFriendsPositions.size());
-        for(Integer position : selectedFriendsPositions){
-            selectedFriends.add(mFriendsData.get(position));
+        List <Friend> selectedFriends = new ArrayList<>(mSelectedPositions.size());
+        for(Integer position : mSelectedPositions){
+            selectedFriends.add(mEntriesData.get(position));
         }
         return selectedFriends;
     }
@@ -105,7 +105,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
         public void bindTo(final Friend friend, final int position) {
             mTextView.setText(friend.getName());
-            mFriendEntryLayout.setActivated(selectedFriendsPositions.contains(position));
+            mFriendEntryLayout.setActivated(mSelectedPositions.contains(position));
 
             mFriendEntryLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
