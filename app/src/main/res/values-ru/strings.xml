@@ -34,10 +34,10 @@
     <string name="title_activity_interaction_types">Типы взаимодействий</string>
     <string name="toast_notice_export_failed">Экспорт не удался</string>
     <string name="toast_notice_export_succeeded">Экспорт удался</string>
-    <string name="toast_notice_friend_created">создан</string>
-    <string name="toast_notice_friend_deleted">удалён</string>
-    <string name="toast_notice_friend_forgotten">забыт</string>
-    <string name="toast_notice_friend_updated">обновлен</string>
+    <string name="toast_notice_friend_created">\u0020создан</string>
+    <string name="toast_notice_friend_deleted">\u0020удалён</string>
+    <string name="toast_notice_friend_forgotten">\u0020забыт</string>
+    <string name="toast_notice_friend_updated">\u0020обновлен</string>
     <string name="toast_notice_import_failed">Импорт не удался</string>
     <string name="toast_notice_import_succeeded">Импорт удался</string>
     <string name="toast_notice_interaction_saved">Взаимодействие сохранено</string>

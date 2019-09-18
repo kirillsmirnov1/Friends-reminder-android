@@ -55,10 +55,10 @@
     <string name="toast_notice_import_failed">Import failed</string>
     <string name="toast_notice_export_failed">Export failed</string>
     <string name="toast_notice_type_created">Type created</string>
-    <string name="toast_notice_friend_created">is created</string>
-    <string name="toast_notice_friend_forgotten">is forgotten</string>
-    <string name="toast_notice_friend_deleted">deleted</string>
-    <string name="toast_notice_friend_updated">updated</string>
+    <string name="toast_notice_friend_created">\u0020is created</string>
+    <string name="toast_notice_friend_forgotten">\u0020is forgotten</string>
+    <string name="toast_notice_friend_deleted">\u0020deleted</string>
+    <string name="toast_notice_friend_updated">\u0020updated</string>
     <string name="toast_notice_interactions_deleted">Interactions deleted</string>
     <string name="interaction_type_name_meeting">Meeting</string>
     <string name="interaction_type_name_texting">Texting</string>
