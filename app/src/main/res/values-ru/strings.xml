@@ -27,7 +27,7 @@
     <string name="interaction_type_name_texting">Переписка</string>
     <string name="last_interactions">Последние взаимодействия</string>
     <string name="log">Лог</string>
-    <string name="manage_interaction_types">Управление типами взаимодействий</string>
+    <string name="manage_interaction_types">Типы взаимодействий</string>
     <string name="name">Имя:</string>
     <string name="notes">Заметки:</string>
     <string name="set_date_future_warning">Нельзя взаимодействовать в будущем</string>

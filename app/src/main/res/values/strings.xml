@@ -22,7 +22,7 @@
     <string name="add_new_interaction_type">Add new...</string>
     <string name="type_of_interaction">Type of interaction</string>
     <string name="frequency_of_interaction">Frequency of interaction in days</string>
-    <string name="manage_interaction_types">Manage interaction types</string>
+    <string name="manage_interaction_types">Interaction types</string>
 
     <string name="title_activity_interaction_types">Interaction types</string>
     <string name="add">Add</string>
