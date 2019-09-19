@@ -94,10 +94,10 @@ public class Util {
         }
     }
 
-    public static boolean itsTime(LastInteraction interaction){
-        return (daysPassed(interaction) > interaction.getInteractionType().getFrequency());
-    }
-
+    /**
+     * Calculates how many 24h-days passed since that interaction // TODO make them days, not 24h-days
+     * @return number of days
+     */
     public static int daysPassed(LastInteraction interaction){
         long timePassed = Calendar.getInstance().getTimeInMillis() - interaction.getDate();
         return (int) ( timePassed / MILLISECONDS_IN_DAYS );

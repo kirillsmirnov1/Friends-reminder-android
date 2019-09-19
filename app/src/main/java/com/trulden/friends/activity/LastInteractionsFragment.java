@@ -26,8 +26,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.trulden.friends.util.Util.itsTime;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -83,7 +81,7 @@ public class LastInteractionsFragment extends Fragment {
                             String currentType = interaction.getInteractionType().getInteractionTypeName();
 
                             lastInteractionsMap.get(currentType).add(interaction);
-                            if(itsTime(interaction)){
+                            if(interaction.itsTime()){
                                 counterMap.put(currentType, counterMap.get(currentType) + 1);
                             }
                         }

@@ -4,6 +4,8 @@ import androidx.room.Relation;
 
 import java.util.List;
 
+import static com.trulden.friends.util.Util.daysPassed;
+
 public class LastInteraction extends AbstractEntity {
 
     private int typeId;
@@ -20,6 +22,15 @@ public class LastInteraction extends AbstractEntity {
         this.date = date;
         this.friend = friend;
     }
+
+    /**
+     * Check if it's time to interact again
+     * @return true if enough days have passed
+     */
+    public boolean itsTime(){
+        return (daysPassed(this) > getInteractionType().getFrequency());
+    }
+
 
     // -----------------------------------------
     // Getters and setters

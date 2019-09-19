@@ -18,7 +18,6 @@ import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import static com.trulden.friends.util.Util.daysPassed;
-import static com.trulden.friends.util.Util.itsTime;
 
 public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteraction> {
 
@@ -62,7 +61,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
             mTime.setText(dateString);
 
-            if(!itsTime(lastInteraction)) {
+            if(!lastInteraction.itsTime()) {
                 layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_backgroung_grey));
             }
         }
