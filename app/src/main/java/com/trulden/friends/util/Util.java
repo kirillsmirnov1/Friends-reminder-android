@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
-import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.io.File;
@@ -20,7 +19,7 @@ public class Util {
 
     private static final String LOG_TAG = Util.class.getSimpleName();
 
-    public static final int MILLISECONDS_IN_DAYS = 1000 * 60 * 60 * 24;
+    private static final int MILLISECONDS_IN_DAYS = 1000 * 60 * 60 * 24;
 
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
 
