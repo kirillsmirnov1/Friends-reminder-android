@@ -4,8 +4,6 @@ package com.trulden.friends.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.adapter.SelectionCallback;
 import com.trulden.friends.adapter.LogAdapter;
 import com.trulden.friends.adapter.OnClickListener;
 import com.trulden.friends.database.FriendsViewModel;
@@ -49,7 +48,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     private FriendsViewModel mFriendsViewModel;
     private LogAdapter mInteractionsAdapter;
 
-    private ActionModeCallback mActionModeCallback;
+    private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
     private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
@@ -118,7 +117,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
             }
         });
 
-        mActionModeCallback = new ActionModeCallback();
+        mSelectionCallback = new SelectionCallback(this, mInteractionsAdapter);
 
         if(selectedInteractionsPositions.size() > 0)
             enableActionMode(-1);
@@ -126,7 +125,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
 
     private void enableActionMode(int pos) {
         if(mActionMode == null){
-            mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mActionModeCallback);
+            mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
@@ -184,46 +183,5 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     @Override
     public void nullActionMode() {
         mActionMode = null;
-    }
-
-
-    private class ActionModeCallback implements ActionMode.Callback{
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
-
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
-            switch(item.getItemId()) {
-                case R.id.delete_selection: {
-                    deleteSelection();
-                    mode.finish();
-                    return true;
-                }
-                case R.id.edit_selection: {
-                    editSelection();
-                    mode.finish();
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mInteractionsAdapter.clearSelections();
-            mActionMode = null;
-        }
     }
 }
