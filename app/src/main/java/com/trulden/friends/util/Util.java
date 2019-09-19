@@ -10,8 +10,9 @@ import com.trulden.friends.BuildConfig;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 
@@ -21,7 +22,7 @@ public class Util {
 
     private static final int MILLISECONDS_IN_DAYS = 1000 * 60 * 60 * 24;
 
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+    public static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
 
     // Can't access db version from Room in runtime, but want to save backup with version in name
     // Probably not the best way to do it, but can't think of something else
