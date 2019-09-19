@@ -1,10 +1,11 @@
-package com.trulden.friends.adapter;
+package com.trulden.friends.base;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.trulden.friends.adapter.OnClickListener;
 import com.trulden.friends.base.BindableViewHolder;
 import com.trulden.friends.database.entity.AbstractEntity;
 
@@ -22,9 +23,9 @@ public abstract class CustomRVAdapter
          T_E  extends AbstractEntity>
         extends RecyclerView.Adapter<T_VH>{
 
-    Context mContext;
-    OnClickListener mOnClickListener = null;
-    HashSet<Integer> mSelectedPositions;
+    protected Context mContext;
+    protected OnClickListener mOnClickListener = null;
+    protected HashSet<Integer> mSelectedPositions;
 
     List<T_E> mEntries = new ArrayList<>();
 
