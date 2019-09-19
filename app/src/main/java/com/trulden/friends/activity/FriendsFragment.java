@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
-import com.trulden.friends.base.SelectionCallback;
 import com.trulden.friends.adapter.FriendsAdapter;
-import com.trulden.friends.base.OnClickListener;
+import com.trulden.friends.adapter.base.OnClickListener;
+import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 
@@ -29,8 +29,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 

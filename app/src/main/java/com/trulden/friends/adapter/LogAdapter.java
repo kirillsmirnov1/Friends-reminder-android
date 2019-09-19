@@ -5,16 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.trulden.friends.R;
-import com.trulden.friends.base.BindableViewHolder;
-import com.trulden.friends.base.CustomRVAdapter;
+import com.trulden.friends.adapter.base.BindableViewHolder;
+import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
+
 import java.util.HashMap;
 import java.util.HashSet;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.dateFormat;
 
 public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interaction> {
 

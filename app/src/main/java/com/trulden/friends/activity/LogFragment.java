@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
-import com.trulden.friends.base.SelectionCallback;
 import com.trulden.friends.adapter.LogAdapter;
-import com.trulden.friends.base.OnClickListener;
+import com.trulden.friends.adapter.base.OnClickListener;
+import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;

@@ -1,4 +1,4 @@
-package com.trulden.friends.base;
+package com.trulden.friends.adapter.base;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,7 +7,6 @@ import androidx.appcompat.view.ActionMode;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
-import com.trulden.friends.base.CustomRVAdapter;
 
 /**
  * Handles choose of selection options

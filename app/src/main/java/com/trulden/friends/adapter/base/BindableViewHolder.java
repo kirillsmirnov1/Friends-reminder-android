@@ -1,4 +1,4 @@
-package com.trulden.friends.base;
+package com.trulden.friends.adapter.base;
 
 import com.trulden.friends.database.entity.AbstractEntity;
 /**
