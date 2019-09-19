@@ -2,6 +2,7 @@ package com.trulden.friends.database.entity;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -20,7 +21,10 @@ import static androidx.room.ForeignKey.CASCADE;
                     parentColumns = "id",
                     childColumns = "interactionId",
                     onDelete = CASCADE)
-        }
+        },
+
+    indices =
+    @Index(value = "interactionId")
 )
 public class BindFriendInteraction extends AbstractEntity {
 

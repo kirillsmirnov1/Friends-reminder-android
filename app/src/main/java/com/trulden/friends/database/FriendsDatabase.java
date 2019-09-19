@@ -1,7 +1,6 @@
 package com.trulden.friends.database;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,8 @@ import java.lang.ref.WeakReference;
 
 @Database(
         entities = {Friend.class, InteractionType.class, Interaction.class, BindFriendInteraction.class},
-        version = Util.DATABASE_VERSION
+        version = Util.DATABASE_VERSION,
+        exportSchema = false
 )
 public abstract class FriendsDatabase extends RoomDatabase {
 
@@ -54,7 +54,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             FriendsDatabase.class, DATABASE_NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -156,6 +156,14 @@ public abstract class FriendsDatabase extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE interaction_table ADD friendNames TEXT");
+        }
+    };
+
+    private static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE INDEX index_Interaction_typeId ON interaction_table(interactionTypeId)");
+            database.execSQL("CREATE INDEX index_bindFI_interId ON bind_friend_interaction_table(interactionId)");
         }
     };
 }
