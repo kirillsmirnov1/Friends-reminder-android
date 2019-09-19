@@ -84,7 +84,8 @@ public class Util {
         return new String[]{dbPath, dbPath + "-wal", dbPath + "-shm"};
     }
 
-    public static void wipeDatabase(Context context) {
+    /** Delete all database files*/
+    public static void wipeDatabaseFiles(Context context) {
         String[] dbPaths = getDbPaths(context);
         for(String str : dbPaths){
             if(! new File(str).delete()){

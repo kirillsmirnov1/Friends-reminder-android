@@ -51,7 +51,7 @@ import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.makeSnackbar;
 import static com.trulden.friends.util.Util.makeToast;
-import static com.trulden.friends.util.Util.wipeDatabase;
+import static com.trulden.friends.util.Util.wipeDatabaseFiles;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         getDatabase(this).close();
-        wipeDatabase(this);
+        wipeDatabaseFiles(this);
 
         new ImportDatabaseAsyncTask(this).execute(uri);
     }
