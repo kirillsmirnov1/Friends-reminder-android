@@ -1,5 +1,6 @@
 package com.trulden.friends.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,10 @@ import java.util.Locale;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 
-public class Util {
+/**
+ * Stores keys and static functions used in different parts of app
+ */
+public abstract class Util {
 
     private static final String LOG_TAG = Util.class.getSimpleName();
 
@@ -26,6 +30,12 @@ public class Util {
 
     // Can't access db version from Room in runtime, but want to save backup with version in name
     // Probably not the best way to do it, but can't think of something else
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Keys
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /** Version of database used in app */
     public static final int DATABASE_VERSION = 5;
 
     public static final int NEW_INTERACTION_REQUEST    = 1;
@@ -59,6 +69,8 @@ public class Util {
     public static final String ACTION_DATABASE_IMPORT_FINISHED =
             BuildConfig.APPLICATION_ID + ".ACTION_DATABASE_IMPORT_FINISHED";
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
@@ -71,14 +83,14 @@ public class Util {
         return context.getFilesDir().getAbsolutePath() + "/backup.zip";
     }
 
+    @SuppressLint("DefaultLocale")
     public static String generateBackupFileName() {
         String date = dateFormat.format(Calendar.getInstance().getTime());
 
-        String backupFileName = String.format("friends_db_v%d_%s.zip", DATABASE_VERSION, date);
-
-        return backupFileName;
+        return String.format("friends_db_v%d_%s.zip", DATABASE_VERSION, date);
     }
 
+    /** Get paths of all database files */
     public static String[] getDbPaths(Context context) {
         String dbPath = context.getDatabasePath(DATABASE_NAME).getAbsolutePath();
         return new String[]{dbPath, dbPath + "-wal", dbPath + "-shm"};
