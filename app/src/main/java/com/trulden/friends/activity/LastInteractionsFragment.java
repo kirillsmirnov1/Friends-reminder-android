@@ -38,7 +38,6 @@ public class LastInteractionsFragment extends Fragment {
     private FriendsViewModel friendsViewModel;
 
     private List<InteractionType> types = new ArrayList<>();
-    private HashMap<String, InteractionType> typesMap = new HashMap<>(); // FIXME not really good decision, but an easiest way of finding type by name
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
 
@@ -69,7 +68,6 @@ public class LastInteractionsFragment extends Fragment {
 
                 for(InteractionType type : types){
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
-                    typesMap.put(type.getInteractionTypeName(), type);
                 }
 
                 friendsViewModel.getLastInteractions(Calendar.getInstance().getTimeInMillis()).observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
@@ -85,7 +83,7 @@ public class LastInteractionsFragment extends Fragment {
                             String currentType = interaction.getType();
 
                             lastInteractionsMap.get(currentType).add(interaction);
-                            if(itsTime(interaction, typesMap.get(currentType))){
+                            if(itsTime(interaction, interaction.getInteractionType())){ // TODO refactor method
                                 counterMap.put(currentType, counterMap.get(currentType) + 1);
                             }
                         }
