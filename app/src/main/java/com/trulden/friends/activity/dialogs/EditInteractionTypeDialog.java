@@ -82,9 +82,13 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
                         if(mType == null){
                             mType = new InteractionType(name, frequency);
+
+                            makeToast(getActivity(), getString(R.string.toast_notice_type_created));
                         } else {
                             mType.setInteractionTypeName(name);
                             mType.setFrequency(frequency);
+
+                            makeToast(getActivity(), getString(R.string.type_updated));
                         }
 
                         // If everything is fine — pass type information back to activity
