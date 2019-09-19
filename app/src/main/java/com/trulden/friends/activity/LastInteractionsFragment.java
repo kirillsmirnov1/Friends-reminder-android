@@ -83,7 +83,7 @@ public class LastInteractionsFragment extends Fragment {
                             String currentType = interaction.getType();
 
                             lastInteractionsMap.get(currentType).add(interaction);
-                            if(itsTime(interaction, interaction.getInteractionType())){ // TODO refactor method
+                            if(itsTime(interaction)){
                                 counterMap.put(currentType, counterMap.get(currentType) + 1);
                             }
                         }

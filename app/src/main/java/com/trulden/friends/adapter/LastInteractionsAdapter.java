@@ -62,7 +62,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
             mTime.setText(dateString);
 
-            if(!itsTime(lastInteraction, mType)) {
+            if(!itsTime(lastInteraction)) {
                 layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_backgroung_grey));
             }
         }

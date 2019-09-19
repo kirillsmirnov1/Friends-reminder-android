@@ -93,8 +93,8 @@ public class Util {
         }
     }
 
-    public static boolean itsTime(LastInteraction interaction, InteractionType type){
-        return (daysPassed(interaction) > type.getFrequency());
+    public static boolean itsTime(LastInteraction interaction){
+        return (daysPassed(interaction) > interaction.getInteractionType().getFrequency());
     }
 
     public static int daysPassed(LastInteraction interaction){
