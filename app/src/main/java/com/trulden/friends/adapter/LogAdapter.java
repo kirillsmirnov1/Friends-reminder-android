@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
+import com.trulden.friends.base.BindableViewHolder;
 import com.trulden.friends.database.entity.Interaction;
 import java.util.HashMap;
 import java.util.HashSet;

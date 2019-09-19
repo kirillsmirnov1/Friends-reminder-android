@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.trulden.friends.base.BindableViewHolder;
 import com.trulden.friends.database.entity.AbstractEntity;
 
 import java.util.ArrayList;
