@@ -88,7 +88,6 @@ public class LastInteractionsFragment extends Fragment {
                             }
                         }
 
-
                         initTabsAndPageViewer(view);
                     }
                 });
@@ -105,7 +104,6 @@ public class LastInteractionsFragment extends Fragment {
         mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
-
             TabCounterView tcv = new TabCounterView(getContext(),
                     type.getInteractionTypeName(), counterMap.get(type.getInteractionTypeName()));
 
@@ -138,6 +136,9 @@ public class LastInteractionsFragment extends Fragment {
 
             }
         });
+
+        // FIXME Is it enough, or should I do it for every tab?
+        adapter.notifyDataSetChanged();
     }
 
 }
