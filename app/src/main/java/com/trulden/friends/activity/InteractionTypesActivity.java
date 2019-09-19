@@ -19,7 +19,7 @@ import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.adapter.SelectionCallback;
 import com.trulden.friends.adapter.InteractionTypeAdapter;
-import com.trulden.friends.adapter.OnClickListener;
+import com.trulden.friends.base.OnClickListener;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
 

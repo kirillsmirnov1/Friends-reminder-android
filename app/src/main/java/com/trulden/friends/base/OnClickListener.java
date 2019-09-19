@@ -1,4 +1,4 @@
-package com.trulden.friends.adapter;
+package com.trulden.friends.base;
 
 import android.view.View;
 
