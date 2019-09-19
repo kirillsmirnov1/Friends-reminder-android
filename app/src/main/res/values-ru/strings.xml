@@ -69,4 +69,5 @@
     <string name="export_in_progress">Экспорт начался</string>
     <string name="import_in_progress">Импорт начался</string>
     <string name="friends_deleted">Друзья удалены</string>
+    <string name="type_updated">Тип обновлён</string>
 </resources>
