@@ -16,7 +16,10 @@ import java.util.List;
  * @param <T_VH> class for ViewHolder
  * @param <T_E>  POJO entries of data
  * */
-abstract class CustomRVAdapter<T_VH extends RecyclerView.ViewHolder & BindableViewHolder, T_E extends AbstractEntity> extends RecyclerView.Adapter<T_VH>{
+public abstract class CustomRVAdapter
+        <T_VH extends RecyclerView.ViewHolder & BindableViewHolder,
+         T_E  extends AbstractEntity>
+        extends RecyclerView.Adapter<T_VH>{
 
     Context mContext;
     OnClickListener mOnClickListener = null;
