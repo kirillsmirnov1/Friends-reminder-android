@@ -18,8 +18,6 @@ import com.trulden.friends.database.entity.LastInteraction;
 import static com.trulden.friends.util.Util.daysPassed;
 import static com.trulden.friends.util.Util.itsTime;
 
-// TODO implement selection
-
 public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteraction> {
 
     private InteractionType mType;
