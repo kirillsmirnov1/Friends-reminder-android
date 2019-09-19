@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.trulden.friends.database.entity.BindFriendInteraction;
@@ -89,6 +90,7 @@ public interface FriendsDao {
     // LastInteraction
     // -----------------------------------------
 
+    @Transaction
     @Query("SELECT typeId, friend, date FROM\n" +
             "(SELECT interaction_type_table.id AS typeId, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
             " FROM \n" +
