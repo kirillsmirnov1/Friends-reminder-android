@@ -17,6 +17,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
+import com.trulden.friends.adapter.SelectionCallback;
 import com.trulden.friends.adapter.InteractionTypeAdapter;
 import com.trulden.friends.adapter.OnClickListener;
 import com.trulden.friends.database.FriendsViewModel;
@@ -35,7 +36,7 @@ public class InteractionTypesActivity
 
     private InteractionTypeAdapter mInteractionTypeAdapter;
 
-    private ActionModeCallback mActionModeCallback;
+    private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
     private HashSet<Integer> selectedPositions = new HashSet<>();
@@ -79,7 +80,7 @@ public class InteractionTypesActivity
             }
         });
 
-        mActionModeCallback = new ActionModeCallback();
+        mSelectionCallback = new SelectionCallback(this, mInteractionTypeAdapter);
 
         if(selectedPositions.size() > 0)
             enableActionMode(-1);
@@ -112,7 +113,7 @@ public class InteractionTypesActivity
 
     private void enableActionMode(int pos){
         if(mActionMode == null){
-            mActionMode = startSupportActionMode(mActionModeCallback);
+            mActionMode = startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
@@ -182,50 +183,6 @@ public class InteractionTypesActivity
             mFriendsViewModel.add(interactionType);
         } else {
             mFriendsViewModel.update(interactionType);
-        }
-    }
-
-    // FIXME can this be turned into outer class?
-    private class ActionModeCallback implements ActionMode.Callback{
-
-        // TODO add inner Activity, actionMode, adapter
-        // TODO adapter methods to interface
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
-
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
-            switch(item.getItemId()) {
-                case R.id.delete_selection: {
-                    deleteSelection();
-                    mode.finish();
-                    return true;
-                }
-                case R.id.edit_selection: {
-                    editSelection();
-                    mode.finish();
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mInteractionTypeAdapter.clearSelections();
-            mActionMode = null;
         }
     }
 }
