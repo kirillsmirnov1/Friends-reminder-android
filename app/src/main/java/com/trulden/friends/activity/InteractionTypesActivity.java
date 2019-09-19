@@ -140,6 +140,11 @@ public class InteractionTypesActivity
     }
 
     @Override
+    public void nullActionMode(){
+        mActionMode = null;
+    }
+
+    @Override
     protected void onDestroy() {
         if(mActionMode != null){
             mActionMode.finish();

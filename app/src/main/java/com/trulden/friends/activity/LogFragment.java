@@ -181,6 +181,11 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
     }
 
+    @Override
+    public void nullActionMode() {
+        mActionMode = null;
+    }
+
 
     private class ActionModeCallback implements ActionMode.Callback{
 

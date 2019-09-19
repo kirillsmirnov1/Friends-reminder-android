@@ -180,6 +180,11 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         }
     }
 
+    @Override
+    public void nullActionMode() {
+        mActionMode = null;
+    }
+
     private class ActionModeCallback implements ActionMode.Callback{
 
         @Override
