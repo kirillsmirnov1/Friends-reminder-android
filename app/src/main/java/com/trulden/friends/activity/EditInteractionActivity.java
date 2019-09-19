@@ -39,7 +39,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.dateFormat;
+import static com.trulden.friends.util.Util.makeToast;
 
 public class EditInteractionActivity
         extends AppCompatActivity
@@ -240,8 +248,6 @@ public class EditInteractionActivity
     public void saveType(InteractionType interactionType) {
         mFriendsViewModel.add(interactionType);
         mTypeToSelect = interactionType.getInteractionTypeName();
-
-        makeToast(this, getString(R.string.toast_notice_type_created));
     }
 
     public void createFriendByName(String name)   { saveHandler.createFriendByName(name);   }
