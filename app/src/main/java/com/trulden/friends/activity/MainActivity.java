@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.View;
-import android.view.MenuItem;
-import android.view.WindowManager;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -23,8 +22,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trulden.friends.R;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.async.ImportDatabaseAsyncTask;
-import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
@@ -32,7 +31,27 @@ import com.trulden.friends.util.Util;
 import java.util.HashSet;
 
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.ACTION_DATABASE_EXPORT_FINISHED;
+import static com.trulden.friends.util.Util.ACTION_DATABASE_IMPORT_FINISHED;
+import static com.trulden.friends.util.Util.EXPORT_DATABASE_REQUEST;
+import static com.trulden.friends.util.Util.EXTRA_FRAGMENT_TO_LOAD;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
+import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
+import static com.trulden.friends.util.Util.NEW_FRIEND_REQUEST;
+import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
+import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
+import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
+import static com.trulden.friends.util.Util.makeSnackbar;
+import static com.trulden.friends.util.Util.makeToast;
+import static com.trulden.friends.util.Util.wipeDatabase;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -276,21 +295,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
-        Fragment mFragment = null;
+        Fragment fragment = null;
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case LOG_FRAGMENT:
-                mFragment = new LogFragment();
+                fragment = new LogFragment();
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                mFragment = new LastInteractionsFragment();
+                fragment = new LastInteractionsFragment();
                 break;
             case FRIENDS_FRAGMENT:
-                mFragment = new FriendsFragment();
+                fragment = new FriendsFragment();
                 break;
         }
         setToolbarTitle();
-        return loadFragment(mFragment);
+        return loadFragment(fragment);
     }
 
     public void setToolbarTitle(){
