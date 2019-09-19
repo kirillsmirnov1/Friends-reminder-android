@@ -80,7 +80,7 @@ public class LastInteractionsFragment extends Fragment {
                         }
 
                         for(LastInteraction interaction : lastInteractions){
-                            String currentType = interaction.getType();
+                            String currentType = interaction.getInteractionType().getInteractionTypeName();
 
                             lastInteractionsMap.get(currentType).add(interaction);
                             if(itsTime(interaction)){

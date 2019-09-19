@@ -89,8 +89,8 @@ public interface FriendsDao {
     // LastInteraction
     // -----------------------------------------
 
-    @Query("SELECT type, friend, date FROM\n" +
-            "(SELECT interactionTypeName AS type, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
+    @Query("SELECT typeId, friend, date FROM\n" +
+            "(SELECT interaction_type_table.id AS typeId, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
             " FROM \n" +
             " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
             "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +

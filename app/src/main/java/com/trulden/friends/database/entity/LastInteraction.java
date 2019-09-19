@@ -1,23 +1,22 @@
 package com.trulden.friends.database.entity;
 
-import androidx.annotation.NonNull;
 import androidx.room.Relation;
 
 import java.util.List;
 
 public class LastInteraction extends AbstractEntity {
 
-    private String type; // TODO store id
+    private int typeId;
 
     private long date;
 
     private String friend;
 
-    @Relation(parentColumn = "type", entityColumn = "interactionTypeName", entity = InteractionType.class)
+    @Relation(parentColumn = "typeId", entityColumn = "id", entity = InteractionType.class)
     private List<InteractionType> interactionTypes;
 
-    public LastInteraction(@NonNull String type, long date, String friend){
-        this.type = type;
+    public LastInteraction(int typeId, long date, String friend){
+        this.typeId = typeId;
         this.date = date;
         this.friend = friend;
     }
@@ -25,14 +24,6 @@ public class LastInteraction extends AbstractEntity {
     // -----------------------------------------
     // Getters and setters
     // -----------------------------------------
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String interactionType) {
-        this.type = interactionType;
-    }
 
     public long getDate() {
         return date;
@@ -60,5 +51,13 @@ public class LastInteraction extends AbstractEntity {
 
     public List<InteractionType> getInteractionTypes() {
         return interactionTypes;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 }
