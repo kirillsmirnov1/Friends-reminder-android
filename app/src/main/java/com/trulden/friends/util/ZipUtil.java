@@ -69,7 +69,7 @@ public abstract class ZipUtil {
         try {
             FileInputStream fin = new FileInputStream(_zipFile);
             ZipInputStream zin = new ZipInputStream(fin);
-            ZipEntry ze = null;
+            ZipEntry ze;
             while ((ze = zin.getNextEntry()) != null) {
 
                 //create dir if required while unzipping
