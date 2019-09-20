@@ -37,7 +37,7 @@ public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapt
         private TextView mInteractionFrequency;
         private View mInteractionTypeEntryLayout;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mInteractionName = itemView.findViewById(R.id.interaction_type_entry_name);
