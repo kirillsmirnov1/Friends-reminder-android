@@ -14,19 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
-import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import static com.trulden.friends.util.Util.daysPassed;
 
 public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteraction> {
 
-    private InteractionType mType;
-
-    public LastInteractionsAdapter(Context context, InteractionType type){
+    public LastInteractionsAdapter(Context context){
         super(context, null);
         mContext = context;
-        mType = type;
     }
 
     @NonNull

@@ -71,7 +71,7 @@ public class LastInteractionsTabFragment extends Fragment {
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 
-        LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext(), type);
+        LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext());
         mAdapter.setEntries(mLastInteractions);
         recyclerView.setAdapter(mAdapter);
     }
