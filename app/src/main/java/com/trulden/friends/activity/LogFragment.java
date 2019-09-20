@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.collection.LongSparseArray;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -26,7 +27,6 @@ import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     private ActionMode mActionMode;
 
     private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
-    private HashMap<Long, String> mTypeMap;
+    private LongSparseArray<String> mTypes;
 
     public LogFragment() {
         // Required empty public constructor
@@ -85,12 +85,12 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
         mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
-                mTypeMap = new HashMap<>();
+                mTypes = new LongSparseArray<>();
 
                 for(InteractionType type : interactionTypes){
-                    mTypeMap.put(type.getId(), type.getInteractionTypeName());
+                    mTypes.put(type.getId(), type.getInteractionTypeName());
                 }
-                mInteractionsAdapter.setInteractionTypes(mTypeMap);
+                mInteractionsAdapter.setInteractionTypes(mTypes);
                 mInteractionsAdapter.notifyDataSetChanged();
             }
         });
@@ -164,7 +164,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
         Interaction interaction = mInteractionsAdapter.getSelectedItems().get(0);
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
-        intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypeMap.get(interaction.getInteractionTypeId()));
+        intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypes.get(interaction.getInteractionTypeId()));
         intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
         intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
         intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, interaction.getFriendNames());

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.collection.LongSparseArray;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
@@ -14,14 +15,13 @@ import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 import static com.trulden.friends.util.Util.dateFormat;
 
 public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interaction> {
 
-    private HashMap<Long, String> mInteractionTypes = new HashMap<>();
+    private LongSparseArray<String> mInteractionTypes = new LongSparseArray<>();
 
     public LogAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
         super(context, selectedInteractionsPositions);
@@ -33,7 +33,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.log_entry, parent, false));
     }
 
-    public void setInteractionTypes(HashMap<Long, String> interactionTypes){
+    public void setInteractionTypes(LongSparseArray<String> interactionTypes){
         mInteractionTypes = interactionTypes;
     }
 
