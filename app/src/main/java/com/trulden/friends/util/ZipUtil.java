@@ -11,13 +11,21 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZipUtil {
+/**
+ * Provides zip and unzip functions
+ */
+public abstract class ZipUtil {
 
     // Taken from here
     // https://stackoverflow.com/questions/25562262/how-to-compress-files-into-zip-folder-in-android
 
     private static final int BUFFER = 4096;
 
+    /**
+     * Zip files from array to archive
+     * @param _files paths of files to archive
+     * @param zipFileName path of archive
+     */
     public static void zip(String[] _files, String zipFileName) {
         try {
             BufferedInputStream origin = null;
@@ -48,6 +56,11 @@ public class ZipUtil {
         }
     }
 
+    /**
+     * Unzip archive to specified directory
+     * @param _zipFile path to archive
+     * @param _targetLocation path to target directory
+     */
     public static void unzip(String _zipFile, String _targetLocation) {
 
         //create target location folder if not exist
@@ -79,6 +92,10 @@ public class ZipUtil {
         }
     }
 
+    /**
+     * Ensures existence of directories for path
+     * @param targetLocation path which should exist
+     */
     private static void dirChecker(String targetLocation) {
         new File(targetLocation).mkdirs();
     }
