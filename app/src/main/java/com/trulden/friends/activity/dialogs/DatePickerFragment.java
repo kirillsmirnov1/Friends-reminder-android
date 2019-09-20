@@ -9,7 +9,6 @@ import android.widget.DatePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.trulden.friends.activity.EditInteractionActivity;
 
@@ -17,7 +16,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Proposition to choose a date
  */
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
