@@ -16,6 +16,9 @@ import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.List;
 
+/**
+ * Defines interactions with database
+ */
 @Dao
 public interface FriendsDao {
 
