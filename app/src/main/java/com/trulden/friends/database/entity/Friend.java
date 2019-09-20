@@ -51,8 +51,4 @@ public class Friend implements Entity {
     public String getInfo() {
         return info;
     }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
 }
