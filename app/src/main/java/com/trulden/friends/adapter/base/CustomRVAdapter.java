@@ -50,7 +50,7 @@ public abstract class CustomRVAdapter
         mEntries = entries;
     }
 
-    public void clearSelections() {
+    void clearSelections() {
         mSelectedPositions.clear();
         notifyDataSetChanged();
     }
