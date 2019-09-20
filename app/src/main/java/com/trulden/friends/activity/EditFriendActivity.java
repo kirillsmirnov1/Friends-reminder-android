@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -10,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.os.Bundle;
-
 import com.trulden.friends.R;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
@@ -19,7 +18,10 @@ import com.trulden.friends.database.entity.Friend;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
+import static com.trulden.friends.util.Util.makeToast;
 
 public class EditFriendActivity extends AppCompatActivity {
 
@@ -28,7 +30,6 @@ public class EditFriendActivity extends AppCompatActivity {
 
     private long updatedFriendId;
 
-    private FriendsViewModel mFriendsViewModel;
     private List<Friend> mFriends = new ArrayList<>();
 
     @Override
@@ -36,8 +37,8 @@ public class EditFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_friend);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
-        mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
+        FriendsViewModel friendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        friendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
             @Override
             public void onChanged(List<Friend> friends) {
                 mFriends = friends;
