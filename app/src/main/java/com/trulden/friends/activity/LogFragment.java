@@ -181,7 +181,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     }
 
     @Override
-    public void nullActionMode() {
+    public void nullifyActionMode() {
         mActionMode = null;
     }
 }
