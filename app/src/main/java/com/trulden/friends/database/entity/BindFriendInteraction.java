@@ -4,7 +4,10 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
-
+/**
+ * Establishes a connection between Friend and Interaction.
+ * Friend X was in Interaction Y.
+ */
 @androidx.room.Entity(
     tableName = "bind_friend_interaction_table",
 
