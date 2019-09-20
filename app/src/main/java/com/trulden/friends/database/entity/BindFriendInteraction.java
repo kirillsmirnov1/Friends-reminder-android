@@ -33,6 +33,11 @@ public class BindFriendInteraction implements Entity {
     private long friendId;
     private long interactionId;
 
+    /**
+     * Must be used only by database classes
+     * @param friendId id of friend in question
+     * @param interactionId if of interaction in question
+     */
     public BindFriendInteraction(long friendId, long interactionId) {
         this.friendId = friendId;
         this.interactionId = interactionId;

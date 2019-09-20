@@ -24,7 +24,7 @@ public class LastInteraction implements Entity {
     private List<InteractionType> interactionTypes;
 
     /**
-     * Constructor for LI entry. Must be used only by DAO
+     * Constructor for LI entry. Must be used only by database classes
      * @param typeId type of Interaction
      * @param date Unix epoch time of interaction
      * @param friend name of friend
