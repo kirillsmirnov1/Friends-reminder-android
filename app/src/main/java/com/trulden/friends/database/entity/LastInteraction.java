@@ -67,8 +67,4 @@ public class LastInteraction implements Entity {
     public int getTypeId() {
         return typeId;
     }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
 }
