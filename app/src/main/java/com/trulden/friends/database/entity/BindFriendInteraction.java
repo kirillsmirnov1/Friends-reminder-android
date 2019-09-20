@@ -1,12 +1,11 @@
 package com.trulden.friends.database.entity;
 
-import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(
+@androidx.room.Entity(
     tableName = "bind_friend_interaction_table",
 
     primaryKeys = {"friendId", "interactionId"},
@@ -26,7 +25,7 @@ import static androidx.room.ForeignKey.CASCADE;
     indices =
     @Index(value = "interactionId")
 )
-public class BindFriendInteraction extends AbstractEntity {
+public class BindFriendInteraction implements Entity {
 
     private long friendId;
     private long interactionId;

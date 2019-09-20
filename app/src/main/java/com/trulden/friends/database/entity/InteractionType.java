@@ -1,12 +1,11 @@
 package com.trulden.friends.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "interaction_type_table")
-public class InteractionType extends AbstractEntity {
+@androidx.room.Entity(tableName = "interaction_type_table")
+public class InteractionType implements Entity {
 
     @PrimaryKey(autoGenerate = true)
     private long id;

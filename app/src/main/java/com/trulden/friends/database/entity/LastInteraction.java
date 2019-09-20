@@ -6,7 +6,7 @@ import java.util.List;
 
 import static com.trulden.friends.util.Util.daysPassed;
 
-public class LastInteraction extends AbstractEntity {
+public class LastInteraction implements Entity {
 
     private int typeId;
 

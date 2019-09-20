@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.trulden.friends.database.entity.AbstractEntity;
+import com.trulden.friends.database.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +18,7 @@ import java.util.List;
  * */
 public abstract class CustomRVAdapter
         <T_VH extends RecyclerView.ViewHolder & BindableViewHolder,
-         T_E  extends AbstractEntity>
+         T_E  extends Entity>
         extends RecyclerView.Adapter<T_VH>{
 
     protected Context mContext;

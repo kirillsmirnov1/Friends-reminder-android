@@ -1,12 +1,11 @@
 package com.trulden.friends.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "friend_table")
-public class Friend extends AbstractEntity {
+@androidx.room.Entity(tableName = "friend_table")
+public class Friend implements Entity {
 
     @PrimaryKey(autoGenerate = true)
     private long id;

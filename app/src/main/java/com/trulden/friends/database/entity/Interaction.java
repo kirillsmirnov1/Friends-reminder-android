@@ -1,6 +1,5 @@
 package com.trulden.friends.database.entity;
 
-import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
@@ -8,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "interaction_table",
+@androidx.room.Entity(tableName = "interaction_table",
 
         foreignKeys = {
         @ForeignKey(entity = InteractionType.class,
@@ -21,7 +20,7 @@ import static androidx.room.ForeignKey.CASCADE;
         @Index(value = "interactionTypeId")
 )
 
-public class Interaction extends AbstractEntity {
+public class Interaction implements Entity {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
