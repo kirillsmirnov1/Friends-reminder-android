@@ -43,15 +43,7 @@ public class BindFriendInteraction implements Entity {
         return friendId;
     }
 
-    public void setFriendId(long friendId) {
-        this.friendId = friendId;
-    }
-
     public long getInteractionId() {
         return interactionId;
-    }
-
-    public void setInteractionId(long interactionId) {
-        this.interactionId = interactionId;
     }
 }
