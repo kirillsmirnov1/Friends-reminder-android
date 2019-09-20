@@ -40,7 +40,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
         private RelativeLayout layout;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mName = itemView.findViewById(R.id.last_interaction_name);
