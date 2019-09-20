@@ -28,7 +28,7 @@ public abstract class ZipUtil {
      */
     public static void zip(String[] _files, String zipFileName) {
         try {
-            BufferedInputStream origin = null;
+            BufferedInputStream origin;
             FileOutputStream dest = new FileOutputStream(zipFileName, false);
             ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(
                     dest));
