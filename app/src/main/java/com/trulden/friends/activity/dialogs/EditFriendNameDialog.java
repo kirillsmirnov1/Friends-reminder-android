@@ -1,5 +1,6 @@
 package com.trulden.friends.activity.dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import androidx.fragment.app.DialogFragment;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.EditInteractionActivity;
 
+import java.util.Objects;
+
 public class EditFriendNameDialog extends DialogFragment {
 
     private String name;
@@ -26,8 +29,10 @@ public class EditFriendNameDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
+        @SuppressLint("InflateParams")
         View dialogView = requireActivity().getLayoutInflater()
                 .inflate(R.layout.dialog_edit_friend_name, null);
 
@@ -40,7 +45,7 @@ public class EditFriendNameDialog extends DialogFragment {
             .setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    ((EditInteractionActivity)getActivity())
+                    ((EditInteractionActivity) Objects.requireNonNull(getActivity()))
                             .updateAndCheckFriend(editName.getText().toString());
                 }
             });
