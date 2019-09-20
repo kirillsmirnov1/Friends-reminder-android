@@ -7,10 +7,10 @@ import android.widget.TextView;
 
 import com.trulden.friends.R;
 
-@SuppressLint("ViewConstructor")
 /**
  * View which holds tab name and counter
  */
+@SuppressLint("ViewConstructor")
 public class TabCounterView extends LinearLayout {
 
     private TextView mCounterView;
@@ -36,3 +36,4 @@ public class TabCounterView extends LinearLayout {
         mCounterView.setText(String.valueOf(counter));
     }
 }
+
