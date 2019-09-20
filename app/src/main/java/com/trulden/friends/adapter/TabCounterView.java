@@ -1,12 +1,10 @@
 package com.trulden.friends.adapter;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.trulden.friends.R;
-import com.trulden.friends.activity.MainActivity;
 
 public class TabCounterView extends LinearLayout {
 
