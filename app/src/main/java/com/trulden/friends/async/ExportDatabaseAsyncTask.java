@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 
 import androidx.core.content.FileProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -19,8 +18,10 @@ import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.Objects;
 
-import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.ACTION_DATABASE_EXPORT_FINISHED;
+import static com.trulden.friends.util.Util.EXTRA_EXPORT_RESULT;
+import static com.trulden.friends.util.Util.getDbPaths;
+import static com.trulden.friends.util.Util.getInnerBackupFilePath;
 
 public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
 
