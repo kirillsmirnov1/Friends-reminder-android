@@ -65,10 +65,6 @@ public class Interaction implements Entity {
         return interactionTypeId;
     }
 
-    public void setInteractionTypeId(long interactionTypeId) {
-        this.interactionTypeId = interactionTypeId;
-    }
-
     public long getDate() {
         return date;
     }
@@ -81,15 +77,7 @@ public class Interaction implements Entity {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public String getFriendNames() {
         return friendNames;
-    }
-
-    public void setFriendNames(String friendNames) {
-        this.friendNames = friendNames;
     }
 }
