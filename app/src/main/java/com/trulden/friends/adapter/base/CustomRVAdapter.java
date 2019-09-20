@@ -25,7 +25,7 @@ public abstract class CustomRVAdapter
     protected OnClickListener mOnClickListener = null;
     protected HashSet<Integer> mSelectedPositions;
 
-    List<T_E> mEntries = new ArrayList<>();
+    private List<T_E> mEntries = new ArrayList<>();
 
     public CustomRVAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
         mContext = context;
