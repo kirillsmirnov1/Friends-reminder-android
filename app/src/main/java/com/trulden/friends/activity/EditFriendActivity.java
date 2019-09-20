@@ -100,15 +100,12 @@ public class EditFriendActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.icon_save:{
-                saveFriend();
-                return true;
-            }
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.icon_save) {
+            saveFriend();
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public boolean friendExists(String name){
