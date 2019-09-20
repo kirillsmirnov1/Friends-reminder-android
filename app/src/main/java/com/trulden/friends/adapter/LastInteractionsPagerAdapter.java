@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Handles fragments in tabs of LastInteractionsFragment.
+ *
+ * @see com.trulden.friends.activity.LastInteractionsFragment LastInteractionsFragment
+ * @see FragmentStatePagerAdapter FragmentStatePagerAdapter
+ */
 public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     private List<InteractionType> types;
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap;
