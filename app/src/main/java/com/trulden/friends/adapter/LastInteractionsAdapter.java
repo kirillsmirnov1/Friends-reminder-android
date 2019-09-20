@@ -21,6 +21,7 @@ import static com.trulden.friends.util.Util.daysPassed;
 public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteraction> {
 
     public LastInteractionsAdapter(Context context){
+        //noinspection ConstantConditions
         super(context, null);
         mContext = context;
     }
