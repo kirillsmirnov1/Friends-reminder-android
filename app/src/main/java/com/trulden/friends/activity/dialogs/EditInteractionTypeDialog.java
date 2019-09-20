@@ -1,5 +1,6 @@
 package com.trulden.friends.activity.dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import androidx.fragment.app.DialogFragment;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.database.entity.InteractionType;
+
+import java.util.Objects;
 
 import static com.trulden.friends.util.Util.makeToast;
 
@@ -32,9 +35,12 @@ public class EditInteractionTypeDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
+
+        @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.dialog_edit_interaction_type, null);
 
         builder
@@ -70,6 +76,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
                             return;
                         }
 
+                        assert parentActivity != null;
                         if(mType == null && parentActivity.typeExists(name)){
                             makeToast(getActivity(), getString(R.string.toast_warning_type_exists));
                             return;
