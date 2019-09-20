@@ -32,7 +32,7 @@ public abstract class ZipUtil {
             FileOutputStream dest = new FileOutputStream(zipFileName, false);
             ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(
                     dest));
-            byte data[] = new byte[BUFFER];
+            byte[] data = new byte[BUFFER];
 
             for (int i = 0; i < _files.length; i++) {
                 Log.v("Compress", "Adding: " + _files[i]);
