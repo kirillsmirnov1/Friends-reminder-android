@@ -19,6 +19,10 @@ import com.trulden.friends.util.Util;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Handles database — initialization, migration.
+ * Stores static instance of database.
+ */
 @Database(
         entities = {Friend.class, InteractionType.class, Interaction.class, BindFriendInteraction.class},
         version = Util.DATABASE_VERSION,
