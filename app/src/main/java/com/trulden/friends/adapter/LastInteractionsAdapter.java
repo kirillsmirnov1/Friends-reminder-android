@@ -18,6 +18,12 @@ import com.trulden.friends.database.entity.LastInteraction;
 
 import static com.trulden.friends.util.Util.daysPassed;
 
+/**
+ * RecyclerView adapter for LastInteraction objects.
+ * Used in LastInteractionsTabFragment
+ *
+ * @see com.trulden.friends.activity.LastInteractionsTabFragment LastInteractionsTabFragment
+ */
 public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteraction> {
 
     public LastInteractionsAdapter(Context context){
@@ -58,8 +64,10 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
             mTime.setText(dateString);
 
+            // Grey out LI for which time have not yet come
             if(!lastInteraction.itsTime()) {
-                layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_backgroung_grey));
+                layout.setBackground(ContextCompat
+                        .getDrawable(mContext, R.drawable.item_backgroung_grey));
             }
         }
     }
