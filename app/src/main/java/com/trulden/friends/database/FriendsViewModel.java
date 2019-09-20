@@ -14,6 +14,9 @@ import com.trulden.friends.database.entity.LastInteraction;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * View model of app database
+ */
 public class FriendsViewModel extends AndroidViewModel {
 
     private FriendsRepository mRepository;
@@ -31,7 +34,6 @@ public class FriendsViewModel extends AndroidViewModel {
         mAllInteractionTypes = mRepository.getAllInteractionTypes();
         mAllInteractions = mRepository.getAllInteractions();
     }
-
 
     public LiveData<List<Friend>> getAllFriends() {
         return mAllFriends;
@@ -52,8 +54,8 @@ public class FriendsViewModel extends AndroidViewModel {
     public void update(InteractionType interactionType) { mRepository.update(interactionType); }
     public void delete(InteractionType interactionType) { mRepository.delete(interactionType); }
 
-    public void add(Interaction interaction, HashSet<Long> friendsIds)    { mRepository.add(interaction, friendsIds); }
+    public void add(Interaction interaction, HashSet<Long> friendsIds)    { mRepository.add(interaction, friendsIds);    }
     public void update(Interaction interaction, HashSet<Long> friendsIds) { mRepository.update(interaction, friendsIds); }
-    public void delete(Interaction interaction)                           { mRepository.delete(interaction); }
+    public void delete(Interaction interaction)                           { mRepository.delete(interaction);             }
 
 }
