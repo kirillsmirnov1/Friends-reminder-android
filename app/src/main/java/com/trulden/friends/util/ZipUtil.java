@@ -88,7 +88,7 @@ public abstract class ZipUtil {
             }
             zin.close();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
