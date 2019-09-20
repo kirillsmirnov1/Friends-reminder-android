@@ -23,6 +23,11 @@ import static com.trulden.friends.util.Util.EXTRA_EXPORT_RESULT;
 import static com.trulden.friends.util.Util.getDbPaths;
 import static com.trulden.friends.util.Util.getInnerBackupFilePath;
 
+/**
+ * Async task to export database.
+ * Takes uri of file and writes database there.
+ * Returns false if something failed
+ */
 public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
 
     private WeakReference<Context> mContext;
@@ -35,7 +40,10 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
     protected Boolean doInBackground(Uri... uris) {
 
         String backupPath = getInnerBackupFilePath(mContext.get());
-        ZipUtil.zip(getDbPaths(mContext.get()), backupPath);
+
+        // First — archive database
+
+        ZipUtil.zip(getDbPaths(mContext.get()), backupPath); // TODO use result of zip here
 
         Uri uriDest = uris[0];
 
@@ -43,6 +51,8 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
 
         Uri uriSrc = FileProvider.getUriForFile(mContext.get(),
                 "com.trulden.friends.FileProvider", outputFile);
+
+        // Second — write archive to specified location
 
         try(InputStream inputStream = mContext.get().getContentResolver().openInputStream(uriSrc);
             OutputStream outputStream = mContext.get().getContentResolver().openOutputStream(Objects.requireNonNull(uriDest))){
