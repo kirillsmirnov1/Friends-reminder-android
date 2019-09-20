@@ -34,7 +34,7 @@ class FriendsRepository {
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
 
-    LiveData<List<LastInteraction>> getLastInteractions(long currDate) {
+    LiveData<List<LastInteraction>> getLastInteractions(/*long currDate*/) {
         return mFriendsDao.getLastInteractions(/*currDate, Util.MILLISECONDS_IN_DAYS*/);
     }
 
@@ -185,7 +185,7 @@ class FriendsRepository {
         private Interaction interaction;
         private HashSet<Long> friendIds;
 
-        public InteractionAsyncTask(FriendsDao mFriendsDao, TaskSelector mTaskSelector, Interaction interaction, HashSet<Long> friendIds) {
+        InteractionAsyncTask(FriendsDao mFriendsDao, TaskSelector mTaskSelector, Interaction interaction, HashSet<Long> friendIds) {
             this.mFriendsDao = mFriendsDao;
             this.mTaskSelector = mTaskSelector;
             this.interaction = interaction;

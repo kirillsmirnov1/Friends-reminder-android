@@ -42,7 +42,7 @@ public class FriendsViewModel extends AndroidViewModel {
     public LiveData<List<Interaction>> getAllInteractions() {
         return mAllInteractions;
     }
-    public LiveData<List<LastInteraction>> getLastInteractions(long currDate) { return mRepository.getLastInteractions(currDate); }
+    public LiveData<List<LastInteraction>> getLastInteractions(/*long currDate*/) { return mRepository.getLastInteractions(/*currDate*/); }
 
     public void add(Friend friend)    { mRepository.add(friend);    }
     public void update(Friend friend) { mRepository.update(friend); }

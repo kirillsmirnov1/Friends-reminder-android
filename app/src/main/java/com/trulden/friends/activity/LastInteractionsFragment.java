@@ -22,7 +22,6 @@ import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,7 +67,8 @@ public class LastInteractionsFragment extends Fragment {
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
                 }
 
-                friendsViewModel.getLastInteractions(Calendar.getInstance().getTimeInMillis()).observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
+                friendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
+                        .observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
                     @Override
                     public void onChanged(List<LastInteraction> lastInteractions) {
 
