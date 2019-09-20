@@ -21,6 +21,9 @@ import java.util.Objects;
 
 import static com.trulden.friends.util.Util.makeToast;
 
+/**
+ * Dialog in which user can create or change InteractionType
+ */
 public class EditInteractionTypeDialog extends DialogFragment {
 
     private EditText mName;
@@ -43,7 +46,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
         @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.dialog_edit_interaction_type, null);
 
-        builder
+        builder     // If there is no mType, it means we are creating new one
             .setTitle(mType == null ? getString(R.string.new_interaction_type) : getString(R.string.edit_interaction_type))
             .setView(dialogView)
             .setPositiveButton(getString(R.string.save), null)     // Set it later
@@ -51,11 +54,19 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
         final AlertDialog dialog = builder.create();
 
-        // To check values in dialog, I need to set listener like that
+        mName = dialogView.findViewById(R.id.edit_interaction_type_name);
+        mFrequency = dialogView.findViewById(R.id.edit_interaction_type_frequency);
 
+        if(mType != null){
+            mName.setText(mType.getInteractionTypeName());
+            mFrequency.setText(String.valueOf(mType.getFrequency()));
+        }
+
+        // To check values in dialog, I need to set listener like that
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
+
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                         .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -65,7 +76,7 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
                         EditInteractionType parentActivity = (EditInteractionType) getActivity();
 
-                        try {
+                        try { // It should be ok since I set type in layout, but who knows
                             frequency = Integer.parseInt(mFrequency.getText().toString());
                         } catch (NumberFormatException e){
                             e.printStackTrace();
@@ -106,14 +117,6 @@ public class EditInteractionTypeDialog extends DialogFragment {
                 });
             }
         });
-
-        mName = dialogView.findViewById(R.id.edit_interaction_type_name);
-        mFrequency = dialogView.findViewById(R.id.edit_interaction_type_frequency);
-
-        if(mType != null){
-            mName.setText(mType.getInteractionTypeName());
-            mFrequency.setText(String.valueOf(mType.getFrequency()));
-        }
 
         return dialog;
     }
