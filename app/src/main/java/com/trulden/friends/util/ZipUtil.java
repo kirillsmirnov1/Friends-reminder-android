@@ -34,12 +34,12 @@ public abstract class ZipUtil {
                     dest));
             byte[] data = new byte[BUFFER];
 
-            for (int i = 0; i < _files.length; i++) {
-                Log.v("Compress", "Adding: " + _files[i]);
-                FileInputStream fi = new FileInputStream(_files[i]);
+            for (String file : _files) {
+                Log.v("Compress", "Adding: " + file);
+                FileInputStream fi = new FileInputStream(file);
                 origin = new BufferedInputStream(fi, BUFFER);
 
-                ZipEntry entry = new ZipEntry(_files[i].substring(_files[i].lastIndexOf("/") + 1));
+                ZipEntry entry = new ZipEntry(file.substring(file.lastIndexOf("/") + 1));
                 out.putNextEntry(entry);
                 int count;
 
