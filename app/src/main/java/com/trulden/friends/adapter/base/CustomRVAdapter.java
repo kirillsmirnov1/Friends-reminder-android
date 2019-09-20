@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * CustomRVAdapter holds fields and methods of all RecyclerViews used in app
  * @param <T_VH> class for ViewHolder
- * @param <T_E>  POJO entries of data
+ * @param <T_E>  entities of data
  * */
 public abstract class CustomRVAdapter
         <T_VH extends RecyclerView.ViewHolder & BindableViewHolder,
@@ -50,6 +50,9 @@ public abstract class CustomRVAdapter
         mEntries = entries;
     }
 
+    /**
+     * Unselect everything
+     */
     void clearSelections() {
         mSelectedPositions.clear();
         notifyDataSetChanged();
@@ -59,6 +62,10 @@ public abstract class CustomRVAdapter
         return mSelectedPositions.size();
     }
 
+    /**
+     * Select item if it is not selected and unselect if it is
+     * @param pos position to be checked for selection
+     */
     public void toggleSelection(int pos) {
         if(mSelectedPositions.contains(pos)){
             mSelectedPositions.remove(pos);
@@ -68,6 +75,10 @@ public abstract class CustomRVAdapter
         notifyItemChanged(pos);
     }
 
+    /**
+     * Get selected objects
+     * @return list of selected objects
+     */
     public List<T_E> getSelectedItems() {
         List <T_E> selectedTypes = new ArrayList<>(mSelectedPositions.size());
         for(Integer position : mSelectedPositions){
@@ -76,6 +87,10 @@ public abstract class CustomRVAdapter
         return selectedTypes;
     }
 
+    /**
+     * Get data stored in RV
+     * @return list of objects
+     */
     public List<T_E> getEntries() {
         return mEntries;
     }
