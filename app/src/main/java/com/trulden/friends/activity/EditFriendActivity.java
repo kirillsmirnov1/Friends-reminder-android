@@ -28,7 +28,7 @@ public class EditFriendActivity extends AppCompatActivity {
     private EditText mName;
     private EditText mInfo;
 
-    private long updatedFriendId;
+    private long mUpdatedFriendId;
 
     private List<Friend> mFriends = new ArrayList<>();
 
@@ -49,11 +49,11 @@ public class EditFriendActivity extends AppCompatActivity {
         mInfo = findViewById(R.id.edit_friends_info);
 
         Intent intent = getIntent();
-        updatedFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
+        mUpdatedFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
         mName.setText(intent.getStringExtra(EXTRA_FRIEND_NAME));
         mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
-        if(updatedFriendId == -1){
+        if(mUpdatedFriendId == -1){
             getSupportActionBar().setTitle(getString(R.string.add_friend));
         } else {
             getSupportActionBar().setTitle(getString(R.string.action_bar_title_edit_friend));
@@ -69,15 +69,15 @@ public class EditFriendActivity extends AppCompatActivity {
 
         if(name.isEmpty()) {
             makeToast(this, getString(R.string.toast_warning_empty_name));
-        } else if(updatedFriendId == -1 && friendExists(name)) {
+        } else if(mUpdatedFriendId == -1 && friendExists(name)) {
             makeToast(this, getString(R.string.toast_warning_friend_exists));
         } else {
 
-            replyIntent.putExtra(EXTRA_FRIEND_ID, updatedFriendId);
+            replyIntent.putExtra(EXTRA_FRIEND_ID, mUpdatedFriendId);
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
             replyIntent.putExtra(EXTRA_FRIEND_NOTES, info);
 
-            String toastMessage = updatedFriendId == -1
+            String toastMessage = mUpdatedFriendId == -1
                     ? "«" + name + "»" + getString(R.string.toast_notice_friend_created)
                     : "«" + name + "»" + getString(R.string.toast_notice_friend_updated);
 
