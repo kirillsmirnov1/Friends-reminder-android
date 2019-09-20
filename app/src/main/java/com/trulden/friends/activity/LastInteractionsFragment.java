@@ -15,7 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
-import com.trulden.friends.adapter.PagerAdapter;
+import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.adapter.TabCounterView;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
@@ -111,7 +111,7 @@ public class LastInteractionsFragment extends Fragment {
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
-        final PagerAdapter adapter = new PagerAdapter(getFragmentManager(), types, lastInteractionsMap);
+        final LastInteractionsPagerAdapter adapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
 
         viewPager.setAdapter(adapter);
 

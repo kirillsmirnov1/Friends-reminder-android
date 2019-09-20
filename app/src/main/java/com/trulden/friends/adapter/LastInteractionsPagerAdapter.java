@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     private List<InteractionType> types;
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap;
 
-    public PagerAdapter(FragmentManager fm, List<InteractionType> types, HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap) {
+    public LastInteractionsPagerAdapter(FragmentManager fm, List<InteractionType> types, HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap) {
         super(fm);
         this.types = types;
         this.lastInteractionsMap = lastInteractionsMap;
