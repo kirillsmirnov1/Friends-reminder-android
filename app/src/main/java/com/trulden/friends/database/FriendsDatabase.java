@@ -45,7 +45,10 @@ public abstract class FriendsDatabase extends RoomDatabase {
         }
     };
 
-    public static void wipeDatabaseInstance(){
+    /**
+     * Set database instance reference to null. Used when reloading database.
+     */
+    public static void wipeDatabaseReference(){
         INSTANCE = null;
     }
 

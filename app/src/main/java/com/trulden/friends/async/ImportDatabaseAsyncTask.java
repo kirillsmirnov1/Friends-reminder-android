@@ -51,7 +51,7 @@ public class ImportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
             ZipUtil.unzip(innerBackupFilePath, databasePath);
 
             // Need this to reload database
-            FriendsDatabase.wipeDatabaseInstance();
+            FriendsDatabase.wipeDatabaseReference();
 
             return true;
 
