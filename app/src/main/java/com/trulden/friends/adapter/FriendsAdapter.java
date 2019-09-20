@@ -16,6 +16,12 @@ import com.trulden.friends.database.entity.Friend;
 
 import java.util.HashSet;
 
+/**
+ * RecyclerView Adapter for Friend objects.
+ * Used in FriendsFragment
+ *
+ * @see com.trulden.friends.activity.FriendsFragment FriendsFragment
+ */
 public class FriendsAdapter extends CustomRVAdapter<FriendsAdapter.ViewHolder, Friend> {
 
     public FriendsAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
