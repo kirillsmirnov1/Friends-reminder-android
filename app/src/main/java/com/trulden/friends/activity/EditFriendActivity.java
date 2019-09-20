@@ -78,7 +78,8 @@ public class EditFriendActivity extends AppCompatActivity {
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
             replyIntent.putExtra(EXTRA_FRIEND_NOTES, info);
 
-            String toastMessage = mUpdatedFriendId == -1
+            String toastMessage =
+                    mUpdatedFriendId == -1
                     ? "«" + name + "»" + getString(R.string.toast_notice_friend_created)
                     : "«" + name + "»" + getString(R.string.toast_notice_friend_updated);
 
