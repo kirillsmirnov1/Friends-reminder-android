@@ -19,7 +19,14 @@ import java.util.HashSet;
 
 import static com.trulden.friends.util.Util.dateFormat;
 
+/**
+ * RecyclerView adapter for Interaction objects.
+ * Used in LogFragment
+ * @see com.trulden.friends.activity.LogFragment LogFragment
+ */
 public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interaction> {
+
+    // TODO rename to InteractionAdapter
 
     private LongSparseArray<String> mInteractionTypes = new LongSparseArray<>();
 
@@ -47,7 +54,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
 
         private View mLogEntryLayout;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mTypeAndNames = itemView.findViewById(R.id.log_entry_type_and_names);
