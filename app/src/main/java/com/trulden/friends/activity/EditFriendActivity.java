@@ -24,12 +24,15 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.makeToast;
 
+/**
+ * Activity for creating or editing Friend objects
+ */
 public class EditFriendActivity extends AppCompatActivity {
 
     private EditText mName;
     private EditText mInfo;
 
-    private long mUpdatedFriendId;
+    private long mFriendId;
 
     private List<Friend> mFriends = new ArrayList<>();
 
@@ -50,11 +53,11 @@ public class EditFriendActivity extends AppCompatActivity {
         mInfo = findViewById(R.id.edit_friends_info);
 
         Intent intent = getIntent();
-        mUpdatedFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
+        mFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
         mName.setText(intent.getStringExtra(EXTRA_FRIEND_NAME));
         mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
-        if(mUpdatedFriendId == -1){
+        if(mFriendId == -1){
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_friend));
         } else {
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.action_bar_title_edit_friend));
@@ -70,16 +73,16 @@ public class EditFriendActivity extends AppCompatActivity {
 
         if(name.isEmpty()) {
             makeToast(this, getString(R.string.toast_warning_empty_name));
-        } else if(mUpdatedFriendId == -1 && friendExists(name)) {
+        } else if(mFriendId == -1 && friendExists(name)) {
             makeToast(this, getString(R.string.toast_warning_friend_exists));
         } else {
 
-            replyIntent.putExtra(EXTRA_FRIEND_ID, mUpdatedFriendId);
+            replyIntent.putExtra(EXTRA_FRIEND_ID, mFriendId);
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
             replyIntent.putExtra(EXTRA_FRIEND_NOTES, info);
 
             String toastMessage =
-                    mUpdatedFriendId == -1
+                    mFriendId == -1
                     ? "«" + name + "»" + getString(R.string.toast_notice_friend_created)
                     : "«" + name + "»" + getString(R.string.toast_notice_friend_updated);
 
