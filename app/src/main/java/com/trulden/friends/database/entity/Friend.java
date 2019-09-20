@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+/**
+ * Friend class. Stores person information — id in database, name, notes
+ */
 @androidx.room.Entity(tableName = "friend_table")
 public class Friend implements Entity {
 
@@ -15,11 +18,22 @@ public class Friend implements Entity {
 
     private String info;
 
+    /**
+     * Constructor for creating new friend
+     * @param name friend's name
+     * @param info notes about friend
+     */
     public Friend(@NonNull String name, String info){
         this.name = name;
         this.info = info;
     }
 
+    /**
+     * Constructor for updating existing Friend
+     * @param id database identification of Friend to update
+     * @param name friend's name
+     * @param info notes about friend
+     */
     @Ignore
     public Friend(long id, @NonNull String name, String info){
         this.id = id;
