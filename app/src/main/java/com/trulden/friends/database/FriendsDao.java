@@ -54,6 +54,10 @@ public interface FriendsDao {
     @Update
     void update(InteractionType interactionType);
 
+    /**
+     * Used to check if there is any interaction types in database
+     * @return array with one or none of types
+     */
     @Query("SELECT * from interaction_type_table LIMIT 1")
     InteractionType[] getAnyInteractionType();
 
@@ -83,6 +87,10 @@ public interface FriendsDao {
     @Delete
     void delete(BindFriendInteraction bindFriendInteraction);
 
+    /**
+     * Deletes all BindFriendInteraction for this Interaction. Used when updating Interaction.
+     * @param interactionId interaction for which binds will be deleted
+     */
     @Query("DELETE FROM bind_friend_interaction_table WHERE interactionId = :interactionId;")
     void deleteBindingsByInteractionId(long interactionId);
 
@@ -90,6 +98,11 @@ public interface FriendsDao {
     // LastInteraction
     // -----------------------------------------
 
+    /**
+     *
+     * @return last interactions
+     * @see LastInteraction LastInteractions
+     */
     @Transaction
     @Query("SELECT typeId, friend, date FROM\n" +
             "(SELECT interaction_type_table.id AS typeId, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
