@@ -64,7 +64,7 @@ public class EditFriendActivity extends AppCompatActivity {
         }
     }
 
-    public void saveFriend() {
+    private void saveFriend() {
 
         Intent replyIntent = new Intent();
 
@@ -112,7 +112,7 @@ public class EditFriendActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean friendExists(String name){
+    private boolean friendExists(String name){
         for(Friend friend : mFriends){
             if(friend.getName().equals(name))
                 return true;
