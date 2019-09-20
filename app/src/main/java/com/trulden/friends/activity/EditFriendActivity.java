@@ -17,6 +17,7 @@ import com.trulden.friends.database.entity.Friend;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
@@ -54,9 +55,9 @@ public class EditFriendActivity extends AppCompatActivity {
         mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
         if(mUpdatedFriendId == -1){
-            getSupportActionBar().setTitle(getString(R.string.add_friend));
+            Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_friend));
         } else {
-            getSupportActionBar().setTitle(getString(R.string.action_bar_title_edit_friend));
+            Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.action_bar_title_edit_friend));
         }
     }
 
