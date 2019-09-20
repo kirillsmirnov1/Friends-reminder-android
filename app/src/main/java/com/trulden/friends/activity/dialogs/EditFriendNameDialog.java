@@ -17,6 +17,10 @@ import com.trulden.friends.activity.EditInteractionActivity;
 
 import java.util.Objects;
 
+/**
+ * Dialog in which user can change name of friend if there was some error.
+ * Used in {@link FriendNotFoundDialog}
+ */
 public class EditFriendNameDialog extends DialogFragment {
 
     private String name;
