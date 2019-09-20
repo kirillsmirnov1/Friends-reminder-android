@@ -45,7 +45,7 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "org.apache.directory.studio:org.apache.commons.io:2.4"
+    implementation "commons-io:commons-io:2.4"
 
     // fab+
     implementation 'com.getbase:floatingactionbutton:1.10.1'
