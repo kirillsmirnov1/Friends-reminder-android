@@ -1,4 +1,4 @@
-package com.trulden.friends.adapter;
+package com.trulden.friends.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
