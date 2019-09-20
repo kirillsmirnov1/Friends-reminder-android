@@ -52,6 +52,11 @@ public abstract class FriendsDatabase extends RoomDatabase {
         INSTANCE = null;
     }
 
+    /**
+     * Creates database instance, if there is none.
+     * @param context context for which database build
+     * @return database instance
+     */
     public static FriendsDatabase getDatabase(final Context context){
 
         mContext = new WeakReference<>(context);
@@ -73,10 +78,9 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
     public abstract FriendsDao friendsDao();
 
-    // -----------------------------------------
-    // Populate db at start
-    // -----------------------------------------
-
+    /**
+     * Populate db at start
+     */
     private static class PopulateDBAsync extends AsyncTask<Void, Void, Void>{
 
         // For debug
@@ -90,7 +94,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 mContext.get().getString(R.string.interaction_type_name_texting),
                 mContext.get().getString(R.string.interaction_type_name_call)
         };
-        int[]    defaultInteractionsFrequency = {30, 7, 30};
+        int[]    defaultInteractionsFrequency = {30, 7, 30}; // TODO how often should you call your mother?
 
         private final FriendsDao mDao;
 
