@@ -1,21 +1,25 @@
 package com.trulden.friends.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.trulden.friends.R;
-import com.trulden.friends.database.entity.Friend;
-import com.trulden.friends.database.FriendsViewModel;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
-import static com.trulden.friends.util.Util.*;
+import com.trulden.friends.R;
+import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.Friend;
+
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
+import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
+import static com.trulden.friends.util.Util.makeToast;
 
 public class FriendPageActivity extends AppCompatActivity {
 
@@ -60,6 +64,25 @@ public class FriendPageActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.edit_selection: {
+                Intent intent = new Intent(this, EditFriendActivity.class);
+
+                intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
+                intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
+                intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
+
+                startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
+                break;
+            }
+
+            case R.id.delete_selection: {
+                mFriendsViewModel.delete(friend);
+                makeToast(this, "«" + friend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
+                finish();
+                break;
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
