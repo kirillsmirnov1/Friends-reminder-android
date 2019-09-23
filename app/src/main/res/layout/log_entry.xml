@@ -12,42 +12,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
-        android:orientation="vertical">
+        >
+
+        <TextView
+            android:id="@+id/log_entry_names"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:text="Jack, John" />
 
         <TextView
             android:id="@+id/log_entry_type"
-            style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
-            android:paddingTop="8dp"
             android:paddingEnd="8dp"
             card_view:layout_constraintEnd_toStartOf="@+id/log_entry_date"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/log_entry_names"
             tools:text="Meeting" />
 
         <TextView
             android:id="@+id/log_entry_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/log_entry_names"
             tools:text="12 May 2019" />
-
-        <TextView
-            android:id="@+id/log_entry_names"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/log_entry_type"
-            tools:text="Jack, John" />
 
         <TextView
             android:id="@+id/log_entry_comment"
@@ -61,7 +60,7 @@
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/log_entry_names" />
+            card_view:layout_constraintTop_toBottomOf="@id/log_entry_type" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
