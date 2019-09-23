@@ -68,7 +68,7 @@ public class EditInteractionActivity
 
     private EditText mDateText;
     private AppCompatMultiAutoCompleteTextView mFriendsText;
-    private EditText mComment;
+    private EditText mCommentText;
 
     private Calendar mPickedDate;
 
@@ -151,7 +151,7 @@ public class EditInteractionActivity
         }
 
         mFriendsText = findViewById(R.id.editFriends);
-        mComment = findViewById(R.id.editComment);
+        mCommentText = findViewById(R.id.editComment);
 
         mFriendsText.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
@@ -168,7 +168,7 @@ public class EditInteractionActivity
         } else {
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.edit_interaction));
 
-            mComment.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
+            mCommentText.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
 
             mPickedDate = Calendar.getInstance();
             mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, -1));
@@ -368,7 +368,7 @@ public class EditInteractionActivity
 
             replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, mTypesMap.get(mType.getSelectedItem().toString()));
             replyIntent.putExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis());
-            replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mComment.getText().toString());
+            replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mCommentText.getText().toString());
 
             setResult(RESULT_OK, replyIntent);
 
