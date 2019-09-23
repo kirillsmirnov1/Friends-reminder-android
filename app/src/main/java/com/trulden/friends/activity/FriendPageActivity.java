@@ -15,6 +15,8 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 
+import java.util.Objects;
+
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
@@ -40,7 +42,7 @@ public class FriendPageActivity extends AppCompatActivity {
 
         friend = new Friend(
                 intent.getLongExtra(EXTRA_FRIEND_ID, -1),
-                intent.getStringExtra(EXTRA_FRIEND_NAME),
+                Objects.requireNonNull(intent.getStringExtra(EXTRA_FRIEND_NAME)),
                 intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
         setFriendInfo(friend);
@@ -50,7 +52,7 @@ public class FriendPageActivity extends AppCompatActivity {
 
     private void setFriendInfo(Friend friend){
         this.friend = friend;
-        getSupportActionBar().setTitle(friend.getName());
+        Objects.requireNonNull(getSupportActionBar()).setTitle(friend.getName());
         mPersonNotes.setText(friend.getInfo());
     }
 
