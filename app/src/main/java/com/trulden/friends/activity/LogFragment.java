@@ -14,7 +14,6 @@ import androidx.appcompat.view.ActionMode;
 import androidx.collection.LongSparseArray;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,8 +53,8 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
     private LongSparseArray<String> mTypes;
 
-    public LogFragment() {
-        // Required empty public constructor
+    LogFragment(FriendsViewModel friendsViewModel) {
+        mFriendsViewModel = friendsViewModel;
     }
 
     @Override
@@ -80,7 +79,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
 
         recyclerView.setAdapter(mInteractionsAdapter);
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        //mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override

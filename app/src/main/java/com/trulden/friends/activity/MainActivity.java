@@ -305,7 +305,7 @@ public class MainActivity
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case LOG_FRAGMENT:
-                fragment = new LogFragment();
+                fragment = new LogFragment(mFriendsViewModel);
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
                 fragment = new LastInteractionsFragment(mFriendsViewModel);
