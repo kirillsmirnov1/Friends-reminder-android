@@ -104,8 +104,6 @@ public class MainActivity
             }
         }
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
-
         mReceiver = new CustomBroadcastReceiver(this);
 
         IntentFilter intentFilter = new IntentFilter();
@@ -114,6 +112,8 @@ public class MainActivity
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
+
+        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
     }
 
     @Override
