@@ -53,7 +53,9 @@ import static com.trulden.friends.util.Util.makeSnackbar;
 import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.wipeDatabaseFiles;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity
+        extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
