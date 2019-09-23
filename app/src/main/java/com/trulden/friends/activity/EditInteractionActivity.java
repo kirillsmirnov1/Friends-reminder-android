@@ -280,9 +280,17 @@ public class EditInteractionActivity
      */
     private class SaveInteractionHandler{
 
-        private ListIterator<String> checkFriendsIter = null;
         private ArrayList<String> checkFriendsList = null;
+        private ListIterator<String> checkFriendsIter = null;
+
+        /**
+         * New friends, who need to be created, before creating/updating an Interaction entry in database
+         */
         private HashSet<String> newbies = new HashSet<>();
+
+        /**
+         * Flag saying if it is ok to save Interaction entry right now
+         */
         private boolean timeToSaveInteraction = false;
 
         private Context context = EditInteractionActivity.this;
@@ -314,6 +322,10 @@ public class EditInteractionActivity
             return true;
         }
 
+        /**
+         * Checks existence of next friend.
+         * If all friends are checked, starts saving.
+         */
         private void checkNextFriend() {
             if(checkFriendsIter.hasNext()){
                 String friendName = checkFriendsIter.next();
@@ -331,6 +343,10 @@ public class EditInteractionActivity
             }
         }
 
+        /**
+         * Checks existence of friend by name.
+         * If friend doesn't exist, shows {@link FriendNotFoundDialog}.
+         */
         private void checkFriend(String name) {
             if(mFriendsMap.containsKey(name)) {
                 checkNextFriend();
@@ -362,6 +378,11 @@ public class EditInteractionActivity
             checkNextFriend();
         }
 
+        /**
+         * @return true if there is something to save and all new friends are in database
+         */
+        // TODO can we make it easier, by giving an array of friends and this new interaction to DAO directly?
+        // FIXME can save interaction with no friends by removing them all in dialog
         boolean canSaveNow(){
             return timeToSaveInteraction                // checked all friends
                 && mSaveHandler.checkFriendsList != null // there are some actual friends
