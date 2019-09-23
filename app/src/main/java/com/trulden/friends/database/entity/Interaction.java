@@ -10,13 +10,9 @@ import static androidx.room.ForeignKey.CASCADE;
 /**
  * Interaction of user with their friends.
  *
- * Every interaction must be of specific InteractionType.
+ * Every interaction must be of specific {@link InteractionType}.
  *
- * One interaction can be with several Friends at once, which is handled by BindFriendInteraction.
- *
- * @see InteractionType InteractionType
- * @see BindFriendInteraction BindFriendInteraction
- *
+ * One interaction can be with several Friends at once, which is handled by {@link BindFriendInteraction}.
  */
 @androidx.room.Entity(tableName = "interaction_table",
 
