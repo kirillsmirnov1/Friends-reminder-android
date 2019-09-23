@@ -72,7 +72,7 @@ public class EditInteractionActivity
 
     private Calendar mPickedDate;
 
-    private HashMap<String, Long> friendsMap = new HashMap<>();
+    private HashMap<String, Long> mFriendsMap = new HashMap<>();
     private HashMap<String, Long> typesMap = new HashMap<>();
 
     private long mInteractionId;
@@ -93,14 +93,14 @@ public class EditInteractionActivity
             @Override
             public void onChanged(List<Friend> friends) {
                 for(Friend friend : friends){
-                    if(!friendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
-                        friendsMap.put(friend.getName(), friend.getId());
+                    if(!mFriendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
+                        mFriendsMap.put(friend.getName(), friend.getId());
 
                         saveHandler.newbies.remove(friend.getName());
                     }
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
-                        android.R.layout.simple_dropdown_item_1line, friendsMap.keySet().toArray(new String[0]));
+                        android.R.layout.simple_dropdown_item_1line, mFriendsMap.keySet().toArray(new String[0]));
 
                 mFriends.setAdapter(adapter);
 
@@ -309,7 +309,7 @@ public class EditInteractionActivity
         }
 
         private void checkFriend(String name) {
-            if(friendsMap.containsKey(name)) {
+            if(mFriendsMap.containsKey(name)) {
                 checkNextFriend();
             } else {
                 FriendNotFoundDialog dialog = new FriendNotFoundDialog(name);
@@ -360,7 +360,7 @@ public class EditInteractionActivity
 
             HashSet<Long> friendsIds = new HashSet<>();
             for(String friendName : friendNamesSet){
-                friendsIds.add(friendsMap.get(friendName));
+                friendsIds.add(mFriendsMap.get(friendName));
             }
             replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_IDS, friendsIds);
 
