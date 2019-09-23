@@ -67,7 +67,7 @@ public class EditInteractionActivity
     private ArrayAdapter<String> mTypeSpinnerAdapter;
 
     private EditText mDateText;
-    private AppCompatMultiAutoCompleteTextView mFriends;
+    private AppCompatMultiAutoCompleteTextView mFriendsText;
     private EditText mComment;
 
     private Calendar mPickedDate;
@@ -102,7 +102,7 @@ public class EditInteractionActivity
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
                         android.R.layout.simple_dropdown_item_1line, mFriendsMap.keySet().toArray(new String[0]));
 
-                mFriends.setAdapter(adapter);
+                mFriendsText.setAdapter(adapter);
 
                 // Saving interaction after all friends are checked and added #postponed_save
                 if(mSaveHandler.canSaveNow()){
@@ -150,10 +150,10 @@ public class EditInteractionActivity
             mDateText.setShowSoftInputOnFocus(false);
         }
 
-        mFriends = findViewById(R.id.editFriends);
+        mFriendsText = findViewById(R.id.editFriends);
         mComment = findViewById(R.id.editComment);
 
-        mFriends.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        mFriendsText.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
         initInteractionTypeSpinner();
 
@@ -175,7 +175,7 @@ public class EditInteractionActivity
 
             mDateText.setText(dateFormat.format(mPickedDate.getTime()));
 
-            mFriends.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
+            mFriendsText.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
         }
     }
 
@@ -268,7 +268,7 @@ public class EditInteractionActivity
 
             if(argsFilled()) {
                 checkFriendsList = new ArrayList<>(Arrays.asList(
-                        mFriends.getText().toString().split("\\s*,\\s*")));
+                        mFriendsText.getText().toString().split("\\s*,\\s*")));
 
                 checkFriendsIter = checkFriendsList.listIterator();
 
@@ -283,7 +283,7 @@ public class EditInteractionActivity
                 return false;
             }
 
-            if(mFriends.getText().toString().isEmpty()){
+            if(mFriendsText.getText().toString().isEmpty()){
                 makeToast(context, getString(R.string.toast_warning_fill_friends));
                 return false;
             }
