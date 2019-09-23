@@ -38,8 +38,6 @@ public class LastInteractionsFragment extends Fragment {
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
 
-    private TabLayout mTabLayout;
-
     public LastInteractionsFragment() {
         // Required empty public constructor
     }
@@ -98,17 +96,17 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     private void initTabsAndPageViewer(View view) {
-        mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
-        mTabLayout.removeAllTabs();
+        TabLayout tabLayout = view.findViewById(R.id.last_interactions_tab_layout);
+        tabLayout.removeAllTabs();
 
         for(InteractionType type : types){
             TabCounterView tcv = new TabCounterView(getContext(),
                     type.getInteractionTypeName(), counterMap.get(type.getInteractionTypeName()));
 
-            mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
+            tabLayout.addTab(tabLayout.newTab().setCustomView(tcv));
         }
 
-        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
         final LastInteractionsPagerAdapter adapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
@@ -116,9 +114,9 @@ public class LastInteractionsFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new
-                TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
