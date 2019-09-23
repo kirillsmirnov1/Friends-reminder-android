@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Holds {@link LastInteraction} entries of specific type
  */
 public class LastInteractionsTabFragment extends Fragment {
 
