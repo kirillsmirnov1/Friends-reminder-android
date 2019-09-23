@@ -185,7 +185,11 @@ public class EditInteractionActivity
         }
     }
 
+    /**
+     * Check if date is in the past and set it if it is so
+     */
     public void processDatePickerResult(int year, int month, int date){
+        // TODO check in dialog, don't close if date ain't correct
         mPickedDate = Calendar.getInstance();
 
         mPickedDate.set(year, month-1, date);
