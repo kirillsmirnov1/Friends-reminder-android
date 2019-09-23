@@ -66,7 +66,7 @@ public class EditInteractionActivity
     private Spinner  mType;
     private ArrayAdapter<String> mTypeSpinnerAdapter;
 
-    private EditText mDate;
+    private EditText mDateText;
     private AppCompatMultiAutoCompleteTextView mFriends;
     private EditText mComment;
 
@@ -144,10 +144,10 @@ public class EditInteractionActivity
 
         mType = findViewById(R.id.interaction_type_spinner);
 
-        mDate = findViewById(R.id.editDate);
+        mDateText = findViewById(R.id.editDate);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // I guess, 15% which still uses android 4 will have to suffer
-            mDate.setShowSoftInputOnFocus(false);
+            mDateText.setShowSoftInputOnFocus(false);
         }
 
         mFriends = findViewById(R.id.editFriends);
@@ -173,7 +173,7 @@ public class EditInteractionActivity
             mPickedDate = Calendar.getInstance();
             mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, -1));
 
-            mDate.setText(dateFormat.format(mPickedDate.getTime()));
+            mDateText.setText(dateFormat.format(mPickedDate.getTime()));
 
             mFriends.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
         }
@@ -194,7 +194,7 @@ public class EditInteractionActivity
         tomorrow.add(Calendar.DATE, 1);
 
         if(mPickedDate.before(tomorrow)) {
-            mDate.setText(dateFormat.format(mPickedDate.getTime()));
+            mDateText.setText(dateFormat.format(mPickedDate.getTime()));
         } else {
             makeToast(this, getString(R.string.set_date_future_warning));
             mPickedDate = null;
@@ -278,7 +278,7 @@ public class EditInteractionActivity
 
         private boolean argsFilled() {
 
-            if(mDate.getText().toString().isEmpty()){
+            if(mDateText.getText().toString().isEmpty()){
                 makeToast(context, getString(R.string.toast_warning_fill_date));
                 return false;
             }
