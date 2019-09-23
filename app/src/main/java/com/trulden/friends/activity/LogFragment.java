@@ -43,7 +43,7 @@ import static com.trulden.friends.util.Util.makeToast;
  */
 public class LogFragment extends Fragment implements ActivityWithSelection {
 // TODO rename to InteractionFragment
-    public static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
+    private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
     private LogAdapter mInteractionsAdapter;
