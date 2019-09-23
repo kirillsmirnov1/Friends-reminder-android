@@ -81,7 +81,9 @@ public class LastInteractionsFragment extends Fragment {
                         for(LastInteraction interaction : lastInteractions){
                             String currentType = interaction.getInteractionType().getInteractionTypeName();
 
-                            lastInteractionsMap.get(currentType).add(interaction);
+                            Objects.requireNonNull(
+                                    lastInteractionsMap.get(currentType)).add(interaction);
+
                             if(interaction.itsTime()){
                                 counterMap.put(currentType, counterMap.get(currentType) + 1);
                             }
