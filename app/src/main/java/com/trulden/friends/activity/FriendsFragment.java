@@ -1,6 +1,5 @@
 package com.trulden.friends.activity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,6 +34,9 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
+/**
+ * Shows list of selectable friends.
+ */
 public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
