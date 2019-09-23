@@ -70,7 +70,7 @@ public class EditInteractionActivity
     private AppCompatMultiAutoCompleteTextView mFriends;
     private EditText mComment;
 
-    private Calendar pickedDate;
+    private Calendar mPickedDate;
 
     private HashMap<String, Long> friendsMap = new HashMap<>();
     private HashMap<String, Long> typesMap = new HashMap<>();
@@ -170,10 +170,10 @@ public class EditInteractionActivity
 
             mComment.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
 
-            pickedDate = Calendar.getInstance();
-            pickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, -1));
+            mPickedDate = Calendar.getInstance();
+            mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, -1));
 
-            mDate.setText(dateFormat.format(pickedDate.getTime()));
+            mDate.setText(dateFormat.format(mPickedDate.getTime()));
 
             mFriends.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
         }
@@ -186,18 +186,18 @@ public class EditInteractionActivity
     }
 
     public void processDatePickerResult(int year, int month, int date){
-        pickedDate = Calendar.getInstance();
+        mPickedDate = Calendar.getInstance();
         //                   Sincerely, fuck you, developers of Calendar class
-        pickedDate.set(year, month-1, date);
+        mPickedDate.set(year, month-1, date);
 
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.add(Calendar.DATE, 1);
 
-        if(pickedDate.before(tomorrow)) {
-            mDate.setText(dateFormat.format(pickedDate.getTime()));
+        if(mPickedDate.before(tomorrow)) {
+            mDate.setText(dateFormat.format(mPickedDate.getTime()));
         } else {
             makeToast(this, getString(R.string.set_date_future_warning));
-            pickedDate = null;
+            mPickedDate = null;
         }
     }
 
@@ -367,7 +367,7 @@ public class EditInteractionActivity
             // And all of the others
 
             replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, typesMap.get(mType.getSelectedItem().toString()));
-            replyIntent.putExtra(EXTRA_INTERACTION_DATE, pickedDate.getTimeInMillis());
+            replyIntent.putExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis());
             replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mComment.getText().toString());
 
             setResult(RESULT_OK, replyIntent);
