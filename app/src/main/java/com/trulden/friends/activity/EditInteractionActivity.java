@@ -93,9 +93,7 @@ public class EditInteractionActivity
                     if(!friendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
                         friendsMap.put(friend.getName(), friend.getId());
 
-                        if(saveHandler.newbies.contains(friend.getName())){
-                            saveHandler.newbies.remove(friend.getName());
-                        }
+                        saveHandler.newbies.remove(friend.getName());
                     }
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
