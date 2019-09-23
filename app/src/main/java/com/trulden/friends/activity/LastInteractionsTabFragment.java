@@ -66,5 +66,8 @@ public class LastInteractionsTabFragment extends Fragment {
         LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext());
         mAdapter.setEntries(mLastInteractions);
         recyclerView.setAdapter(mAdapter);
+
+        // Might be unnecessary, might fix issue with empty LI tab
+        mAdapter.notifyDataSetChanged();
     }
 }
