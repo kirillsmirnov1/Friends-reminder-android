@@ -382,17 +382,26 @@ public class EditInteractionActivity
          * @return true if there is something to save and all new friends are in database
          */
         // TODO can we make it easier, by giving an array of friends and this new interaction to DAO directly?
-        // FIXME can save interaction with no friends by removing them all in dialog
         boolean canSaveNow(){
             return timeToSaveInteraction                // checked all friends
                 && mSaveHandler.checkFriendsList != null // there are some actual friends
                 && mSaveHandler.newbies.isEmpty();       // all of them saved to db
         }
 
+        /**
+         * Create an intent with given Interaction. {@link MainActivity} handles it.
+         */
         void saveInteraction() {
 
             Intent replyIntent = new Intent();
             HashSet<String> friendNamesSet = new HashSet<>(checkFriendsList);
+
+            // User can remove all non-created friends in dialog, so we need to check again
+            if(friendNamesSet.size() == 0){
+                makeToast(context, getString(R.string.toast_warning_fill_friends));
+                mFriendsText.setText("");
+                return;
+            }
 
             replyIntent.putExtra(EXTRA_INTERACTION_ID, mInteractionId);
 
