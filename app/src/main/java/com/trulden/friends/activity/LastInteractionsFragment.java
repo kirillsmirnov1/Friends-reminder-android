@@ -73,7 +73,8 @@ public class LastInteractionsFragment extends Fragment {
                     public void onChanged(List<LastInteraction> lastInteractions) {
 
                         for(InteractionType type : types){
-                            lastInteractionsMap.get(type.getInteractionTypeName()).clear();
+                            Objects.requireNonNull(
+                                    lastInteractionsMap.get(type.getInteractionTypeName())).clear();
                             counterMap.put(type.getInteractionTypeName(), 0);
                         }
 
