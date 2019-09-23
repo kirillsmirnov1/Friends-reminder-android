@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsAdapter;
-import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class LastInteractionsTabFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static LastInteractionsTabFragment newInstance(InteractionType type, ArrayList<LastInteraction> lastInteractions){
+    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteraction> lastInteractions){
         LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
 
         tr.setLastInteractions(lastInteractions);
