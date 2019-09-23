@@ -94,11 +94,13 @@ public class FriendPageActivity extends AppCompatActivity {
 
         if (requestCode == UPDATE_FRIEND_REQUEST) {
             if (resultCode == RESULT_OK) {
+                assert resultingIntent != null;
                 long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
                 if (id != -1) {
                     String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
                     String info = resultingIntent.getStringExtra(EXTRA_FRIEND_NOTES);
 
+                    assert name != null;
                     Friend friend = new Friend(id, name, info);
                     setFriendInfo(friend);
                     mFriendsViewModel.update(friend);
