@@ -104,7 +104,7 @@ public class EditInteractionActivity
 
                 mFriendsText.setAdapter(adapter);
 
-                // Saving interaction after all friends are checked and added #postponed_save
+                // Saving interaction after all friends are checked and added [postponed_save]
                 if(mSaveHandler.canSaveNow()){
                     mSaveHandler.saveInteraction();
                 }
@@ -300,7 +300,7 @@ public class EditInteractionActivity
 
                 // When all friends are checked, we might have to wait, while new ones are added to database
                 // In that case, we can't save interaction from here, because it will break flow and cause NPE
-                // I'm saving it from friends observer, look it up by #postponed_save
+                // I'm saving it from friends observer, look it up by [postponed_save]
 
                 if (canSaveNow()) {
                     saveInteraction();
