@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Holds {@link LastInteractionsTabFragment}.
  */
 public class LastInteractionsFragment extends Fragment {
 
