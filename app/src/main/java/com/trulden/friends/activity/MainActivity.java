@@ -77,6 +77,8 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setToolbarTitle();
@@ -112,8 +114,6 @@ public class MainActivity
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
-
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
     }
 
     @Override
@@ -308,7 +308,7 @@ public class MainActivity
                 fragment = new LogFragment();
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                fragment = new LastInteractionsFragment();
+                fragment = new LastInteractionsFragment(mFriendsViewModel);
                 break;
             case FRIENDS_FRAGMENT:
                 fragment = new FriendsFragment();
