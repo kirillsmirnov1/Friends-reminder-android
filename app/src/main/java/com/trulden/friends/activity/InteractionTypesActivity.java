@@ -26,6 +26,9 @@ import com.trulden.friends.database.entity.InteractionType;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Activity in which user can edit and create InteractionTypes
+ */
 public class InteractionTypesActivity
         extends AppCompatActivity
         implements
