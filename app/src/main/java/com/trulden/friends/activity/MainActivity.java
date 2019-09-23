@@ -311,7 +311,7 @@ public class MainActivity
                 fragment = new LastInteractionsFragment(mFriendsViewModel);
                 break;
             case FRIENDS_FRAGMENT:
-                fragment = new FriendsFragment();
+                fragment = new FriendsFragment(mFriendsViewModel);
                 break;
         }
         setToolbarTitle();
