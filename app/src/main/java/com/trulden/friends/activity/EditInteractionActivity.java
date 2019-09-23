@@ -187,7 +187,7 @@ public class EditInteractionActivity
 
     public void processDatePickerResult(int year, int month, int date){
         mPickedDate = Calendar.getInstance();
-        //                   Sincerely, fuck you, developers of Calendar class
+
         mPickedDate.set(year, month-1, date);
 
         Calendar tomorrow = Calendar.getInstance();
