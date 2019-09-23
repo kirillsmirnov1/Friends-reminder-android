@@ -50,6 +50,9 @@ import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
 import static com.trulden.friends.util.Util.dateFormat;
 import static com.trulden.friends.util.Util.makeToast;
 
+/**
+ * Activity in which user can edit existing or create new Interaction
+ */
 public class EditInteractionActivity
         extends AppCompatActivity
         implements
