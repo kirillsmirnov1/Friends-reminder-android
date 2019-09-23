@@ -27,6 +27,7 @@ import com.trulden.friends.database.entity.Friend;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
@@ -72,7 +73,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         recyclerView.setAdapter(mFriendsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
 
         mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
             @Override
@@ -93,7 +94,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
                     intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
                     intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
                     intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
-                    getActivity().startActivity(intent);
+                    Objects.requireNonNull(getActivity()).startActivity(intent);
                 }
             }
 
@@ -117,7 +118,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
     private void enableActionMode(int pos) {
         if(mActionMode == null){
-            mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mSelectionCallback);
+            mActionMode = ((AppCompatActivity) Objects.requireNonNull(getActivity()))
+                    .startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
@@ -163,7 +165,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
         intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
 
-        getActivity().startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
+        Objects.requireNonNull(getActivity())
+                .startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
     }
 
     @Override
