@@ -128,14 +128,15 @@ public class EditInteractionActivity
                 mSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
                         android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
 
-                if(mType != null)
+                if(mType != null) {
                     mType.setAdapter(mSpinnerAdapter);
 
-                mType.setSelection(mSpinnerAdapter.getPosition(
-                        mTypeToSelect == null
-                        ? getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)
-                        : mTypeToSelect
-                ));
+                    mType.setSelection(mSpinnerAdapter.getPosition(
+                            mTypeToSelect == null
+                                    ? getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)
+                                    : mTypeToSelect
+                    ));
+                }
             }
         });
 
