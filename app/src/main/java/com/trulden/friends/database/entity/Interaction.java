@@ -56,15 +56,12 @@ public class Interaction implements Entity {
     /**
      * Constructor for updating existing Interaction
      * @param id id of Interaction in database
-     * @param interactionTypeId id of type of interaction
+     * @param interactionTypeId id of {@link InteractionType}
      * @param date date of interaction in Unix epoch time
      * @param comment plain text notes about interaction
      * @param friendNames plain text friend names. Should be divided by comma.
      *                    Should be used only for ease of demonstration.
-     *                    Access to real friends object should be handled through BindFriendInteraction.
-     *
-     * @see InteractionType InteractionType
-     * @see BindFriendInteraction BindFriendInteraction
+     *                    Access to real friends object should be handled through {@link BindFriendInteraction}.
      */
     @Ignore
     public Interaction(long id, long interactionTypeId, long date, String comment, String friendNames) {
