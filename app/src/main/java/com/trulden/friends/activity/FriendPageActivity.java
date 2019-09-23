@@ -24,13 +24,13 @@ import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
 /**
- * Shows friend data
+ * Shows Friend data
  */
 public class FriendPageActivity extends AppCompatActivity {
 
     private TextView mPersonNotes;
 
-    private Friend friend;
+    private Friend mFriend;
 
     private FriendsViewModel mFriendsViewModel;
 
@@ -43,18 +43,18 @@ public class FriendPageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        friend = new Friend(
+        mFriend = new Friend(
                 intent.getLongExtra(EXTRA_FRIEND_ID, -1),
                 Objects.requireNonNull(intent.getStringExtra(EXTRA_FRIEND_NAME)),
                 intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
-        setFriendInfo(friend);
+        setFriendInfo(mFriend);
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
     }
 
     private void setFriendInfo(Friend friend){
-        this.friend = friend;
+        mFriend = friend;
         Objects.requireNonNull(getSupportActionBar()).setTitle(friend.getName());
         mPersonNotes.setText(friend.getInfo());
     }
@@ -73,17 +73,17 @@ public class FriendPageActivity extends AppCompatActivity {
             case R.id.edit_selection: {
                 Intent intent = new Intent(this, EditFriendActivity.class);
 
-                intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
-                intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-                intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
+                intent.putExtra(EXTRA_FRIEND_ID, mFriend.getId());
+                intent.putExtra(EXTRA_FRIEND_NAME, mFriend.getName());
+                intent.putExtra(EXTRA_FRIEND_NOTES, mFriend.getInfo());
 
                 startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
                 break;
             }
 
             case R.id.delete_selection: {
-                mFriendsViewModel.delete(friend);
-                makeToast(this, "«" + friend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
+                mFriendsViewModel.delete(mFriend);
+                makeToast(this, "«" + mFriend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
                 finish();
                 break;
             }
