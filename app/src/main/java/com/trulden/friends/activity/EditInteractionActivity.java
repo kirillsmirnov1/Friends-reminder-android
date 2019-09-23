@@ -64,7 +64,7 @@ public class EditInteractionActivity
     FriendsViewModel mFriendsViewModel;
 
     private Spinner  mType;
-    private ArrayAdapter<String> mSpinnerAdapter;
+    private ArrayAdapter<String> mTypeSpinnerAdapter;
 
     private EditText mDate;
     private AppCompatMultiAutoCompleteTextView mFriends;
@@ -78,7 +78,7 @@ public class EditInteractionActivity
     private long mInteractionId;
     private String mTypeToSelect = null;
 
-    private SaveInteractionHandler saveHandler = new SaveInteractionHandler();
+    private SaveInteractionHandler mSaveHandler = new SaveInteractionHandler();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -96,7 +96,7 @@ public class EditInteractionActivity
                     if(!mFriendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
                         mFriendsMap.put(friend.getName(), friend.getId());
 
-                        saveHandler.newbies.remove(friend.getName());
+                        mSaveHandler.newbies.remove(friend.getName());
                     }
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
@@ -105,8 +105,8 @@ public class EditInteractionActivity
                 mFriends.setAdapter(adapter);
 
                 // Saving interaction after all friends are checked and added #postponed_save
-                if(saveHandler.canSaveNow()){
-                    saveHandler.saveInteraction();
+                if(mSaveHandler.canSaveNow()){
+                    mSaveHandler.saveInteraction();
                 }
             }
         });
@@ -127,13 +127,13 @@ public class EditInteractionActivity
 
                 spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
-                mSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
+                mTypeSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
                         android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
 
                 if(mType != null) {
-                    mType.setAdapter(mSpinnerAdapter);
+                    mType.setAdapter(mTypeSpinnerAdapter);
 
-                    mType.setSelection(mSpinnerAdapter.getPosition(
+                    mType.setSelection(mTypeSpinnerAdapter.getPosition(
                             mTypeToSelect == null
                                     ? getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)
                                     : mTypeToSelect
@@ -232,7 +232,7 @@ public class EditInteractionActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.icon_save) {
-            saveHandler.startCheckingFriends();
+            mSaveHandler.startCheckingFriends();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -249,9 +249,9 @@ public class EditInteractionActivity
         mTypeToSelect = interactionType.getInteractionTypeName();
     }
 
-    public void createFriendByName(String name)   { saveHandler.createFriendByName(name);   }
-    public void removeFriendName(String name)     { saveHandler.removeFriendName(name);     }
-    public void updateAndCheckFriend(String name) { saveHandler.updateAndCheckFriend(name); }
+    public void createFriendByName(String name)   { mSaveHandler.createFriendByName(name);   }
+    public void removeFriendName(String name)     { mSaveHandler.removeFriendName(name);     }
+    public void updateAndCheckFriend(String name) { mSaveHandler.updateAndCheckFriend(name); }
 
     // Handles saving interaction after save icon press
     // Checks friends for existence, adds and edits them through dialogs, if needed
@@ -341,8 +341,8 @@ public class EditInteractionActivity
 
         boolean canSaveNow(){
             return timeToSaveInteraction                // checked all friends
-                && saveHandler.checkFriendsList != null // there are some actual friends
-                && saveHandler.newbies.isEmpty();       // all of them saved to db
+                && mSaveHandler.checkFriendsList != null // there are some actual friends
+                && mSaveHandler.newbies.isEmpty();       // all of them saved to db
         }
 
         void saveInteraction() {
