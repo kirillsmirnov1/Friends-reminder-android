@@ -21,8 +21,7 @@ import static com.trulden.friends.util.Util.dateFormat;
 
 /**
  * RecyclerView adapter for Interaction objects.
- * Used in LogFragment
- * @see com.trulden.friends.activity.LogFragment LogFragment
+ * Used in {@link com.trulden.friends.activity.LogFragment LogFragment}
  */
 public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interaction> {
 
