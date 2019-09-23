@@ -18,9 +18,8 @@ import java.util.HashSet;
 
 /**
  * RecyclerView Adapter for Friend objects.
- * Used in FriendsFragment
+ * Used in {@link com.trulden.friends.activity.FriendsFragment FriendsFragment}.
  *
- * @see com.trulden.friends.activity.FriendsFragment FriendsFragment
  */
 public class FriendsAdapter extends CustomRVAdapter<FriendsAdapter.ViewHolder, Friend> {
 
