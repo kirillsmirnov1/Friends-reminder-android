@@ -92,18 +92,16 @@ public class FriendPageActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent resultingIntent) {
         super.onActivityResult(requestCode, resultCode, resultingIntent);
 
-        switch (requestCode){
-            case UPDATE_FRIEND_REQUEST: {
-                if(resultCode == RESULT_OK) {
-                    long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
-                    if(id != -1){
-                        String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
-                        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_NOTES);
+        if (requestCode == UPDATE_FRIEND_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
+                if (id != -1) {
+                    String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
+                    String info = resultingIntent.getStringExtra(EXTRA_FRIEND_NOTES);
 
-                        Friend friend = new Friend(id, name, info);
-                        setFriendInfo(friend);
-                        mFriendsViewModel.update(friend);
-                    }
+                    Friend friend = new Friend(id, name, info);
+                    setFriendInfo(friend);
+                    mFriendsViewModel.update(friend);
                 }
             }
         }
