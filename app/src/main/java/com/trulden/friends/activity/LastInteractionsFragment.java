@@ -24,6 +24,7 @@ import com.trulden.friends.view.TabCounterView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Holds {@link LastInteractionsTabFragment}.
@@ -54,7 +55,8 @@ public class LastInteractionsFragment extends Fragment {
     public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        friendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        friendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+                .get(FriendsViewModel.class);
 
         friendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
