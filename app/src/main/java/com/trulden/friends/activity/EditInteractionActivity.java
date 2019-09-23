@@ -219,6 +219,9 @@ public class EditInteractionActivity
 
     }
 
+    /**
+     * Open date-picker
+     */
     public void pickADate(View view) {
         DialogFragment f = new DatePickerFragment();
         f.show(getSupportFragmentManager(), "datePicker");
@@ -253,12 +256,28 @@ public class EditInteractionActivity
         mTypeToSelect = interactionType.getInteractionTypeName();
     }
 
+
+    /**
+     * Create new friend with given name and empty info
+     */
     public void createFriendByName(String name)   { mSaveHandler.createFriendByName(name);   }
+
+    /**
+     * Remove name from interaction.
+     * Used when friend with name like this doesn't exist and user doesn't want to create a new one.
+     */
     public void removeFriendName(String name)     { mSaveHandler.removeFriendName(name);     }
+
+    /**
+     * Used after editing name in check-dialog. Sets current name and checks it for existence.
+     * @param name name to check
+     */
     public void updateAndCheckFriend(String name) { mSaveHandler.updateAndCheckFriend(name); }
 
-    // Handles saving interaction after save icon press
-    // Checks friends for existence, adds and edits them through dialogs, if needed
+    /**
+     * Handles saving interaction after save icon press.
+     * Checks friends for existence, adds and edits them through dialogs, if needed.
+     */
     private class SaveInteractionHandler{
 
         private ListIterator<String> checkFriendsIter = null;
