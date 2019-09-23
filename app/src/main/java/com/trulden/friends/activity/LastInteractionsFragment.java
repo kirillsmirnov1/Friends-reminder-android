@@ -33,7 +33,7 @@ public class LastInteractionsFragment extends Fragment {
 
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
-    private FriendsViewModel friendsViewModel;
+    private FriendsViewModel mFriendsViewModel;
 
     private List<InteractionType> types = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
@@ -55,10 +55,10 @@ public class LastInteractionsFragment extends Fragment {
     public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        friendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+        mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
                 .get(FriendsViewModel.class);
 
-        friendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 types = interactionTypes;
@@ -67,7 +67,7 @@ public class LastInteractionsFragment extends Fragment {
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
                 }
 
-                friendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
+                mFriendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
                         .observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
                     @Override
                     public void onChanged(List<LastInteraction> lastInteractions) {
