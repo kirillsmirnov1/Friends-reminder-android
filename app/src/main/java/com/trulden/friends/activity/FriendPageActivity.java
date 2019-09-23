@@ -23,6 +23,9 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
+/**
+ * Shows friend data
+ */
 public class FriendPageActivity extends AppCompatActivity {
 
     private TextView mPersonNotes;
