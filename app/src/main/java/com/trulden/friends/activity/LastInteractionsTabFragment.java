@@ -25,8 +25,6 @@ import java.util.ArrayList;
  */
 public class LastInteractionsTabFragment extends Fragment {
 
-    private InteractionType type;
-
     private ArrayList<LastInteraction> mLastInteractions = new ArrayList<>();
 
     public LastInteractionsTabFragment() {
@@ -37,7 +35,6 @@ public class LastInteractionsTabFragment extends Fragment {
         LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
 
         tr.setLastInteractions(lastInteractions);
-        tr.setType(type);
 
         return tr;
     }
@@ -50,10 +47,6 @@ public class LastInteractionsTabFragment extends Fragment {
 
     public void setLastInteractions(ArrayList<LastInteraction> mLastInteractions) {
         this.mLastInteractions = mLastInteractions;
-    }
-
-    public void setType(InteractionType type) {
-        this.type = type;
     }
 
     @Override
