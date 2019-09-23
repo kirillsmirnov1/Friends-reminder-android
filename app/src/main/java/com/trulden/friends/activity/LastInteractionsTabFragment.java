@@ -45,7 +45,7 @@ public class LastInteractionsTabFragment extends Fragment {
 
     }
 
-    public void setLastInteractions(ArrayList<LastInteraction> mLastInteractions) {
+    private void setLastInteractions(ArrayList<LastInteraction> mLastInteractions) {
         this.mLastInteractions = mLastInteractions;
     }
 
