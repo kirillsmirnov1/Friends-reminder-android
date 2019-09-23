@@ -53,6 +53,10 @@ import static com.trulden.friends.util.Util.makeSnackbar;
 import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.wipeDatabaseFiles;
 
+/**
+ * Holds {@link LogFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
+ * Handles some interactions with database: export and import, queries.
+ */
 public class MainActivity
         extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
