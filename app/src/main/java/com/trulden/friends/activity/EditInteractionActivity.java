@@ -230,15 +230,11 @@ public class EditInteractionActivity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.icon_save: {
-                saveHandler.startCheckingFriends();
-                return true;
-            }
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.icon_save) {
+            saveHandler.startCheckingFriends();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
