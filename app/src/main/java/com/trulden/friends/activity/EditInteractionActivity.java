@@ -208,6 +208,7 @@ public class EditInteractionActivity
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
+        // If user chooses «Add new..» option in type selector, show him a dialog to create new type
         if(adapterView.getItemAtPosition(position).toString().equals(getString(R.string.add_new_interaction_type))){
             new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionType");
             mType.setSelection(0);
@@ -405,11 +406,13 @@ public class EditInteractionActivity
 
             replyIntent.putExtra(EXTRA_INTERACTION_ID, mInteractionId);
 
-            // Get friend names, get ids and put them into intent
+            // Put friend names to intent
 
             String friendNamesString = TextUtils.join(", ", checkFriendsList);
 
             replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, friendNamesString);
+
+            // Put friend id's to intent
 
             HashSet<Long> friendsIds = new HashSet<>();
             for(String friendName : friendNamesSet){
@@ -417,7 +420,7 @@ public class EditInteractionActivity
             }
             replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_IDS, friendsIds);
 
-            // And all of the others
+            // Put type, date and comment to intent
 
             replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, mTypesMap.get(mType.getSelectedItem().toString()));
             replyIntent.putExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis());
