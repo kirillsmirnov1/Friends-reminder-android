@@ -57,7 +57,7 @@ public class LastInteractionsFragment extends Fragment {
 //        mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
 //                .get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+        mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 types = interactionTypes;

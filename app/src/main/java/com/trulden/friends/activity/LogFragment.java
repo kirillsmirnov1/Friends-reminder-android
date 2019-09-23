@@ -81,7 +81,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
 
         //mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+        mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 mTypes = new LongSparseArray<>();
@@ -94,7 +94,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
             }
         });
 
-        mFriendsViewModel.getAllInteractions().observe(this, new Observer<List<Interaction>>() {
+        mFriendsViewModel.getAllInteractions().observe(getViewLifecycleOwner(), new Observer<List<Interaction>>() {
             @Override
             public void onChanged(List<Interaction> interactions) {
                 mInteractionsAdapter.setEntries(interactions);

@@ -76,7 +76,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
         //mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
+        mFriendsViewModel.getAllFriends().observe(getViewLifecycleOwner(), new Observer<List<Friend>>() {
             @Override
             public void onChanged(List<Friend> friends) {
                 mFriendsAdapter.setEntries(friends);
