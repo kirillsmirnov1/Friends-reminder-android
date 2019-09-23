@@ -73,7 +73,7 @@ public class EditInteractionActivity
     private Calendar mPickedDate;
 
     private HashMap<String, Long> mFriendsMap = new HashMap<>();
-    private HashMap<String, Long> typesMap = new HashMap<>();
+    private HashMap<String, Long> mTypesMap = new HashMap<>();
 
     private long mInteractionId;
     private String mTypeToSelect = null;
@@ -116,14 +116,14 @@ public class EditInteractionActivity
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 for(InteractionType interactionType : interactionTypes){
-                    if(!typesMap.containsKey(interactionType.getInteractionTypeName())) { // putIfAbsent requires API 24
-                        typesMap.put(interactionType.getInteractionTypeName(), interactionType.getId());
+                    if(!mTypesMap.containsKey(interactionType.getInteractionTypeName())) { // putIfAbsent requires API 24
+                        mTypesMap.put(interactionType.getInteractionTypeName(), interactionType.getId());
                     }
                 }
 
-                String[] spinnerOptions = new String[typesMap.size() + 1];
+                String[] spinnerOptions = new String[mTypesMap.size() + 1];
 
-                System.arraycopy(typesMap.keySet().toArray(new String[0]), 0, spinnerOptions, 0, typesMap.size());
+                System.arraycopy(mTypesMap.keySet().toArray(new String[0]), 0, spinnerOptions, 0, mTypesMap.size());
 
                 spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
@@ -240,7 +240,7 @@ public class EditInteractionActivity
 
     @Override
     public boolean typeExists(String name) {
-        return typesMap.containsKey(name);
+        return mTypesMap.containsKey(name);
     }
 
     @Override
@@ -366,7 +366,7 @@ public class EditInteractionActivity
 
             // And all of the others
 
-            replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, typesMap.get(mType.getSelectedItem().toString()));
+            replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, mTypesMap.get(mType.getSelectedItem().toString()));
             replyIntent.putExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis());
             replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mComment.getText().toString());
 
