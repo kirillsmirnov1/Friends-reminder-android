@@ -99,9 +99,7 @@ public interface FriendsDao {
     // -----------------------------------------
 
     /**
-     *
-     * @return last interactions
-     * @see LastInteraction LastInteractions
+     * @return {@link LastInteraction} list.
      */
     @Transaction
     @Query("SELECT typeId, friend, date FROM\n" +
