@@ -39,10 +39,10 @@ import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Holds selectable {@link Interaction} entries.
  */
 public class LogFragment extends Fragment implements ActivityWithSelection {
-
+// TODO rename to InteractionFragment
     public static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
