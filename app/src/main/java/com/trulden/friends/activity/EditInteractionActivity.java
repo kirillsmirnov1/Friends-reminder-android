@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
@@ -162,9 +163,9 @@ public class EditInteractionActivity
         mInteractionId = intent.getLongExtra(EXTRA_INTERACTION_ID, -1);
 
         if(mInteractionId == -1){
-            getSupportActionBar().setTitle(getString(R.string.add_interaction));
+            Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_interaction));
         } else {
-            getSupportActionBar().setTitle(getString(R.string.edit_interaction));
+            Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.edit_interaction));
 
             mComment.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
 
