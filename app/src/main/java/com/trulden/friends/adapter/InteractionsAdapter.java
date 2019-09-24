@@ -25,7 +25,7 @@ import static com.trulden.friends.util.Util.dateFormat;
 
 /**
  * RecyclerView adapter for Interaction objects.
- * Used in {@link InteractionsFragment LogFragment}
+ * Used in {@link InteractionsFragment InteractionsFragment}
  */
 public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.ViewHolder, InteractionWithFriendIDs> {
 
