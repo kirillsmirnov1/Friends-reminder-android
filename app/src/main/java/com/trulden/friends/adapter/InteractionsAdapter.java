@@ -29,8 +29,6 @@ import static com.trulden.friends.util.Util.dateFormat;
  */
 public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.ViewHolder, InteractionWithFriendIDs> {
 
-    // TODO rename to InteractionAdapter
-
     private LongSparseArray<String> mInteractionTypes = new LongSparseArray<>();
     private LongSparseArray<String> mFriendNames = new LongSparseArray<>();
 
