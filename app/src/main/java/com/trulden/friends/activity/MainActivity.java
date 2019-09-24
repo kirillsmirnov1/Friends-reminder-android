@@ -53,7 +53,7 @@ import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.wipeDatabaseFiles;
 
 /**
- * Holds {@link LogFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
+ * Holds {@link InteractionsFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
  * Handles some interactions with database: export and import, queries.
  */
 public class MainActivity
@@ -303,7 +303,7 @@ public class MainActivity
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case LOG_FRAGMENT:
-                fragment = new LogFragment(mFriendsViewModel);
+                fragment = new InteractionsFragment(mFriendsViewModel);
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
                 fragment = new LastInteractionsFragment(mFriendsViewModel);

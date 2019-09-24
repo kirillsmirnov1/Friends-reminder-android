@@ -12,6 +12,7 @@ import androidx.collection.LongSparseArray;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.InteractionsFragment;
 import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
@@ -24,7 +25,7 @@ import static com.trulden.friends.util.Util.dateFormat;
 
 /**
  * RecyclerView adapter for Interaction objects.
- * Used in {@link com.trulden.friends.activity.LogFragment LogFragment}
+ * Used in {@link InteractionsFragment LogFragment}
  */
 public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, InteractionWithFriendIDs> {
 
