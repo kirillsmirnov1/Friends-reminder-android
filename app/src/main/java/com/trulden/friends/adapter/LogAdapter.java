@@ -15,7 +15,6 @@ import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 import static com.trulden.friends.util.Util.dateFormat;
@@ -29,7 +28,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
     // TODO rename to InteractionAdapter
 
     private LongSparseArray<String> mInteractionTypes = new LongSparseArray<>();
-    private HashMap<Long, String> mFriendNames = new HashMap<>();
+    private LongSparseArray<String> mFriendNames = new LongSparseArray<>();
 
     public LogAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
         super(context, selectedInteractionsPositions);
@@ -45,7 +44,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
         mInteractionTypes = interactionTypes;
     }
 
-    public void setFriends(HashMap<Long, String> friendNames) {
+    public void setFriends(LongSparseArray<String> friendNames) {
         mFriendNames = friendNames;
     }
 
