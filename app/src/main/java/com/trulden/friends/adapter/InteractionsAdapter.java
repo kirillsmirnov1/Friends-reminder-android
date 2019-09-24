@@ -27,14 +27,14 @@ import static com.trulden.friends.util.Util.dateFormat;
  * RecyclerView adapter for Interaction objects.
  * Used in {@link InteractionsFragment LogFragment}
  */
-public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, InteractionWithFriendIDs> {
+public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.ViewHolder, InteractionWithFriendIDs> {
 
     // TODO rename to InteractionAdapter
 
     private LongSparseArray<String> mInteractionTypes = new LongSparseArray<>();
     private LongSparseArray<String> mFriendNames = new LongSparseArray<>();
 
-    public LogAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
+    public InteractionsAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
         super(context, selectedInteractionsPositions);
     }
 

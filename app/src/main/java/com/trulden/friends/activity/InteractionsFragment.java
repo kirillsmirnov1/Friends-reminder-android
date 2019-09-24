@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
-import com.trulden.friends.adapter.LogAdapter;
+import com.trulden.friends.adapter.InteractionsAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
@@ -47,7 +47,7 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
     private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
-    private LogAdapter mInteractionsAdapter;
+    private InteractionsAdapter mInteractionsAdapter;
 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
@@ -77,7 +77,7 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
         RecyclerView recyclerView = view.findViewById(R.id.log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mInteractionsAdapter = new LogAdapter(getActivity(), selectedInteractionsPositions);
+        mInteractionsAdapter = new InteractionsAdapter(getActivity(), selectedInteractionsPositions);
 
         recyclerView.setAdapter(mInteractionsAdapter);
 
