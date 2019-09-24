@@ -93,7 +93,7 @@ public class MainActivity
 
         if(savedInstanceState == null) {
             switch (mFragmentToLoad){
-                case LOG_FRAGMENT:
+                case INTERACTIONS_FRAGMENT:
                     findViewById(R.id.bottom_log).performClick();
                     break;
                 case LAST_INTERACTIONS_FRAGMENT:
@@ -302,7 +302,7 @@ public class MainActivity
         Fragment fragment = null;
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
-            case LOG_FRAGMENT:
+            case INTERACTIONS_FRAGMENT:
                 fragment = new InteractionsFragment(mFriendsViewModel);
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
@@ -318,7 +318,7 @@ public class MainActivity
 
     public void setToolbarTitle(){
         switch (mFragmentToLoad){
-            case LOG_FRAGMENT:
+            case INTERACTIONS_FRAGMENT:
                 mToolbar.setTitle(getString(R.string.log));
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
@@ -345,7 +345,7 @@ public class MainActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.bottom_log:
-                return loadFragment(FragmentToLoad.LOG_FRAGMENT);
+                return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
             case R.id.bottom_last_interactions:
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
             case R.id.bottom_friends:
@@ -356,7 +356,7 @@ public class MainActivity
     }
 
     public enum FragmentToLoad{
-        LOG_FRAGMENT,
+        INTERACTIONS_FRAGMENT,
         LAST_INTERACTIONS_FRAGMENT,
         FRIENDS_FRAGMENT
     }
