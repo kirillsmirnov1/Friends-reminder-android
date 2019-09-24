@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.trulden.friends.activity.LastInteractionsTabFragment;
 import com.trulden.friends.database.entity.InteractionType;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteraction;
 
 import java.util.ArrayList;
 import java.util.HashMap;

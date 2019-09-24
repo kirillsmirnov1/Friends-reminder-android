@@ -17,7 +17,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteraction;
 import com.trulden.friends.view.TabCounterView;
 
 import java.util.ArrayList;

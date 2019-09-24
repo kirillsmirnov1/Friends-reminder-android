@@ -1,6 +1,9 @@
-package com.trulden.friends.database.entity;
+package com.trulden.friends.database.wrappers;
 
 import androidx.room.Relation;
+
+import com.trulden.friends.database.entity.Entity;
+import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.List;
 
