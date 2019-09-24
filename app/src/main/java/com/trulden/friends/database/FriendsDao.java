@@ -103,6 +103,9 @@ public interface FriendsDao {
     @Query("DELETE FROM bind_friend_interaction_table WHERE interactionId = :interactionId;")
     void deleteBindingsByInteractionId(long interactionId);
 
+    @Query("SELECT * FROM bind_friend_interaction_table WHERE friendId = :id")
+    List<BindFriendInteraction> getBindsOfFriend(long id);
+
     // -----------------------------------------
     // LastInteraction
     // -----------------------------------------
