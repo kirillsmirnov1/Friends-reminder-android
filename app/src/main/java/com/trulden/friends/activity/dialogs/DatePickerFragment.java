@@ -59,7 +59,7 @@ public class DatePickerFragment extends DialogFragment{
 
                                 if(pickedDate.before(tomorrow)) {
                                     ((EditInteractionActivity) Objects.requireNonNull(getActivity()))
-                                            .processDatePickerResult(year, month, day);
+                                            .processDatePickerResult(pickedDate);
                                     datePickerDialog.dismiss();
                                 } else {
                                     makeToast(getActivity(), getString(R.string.set_date_future_warning));

@@ -188,11 +188,8 @@ public class EditInteractionActivity
     /**
      * Set the date
      */
-    public void processDatePickerResult(int year, int month, int date){
-        mPickedDate = Calendar.getInstance();
-
-        mPickedDate.set(year, month, date);
-
+    public void processDatePickerResult(Calendar pickedDate){
+        mPickedDate = pickedDate;
         mDateText.setText(dateFormat.format(mPickedDate.getTime()));
     }
 
