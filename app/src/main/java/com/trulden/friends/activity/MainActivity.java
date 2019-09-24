@@ -41,7 +41,6 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
@@ -276,15 +275,14 @@ public class MainActivity
     private Interaction getInteractionFromIntent(Intent resultingIntent) {
 
         long id = resultingIntent.getLongExtra(EXTRA_INTERACTION_ID, -1);
-        String friendNames = resultingIntent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES);
         long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE_ID, -1);
         long date = resultingIntent.getLongExtra(EXTRA_INTERACTION_DATE, -1);
         String comment = resultingIntent.getStringExtra(EXTRA_INTERACTION_COMMENT);
 
         return
             id == -1
-                ? new Interaction(interactionTypeId, date, comment, friendNames)
-                : new Interaction(id, interactionTypeId, date, comment, friendNames);
+                ? new Interaction(interactionTypeId, date, comment)
+                : new Interaction(id, interactionTypeId, date, comment);
     }
 
     private void importDatabaseFromUri(Uri uri) {

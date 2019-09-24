@@ -176,13 +176,14 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditInteractionActivity.class);
-        Interaction interaction = mInteractionsAdapter.getSelectedItems().get(0).interaction;
+        InteractionWithFriendIDs iwfids = mInteractionsAdapter.getSelectedItems().get(0);
+        Interaction interaction = iwfids.interaction;
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
         intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypes.get(interaction.getInteractionTypeId()));
         intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
         intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
-        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, interaction.getFriendNames());
+        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mInteractionsAdapter.generateNameString(iwfids.friendIDs));
 
         getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
     }
