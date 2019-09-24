@@ -9,6 +9,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteraction;
 
 import java.util.HashSet;
@@ -39,6 +40,10 @@ class FriendsRepository {
 
     LiveData<List<LastInteraction>> getLastInteractions(/*long currDate*/) {
         return mFriendsDao.getLastInteractions(/*currDate, Util.MILLISECONDS_IN_DAYS*/);
+    }
+
+    LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendsIDs(){
+        return mFriendsDao.getInteractionsWithFriendIDs();
     }
 
     /**
