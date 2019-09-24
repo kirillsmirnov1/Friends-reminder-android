@@ -25,6 +25,7 @@ import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.wrappers.FriendName;
 
 import java.util.HashSet;
 import java.util.List;
@@ -80,6 +81,20 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
         recyclerView.setAdapter(mInteractionsAdapter);
 
         //mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+
+        mFriendsViewModel.getFriendNames().observe(getViewLifecycleOwner(), new Observer<List<FriendName>>() {
+            @Override
+            public void onChanged(List<FriendName> friendNamesList) {
+                LongSparseArray<String> friendNamesLSA = new LongSparseArray<>();
+
+                for(FriendName friendName : friendNamesList){
+                    friendNamesLSA.put(friendName.id, friendName.name);
+                }
+
+                mInteractionsAdapter.setFriends(friendNamesLSA);
+                mInteractionsAdapter.notifyDataSetChanged();
+            }
+        });
 
         mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
