@@ -94,7 +94,7 @@ public class MainActivity
         if(savedInstanceState == null) {
             switch (mFragmentToLoad){
                 case INTERACTIONS_FRAGMENT:
-                    findViewById(R.id.bottom_log).performClick();
+                    findViewById(R.id.bottom_interactions).performClick();
                     break;
                 case LAST_INTERACTIONS_FRAGMENT:
                     findViewById(R.id.bottom_last_interactions).performClick();
@@ -344,7 +344,7 @@ public class MainActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-            case R.id.bottom_log:
+            case R.id.bottom_interactions:
                 return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
             case R.id.bottom_last_interactions:
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
