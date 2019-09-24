@@ -15,8 +15,6 @@ import static com.trulden.friends.util.Util.daysPassed;
  */
 public class LastInteraction implements Entity {
 
-    // TODO store in database
-
     private int typeId;
 
     private long date;
@@ -74,8 +72,6 @@ public class LastInteraction implements Entity {
     public void setInteractionTypes(List<InteractionType> interactionTypes) {
         this.interactionTypes = interactionTypes;
     }
-
-    // FIXME those methods are required by room, but I couldn't find a way to suppress warnings for them
 
     public List<InteractionType> getInteractionTypes() {
         return interactionTypes;

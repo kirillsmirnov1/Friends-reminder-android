@@ -68,9 +68,6 @@ class FriendsRepository {
         REMOVE_INTERACTION
     }
 
-    // FIXME horrifying amounts of boilerplate code
-    // It can be pushed in one big AsyncTask, I think
-
     // -----------------------------------------
     // Friend
     // -----------------------------------------

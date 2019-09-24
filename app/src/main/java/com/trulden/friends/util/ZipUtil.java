@@ -97,6 +97,6 @@ public abstract class ZipUtil {
      * @param targetLocation path which should exist
      */
     private static void dirChecker(String targetLocation) {
-        new File(targetLocation).mkdirs(); // TODO use result for catching errors
+        new File(targetLocation).mkdirs();
     }
 }

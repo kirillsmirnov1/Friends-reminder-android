@@ -43,7 +43,7 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
 
         // First — archive database
 
-        ZipUtil.zip(getDbPaths(mContext.get()), backupPath); // TODO use result of zip here
+        ZipUtil.zip(getDbPaths(mContext.get()), backupPath);
 
         Uri uriDest = uris[0];
 

@@ -96,7 +96,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 mContext.get().getString(R.string.interaction_type_name_texting),
                 mContext.get().getString(R.string.interaction_type_name_call)
         };
-        int[]    defaultInteractionsFrequency = {30, 7, 30}; // TODO how often should you call your mother?
+        int[]    defaultInteractionsFrequency = {30, 7, 30};
 
         private final FriendsDao mDao;
 

@@ -107,7 +107,7 @@ public abstract class Util {
     }
 
     /**
-     * Calculates how many 24h-days passed since that interaction // TODO make them days, not 24h-days
+     * Calculates how many 24h-days passed since that interaction
      * @return number of days
      */
     public static int daysPassed(LastInteraction interaction){
