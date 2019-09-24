@@ -106,6 +106,9 @@ public interface FriendsDao {
     @Query("SELECT * FROM bind_friend_interaction_table WHERE friendId = :id")
     List<BindFriendInteraction> getBindsOfFriend(long id);
 
+    @Query("SELECT COUNT(interactionId) FROM bind_friend_interaction_table WHERE interactionId = :interactionId")
+    int getNumberOfInteractionBinds(long interactionId);
+
     // -----------------------------------------
     // LastInteraction
     // -----------------------------------------
