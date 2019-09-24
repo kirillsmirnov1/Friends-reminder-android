@@ -186,23 +186,14 @@ public class EditInteractionActivity
     }
 
     /**
-     * Check if date is in the past and set it if it is so
+     * Set the date
      */
     public void processDatePickerResult(int year, int month, int date){
-        // TODO check in dialog, don't close if date ain't correct
         mPickedDate = Calendar.getInstance();
 
-        mPickedDate.set(year, month-1, date);
+        mPickedDate.set(year, month, date);
 
-        Calendar tomorrow = Calendar.getInstance();
-        tomorrow.add(Calendar.DATE, 1);
-
-        if(mPickedDate.before(tomorrow)) {
-            mDateText.setText(dateFormat.format(mPickedDate.getTime()));
-        } else {
-            makeToast(this, getString(R.string.set_date_future_warning));
-            mPickedDate = null;
-        }
+        mDateText.setText(dateFormat.format(mPickedDate.getTime()));
     }
 
     @Override
