@@ -81,7 +81,6 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
 
             String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
 
-            // FIXME display type and friends of interaction some other way
             mType.setText(interactionTypeName);
             mDate.setText(dateFormat.format(interaction.getDate()));
             mNames.setText(generateNameString(interactionWithFriendIDs.friendIDs));
