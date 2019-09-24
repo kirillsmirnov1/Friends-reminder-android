@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -24,24 +23,23 @@ import com.trulden.friends.view.TabCounterView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Holds {@link LastInteractionsTabFragment}.
  */
 public class LastInteractionsFragment extends Fragment {
 
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
-    private FriendsViewModel friendsViewModel;
+    private FriendsViewModel mFriendsViewModel;
 
     private List<InteractionType> types = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
 
-    private TabLayout mTabLayout;
-
-    public LastInteractionsFragment() {
-        // Required empty public constructor
+    LastInteractionsFragment(FriendsViewModel friendsViewModel) {
+        mFriendsViewModel = friendsViewModel;
     }
 
     @Override
@@ -56,9 +54,10 @@ public class LastInteractionsFragment extends Fragment {
     public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        friendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+//        mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+//                .get(FriendsViewModel.class);
 
-        friendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+        mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 types = interactionTypes;
@@ -67,20 +66,23 @@ public class LastInteractionsFragment extends Fragment {
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
                 }
 
-                friendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
+                mFriendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
                         .observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
                     @Override
                     public void onChanged(List<LastInteraction> lastInteractions) {
 
                         for(InteractionType type : types){
-                            lastInteractionsMap.get(type.getInteractionTypeName()).clear();
+                            Objects.requireNonNull(
+                                    lastInteractionsMap.get(type.getInteractionTypeName())).clear();
                             counterMap.put(type.getInteractionTypeName(), 0);
                         }
 
                         for(LastInteraction interaction : lastInteractions){
                             String currentType = interaction.getInteractionType().getInteractionTypeName();
 
-                            lastInteractionsMap.get(currentType).add(interaction);
+                            Objects.requireNonNull(
+                                    lastInteractionsMap.get(currentType)).add(interaction);
+
                             if(interaction.itsTime()){
                                 counterMap.put(currentType, counterMap.get(currentType) + 1);
                             }
@@ -98,17 +100,17 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     private void initTabsAndPageViewer(View view) {
-        mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
-        mTabLayout.removeAllTabs();
+        TabLayout tabLayout = view.findViewById(R.id.last_interactions_tab_layout);
+        tabLayout.removeAllTabs();
 
         for(InteractionType type : types){
             TabCounterView tcv = new TabCounterView(getContext(),
                     type.getInteractionTypeName(), counterMap.get(type.getInteractionTypeName()));
 
-            mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
+            tabLayout.addTab(tabLayout.newTab().setCustomView(tcv));
         }
 
-        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
         final LastInteractionsPagerAdapter adapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
@@ -116,9 +118,9 @@ public class LastInteractionsFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new
-                TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());

@@ -13,10 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Handles fragments in tabs of LastInteractionsFragment.
- *
- * @see com.trulden.friends.activity.LastInteractionsFragment LastInteractionsFragment
- * @see FragmentStatePagerAdapter FragmentStatePagerAdapter
+ * Handles fragments in tabs of {@link com.trulden.friends.activity.LastInteractionsFragment LastInteractionsFragment}.
  */
 public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     private List<InteractionType> types;
@@ -30,7 +27,7 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return LastInteractionsTabFragment.newInstance(types.get(position), lastInteractionsMap.get(types.get(position).getInteractionTypeName()));
+        return LastInteractionsTabFragment.newInstance(lastInteractionsMap.get(types.get(position).getInteractionTypeName()));
     }
 
     @Override

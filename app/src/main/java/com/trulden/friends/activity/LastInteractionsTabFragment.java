@@ -14,18 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsAdapter;
-import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.ArrayList;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Holds {@link LastInteraction} entries of specific type
  */
 public class LastInteractionsTabFragment extends Fragment {
-
-    private InteractionType type;
 
     private ArrayList<LastInteraction> mLastInteractions = new ArrayList<>();
 
@@ -33,11 +30,10 @@ public class LastInteractionsTabFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static LastInteractionsTabFragment newInstance(InteractionType type, ArrayList<LastInteraction> lastInteractions){
+    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteraction> lastInteractions){
         LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
 
         tr.setLastInteractions(lastInteractions);
-        tr.setType(type);
 
         return tr;
     }
@@ -48,12 +44,8 @@ public class LastInteractionsTabFragment extends Fragment {
 
     }
 
-    public void setLastInteractions(ArrayList<LastInteraction> mLastInteractions) {
-        this.mLastInteractions = mLastInteractions;
-    }
-
-    public void setType(InteractionType type) {
-        this.type = type;
+    private void setLastInteractions(ArrayList<LastInteraction> lastInteractions) {
+        mLastInteractions = lastInteractions;
     }
 
     @Override
@@ -74,5 +66,8 @@ public class LastInteractionsTabFragment extends Fragment {
         LastInteractionsAdapter mAdapter = new LastInteractionsAdapter(getContext());
         mAdapter.setEntries(mLastInteractions);
         recyclerView.setAdapter(mAdapter);
+
+        // Might be unnecessary, might fix issue with empty LI tab
+        mAdapter.notifyDataSetChanged();
     }
 }

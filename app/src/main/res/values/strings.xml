@@ -33,9 +33,6 @@
     <string name="interaction_type">Name</string>
     <string name="interaction_freq_stub">per 100 days</string>
     <string name="friend_reminder_date_stub">5 days ago</string>
-    <string name="log_entry_title_stub" translatable="false">Meeting with Jack, John, Joan</string>
-    <string name="log_entry_date_stub" translatable="false">12 May 2019</string>
-    <string name="log_entry_comment_stub" translatable="false">That will be the log entry. There will be lots of text. Maybe. Maybe not.</string>
     <string name="tab_inter_type_name_stub" translatable="false">Inter. type</string>
     <string name="tab_inter_type_count_stub" translatable="false">99</string>
     <string name="set_date_future_warning">Can\'t interact in the future</string>
@@ -80,5 +77,6 @@
     <string name="import_in_progress">Import in progress</string>
     <string name="friends_deleted">Friends deleted</string>
     <string name="type_updated">Type updated</string>
+    <string name="horizontal_divider_dot" translatable="false">\u0020•\u0020</string>
 
 </resources>

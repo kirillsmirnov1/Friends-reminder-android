@@ -1,6 +1,5 @@
 package com.trulden.friends.activity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +25,7 @@ import com.trulden.friends.database.entity.Friend;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
@@ -34,6 +33,9 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
+/**
+ * Shows list of selectable friends.
+ */
 public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
@@ -47,8 +49,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
     private HashSet<Integer> selectedFriendsPositions = new HashSet<>();
 
-    public FriendsFragment() {
-        // Required empty public constructor
+    FriendsFragment(FriendsViewModel friendsViewModel) {
+        mFriendsViewModel = friendsViewModel;
     }
 
 
@@ -72,9 +74,9 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         recyclerView.setAdapter(mFriendsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        //mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
+        mFriendsViewModel.getAllFriends().observe(getViewLifecycleOwner(), new Observer<List<Friend>>() {
             @Override
             public void onChanged(List<Friend> friends) {
                 mFriendsAdapter.setEntries(friends);
@@ -93,7 +95,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
                     intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
                     intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
                     intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
-                    getActivity().startActivity(intent);
+                    Objects.requireNonNull(getActivity()).startActivity(intent);
                 }
             }
 
@@ -117,7 +119,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
     private void enableActionMode(int pos) {
         if(mActionMode == null){
-            mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mSelectionCallback);
+            mActionMode = ((AppCompatActivity) Objects.requireNonNull(getActivity()))
+                    .startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
@@ -163,7 +166,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
         intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
 
-        getActivity().startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
+        Objects.requireNonNull(getActivity())
+                .startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
     }
 
     @Override
@@ -180,7 +184,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
     }
 
     @Override
-    public void nullActionMode() {
+    public void nullifyActionMode() {
         mActionMode = null;
     }
 }

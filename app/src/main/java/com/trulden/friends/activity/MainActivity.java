@@ -53,7 +53,13 @@ import static com.trulden.friends.util.Util.makeSnackbar;
 import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.wipeDatabaseFiles;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+/**
+ * Holds {@link LogFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
+ * Handles some interactions with database: export and import, queries.
+ */
+public class MainActivity
+        extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -70,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -97,8 +105,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
             }
         }
-
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         mReceiver = new CustomBroadcastReceiver(this);
 
@@ -299,13 +305,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case LOG_FRAGMENT:
-                fragment = new LogFragment();
+                fragment = new LogFragment(mFriendsViewModel);
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                fragment = new LastInteractionsFragment();
+                fragment = new LastInteractionsFragment(mFriendsViewModel);
                 break;
             case FRIENDS_FRAGMENT:
-                fragment = new FriendsFragment();
+                fragment = new FriendsFragment(mFriendsViewModel);
                 break;
         }
         setToolbarTitle();

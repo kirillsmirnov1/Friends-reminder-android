@@ -14,7 +14,6 @@ import androidx.appcompat.view.ActionMode;
 import androidx.collection.LongSparseArray;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,11 +38,11 @@ import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Holds selectable {@link Interaction} entries.
  */
 public class LogFragment extends Fragment implements ActivityWithSelection {
-
-    public static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
+// TODO rename to InteractionFragment
+    private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
     private LogAdapter mInteractionsAdapter;
@@ -54,8 +53,8 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
     private LongSparseArray<String> mTypes;
 
-    public LogFragment() {
-        // Required empty public constructor
+    LogFragment(FriendsViewModel friendsViewModel) {
+        mFriendsViewModel = friendsViewModel;
     }
 
     @Override
@@ -80,9 +79,9 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
 
         recyclerView.setAdapter(mInteractionsAdapter);
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        //mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+        mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 mTypes = new LongSparseArray<>();
@@ -95,7 +94,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
             }
         });
 
-        mFriendsViewModel.getAllInteractions().observe(this, new Observer<List<Interaction>>() {
+        mFriendsViewModel.getAllInteractions().observe(getViewLifecycleOwner(), new Observer<List<Interaction>>() {
             @Override
             public void onChanged(List<Interaction> interactions) {
                 mInteractionsAdapter.setEntries(interactions);
@@ -181,7 +180,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     }
 
     @Override
-    public void nullActionMode() {
+    public void nullifyActionMode() {
         mActionMode = null;
     }
 }

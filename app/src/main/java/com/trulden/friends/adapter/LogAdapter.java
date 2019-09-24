@@ -21,8 +21,7 @@ import static com.trulden.friends.util.Util.dateFormat;
 
 /**
  * RecyclerView adapter for Interaction objects.
- * Used in LogFragment
- * @see com.trulden.friends.activity.LogFragment LogFragment
+ * Used in {@link com.trulden.friends.activity.LogFragment LogFragment}
  */
 public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interaction> {
 
@@ -48,8 +47,9 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
             extends RecyclerView.ViewHolder
             implements BindableViewHolder<Interaction> {
 
-        private TextView mTypeAndNames;
+        private TextView mType;
         private TextView mDate;
+        private TextView mNames;
         private TextView mComment;
 
         private View mLogEntryLayout;
@@ -57,8 +57,9 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mTypeAndNames = itemView.findViewById(R.id.log_entry_type_and_names);
+            mType = itemView.findViewById(R.id.log_entry_type);
             mDate = itemView.findViewById(R.id.log_entry_date);
+            mNames = itemView.findViewById(R.id.log_entry_names);
             mComment = itemView.findViewById(R.id.log_entry_comment);
 
             mLogEntryLayout = itemView.findViewById(R.id.log_entry_layout);
@@ -71,8 +72,9 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
             String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
 
             // FIXME display type and friends of interaction some other way
-            mTypeAndNames.setText(interactionTypeName + mContext.getString(R.string.with) + interaction.getFriendNames());
+            mType.setText(interactionTypeName);
             mDate.setText(dateFormat.format(interaction.getDate()));
+            mNames.setText(interaction.getFriendNames());
             mComment.setText(interaction.getComment());
 
 //            // Strange reaction on click when selected — cards with comment hide it

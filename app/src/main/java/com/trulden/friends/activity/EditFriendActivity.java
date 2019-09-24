@@ -1,6 +1,7 @@
 package com.trulden.friends.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -10,25 +11,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.os.Bundle;
-
 import com.trulden.friends.R;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
+import static com.trulden.friends.util.Util.makeToast;
 
+/**
+ * Activity for creating or editing Friend objects
+ */
 public class EditFriendActivity extends AppCompatActivity {
 
     private EditText mName;
     private EditText mInfo;
 
-    private long updatedFriendId;
+    private long mFriendId;
 
-    private FriendsViewModel mFriendsViewModel;
     private List<Friend> mFriends = new ArrayList<>();
 
     @Override
@@ -36,8 +41,8 @@ public class EditFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_friend);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
-        mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
+        FriendsViewModel friendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        friendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
             @Override
             public void onChanged(List<Friend> friends) {
                 mFriends = friends;
@@ -48,18 +53,18 @@ public class EditFriendActivity extends AppCompatActivity {
         mInfo = findViewById(R.id.edit_friends_info);
 
         Intent intent = getIntent();
-        updatedFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
+        mFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
         mName.setText(intent.getStringExtra(EXTRA_FRIEND_NAME));
         mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
-        if(updatedFriendId == -1){
-            getSupportActionBar().setTitle(getString(R.string.add_friend));
+        if(mFriendId == -1){
+            Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_friend));
         } else {
-            getSupportActionBar().setTitle(getString(R.string.action_bar_title_edit_friend));
+            Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.action_bar_title_edit_friend));
         }
     }
 
-    public void saveFriend() {
+    private void saveFriend() {
 
         Intent replyIntent = new Intent();
 
@@ -68,15 +73,16 @@ public class EditFriendActivity extends AppCompatActivity {
 
         if(name.isEmpty()) {
             makeToast(this, getString(R.string.toast_warning_empty_name));
-        } else if(updatedFriendId == -1 && friendExists(name)) {
+        } else if(mFriendId == -1 && friendExists(name)) {
             makeToast(this, getString(R.string.toast_warning_friend_exists));
         } else {
 
-            replyIntent.putExtra(EXTRA_FRIEND_ID, updatedFriendId);
+            replyIntent.putExtra(EXTRA_FRIEND_ID, mFriendId);
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
             replyIntent.putExtra(EXTRA_FRIEND_NOTES, info);
 
-            String toastMessage = updatedFriendId == -1
+            String toastMessage =
+                    mFriendId == -1
                     ? "«" + name + "»" + getString(R.string.toast_notice_friend_created)
                     : "«" + name + "»" + getString(R.string.toast_notice_friend_updated);
 
@@ -98,18 +104,15 @@ public class EditFriendActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.icon_save:{
-                saveFriend();
-                return true;
-            }
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.icon_save) {
+            saveFriend();
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
-    public boolean friendExists(String name){
+    private boolean friendExists(String name){
         for(Friend friend : mFriends){
             if(friend.getName().equals(name))
                 return true;
