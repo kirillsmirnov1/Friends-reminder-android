@@ -26,6 +26,7 @@ import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.FriendName;
+import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 
 import java.util.HashSet;
 import java.util.List;
@@ -109,24 +110,24 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
             }
         });
 
-        mFriendsViewModel.getAllInteractions().observe(getViewLifecycleOwner(), new Observer<List<Interaction>>() {
+        mFriendsViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), new Observer<List<InteractionWithFriendIDs>>() {
             @Override
-            public void onChanged(List<Interaction> interactions) {
-                mInteractionsAdapter.setEntries(interactions);
+            public void onChanged(List<InteractionWithFriendIDs> interactionWithFriendIDs) {
+                mInteractionsAdapter.setEntries(interactionWithFriendIDs);
                 mInteractionsAdapter.notifyDataSetChanged();
             }
         });
 
-        mInteractionsAdapter.setOnClickListener(new OnClickListener<Interaction>() {
+        mInteractionsAdapter.setOnClickListener(new OnClickListener<InteractionWithFriendIDs>() {
             @Override
-            public void onItemClick(View view, Interaction obj, int pos) {
+            public void onItemClick(View view, InteractionWithFriendIDs obj, int pos) {
                 if(mInteractionsAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 }
             }
 
             @Override
-            public void onItemLongClick(View view, Interaction obj, int pos) {
+            public void onItemLongClick(View view, InteractionWithFriendIDs obj, int pos) {
                 enableActionMode(pos);
             }
         });
@@ -175,7 +176,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditInteractionActivity.class);
-        Interaction interaction = mInteractionsAdapter.getSelectedItems().get(0);
+        Interaction interaction = mInteractionsAdapter.getSelectedItems().get(0).interaction;
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
         intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypes.get(interaction.getInteractionTypeId()));
@@ -188,8 +189,8 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
 
     @Override
     public void deleteSelection() {
-        for(Interaction interaction : mInteractionsAdapter.getSelectedItems()) {
-            mFriendsViewModel.delete(interaction);
+        for(InteractionWithFriendIDs interactionWithFriendIDs : mInteractionsAdapter.getSelectedItems()) {
+            mFriendsViewModel.delete(interactionWithFriendIDs.interaction);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
     }

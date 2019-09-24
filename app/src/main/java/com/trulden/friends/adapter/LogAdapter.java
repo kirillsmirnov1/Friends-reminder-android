@@ -14,6 +14,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 
 import java.util.HashSet;
 
@@ -23,7 +24,7 @@ import static com.trulden.friends.util.Util.dateFormat;
  * RecyclerView adapter for Interaction objects.
  * Used in {@link com.trulden.friends.activity.LogFragment LogFragment}
  */
-public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interaction> {
+public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, InteractionWithFriendIDs> {
 
     // TODO rename to InteractionAdapter
 
@@ -50,7 +51,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
 
     public class ViewHolder
             extends RecyclerView.ViewHolder
-            implements BindableViewHolder<Interaction> {
+            implements BindableViewHolder<InteractionWithFriendIDs> {
 
         private TextView mType;
         private TextView mDate;
@@ -70,9 +71,11 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
             mLogEntryLayout = itemView.findViewById(R.id.log_entry_layout);
         }
 
-        public void bindTo(final Interaction interaction, final int position) {
+        public void bindTo(final InteractionWithFriendIDs interactionWithFriendIDs, final int position) {
 
             // Set data
+
+            final Interaction interaction = interactionWithFriendIDs.interaction;
 
             String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
 
@@ -105,7 +108,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
                 public void onClick(View view) {
                     if(mOnClickListener == null)
                         return;
-                    mOnClickListener.onItemClick(view, interaction, position);
+                    mOnClickListener.onItemClick(view, interactionWithFriendIDs, position);
                 }
             });
 
@@ -115,7 +118,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
                     if (mOnClickListener == null)
                         return false;
 
-                    mOnClickListener.onItemLongClick(view, interaction, position);
+                    mOnClickListener.onItemLongClick(view, interactionWithFriendIDs, position);
                     return true;
                 }
             });

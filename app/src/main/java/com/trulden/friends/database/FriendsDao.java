@@ -77,6 +77,7 @@ public interface FriendsDao {
     LiveData<List<Interaction>> getAllInteractions();
 
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
+    @Transaction
     LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendIDs();
 
     @Delete
