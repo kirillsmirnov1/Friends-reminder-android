@@ -43,7 +43,6 @@ import static com.trulden.friends.util.Util.makeToast;
  * Holds selectable {@link Interaction} entries.
  */
 public class InteractionsFragment extends Fragment implements ActivityWithSelection {
-// TODO rename to InteractionFragment
     private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
