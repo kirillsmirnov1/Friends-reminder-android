@@ -66,12 +66,12 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mType = itemView.findViewById(R.id.log_entry_type);
-            mDate = itemView.findViewById(R.id.log_entry_date);
-            mNames = itemView.findViewById(R.id.log_entry_names);
-            mComment = itemView.findViewById(R.id.log_entry_comment);
+            mType = itemView.findViewById(R.id.interaction_entry_type);
+            mDate = itemView.findViewById(R.id.interaction_entry_date);
+            mNames = itemView.findViewById(R.id.interaction_entry_names);
+            mComment = itemView.findViewById(R.id.interaction_entry_comment);
 
-            mInteractionEntryLayout = itemView.findViewById(R.id.log_entry_layout);
+            mInteractionEntryLayout = itemView.findViewById(R.id.interaction_entry_layout);
         }
 
         public void bindTo(final InteractionWithFriendIDs interactionWithFriendIDs, final int position) {
