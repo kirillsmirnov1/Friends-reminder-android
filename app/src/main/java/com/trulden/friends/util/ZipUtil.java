@@ -11,27 +11,35 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZipUtil {
+/**
+ * Provides zip and unzip functions
+ */
+public abstract class ZipUtil {
 
     // Taken from here
     // https://stackoverflow.com/questions/25562262/how-to-compress-files-into-zip-folder-in-android
 
     private static final int BUFFER = 4096;
 
+    /**
+     * Zip files from array to archive
+     * @param _files paths of files to archive
+     * @param zipFileName path of archive
+     */
     public static void zip(String[] _files, String zipFileName) {
         try {
-            BufferedInputStream origin = null;
+            BufferedInputStream origin;
             FileOutputStream dest = new FileOutputStream(zipFileName, false);
             ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(
                     dest));
-            byte data[] = new byte[BUFFER];
+            byte[] data = new byte[BUFFER];
 
-            for (int i = 0; i < _files.length; i++) {
-                Log.v("Compress", "Adding: " + _files[i]);
-                FileInputStream fi = new FileInputStream(_files[i]);
+            for (String file : _files) {
+                Log.v("Compress", "Adding: " + file);
+                FileInputStream fi = new FileInputStream(file);
                 origin = new BufferedInputStream(fi, BUFFER);
 
-                ZipEntry entry = new ZipEntry(_files[i].substring(_files[i].lastIndexOf("/") + 1));
+                ZipEntry entry = new ZipEntry(file.substring(file.lastIndexOf("/") + 1));
                 out.putNextEntry(entry);
                 int count;
 
@@ -48,6 +56,11 @@ public class ZipUtil {
         }
     }
 
+    /**
+     * Unzip archive to specified directory
+     * @param _zipFile path to archive
+     * @param _targetLocation path to target directory
+     */
     public static void unzip(String _zipFile, String _targetLocation) {
 
         //create target location folder if not exist
@@ -56,7 +69,7 @@ public class ZipUtil {
         try {
             FileInputStream fin = new FileInputStream(_zipFile);
             ZipInputStream zin = new ZipInputStream(fin);
-            ZipEntry ze = null;
+            ZipEntry ze;
             while ((ze = zin.getNextEntry()) != null) {
 
                 //create dir if required while unzipping
@@ -75,11 +88,15 @@ public class ZipUtil {
             }
             zin.close();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Ensures existence of directories for path
+     * @param targetLocation path which should exist
+     */
     private static void dirChecker(String targetLocation) {
-        new File(targetLocation).mkdirs();
+        new File(targetLocation).mkdirs(); // TODO use result for catching errors
     }
 }

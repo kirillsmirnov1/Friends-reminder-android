@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.trulden.friends.database.entity.BindFriendInteraction;
@@ -15,6 +16,9 @@ import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.List;
 
+/**
+ * Defines interactions with database
+ */
 @Dao
 public interface FriendsDao {
 
@@ -34,9 +38,6 @@ public interface FriendsDao {
     @Update
     void update(Friend friend);
 
-    @Query("SELECT * from friend_table LIMIT 1")
-    Friend[] getAnyFriend();
-
     // -----------------------------------------
     // InteractionType
     // -----------------------------------------
@@ -53,6 +54,10 @@ public interface FriendsDao {
     @Update
     void update(InteractionType interactionType);
 
+    /**
+     * Used to check if there is any interaction types in database
+     * @return array with one or none of types
+     */
     @Query("SELECT * from interaction_type_table LIMIT 1")
     InteractionType[] getAnyInteractionType();
 
@@ -82,6 +87,10 @@ public interface FriendsDao {
     @Delete
     void delete(BindFriendInteraction bindFriendInteraction);
 
+    /**
+     * Deletes all BindFriendInteraction for this Interaction. Used when updating Interaction.
+     * @param interactionId interaction for which binds will be deleted
+     */
     @Query("DELETE FROM bind_friend_interaction_table WHERE interactionId = :interactionId;")
     void deleteBindingsByInteractionId(long interactionId);
 
@@ -89,8 +98,14 @@ public interface FriendsDao {
     // LastInteraction
     // -----------------------------------------
 
-    @Query("SELECT type, friend, date FROM\n" +
-            "(SELECT interactionTypeName AS type, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
+    /**
+     *
+     * @return last interactions
+     * @see LastInteraction LastInteractions
+     */
+    @Transaction
+    @Query("SELECT typeId, friend, date FROM\n" +
+            "(SELECT interaction_type_table.id AS typeId, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
             " FROM \n" +
             " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
             "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +

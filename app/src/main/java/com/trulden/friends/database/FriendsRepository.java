@@ -14,6 +14,9 @@ import com.trulden.friends.database.entity.LastInteraction;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Handles database queries
+ */
 class FriendsRepository {
 
     private FriendsDao mFriendsDao;
@@ -34,10 +37,13 @@ class FriendsRepository {
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
 
-    LiveData<List<LastInteraction>> getLastInteractions(long currDate) {
+    LiveData<List<LastInteraction>> getLastInteractions(/*long currDate*/) {
         return mFriendsDao.getLastInteractions(/*currDate, Util.MILLISECONDS_IN_DAYS*/);
     }
 
+    /**
+     * Available tasks
+     */
     enum TaskSelector{
         ADD_FRIEND,
         UPDATE_FRIEND,
@@ -51,6 +57,9 @@ class FriendsRepository {
         UPDATE_INTERACTION,
         REMOVE_INTERACTION
     }
+
+    // FIXME horrifying amounts of boilerplate code
+    // It can be pushed in one big AsyncTask, I think
 
     // -----------------------------------------
     // Friend
@@ -71,6 +80,9 @@ class FriendsRepository {
                 .execute(friend);
     }
 
+    /**
+     * Handles Friend-based queries to database
+     */
     private static class FriendAsyncTask extends AsyncTask<Friend, Void, Void>{
 
         private FriendsDao mFriendsDao;
@@ -124,6 +136,9 @@ class FriendsRepository {
                 .execute(interactionType);
     }
 
+    /**
+     * Handles InteractionType-based queries to database
+     */
     private static class InteractionTypeAsyncTask extends AsyncTask<InteractionType, Void, Void>{
 
         private FriendsDao mFriendsDao;
@@ -177,6 +192,9 @@ class FriendsRepository {
                 .execute();
     }
 
+    /**
+     * Handlse Interaction-based queries to database
+     */
     private static class InteractionAsyncTask extends AsyncTask<Void, Void, Void>{
 
         private FriendsDao mFriendsDao;
@@ -185,7 +203,7 @@ class FriendsRepository {
         private Interaction interaction;
         private HashSet<Long> friendIds;
 
-        public InteractionAsyncTask(FriendsDao mFriendsDao, TaskSelector mTaskSelector, Interaction interaction, HashSet<Long> friendIds) {
+        InteractionAsyncTask(FriendsDao mFriendsDao, TaskSelector mTaskSelector, Interaction interaction, HashSet<Long> friendIds) {
             this.mFriendsDao = mFriendsDao;
             this.mTaskSelector = mTaskSelector;
             this.interaction = interaction;

@@ -24,6 +24,9 @@ import static com.trulden.friends.util.Util.ACTION_DATABASE_IMPORT_FINISHED;
 import static com.trulden.friends.util.Util.EXTRA_IMPORT_RESULT;
 import static com.trulden.friends.util.Util.getInnerBackupFilePath;
 
+/**
+ * Imports database from specified by Uri path
+ */
 public class ImportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
 
     private WeakReference<Context> mContext;
@@ -47,7 +50,8 @@ public class ImportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
 
             ZipUtil.unzip(innerBackupFilePath, databasePath);
 
-            FriendsDatabase.wipeDatabaseInstance();
+            // Need this to reload database
+            FriendsDatabase.wipeDatabaseReference();
 
             return true;
 

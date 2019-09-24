@@ -5,31 +5,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.collection.LongSparseArray;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.trulden.friends.R;
+import com.trulden.friends.adapter.base.BindableViewHolder;
+import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.dateFormat;
 
-public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
+/**
+ * RecyclerView adapter for Interaction objects.
+ * Used in LogFragment
+ * @see com.trulden.friends.activity.LogFragment LogFragment
+ */
+public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interaction> {
 
-    private Context mContext;
-    private List<Interaction> mInteractions = new ArrayList<>();
-    private HashMap<Long, String> mInteractionTypes = new HashMap<>();
+    // TODO rename to InteractionAdapter
 
-    private OnClickListener onClickListener = null;
-
-    private HashSet<Integer> selectedInteractionsPositions;
+    private LongSparseArray<String> mInteractionTypes = new LongSparseArray<>();
 
     public LogAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
-        mContext = context;
-        this.selectedInteractionsPositions = selectedInteractionsPositions;
+        super(context, selectedInteractionsPositions);
     }
 
     @NonNull
@@ -38,55 +40,13 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.log_entry, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindTo(mInteractions.get(position), position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mInteractions.size();
-    }
-
-    public void setInteractions(List<Interaction> interactions) {
-        mInteractions = interactions;
-    }
-
-    public void setInteractionTypes(HashMap<Long, String> interactionTypes){
+    public void setInteractionTypes(LongSparseArray<String> interactionTypes){
         mInteractionTypes = interactionTypes;
     }
 
-    public void setOnClickListener(OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
-
-    public void clearSelections() {
-        selectedInteractionsPositions.clear();
-        notifyDataSetChanged();
-    }
-
-    public int getSelectedItemCount() {
-        return selectedInteractionsPositions.size();
-    }
-
-    public void toggleSelection(int pos) {
-        if(selectedInteractionsPositions.contains(pos)){
-            selectedInteractionsPositions.remove(pos);
-        } else {
-            selectedInteractionsPositions.add(pos);
-        }
-        notifyItemChanged(pos);
-    }
-
-    public List<Interaction> getSelectedInteractions() {
-        List <Interaction> selectedInteractions = new ArrayList<>(selectedInteractionsPositions.size());
-        for(Integer position : selectedInteractionsPositions){
-            selectedInteractions.add(mInteractions.get(position));
-        }
-        return selectedInteractions;
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder
+            extends RecyclerView.ViewHolder
+            implements BindableViewHolder<Interaction> {
 
         private TextView mTypeAndNames;
         private TextView mDate;
@@ -94,7 +54,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
         private View mLogEntryLayout;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mTypeAndNames = itemView.findViewById(R.id.log_entry_type_and_names);
@@ -110,6 +70,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
             String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
 
+            // FIXME display type and friends of interaction some other way
             mTypeAndNames.setText(interactionTypeName + mContext.getString(R.string.with) + interaction.getFriendNames());
             mDate.setText(dateFormat.format(interaction.getDate()));
             mComment.setText(interaction.getComment());
@@ -130,33 +91,28 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
             // Set click listeners
 
-            mLogEntryLayout.setActivated(selectedInteractionsPositions.contains(position));
+            mLogEntryLayout.setActivated(mSelectedPositions.contains(position));
 
             mLogEntryLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    if(onClickListener == null)
+                    if(mOnClickListener == null)
                         return;
-                    onClickListener.onItemClick(view, interaction, position);
+                    mOnClickListener.onItemClick(view, interaction, position);
                 }
             });
 
             mLogEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if (onClickListener == null)
+                    if (mOnClickListener == null)
                         return false;
 
-                    onClickListener.onItemLongClick(view, interaction, position);
+                    mOnClickListener.onItemLongClick(view, interaction, position);
                     return true;
                 }
             });
 
         }
-    }
-
-    public interface OnClickListener{
-        void onItemClick(View view, Interaction obj, int pos);
-        void onItemLongClick(View view, Interaction obj, int pos);
     }
 }

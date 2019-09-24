@@ -1,12 +1,14 @@
 package com.trulden.friends.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "friend_table")
-public class Friend {
+/**
+ * Friend class. Stores person information — id in database, name, notes
+ */
+@androidx.room.Entity(tableName = "friend_table")
+public class Friend implements Entity {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -16,11 +18,22 @@ public class Friend {
 
     private String info;
 
+    /**
+     * Constructor for creating new friend
+     * @param name friend's name
+     * @param info notes about friend
+     */
     public Friend(@NonNull String name, String info){
         this.name = name;
         this.info = info;
     }
 
+    /**
+     * Constructor for updating existing Friend
+     * @param id database identification of Friend to update
+     * @param name friend's name
+     * @param info notes about friend
+     */
     @Ignore
     public Friend(long id, @NonNull String name, String info){
         this.id = id;
@@ -51,9 +64,5 @@ public class Friend {
 
     public String getInfo() {
         return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
     }
 }

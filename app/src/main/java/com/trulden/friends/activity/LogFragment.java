@@ -4,8 +4,6 @@ package com.trulden.friends.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.collection.LongSparseArray;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -22,11 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.adapter.LogAdapter;
+import com.trulden.friends.adapter.base.OnClickListener;
+import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -48,11 +48,11 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     private FriendsViewModel mFriendsViewModel;
     private LogAdapter mInteractionsAdapter;
 
-    private ActionModeCallback mActionModeCallback;
+    private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
     private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
-    private HashMap<Long, String> mTypeMap;
+    private LongSparseArray<String> mTypes;
 
     public LogFragment() {
         // Required empty public constructor
@@ -85,12 +85,12 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
         mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
-                mTypeMap = new HashMap<>();
+                mTypes = new LongSparseArray<>();
 
                 for(InteractionType type : interactionTypes){
-                    mTypeMap.put(type.getId(), type.getInteractionTypeName());
+                    mTypes.put(type.getId(), type.getInteractionTypeName());
                 }
-                mInteractionsAdapter.setInteractionTypes(mTypeMap);
+                mInteractionsAdapter.setInteractionTypes(mTypes);
                 mInteractionsAdapter.notifyDataSetChanged();
             }
         });
@@ -98,12 +98,12 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
         mFriendsViewModel.getAllInteractions().observe(this, new Observer<List<Interaction>>() {
             @Override
             public void onChanged(List<Interaction> interactions) {
-                mInteractionsAdapter.setInteractions(interactions);
+                mInteractionsAdapter.setEntries(interactions);
                 mInteractionsAdapter.notifyDataSetChanged();
             }
         });
 
-        mInteractionsAdapter.setOnClickListener(new LogAdapter.OnClickListener() {
+        mInteractionsAdapter.setOnClickListener(new OnClickListener<Interaction>() {
             @Override
             public void onItemClick(View view, Interaction obj, int pos) {
                 if(mInteractionsAdapter.getSelectedItemCount() > 0){
@@ -117,7 +117,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
             }
         });
 
-        mActionModeCallback = new ActionModeCallback();
+        mSelectionCallback = new SelectionCallback(this, mInteractionsAdapter);
 
         if(selectedInteractionsPositions.size() > 0)
             enableActionMode(-1);
@@ -125,7 +125,7 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
 
     private void enableActionMode(int pos) {
         if(mActionMode == null){
-            mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mActionModeCallback);
+            mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
@@ -161,10 +161,10 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditInteractionActivity.class);
-        Interaction interaction = mInteractionsAdapter.getSelectedInteractions().get(0);
+        Interaction interaction = mInteractionsAdapter.getSelectedItems().get(0);
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
-        intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypeMap.get(interaction.getInteractionTypeId()));
+        intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypes.get(interaction.getInteractionTypeId()));
         intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
         intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
         intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, interaction.getFriendNames());
@@ -174,50 +174,14 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
 
     @Override
     public void deleteSelection() {
-        for(Interaction interaction : mInteractionsAdapter.getSelectedInteractions()) {
+        for(Interaction interaction : mInteractionsAdapter.getSelectedItems()) {
             mFriendsViewModel.delete(interaction);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
     }
 
-
-    private class ActionModeCallback implements ActionMode.Callback{
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
-
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
-            switch(item.getItemId()) {
-                case R.id.delete_selection: {
-                    deleteSelection();
-                    mode.finish();
-                    return true;
-                }
-                case R.id.edit_selection: {
-                    editSelection();
-                    mode.finish();
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mInteractionsAdapter.clearSelections();
-            mActionMode = null;
-        }
+    @Override
+    public void nullActionMode() {
+        mActionMode = null;
     }
 }

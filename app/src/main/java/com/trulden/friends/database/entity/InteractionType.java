@@ -1,12 +1,15 @@
 package com.trulden.friends.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "interaction_type_table")
-public class InteractionType {
+/**
+ * Type of Interaction.
+ * Consists of unique name and proposed frequency of interactions
+ */
+@androidx.room.Entity(tableName = "interaction_type_table")
+public class InteractionType implements Entity {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -16,11 +19,22 @@ public class InteractionType {
 
     private int frequency;
 
+    /**
+     * Constructor for creating new InteractionType
+     * @param interactionTypeName unique name of this type
+     * @param frequency proposed frequency for interactions of this type
+     */
     public InteractionType(@NonNull String interactionTypeName, int frequency){
         this.interactionTypeName = interactionTypeName;
         this.frequency = frequency;
     }
 
+    /**
+     * Constructor for updating existing InteractionType
+     * @param id id of this type in database
+     * @param interactionTypeName unique name of this type
+     * @param frequency proposed frequency for interactions of this type
+     */
     @Ignore
     public InteractionType(long id, @NonNull String interactionTypeName, int frequency){
         this.id = id;
@@ -53,6 +67,7 @@ public class InteractionType {
         return frequency;
     }
 
+    // TODO check if value is correct (but in some other place) maybe throw an error
     public void setFrequency(int frequency) {
         this.frequency = frequency;
     }

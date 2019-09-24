@@ -1,13 +1,16 @@
-package com.trulden.friends.adapter;
+package com.trulden.friends.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.trulden.friends.R;
-import com.trulden.friends.activity.MainActivity;
 
+import com.trulden.friends.R;
+
+/**
+ * View which holds tab name and counter
+ */
+@SuppressLint("ViewConstructor")
 public class TabCounterView extends LinearLayout {
 
     private TextView mCounterView;
@@ -33,3 +36,4 @@ public class TabCounterView extends LinearLayout {
         mCounterView.setText(String.valueOf(counter));
     }
 }
+

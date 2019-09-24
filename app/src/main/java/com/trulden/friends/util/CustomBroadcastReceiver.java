@@ -11,8 +11,16 @@ import com.trulden.friends.activity.MainActivity;
 
 import java.lang.ref.WeakReference;
 
-import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.Util.ACTION_DATABASE_EXPORT_FINISHED;
+import static com.trulden.friends.util.Util.ACTION_DATABASE_IMPORT_FINISHED;
+import static com.trulden.friends.util.Util.EXTRA_EXPORT_RESULT;
+import static com.trulden.friends.util.Util.EXTRA_FRAGMENT_TO_LOAD;
+import static com.trulden.friends.util.Util.EXTRA_IMPORT_RESULT;
+import static com.trulden.friends.util.Util.makeToast;
 
+/**
+ * Receives in-app broadcasts, such as finish of database export and import
+ */
 public class CustomBroadcastReceiver extends BroadcastReceiver {
 
     private WeakReference<MainActivity> mMainActivity;
@@ -35,7 +43,10 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                         makeToast(context, context.getString(R.string.toast_notice_export_failed));
                     }
 
+                    // Hide progress bar
                     mMainActivity.get().findViewById(R.id.progress_bar_main).setVisibility(View.INVISIBLE);
+
+                    // Make window touchable again
                     mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                     break;
@@ -50,6 +61,7 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     Intent restartIntent = new Intent(context, MainActivity.class);
                     restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
 
+                    // Easiest way to ensure correct update of data — restart an app
                     mMainActivity.get().finish();
                     mMainActivity.get().startActivity(restartIntent);
 

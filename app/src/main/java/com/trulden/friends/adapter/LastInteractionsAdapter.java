@@ -12,26 +12,24 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
-import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.adapter.base.BindableViewHolder;
+import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.LastInteraction;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import static com.trulden.friends.util.Util.MILLISECONDS_IN_DAYS;
 import static com.trulden.friends.util.Util.daysPassed;
-import static com.trulden.friends.util.Util.itsTime;
 
-public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractionsAdapter.ViewHolder> {
+/**
+ * RecyclerView adapter for LastInteraction objects.
+ * Used in LastInteractionsTabFragment
+ *
+ * @see com.trulden.friends.activity.LastInteractionsTabFragment LastInteractionsTabFragment
+ */
+public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteraction> {
 
-    private Context mContext;
-    private ArrayList<LastInteraction> mLastInteractions;
-    private InteractionType type;
-
-    public LastInteractionsAdapter(Context context, InteractionType type, ArrayList<LastInteraction> lastInteractions){
+    public LastInteractionsAdapter(Context context){
+        //noinspection ConstantConditions
+        super(context, null);
         mContext = context;
-        mLastInteractions = lastInteractions;
-        this.type = type;
     }
 
     @NonNull
@@ -40,24 +38,16 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.last_interaction_entry, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindTo(mLastInteractions.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mLastInteractions.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder
+            extends RecyclerView.ViewHolder
+            implements BindableViewHolder<LastInteraction> {
 
         private TextView mName;
         private TextView mTime;
 
         private RelativeLayout layout;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mName = itemView.findViewById(R.id.last_interaction_name);
@@ -66,15 +56,18 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
             layout = itemView.findViewById(R.id.last_interaction_entry_layout);
         }
 
-        public void bindTo(LastInteraction lastInteraction) {
+        public void bindTo(final LastInteraction lastInteraction, int pos) {
+
             mName.setText(lastInteraction.getFriend());
 
             String dateString = daysPassed(lastInteraction) + mContext.getString(R.string.days_ago);
 
             mTime.setText(dateString);
 
-            if(!itsTime(lastInteraction, type)) {
-                layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_backgroung_grey));
+            // Grey out LI for which time have not yet come
+            if(!lastInteraction.itsTime()) {
+                layout.setBackground(ContextCompat
+                        .getDrawable(mContext, R.drawable.item_backgroung_grey));
             }
         }
     }

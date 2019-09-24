@@ -1,7 +1,6 @@
 package com.trulden.friends.database;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
@@ -20,9 +19,14 @@ import com.trulden.friends.util.Util;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Handles database — initialization, migration.
+ * Stores static instance of database.
+ */
 @Database(
         entities = {Friend.class, InteractionType.class, Interaction.class, BindFriendInteraction.class},
-        version = Util.DATABASE_VERSION
+        version = Util.DATABASE_VERSION,
+        exportSchema = false
 )
 public abstract class FriendsDatabase extends RoomDatabase {
 
@@ -41,10 +45,18 @@ public abstract class FriendsDatabase extends RoomDatabase {
         }
     };
 
-    public static void wipeDatabaseInstance(){
+    /**
+     * Set database instance reference to null. Used when reloading database.
+     */
+    public static void wipeDatabaseReference(){
         INSTANCE = null;
     }
 
+    /**
+     * Creates database instance, if there is none.
+     * @param context context for which database build
+     * @return database instance
+     */
     public static FriendsDatabase getDatabase(final Context context){
 
         mContext = new WeakReference<>(context);
@@ -54,7 +66,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             FriendsDatabase.class, DATABASE_NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -66,10 +78,9 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
     public abstract FriendsDao friendsDao();
 
-    // -----------------------------------------
-    // Populate db at start
-    // -----------------------------------------
-
+    /**
+     * Populate db at start
+     */
     private static class PopulateDBAsync extends AsyncTask<Void, Void, Void>{
 
         // For debug
@@ -83,7 +94,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 mContext.get().getString(R.string.interaction_type_name_texting),
                 mContext.get().getString(R.string.interaction_type_name_call)
         };
-        int[]    defaultInteractionsFrequency = {30, 7, 30};
+        int[]    defaultInteractionsFrequency = {30, 7, 30}; // TODO how often should you call your mother?
 
         private final FriendsDao mDao;
 
@@ -156,6 +167,14 @@ public abstract class FriendsDatabase extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE interaction_table ADD friendNames TEXT");
+        }
+    };
+
+    private static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE INDEX index_Interaction_typeId ON interaction_table(interactionTypeId)");
+            database.execSQL("CREATE INDEX index_bindFI_interId ON bind_friend_interaction_table(interactionId)");
         }
     };
 }

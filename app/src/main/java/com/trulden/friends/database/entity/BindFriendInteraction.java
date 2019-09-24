@@ -1,11 +1,14 @@
 package com.trulden.friends.database.entity;
 
-import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
-
-@Entity(
+/**
+ * Establishes a connection between Friend and Interaction.
+ * Friend X was in Interaction Y.
+ */
+@androidx.room.Entity(
     tableName = "bind_friend_interaction_table",
 
     primaryKeys = {"friendId", "interactionId"},
@@ -20,13 +23,21 @@ import static androidx.room.ForeignKey.CASCADE;
                     parentColumns = "id",
                     childColumns = "interactionId",
                     onDelete = CASCADE)
-        }
+        },
+
+    indices =
+    @Index(value = "interactionId")
 )
-public class BindFriendInteraction {
+public class BindFriendInteraction implements Entity {
 
     private long friendId;
     private long interactionId;
 
+    /**
+     * Must be used only by database classes
+     * @param friendId id of friend in question
+     * @param interactionId if of interaction in question
+     */
     public BindFriendInteraction(long friendId, long interactionId) {
         this.friendId = friendId;
         this.interactionId = interactionId;
@@ -40,15 +51,7 @@ public class BindFriendInteraction {
         return friendId;
     }
 
-    public void setFriendId(long friendId) {
-        this.friendId = friendId;
-    }
-
     public long getInteractionId() {
         return interactionId;
-    }
-
-    public void setInteractionId(long interactionId) {
-        this.interactionId = interactionId;
     }
 }
