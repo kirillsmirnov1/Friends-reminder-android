@@ -115,7 +115,7 @@ public class EditInteractionActivity
 
                 System.arraycopy(typesMap.keySet().toArray(new String[0]), 0, spinnerOptions, 0, typesMap.size());
 
-                spinnerOptions[spinnerOptions.length-1] = getResources().getString(R.string.add_new);
+                spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
                 mSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
                         android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
@@ -153,9 +153,9 @@ public class EditInteractionActivity
         mInteractionId = intent.getLongExtra(EXTRA_INTERACTION_ID, -1);
 
         if(mInteractionId == -1){
-            getSupportActionBar().setTitle("Add interaction");
+            getSupportActionBar().setTitle(getString(R.string.add_interaction));
         } else {
-            getSupportActionBar().setTitle("Edit interaction");
+            getSupportActionBar().setTitle(getString(R.string.edit_interaction));
 
             mComment.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
 
@@ -185,7 +185,7 @@ public class EditInteractionActivity
         if(pickedDate.before(tomorrow)) {
             mDate.setText(dateFormat.format(pickedDate.getTime()));
         } else {
-            makeToast(this, "Can't interact in the future");
+            makeToast(this, getString(R.string.set_date_future_warning));
             pickedDate = null;
         }
     }
@@ -193,7 +193,7 @@ public class EditInteractionActivity
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
-        if(adapterView.getItemAtPosition(position).toString().equals(getResources().getString(R.string.add_new))){
+        if(adapterView.getItemAtPosition(position).toString().equals(getString(R.string.add_new_interaction_type))){
             new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionType");
             mType.setSelection(0);
         }
@@ -241,7 +241,7 @@ public class EditInteractionActivity
         mFriendsViewModel.add(interactionType);
         mTypeToSelect = interactionType.getInteractionTypeName();
 
-        makeToast(this, "Type created!");
+        makeToast(this, getString(R.string.toast_notice_type_created));
     }
 
     public void createFriendByName(String name)   { saveHandler.createFriendByName(name);   }
@@ -274,12 +274,12 @@ public class EditInteractionActivity
         private boolean argsFilled() {
 
             if(mDate.getText().toString().isEmpty()){
-                makeToast(context, "Fill date");
+                makeToast(context, getString(R.string.toast_warning_fill_date));
                 return false;
             }
 
             if(mFriends.getText().toString().isEmpty()){
-                makeToast(context, "Fill friends");
+                makeToast(context, getString(R.string.toast_warning_fill_friends));
                 return false;
             }
 
@@ -322,13 +322,15 @@ public class EditInteractionActivity
 
             newbies.add(name);
 
-            makeToast(context, "«" + name + "» is created"); // Not actually, lol
+            makeToast(context, "«" + name + "»"
+                    + getString(R.string.toast_notice_friend_created)); // Not actually, lol
             checkNextFriend();
         }
 
         void removeFriendName(String name) {
             checkFriendsIter.remove();
-            makeToast(context, "«" + name + "» is forgotten");
+            makeToast(context, "«" + name + "»" +
+                    getString(R.string.toast_notice_friend_forgotten));
             checkNextFriend();
         }
 
@@ -365,7 +367,7 @@ public class EditInteractionActivity
 
             setResult(RESULT_OK, replyIntent);
 
-            makeToast(context, "Interaction saved");
+            makeToast(context, getString(R.string.toast_notice_interaction_saved));
 
             finish();
         }

@@ -26,6 +26,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.trulden.friends.util.Util.itsTime;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -34,8 +36,11 @@ public class LastInteractionsFragment extends Fragment {
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
     private FriendsViewModel friendsViewModel;
+
     private List<InteractionType> types = new ArrayList<>();
+    private HashMap<String, InteractionType> typesMap = new HashMap<>(); // FIXME not really good decision, but an easiest way of finding type by name
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
+    private HashMap<String, Integer> counterMap = new HashMap<>();
 
     private TabLayout mTabLayout;
 
@@ -64,6 +69,7 @@ public class LastInteractionsFragment extends Fragment {
 
                 for(InteractionType type : types){
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
+                    typesMap.put(type.getInteractionTypeName(), type);
                 }
 
                 friendsViewModel.getLastInteractions(Calendar.getInstance().getTimeInMillis()).observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
@@ -72,10 +78,16 @@ public class LastInteractionsFragment extends Fragment {
 
                         for(InteractionType type : types){
                             lastInteractionsMap.get(type.getInteractionTypeName()).clear();
+                            counterMap.put(type.getInteractionTypeName(), 0);
                         }
 
                         for(LastInteraction interaction : lastInteractions){
-                            lastInteractionsMap.get(interaction.getType()).add(interaction);
+                            String currentType = interaction.getType();
+
+                            lastInteractionsMap.get(currentType).add(interaction);
+                            if(itsTime(interaction, typesMap.get(currentType))){
+                                counterMap.put(currentType, counterMap.get(currentType) + 1);
+                            }
                         }
 
 
@@ -95,9 +107,10 @@ public class LastInteractionsFragment extends Fragment {
         mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
-            int size = lastInteractionsMap.get(type.getInteractionTypeName()).size();
 
-            TabCounterView tcv = new TabCounterView(getContext(), type.getInteractionTypeName(), size);
+            TabCounterView tcv = new TabCounterView(getContext(),
+                    type.getInteractionTypeName(), counterMap.get(type.getInteractionTypeName()));
+
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
         }
 

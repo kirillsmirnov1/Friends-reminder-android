@@ -16,10 +16,10 @@
             >
 
             <TextView
-                android:id="@+id/friend_page_info"
+                android:id="@+id/friend_page_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Friend's info"
+                android:text="@string/friend_s_notes"
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:padding="8dp"
             />

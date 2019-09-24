@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/interaction_type_entry_name"
-            android:text="Interaction type"
+            android:text="@string/interaction_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
@@ -34,7 +34,7 @@
         <TextView
             android:id="@+id/interaction_type_entry_frequency"
             android:layout_below="@id/interaction_type_entry_name"
-            android:text="per 100 days"
+            android:text="@string/interaction_freq_stub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"

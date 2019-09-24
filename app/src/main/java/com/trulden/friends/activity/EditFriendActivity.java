@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.FriendsAdapter;
+import com.trulden.friends.database.entity.Friend;
 
 import static com.trulden.friends.util.Util.*;
 
@@ -33,10 +34,10 @@ public class EditFriendActivity extends AppCompatActivity {
         Intent intent = getIntent();
         updatedFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
         mName.setText(intent.getStringExtra(EXTRA_FRIEND_NAME));
-        mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_INFO));
+        mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
         if(updatedFriendId == -1){
-            getSupportActionBar().setTitle(getString(R.string.action_bar_title_add_friend));
+            getSupportActionBar().setTitle(getString(R.string.add_friend));
         } else {
             getSupportActionBar().setTitle(getString(R.string.action_bar_title_edit_friend));
         }
@@ -50,16 +51,20 @@ public class EditFriendActivity extends AppCompatActivity {
         String info = mInfo.getText().toString();
 
         if(name.isEmpty()) {
-            makeToast(this, "Empty name");
+            makeToast(this, getString(R.string.toast_warning_empty_name));
         } else if(updatedFriendId == -1 && FriendsAdapter.friendExists(name)) {
-            makeToast(this, "Friend with name like this already exists");
+            makeToast(this, getString(R.string.toast_warning_friend_exists));
         } else {
 
             replyIntent.putExtra(EXTRA_FRIEND_ID, updatedFriendId);
             replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
-            replyIntent.putExtra(EXTRA_FRIEND_INFO, info);
+            replyIntent.putExtra(EXTRA_FRIEND_NOTES, info);
 
-            makeToast(this, updatedFriendId == -1 ? "Friend created" : "Friend updated");
+            String toastMessage = updatedFriendId == -1
+                    ? "«" + name + "»" + getString(R.string.toast_notice_friend_created)
+                    : "«" + name + "»" + getString(R.string.toast_notice_friend_updated);
+
+            makeToast(this, toastMessage);
 
             setResult(RESULT_OK, replyIntent);
             finish();

@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.trulden.friends.util.Util.MILLISECONDS_IN_DAYS;
+import static com.trulden.friends.util.Util.daysPassed;
+import static com.trulden.friends.util.Util.itsTime;
 
 public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractionsAdapter.ViewHolder> {
 
@@ -67,15 +69,11 @@ public class LastInteractionsAdapter extends RecyclerView.Adapter<LastInteractio
         public void bindTo(LastInteraction lastInteraction) {
             mName.setText(lastInteraction.getFriend());
 
-            long timePassed = Calendar.getInstance().getTimeInMillis() - lastInteraction.getDate();
-
-            int daysPassed = (int) ( timePassed / MILLISECONDS_IN_DAYS );
-
-            String dateString = daysPassed + " days ago";
+            String dateString = daysPassed(lastInteraction) + mContext.getString(R.string.days_ago);
 
             mTime.setText(dateString);
 
-            if(daysPassed < type.getFrequency()) {
+            if(!itsTime(lastInteraction, type)) {
                 layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_backgroung_grey));
             }
         }

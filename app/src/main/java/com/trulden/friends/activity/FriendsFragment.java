@@ -29,9 +29,10 @@ import java.util.HashSet;
 import java.util.List;
 
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_INFO;
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
+import static com.trulden.friends.util.Util.makeToast;
 
 public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
@@ -91,7 +92,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
                     Intent intent = new Intent(getActivity(), FriendPageActivity.class);
                     intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
                     intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-                    intent.putExtra(EXTRA_FRIEND_INFO, friend.getInfo());
+                    intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
                     getActivity().startActivity(intent);
                 }
             }
@@ -160,13 +161,19 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
         intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
         intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-        intent.putExtra(EXTRA_FRIEND_INFO, friend.getInfo());
+        intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
 
         getActivity().startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
     }
 
     @Override
     public void deleteSelection() {
+        int countOfSelectedFriends = mFriendsAdapter.getSelectedItemCount();
+        if(countOfSelectedFriends == 1){
+            makeToast(getActivity(), "«" + mFriendsAdapter.getSelectedFriends().get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
+        } else {
+            makeToast(getActivity(), getString(R.string.friends_deleted));
+        }
         for (Friend friend : mFriendsAdapter.getSelectedFriends()){
             mFriendsViewModel.delete(friend);
         }

@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case EXPORT_DATABASE_REQUEST:{
                 if(resultCode == RESULT_OK && resultingIntent != null) {
 
-                    makeSnackbar(findViewById(R.id.root_layout), "Export in progress");
+                    makeToast(this, getString(R.string.export_in_progress));
                     findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
 
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Friend getFriendFromIntent(Intent resultingIntent) {
         long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
         String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
-        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_INFO);
+        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_NOTES);
 
         assert name != null;
 
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void importDatabaseFromUri(Uri uri) {
 
-        makeSnackbar(findViewById(R.id.root_layout), "Import in progress");
+        makeSnackbar(findViewById(R.id.root_layout), getString(R.string.import_in_progress));
         findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -296,13 +296,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void setToolbarTitle(){
         switch (mFragmentToLoad){
             case LOG_FRAGMENT:
-                mToolbar.setTitle("Log");
+                mToolbar.setTitle(getString(R.string.log));
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                mToolbar.setTitle("Last Interactions");
+                mToolbar.setTitle(getString(R.string.last_interactions));
                 break;
             case FRIENDS_FRAGMENT:
-                mToolbar.setTitle("Friends");
+                mToolbar.setTitle(getString(R.string.friends));
                 break;
         }
     }

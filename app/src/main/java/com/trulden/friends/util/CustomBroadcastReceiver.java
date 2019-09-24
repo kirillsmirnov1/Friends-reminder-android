@@ -30,9 +30,9 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
             switch (intentAction) {
                 case ACTION_DATABASE_EXPORT_FINISHED:
                     if(intent.getBooleanExtra(EXTRA_EXPORT_RESULT, false)){
-                        makeToast(context, "Export succeeded");
+                        makeToast(context, context.getString(R.string.toast_notice_export_succeeded));
                     } else {
-                        makeToast(context, "Export failed");
+                        makeToast(context, context.getString(R.string.toast_notice_export_failed));
                     }
 
                     mMainActivity.get().findViewById(R.id.progress_bar_main).setVisibility(View.INVISIBLE);
@@ -42,9 +42,9 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
 
                 case ACTION_DATABASE_IMPORT_FINISHED:
                     if(intent.getBooleanExtra(EXTRA_IMPORT_RESULT, false)){
-                        makeToast(context, "Import succeeded");
+                        makeToast(context, context.getString(R.string.toast_notice_import_succeeded));
                     } else {
-                        makeToast(context, "Import failed");
+                        makeToast(context, context.getString(R.string.toast_notice_import_failed));
                     }
 
                     Intent restartIntent = new Intent(context, MainActivity.class);

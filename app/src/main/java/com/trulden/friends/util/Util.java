@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
+import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -45,7 +47,7 @@ public class Util {
 
     public static final String EXTRA_FRIEND_ID   = "EXTRA_FRIEND_ID";
     public static final String EXTRA_FRIEND_NAME = "EXTRA_FRIEND_NAME";
-    public static final String EXTRA_FRIEND_INFO = "EXTRA_FRIEND_INFO";
+    public static final String EXTRA_FRIEND_NOTES = "EXTRA_FRIEND_NOTES";
 
     public static final String EXTRA_FRAGMENT_TO_LOAD = "EXTRA_FRAGMENT_TO_LOAD";
 
@@ -89,5 +91,14 @@ public class Util {
                 Log.e(LOG_TAG, "Error wiping database");
             }
         }
+    }
+
+    public static boolean itsTime(LastInteraction interaction, InteractionType type){
+        return (daysPassed(interaction) > type.getFrequency());
+    }
+
+    public static int daysPassed(LastInteraction interaction){
+        long timePassed = Calendar.getInstance().getTimeInMillis() - interaction.getDate();
+        return (int) ( timePassed / MILLISECONDS_IN_DAYS );
     }
 }
