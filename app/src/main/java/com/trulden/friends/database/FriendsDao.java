@@ -86,6 +86,9 @@ public interface FriendsDao {
     @Update
     void update(Interaction interaction);
 
+    @Query("DELETE FROM interaction_table WHERE id = :interactionId")
+    void deleteInteractionById(long interactionId);
+
     // -----------------------------------------
     // BindFriendInteraction
     // -----------------------------------------
