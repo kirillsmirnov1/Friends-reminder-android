@@ -19,5 +19,5 @@ public class InteractionWithFriendIDs implements Entity {
     @Relation(
         parentColumn = "id", entityColumn = "id",
         entity = Friend.class, projection = {"id"})
-    public List<Integer> friendIDs;
+    public List<Long> friendIDs;
 }
