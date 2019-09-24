@@ -116,7 +116,20 @@ class FriendsRepository {
                     break;
 
                 case REMOVE_FRIEND:
-                    mFriendsDao.delete(friends[0]);
+
+                    Friend friend = friends[0];
+
+                    // Check if there is some interactions with this friend only and delete them
+
+                    List<BindFriendInteraction> binds = mFriendsDao.getBindsOfFriend(friend.getId());
+
+                    for(BindFriendInteraction bind : binds){
+                        if(mFriendsDao.getNumberOfInteractionBinds(bind.getInteractionId()) < 2){
+                            mFriendsDao.deleteInteractionById(bind.getInteractionId());
+                        }
+                    }
+
+                    mFriendsDao.delete(friend);
                     break;
 
                 default:
