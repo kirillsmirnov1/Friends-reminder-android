@@ -36,7 +36,7 @@ public abstract class Util {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /** Version of database used in app */
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 6;
 
     public static final int NEW_INTERACTION_REQUEST    = 1;
     public static final int NEW_FRIEND_REQUEST         = 2;
