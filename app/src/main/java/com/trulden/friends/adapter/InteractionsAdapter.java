@@ -41,7 +41,7 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.log_entry, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.interaction_entry, parent, false));
     }
 
     public void setInteractionTypes(LongSparseArray<String> interactionTypes){
