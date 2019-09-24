@@ -127,7 +127,12 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
         }
     }
 
-    private String generateNameString(List<Long> friendIDs) {
+    /**
+     * Generate string of friends names divided by comma
+     * @param friendIDs ids of friends in question
+     * @return names divided by comma
+     */
+    public String generateNameString(List<Long> friendIDs) {
         String[] names = new String[friendIDs.size()];
 
         for(int i = 0; i < names.length; ++i){
