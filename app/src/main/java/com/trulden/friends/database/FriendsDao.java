@@ -12,6 +12,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteraction;
 
@@ -32,6 +33,9 @@ public interface FriendsDao {
 
     @Query("SELECT * FROM friend_table ORDER BY name COLLATE NOCASE ASC")
     LiveData<List<Friend>> getAllFriends();
+
+    @Query("SELECT id, name FROM friend_table")
+    LiveData<List<FriendName>> getFriendNames();
 
     @Delete
     void delete(Friend friend);
