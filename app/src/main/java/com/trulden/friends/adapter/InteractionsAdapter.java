@@ -61,7 +61,7 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
         private TextView mNames;
         private TextView mComment;
 
-        private View mLogEntryLayout;
+        private View mInteractionEntryLayout;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,7 +71,7 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
             mNames = itemView.findViewById(R.id.log_entry_names);
             mComment = itemView.findViewById(R.id.log_entry_comment);
 
-            mLogEntryLayout = itemView.findViewById(R.id.log_entry_layout);
+            mInteractionEntryLayout = itemView.findViewById(R.id.log_entry_layout);
         }
 
         public void bindTo(final InteractionWithFriendIDs interactionWithFriendIDs, final int position) {
@@ -103,9 +103,9 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
 
             // Set click listeners
 
-            mLogEntryLayout.setActivated(mSelectedPositions.contains(position));
+            mInteractionEntryLayout.setActivated(mSelectedPositions.contains(position));
 
-            mLogEntryLayout.setOnClickListener(new View.OnClickListener(){
+            mInteractionEntryLayout.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
                     if(mOnClickListener == null)
@@ -114,7 +114,7 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
                 }
             });
 
-            mLogEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            mInteractionEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     if (mOnClickListener == null)
