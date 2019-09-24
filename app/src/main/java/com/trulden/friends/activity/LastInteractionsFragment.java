@@ -137,7 +137,6 @@ public class LastInteractionsFragment extends Fragment {
             }
         });
 
-        // FIXME Is it enough, or should I do it for every tab?
         adapter.notifyDataSetChanged();
     }
 

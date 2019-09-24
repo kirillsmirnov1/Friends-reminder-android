@@ -370,7 +370,6 @@ public class EditInteractionActivity
         /**
          * @return true if there is something to save and all new friends are in database
          */
-        // TODO can we make it easier, by giving an array of friends and this new interaction to DAO directly?
         boolean canSaveNow(){
             return timeToSaveInteraction                // checked all friends
                 && mSaveHandler.checkFriendsList != null // there are some actual friends
