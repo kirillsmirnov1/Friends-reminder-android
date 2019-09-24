@@ -1,6 +1,7 @@
 package com.trulden.friends.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 
 import java.util.HashSet;
+import java.util.List;
 
 import static com.trulden.friends.util.Util.dateFormat;
 
@@ -82,7 +84,7 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
             // FIXME display type and friends of interaction some other way
             mType.setText(interactionTypeName);
             mDate.setText(dateFormat.format(interaction.getDate()));
-            mNames.setText(interaction.getFriendNames());
+            mNames.setText(generateNameString(interactionWithFriendIDs.friendIDs));
             mComment.setText(interaction.getComment());
 
 //            // Strange reaction on click when selected — cards with comment hide it
@@ -124,5 +126,15 @@ public class LogAdapter extends CustomRVAdapter<LogAdapter.ViewHolder, Interacti
             });
 
         }
+    }
+
+    private String generateNameString(List<Long> friendIDs) {
+        String[] names = new String[friendIDs.size()];
+
+        for(int i = 0; i < names.length; ++i){
+            names[i] = mFriendNames.get(friendIDs.get(i));
+        }
+
+        return TextUtils.join(", ", names);
     }
 }

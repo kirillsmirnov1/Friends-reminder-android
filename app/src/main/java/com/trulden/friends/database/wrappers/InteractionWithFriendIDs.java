@@ -3,8 +3,8 @@ package com.trulden.friends.database.wrappers;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Entity;
-import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class InteractionWithFriendIDs implements Entity {
     public Interaction interaction;
 
     @Relation(
-        parentColumn = "id", entityColumn = "id",
-        entity = Friend.class, projection = {"id"})
+        parentColumn = "id", entityColumn = "interactionId",
+        entity = BindFriendInteraction.class, projection = {"friendId"})
     public List<Long> friendIDs;
 }
