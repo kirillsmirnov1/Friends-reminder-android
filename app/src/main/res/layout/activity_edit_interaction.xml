@@ -97,7 +97,7 @@
                     android:inputType="textMultiLine|textCapSentences"
                     android:ems="10"
                     android:id="@+id/editComment"
-                    android:hint="@string/default_interaction_comment"
+                    android:hint="@string/hint_interaction_comment"
                     android:imeOptions="actionDone"
             />
         </TableRow>
