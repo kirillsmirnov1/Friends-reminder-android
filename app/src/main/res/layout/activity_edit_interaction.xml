@@ -29,7 +29,9 @@
                     android:text="@string/type_input_invitation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textType"/>
+                    android:id="@+id/textType"
+                    android:layout_gravity="center_vertical"
+                />
 
             <Spinner
                     android:id="@+id/interaction_type_spinner"
