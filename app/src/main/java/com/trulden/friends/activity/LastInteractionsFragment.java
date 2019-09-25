@@ -1,6 +1,5 @@
 package com.trulden.friends.activity;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +36,7 @@ public class LastInteractionsFragment extends Fragment {
     private List<InteractionType> types = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
+    private TabLayout mTabLayout;
 
     LastInteractionsFragment(FriendsViewModel friendsViewModel) {
         mFriendsViewModel = friendsViewModel;
@@ -89,6 +89,7 @@ public class LastInteractionsFragment extends Fragment {
                         }
 
                         initTabsAndPageViewer(view);
+                        // TODO init in outer observer, set counters in inner
                     }
                 });
 
@@ -100,17 +101,17 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     private void initTabsAndPageViewer(View view) {
-        TabLayout tabLayout = view.findViewById(R.id.last_interactions_tab_layout);
-        tabLayout.removeAllTabs();
+        mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
+        mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
             TabCounterView tcv = new TabCounterView(getContext(),
                     type.getInteractionTypeName(), counterMap.get(type.getInteractionTypeName()));
 
-            tabLayout.addTab(tabLayout.newTab().setCustomView(tcv));
+            mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
         }
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
         final LastInteractionsPagerAdapter adapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
@@ -118,9 +119,9 @@ public class LastInteractionsFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new
-                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
