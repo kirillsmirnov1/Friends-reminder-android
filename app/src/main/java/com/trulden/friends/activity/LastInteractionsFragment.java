@@ -144,4 +144,11 @@ public class LastInteractionsFragment extends Fragment {
     int getSelectedTabPos(){
         return mTabLayout.getSelectedTabPosition();
     }
+
+    void selectTab(int pos){
+        if(mTabLayout != null && pos < mTabLayout.getTabCount()){
+            mTabLayout.getTabAt(pos).select();
+        }
+    }
+
 }
