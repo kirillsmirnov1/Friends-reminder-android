@@ -70,6 +70,7 @@ public class MainActivity
     private FriendsViewModel mFriendsViewModel;
 
     private CustomBroadcastReceiver mReceiver;
+    private Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -299,21 +300,21 @@ public class MainActivity
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
-        Fragment fragment = null;
+        mFragment = null;
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case INTERACTIONS_FRAGMENT:
-                fragment = new InteractionsFragment(mFriendsViewModel);
+                mFragment = new InteractionsFragment(mFriendsViewModel);
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                fragment = new LastInteractionsFragment(mFriendsViewModel);
+                mFragment = new LastInteractionsFragment(mFriendsViewModel);
                 break;
             case FRIENDS_FRAGMENT:
-                fragment = new FriendsFragment(mFriendsViewModel);
+                mFragment = new FriendsFragment(mFriendsViewModel);
                 break;
         }
         setToolbarTitle();
-        return loadFragment(fragment);
+        return loadFragment(mFragment);
     }
 
     public void setToolbarTitle(){
