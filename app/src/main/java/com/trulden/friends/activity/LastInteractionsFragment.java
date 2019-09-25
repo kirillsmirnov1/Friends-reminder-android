@@ -67,6 +67,8 @@ public class LastInteractionsFragment extends Fragment {
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
                 }
 
+                initTabsAndPageViewer(view);
+
                 mFriendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
                         .observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
                     @Override
@@ -89,8 +91,13 @@ public class LastInteractionsFragment extends Fragment {
                             }
                         }
 
-                        initTabsAndPageViewer(view);
-                        // TODO init in outer observer, set counters in inner
+                        for(int i = 0; i < types.size(); ++i){
+                            ((TabCounterView)mTabLayout.getTabAt(i).getCustomView())
+                                    .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
+                        }
+
+                        mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
+                        mPagerAdapter.notifyDataSetChanged();
                     }
                 });
 
@@ -107,7 +114,7 @@ public class LastInteractionsFragment extends Fragment {
 
         for(InteractionType type : types){
             TabCounterView tcv = new TabCounterView(getContext(),
-                    type.getInteractionTypeName(), counterMap.get(type.getInteractionTypeName()));
+                    type.getInteractionTypeName(), 0);
 
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
         }
@@ -138,8 +145,6 @@ public class LastInteractionsFragment extends Fragment {
 
             }
         });
-
-        adapter.notifyDataSetChanged();
     }
 
     int getSelectedTabPos(){
