@@ -193,6 +193,9 @@ public class MainActivity
     }
 
     public void addInteraction(View view) {
+
+        saveSelectedLastInteractionTab();
+
         Intent intent = new Intent(this, EditInteractionActivity.class);
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         mFabMenu.collapse();
