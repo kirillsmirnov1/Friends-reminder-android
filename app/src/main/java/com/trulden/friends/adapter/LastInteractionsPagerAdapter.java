@@ -34,4 +34,8 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return types.size();
     }
+
+    public void setLastInteractionsMap(HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap) {
+        this.lastInteractionsMap = lastInteractionsMap;
+    }
 }
