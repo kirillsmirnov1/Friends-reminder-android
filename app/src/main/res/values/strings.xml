@@ -78,5 +78,6 @@
     <string name="friends_deleted">Friends deleted</string>
     <string name="type_updated">Type updated</string>
     <string name="horizontal_divider_dot" translatable="false">\u0020•\u0020</string>
+    <string name="shared_pref_opened_LI_tab" translatable="false">Opened LI tab</string>
 
 </resources>
