@@ -7,7 +7,7 @@
     <string name="comment_input_invitation">Комментарий:</string>
     <string name="date_input_invitation">Дата:</string>
     <string name="hint_enter_date">Введи дату</string>
-    <string name="default_friends">Введи имена друзей</string>
+    <string name="hint_enter_friends">Введи имена друзей</string>
     <string name="hint_interaction_comment">Опиши взаимодействие</string>
     <string name="delete_selection">Удалить выбранное</string>
     <string name="edit_selection">Изменить выбранное</string>

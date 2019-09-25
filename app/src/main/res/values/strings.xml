@@ -8,7 +8,7 @@
     <string name="date_input_invitation">Date:</string>
     <string name="hint_enter_date">Enter date</string>
     <string name="friends_input_invitation">Friends:</string>
-    <string name="default_friends">Enter friend names</string>
+    <string name="hint_enter_friends">Enter friend names</string>
     <string name="comment_input_invitation">Comment:</string>
     <string name="hint_interaction_comment">Describe interaction</string>
     <string name="last_interactions">Last Interactions</string>
