@@ -107,12 +107,15 @@ public abstract class Util {
     }
 
     /**
-     * Calculates how many 24h-days passed since that interaction
+     * Calculates how many days passed since that interaction
      * @return number of days
      */
     public static int daysPassed(LastInteraction interaction){
-        long timePassed = Calendar.getInstance().getTimeInMillis() - interaction.getDate();
-        return (int) ( timePassed / MILLISECONDS_IN_DAYS );
+
+        Calendar dateOfLastInteraction = Calendar.getInstance();
+        dateOfLastInteraction.setTimeInMillis(interaction.getDate());
+
+        return calendarDaysBetween(dateOfLastInteraction, Calendar.getInstance());
     }
 
     private static int calendarDaysBetween(Calendar day1, Calendar day2){
