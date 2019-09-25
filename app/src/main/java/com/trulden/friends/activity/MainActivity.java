@@ -184,6 +184,9 @@ public class MainActivity
     }
 
     public void addFriend(View view) {
+
+        saveSelectedLastInteractionTab();
+
         Intent intent = new Intent(this, EditFriendActivity.class);
         startActivityForResult(intent, NEW_FRIEND_REQUEST);
         mFabMenu.collapse();
