@@ -6,9 +6,9 @@
     <string name="add_interaction">Добавить взаимодействие</string>
     <string name="comment_input_invitation">Комментарий:</string>
     <string name="date_input_invitation">Дата:</string>
-    <string name="default_date">Введи дату</string>
-    <string name="default_friends">Введи имена друзей</string>
-    <string name="default_interaction_comment">Опиши взаимодействие</string>
+    <string name="hint_enter_date">Введи дату</string>
+    <string name="hint_enter_friends">Введи имена друзей</string>
+    <string name="hint_interaction_comment">Опиши взаимодействие</string>
     <string name="delete_selection">Удалить выбранное</string>
     <string name="edit_selection">Изменить выбранное</string>
     <string name="export_database">Экспорт базы данных</string>
