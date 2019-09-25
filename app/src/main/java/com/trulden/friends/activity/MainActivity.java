@@ -207,6 +207,9 @@ public class MainActivity
 
         retrieveLastInteractionTab();
 
+        // Always check resultingIntent for null.
+        // When result is not ok, intent might be null
+
         switch (requestCode) {
 
             case NEW_INTERACTION_REQUEST: {
