@@ -141,4 +141,7 @@ public class LastInteractionsFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    int getSelectedTabPos(){
+        return mTabLayout.getSelectedTabPosition();
+    }
 }
