@@ -227,9 +227,16 @@ public class EditInteractionActivity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.icon_save) {
-            mSaveHandler.startCheckingFriends();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.icon_save: {
+                mSaveHandler.startCheckingFriends();
+                return true;
+            }
+            case android.R.id.home: {
+                setResult(RESULT_CANCELED, null);
+                finish();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
