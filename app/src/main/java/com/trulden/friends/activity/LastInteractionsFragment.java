@@ -37,6 +37,7 @@ public class LastInteractionsFragment extends Fragment {
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
     private TabLayout mTabLayout;
+    private LastInteractionsPagerAdapter mPagerAdapter;
 
     LastInteractionsFragment(FriendsViewModel friendsViewModel) {
         mFriendsViewModel = friendsViewModel;
@@ -114,9 +115,9 @@ public class LastInteractionsFragment extends Fragment {
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
-        final LastInteractionsPagerAdapter adapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
+        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
 
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(mPagerAdapter);
 
         viewPager.addOnPageChangeListener(new
                 TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
