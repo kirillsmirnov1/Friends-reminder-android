@@ -49,6 +49,7 @@ import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
 import static com.trulden.friends.util.Util.NEW_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
+import static com.trulden.friends.util.Util.NO_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.makeSnackbar;
@@ -154,8 +155,11 @@ public class MainActivity
             }
 
             case R.id.manage_interaction_types: {
+
+                saveSelectedLastInteractionTab();
+
                 Intent intent = new Intent(this, InteractionTypesActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, NO_REQUEST);
             }
 
             default:
