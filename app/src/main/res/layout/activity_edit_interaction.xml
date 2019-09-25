@@ -75,7 +75,7 @@
                 android:completionThreshold="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName|textCapWords"
+                android:inputType="textPersonName|textCapWords|textMultiLine"
                 android:hint="@string/default_friends"
                 android:ems="10"
                 />
