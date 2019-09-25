@@ -205,6 +205,8 @@ public class MainActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent resultingIntent) {
         super.onActivityResult(requestCode, resultCode, resultingIntent);
 
+        retrieveLastInteractionTab();
+
         switch (requestCode) {
 
             case NEW_INTERACTION_REQUEST: {
