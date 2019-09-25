@@ -223,12 +223,12 @@ public class MainActivity
             }
 
             case UPDATE_INTERACTION_REQUEST: {
+                if (resultCode == RESULT_OK && resultingIntent != null) {
+                    HashSet<Long> friendsIds = (HashSet<Long>)
+                            resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
-                HashSet<Long> friendsIds = (HashSet<Long>)
-                        resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
-
-                mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
-
+                    mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
+                }
                 break;
             }
 
