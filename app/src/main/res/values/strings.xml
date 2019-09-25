@@ -6,7 +6,7 @@
     <string name="add_interaction">Add Interaction</string>
     <string name="type_input_invitation">Type:</string>
     <string name="date_input_invitation">Date:</string>
-    <string name="default_date">Enter date</string>
+    <string name="hint_enter_date">Enter date</string>
     <string name="friends_input_invitation">Friends:</string>
     <string name="default_friends">Enter friend names</string>
     <string name="comment_input_invitation">Comment:</string>

@@ -54,7 +54,7 @@
                     android:inputType="date"
                     android:ems="10"
                     android:id="@+id/editDate"
-                    android:hint="@string/default_date"
+                    android:hint="@string/hint_enter_date"
                     android:onClick="pickADate"
                     />
         </TableRow>
