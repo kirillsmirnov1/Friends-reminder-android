@@ -399,15 +399,4 @@ public class MainActivity
             Log.d(LOG_TAG, "Tried to save selected LI tab, but mFragment wasn't correct instance");
         }
     }
-
-    private void retrieveLastInteractionTab(){
-        int savedPos = getPreferences(Context.MODE_PRIVATE)
-                .getInt(getString(R.string.shared_pref_opened_LI_tab), -1);
-
-        if(mFragment instanceof LastInteractionsFragment){
-            ((LastInteractionsFragment) mFragment ).selectTab(savedPos);
-        } else {
-            Log.d(LOG_TAG, "Tried to set selected tab, but mFragment wasn't correct instance");
-        }
-    }
 }
