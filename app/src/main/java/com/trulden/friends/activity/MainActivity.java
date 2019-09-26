@@ -365,12 +365,18 @@ public class MainActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-            case R.id.bottom_interactions:
+
+            case R.id.bottom_interactions: {
+                saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
-            case R.id.bottom_last_interactions:
+            }
+            case R.id.bottom_last_interactions: {
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
-            case R.id.bottom_friends:
+            }
+            case R.id.bottom_friends: {
+                saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
+            }
         }
 
         return false;
