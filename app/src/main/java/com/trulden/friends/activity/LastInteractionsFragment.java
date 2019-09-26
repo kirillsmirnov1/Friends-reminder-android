@@ -109,6 +109,13 @@ public class LastInteractionsFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        retrieveSelectedTab();
+    }
+
     private void initTabsAndPageViewer(View view) {
         mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
         mTabLayout.removeAllTabs();
