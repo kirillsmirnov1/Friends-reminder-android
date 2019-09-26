@@ -58,5 +58,6 @@ public class SelectionCallback implements ActionMode.Callback {
     public void onDestroyActionMode(ActionMode mode) {
         mAdapter.clearSelections();
         mActivity.finishActionMode();
+        mode.finish();
     }
 }
