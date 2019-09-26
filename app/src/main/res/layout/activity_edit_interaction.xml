@@ -29,7 +29,9 @@
                     android:text="@string/type_input_invitation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textType"/>
+                    android:id="@+id/textType"
+                    android:layout_gravity="center_vertical"
+                />
 
             <Spinner
                     android:id="@+id/interaction_type_spinner"
@@ -52,7 +54,7 @@
                     android:inputType="date"
                     android:ems="10"
                     android:id="@+id/editDate"
-                    android:hint="@string/default_date"
+                    android:hint="@string/hint_enter_date"
                     android:onClick="pickADate"
                     />
         </TableRow>
@@ -73,8 +75,8 @@
                 android:completionThreshold="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName|textCapWords"
-                android:hint="@string/default_friends"
+                android:inputType="textPersonName|textCapWords|textMultiLine"
+                android:hint="@string/hint_enter_friends"
                 android:ems="10"
                 />
         </TableRow>
@@ -95,7 +97,7 @@
                     android:inputType="textMultiLine|textCapSentences"
                     android:ems="10"
                     android:id="@+id/editComment"
-                    android:hint="@string/default_interaction_comment"
+                    android:hint="@string/hint_interaction_comment"
                     android:imeOptions="actionDone"
             />
         </TableRow>

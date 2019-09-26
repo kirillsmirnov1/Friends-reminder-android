@@ -67,7 +67,6 @@ public class InteractionType implements Entity {
         return frequency;
     }
 
-    // TODO check if value is correct (but in some other place) maybe throw an error
     public void setFrequency(int frequency) {
         this.frequency = frequency;
     }

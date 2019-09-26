@@ -3,11 +3,11 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".activity.LogFragment"
+             tools:context=".activity.InteractionsFragment"
         >
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/log_recyclerview"
+            android:id="@+id/interactions_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

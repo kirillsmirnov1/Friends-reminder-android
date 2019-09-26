@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteraction;
 
 import static com.trulden.friends.util.Util.daysPassed;
 
@@ -58,12 +58,14 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
             mName.setText(lastInteraction.getFriend());
 
-            String dateString = daysPassed(lastInteraction) + mContext.getString(R.string.days_ago);
+            int daysPassed = daysPassed(lastInteraction);
+
+            String dateString = daysPassed + mContext.getString(R.string.days_ago);
 
             mTime.setText(dateString);
 
             // Grey out LI for which time have not yet come
-            if(!lastInteraction.itsTime()) {
+            if(daysPassed < lastInteraction.getInteractionType().getFrequency()) {
                 layout.setBackground(ContextCompat
                         .getDrawable(mContext, R.drawable.item_backgroung_grey));
             }

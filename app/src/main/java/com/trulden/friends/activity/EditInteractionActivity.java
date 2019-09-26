@@ -186,23 +186,11 @@ public class EditInteractionActivity
     }
 
     /**
-     * Check if date is in the past and set it if it is so
+     * Set the date
      */
-    public void processDatePickerResult(int year, int month, int date){
-        // TODO check in dialog, don't close if date ain't correct
-        mPickedDate = Calendar.getInstance();
-
-        mPickedDate.set(year, month-1, date);
-
-        Calendar tomorrow = Calendar.getInstance();
-        tomorrow.add(Calendar.DATE, 1);
-
-        if(mPickedDate.before(tomorrow)) {
-            mDateText.setText(dateFormat.format(mPickedDate.getTime()));
-        } else {
-            makeToast(this, getString(R.string.set_date_future_warning));
-            mPickedDate = null;
-        }
+    public void processDatePickerResult(Calendar pickedDate){
+        mPickedDate = pickedDate;
+        mDateText.setText(dateFormat.format(mPickedDate.getTime()));
     }
 
     @Override
@@ -239,9 +227,16 @@ public class EditInteractionActivity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.icon_save) {
-            mSaveHandler.startCheckingFriends();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.icon_save: {
+                mSaveHandler.startCheckingFriends();
+                return true;
+            }
+            case android.R.id.home: {
+                setResult(RESULT_CANCELED, null);
+                finish();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -382,7 +377,6 @@ public class EditInteractionActivity
         /**
          * @return true if there is something to save and all new friends are in database
          */
-        // TODO can we make it easier, by giving an array of friends and this new interaction to DAO directly?
         boolean canSaveNow(){
             return timeToSaveInteraction                // checked all friends
                 && mSaveHandler.checkFriendsList != null // there are some actual friends

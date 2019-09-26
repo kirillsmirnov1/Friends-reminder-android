@@ -20,6 +20,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.FriendsViewModel;
@@ -41,12 +42,12 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
 import static com.trulden.friends.util.Util.NEW_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
+import static com.trulden.friends.util.Util.NO_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.makeSnackbar;
@@ -54,7 +55,7 @@ import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.wipeDatabaseFiles;
 
 /**
- * Holds {@link LogFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
+ * Holds {@link InteractionsFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
  * Handles some interactions with database: export and import, queries.
  */
 public class MainActivity
@@ -71,6 +72,7 @@ public class MainActivity
     private FriendsViewModel mFriendsViewModel;
 
     private CustomBroadcastReceiver mReceiver;
+    private Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +96,8 @@ public class MainActivity
 
         if(savedInstanceState == null) {
             switch (mFragmentToLoad){
-                case LOG_FRAGMENT:
-                    findViewById(R.id.bottom_log).performClick();
+                case INTERACTIONS_FRAGMENT:
+                    findViewById(R.id.bottom_interactions).performClick();
                     break;
                 case LAST_INTERACTIONS_FRAGMENT:
                     findViewById(R.id.bottom_last_interactions).performClick();
@@ -151,8 +153,11 @@ public class MainActivity
             }
 
             case R.id.manage_interaction_types: {
+
+                saveSelectedLastInteractionTab();
+
                 Intent intent = new Intent(this, InteractionTypesActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, NO_REQUEST);
             }
 
             default:
@@ -181,12 +186,26 @@ public class MainActivity
     }
 
     public void addFriend(View view) {
+
+        saveSelectedLastInteractionTab();
+
+        if(mFragment instanceof ActivityWithSelection){
+            ((ActivityWithSelection) mFragment ).finishActionMode();
+        }
+
         Intent intent = new Intent(this, EditFriendActivity.class);
         startActivityForResult(intent, NEW_FRIEND_REQUEST);
         mFabMenu.collapse();
     }
 
     public void addInteraction(View view) {
+
+        saveSelectedLastInteractionTab();
+
+        if(mFragment instanceof ActivityWithSelection){
+            ((ActivityWithSelection) mFragment ).finishActionMode();
+        }
+
         Intent intent = new Intent(this, EditInteractionActivity.class);
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         mFabMenu.collapse();
@@ -195,6 +214,13 @@ public class MainActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent resultingIntent) {
         super.onActivityResult(requestCode, resultCode, resultingIntent);
+
+        if(mFragment instanceof LastInteractionsFragment) {
+            ((LastInteractionsFragment) mFragment).retrieveSelectedTab();
+        }
+
+        // Always check resultingIntent for null.
+        // When result is not ok, intent might be null
 
         switch (requestCode) {
 
@@ -212,12 +238,12 @@ public class MainActivity
             }
 
             case UPDATE_INTERACTION_REQUEST: {
+                if (resultCode == RESULT_OK && resultingIntent != null) {
+                    HashSet<Long> friendsIds = (HashSet<Long>)
+                            resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
-                HashSet<Long> friendsIds = (HashSet<Long>)
-                        resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
-
-                mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
-
+                    mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
+                }
                 break;
             }
 
@@ -276,15 +302,14 @@ public class MainActivity
     private Interaction getInteractionFromIntent(Intent resultingIntent) {
 
         long id = resultingIntent.getLongExtra(EXTRA_INTERACTION_ID, -1);
-        String friendNames = resultingIntent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES);
         long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE_ID, -1);
         long date = resultingIntent.getLongExtra(EXTRA_INTERACTION_DATE, -1);
         String comment = resultingIntent.getStringExtra(EXTRA_INTERACTION_COMMENT);
 
         return
             id == -1
-                ? new Interaction(interactionTypeId, date, comment, friendNames)
-                : new Interaction(id, interactionTypeId, date, comment, friendNames);
+                ? new Interaction(interactionTypeId, date, comment)
+                : new Interaction(id, interactionTypeId, date, comment);
     }
 
     private void importDatabaseFromUri(Uri uri) {
@@ -301,26 +326,26 @@ public class MainActivity
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
-        Fragment fragment = null;
+        mFragment = null;
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
-            case LOG_FRAGMENT:
-                fragment = new LogFragment(mFriendsViewModel);
+            case INTERACTIONS_FRAGMENT:
+                mFragment = new InteractionsFragment();
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                fragment = new LastInteractionsFragment(mFriendsViewModel);
+                mFragment = new LastInteractionsFragment();
                 break;
             case FRIENDS_FRAGMENT:
-                fragment = new FriendsFragment(mFriendsViewModel);
+                mFragment = new FriendsFragment();
                 break;
         }
         setToolbarTitle();
-        return loadFragment(fragment);
+        return loadFragment(mFragment);
     }
 
     public void setToolbarTitle(){
         switch (mFragmentToLoad){
-            case LOG_FRAGMENT:
+            case INTERACTIONS_FRAGMENT:
                 mToolbar.setTitle(getString(R.string.log));
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
@@ -346,24 +371,36 @@ public class MainActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-            case R.id.bottom_log:
-                return loadFragment(FragmentToLoad.LOG_FRAGMENT);
-            case R.id.bottom_last_interactions:
+
+            case R.id.bottom_interactions: {
+                saveSelectedLastInteractionTab();
+                return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
+            }
+            case R.id.bottom_last_interactions: {
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
-            case R.id.bottom_friends:
+            }
+            case R.id.bottom_friends: {
+                saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
+            }
         }
 
         return false;
     }
 
     public enum FragmentToLoad{
-        LOG_FRAGMENT,
+        INTERACTIONS_FRAGMENT,
         LAST_INTERACTIONS_FRAGMENT,
         FRIENDS_FRAGMENT
     }
 
     public static FragmentToLoad getFragmentToLoad() {
         return mFragmentToLoad;
+    }
+
+    private void saveSelectedLastInteractionTab(){
+        if(mFragment instanceof LastInteractionsFragment){
+            ((LastInteractionsFragment)mFragment).saveSelectedTab();
+        }
     }
 }

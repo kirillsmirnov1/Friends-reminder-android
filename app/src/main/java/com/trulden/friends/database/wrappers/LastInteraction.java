@@ -1,6 +1,9 @@
-package com.trulden.friends.database.entity;
+package com.trulden.friends.database.wrappers;
 
 import androidx.room.Relation;
+
+import com.trulden.friends.database.entity.Entity;
+import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.List;
 
@@ -11,8 +14,6 @@ import static com.trulden.friends.util.Util.daysPassed;
  * Not stored in database.
  */
 public class LastInteraction implements Entity {
-
-    // TODO store in database
 
     private int typeId;
 
@@ -71,8 +72,6 @@ public class LastInteraction implements Entity {
     public void setInteractionTypes(List<InteractionType> interactionTypes) {
         this.interactionTypes = interactionTypes;
     }
-
-    // FIXME those methods are required by room, but I couldn't find a way to suppress warnings for them
 
     public List<InteractionType> getInteractionTypes() {
         return interactionTypes;

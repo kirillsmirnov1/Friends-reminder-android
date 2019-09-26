@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteraction;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -24,8 +24,6 @@ public abstract class Util {
 
     private static final String LOG_TAG = Util.class.getSimpleName();
 
-    private static final int MILLISECONDS_IN_DAYS = 1000 * 60 * 60 * 24;
-
     public static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
 
     // Can't access db version from Room in runtime, but want to save backup with version in name
@@ -36,7 +34,10 @@ public abstract class Util {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /** Version of database used in app */
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 6;
+
+    // Use when need to get onActivityResult() call, but don't need any actual data
+    public static final int NO_REQUEST                 = 0;
 
     public static final int NEW_INTERACTION_REQUEST    = 1;
     public static final int NEW_FRIEND_REQUEST         = 2;
@@ -107,11 +108,43 @@ public abstract class Util {
     }
 
     /**
-     * Calculates how many 24h-days passed since that interaction // TODO make them days, not 24h-days
+     * Calculates how many days passed since that interaction
      * @return number of days
      */
     public static int daysPassed(LastInteraction interaction){
-        long timePassed = Calendar.getInstance().getTimeInMillis() - interaction.getDate();
-        return (int) ( timePassed / MILLISECONDS_IN_DAYS );
+
+        Calendar dateOfLastInteraction = Calendar.getInstance();
+        dateOfLastInteraction.setTimeInMillis(interaction.getDate());
+
+        return calendarDaysBetween(dateOfLastInteraction, Calendar.getInstance());
+    }
+
+    private static int calendarDaysBetween(Calendar day1, Calendar day2){
+        // Taken from here https://stackoverflow.com/a/28865648/11845909
+
+        Calendar dayOne = (Calendar) day1.clone(),
+                 dayTwo = (Calendar) day2.clone();
+
+        if (dayOne.get(Calendar.YEAR) == dayTwo.get(Calendar.YEAR)) {
+            return Math.abs(dayOne.get(Calendar.DAY_OF_YEAR) - dayTwo.get(Calendar.DAY_OF_YEAR));
+        } else {
+            if (dayTwo.get(Calendar.YEAR) > dayOne.get(Calendar.YEAR)) {
+                //swap them
+                Calendar temp = dayOne;
+                dayOne = dayTwo;
+                dayTwo = temp;
+            }
+            int extraDays = 0;
+
+            int dayOneOriginalYearDays = dayOne.get(Calendar.DAY_OF_YEAR);
+
+            while (dayOne.get(Calendar.YEAR) > dayTwo.get(Calendar.YEAR)) {
+                dayOne.add(Calendar.YEAR, -1);
+                // getActualMaximum() important for leap years
+                extraDays += dayOne.getActualMaximum(Calendar.DAY_OF_YEAR);
+            }
+
+            return extraDays - dayTwo.get(Calendar.DAY_OF_YEAR) + dayOneOriginalYearDays ;
+        }
     }
 }

@@ -37,20 +37,16 @@ public class Interaction implements Entity {
 
     private String comment;
 
-    private String friendNames;
-
     /**
      * Constructor for creating new Interaction
      * @param interactionTypeId id of type of interaction
      * @param date date of interaction in Unix epoch time
      * @param comment plain text notes about interaction
-     * @param friendNames plain text friend names. Should be divided by comma
      */
-    public Interaction(long interactionTypeId, long date, String comment, String friendNames) {
+    public Interaction(long interactionTypeId, long date, String comment) {
         this.interactionTypeId = interactionTypeId;
         this.date = date;
         this.comment = comment;
-        this.friendNames = friendNames;
     }
 
     /**
@@ -59,17 +55,13 @@ public class Interaction implements Entity {
      * @param interactionTypeId id of {@link InteractionType}
      * @param date date of interaction in Unix epoch time
      * @param comment plain text notes about interaction
-     * @param friendNames plain text friend names. Should be divided by comma.
-     *                    Should be used only for ease of demonstration.
-     *                    Access to real friends object should be handled through {@link BindFriendInteraction}.
      */
     @Ignore
-    public Interaction(long id, long interactionTypeId, long date, String comment, String friendNames) {
+    public Interaction(long id, long interactionTypeId, long date, String comment) {
         this.id = id;
         this.interactionTypeId = interactionTypeId;
         this.date = date;
         this.comment = comment;
-        this.friendNames = friendNames;
     }
 
     // -----------------------------------------
@@ -104,14 +96,5 @@ public class Interaction implements Entity {
 
     public String getComment() {
         return comment;
-    }
-
-    /**
-     * Those names should be used only for ease of demonstration.
-     * Access to real friends object should be handled through BindFriendInteraction.
-     * @return names of friends divided by comma
-     */
-    public String getFriendNames() {
-        return friendNames;
     }
 }

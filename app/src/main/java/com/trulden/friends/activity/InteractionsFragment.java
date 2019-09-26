@@ -14,17 +14,20 @@ import androidx.appcompat.view.ActionMode;
 import androidx.collection.LongSparseArray;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.ActivityWithSelection;
-import com.trulden.friends.adapter.LogAdapter;
+import com.trulden.friends.adapter.InteractionsAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.wrappers.FriendName;
+import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 
 import java.util.HashSet;
 import java.util.List;
@@ -40,12 +43,11 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Holds selectable {@link Interaction} entries.
  */
-public class LogFragment extends Fragment implements ActivityWithSelection {
-// TODO rename to InteractionFragment
+public class InteractionsFragment extends Fragment implements ActivityWithSelection {
     private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
-    private LogAdapter mInteractionsAdapter;
+    private InteractionsAdapter mInteractionsAdapter;
 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
@@ -53,33 +55,49 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
     private LongSparseArray<String> mTypes;
 
-    LogFragment(FriendsViewModel friendsViewModel) {
-        mFriendsViewModel = friendsViewModel;
+    public InteractionsFragment() {
+        // Fragments require public constructor with no args
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_log, container, false);
+        return inflater.inflate(R.layout.fragment_interactions, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+
         if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_INTERACTIONS_POSITIONS)){
             selectedInteractionsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.log_recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.interactions_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mInteractionsAdapter = new LogAdapter(getActivity(), selectedInteractionsPositions);
+        mInteractionsAdapter = new InteractionsAdapter(getActivity(), selectedInteractionsPositions);
 
         recyclerView.setAdapter(mInteractionsAdapter);
 
         //mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+
+        mFriendsViewModel.getFriendNames().observe(getViewLifecycleOwner(), new Observer<List<FriendName>>() {
+            @Override
+            public void onChanged(List<FriendName> friendNamesList) {
+                LongSparseArray<String> friendNamesLSA = new LongSparseArray<>();
+
+                for(FriendName friendName : friendNamesList){
+                    friendNamesLSA.put(friendName.id, friendName.name);
+                }
+
+                mInteractionsAdapter.setFriends(friendNamesLSA);
+                mInteractionsAdapter.notifyDataSetChanged();
+            }
+        });
 
         mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
@@ -94,24 +112,24 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
             }
         });
 
-        mFriendsViewModel.getAllInteractions().observe(getViewLifecycleOwner(), new Observer<List<Interaction>>() {
+        mFriendsViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), new Observer<List<InteractionWithFriendIDs>>() {
             @Override
-            public void onChanged(List<Interaction> interactions) {
-                mInteractionsAdapter.setEntries(interactions);
+            public void onChanged(List<InteractionWithFriendIDs> interactionWithFriendIDs) {
+                mInteractionsAdapter.setEntries(interactionWithFriendIDs);
                 mInteractionsAdapter.notifyDataSetChanged();
             }
         });
 
-        mInteractionsAdapter.setOnClickListener(new OnClickListener<Interaction>() {
+        mInteractionsAdapter.setOnClickListener(new OnClickListener<InteractionWithFriendIDs>() {
             @Override
-            public void onItemClick(View view, Interaction obj, int pos) {
+            public void onItemClick(View view, InteractionWithFriendIDs obj, int pos) {
                 if(mInteractionsAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 }
             }
 
             @Override
-            public void onItemLongClick(View view, Interaction obj, int pos) {
+            public void onItemLongClick(View view, InteractionWithFriendIDs obj, int pos) {
                 enableActionMode(pos);
             }
         });
@@ -160,27 +178,36 @@ public class LogFragment extends Fragment implements ActivityWithSelection {
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditInteractionActivity.class);
-        Interaction interaction = mInteractionsAdapter.getSelectedItems().get(0);
+        InteractionWithFriendIDs iwfids = mInteractionsAdapter.getSelectedItems().get(0);
+        Interaction interaction = iwfids.interaction;
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
         intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypes.get(interaction.getInteractionTypeId()));
         intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
         intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
-        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, interaction.getFriendNames());
+        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mInteractionsAdapter.generateNameString(iwfids.friendIDs));
 
         getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
     }
 
     @Override
     public void deleteSelection() {
-        for(Interaction interaction : mInteractionsAdapter.getSelectedItems()) {
-            mFriendsViewModel.delete(interaction);
+        for(InteractionWithFriendIDs interactionWithFriendIDs : mInteractionsAdapter.getSelectedItems()) {
+            mFriendsViewModel.delete(interactionWithFriendIDs.interaction);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
     }
 
     @Override
-    public void nullifyActionMode() {
-        mActionMode = null;
+    public void finishActionMode() {
+        mActionMode.finish();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(mActionMode != null && MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.INTERACTIONS_FRAGMENT) {
+            mActionMode.finish();
+        }
     }
 }

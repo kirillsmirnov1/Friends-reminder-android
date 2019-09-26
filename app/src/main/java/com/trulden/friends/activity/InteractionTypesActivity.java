@@ -106,9 +106,16 @@ public class InteractionTypesActivity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId() == R.id.add){
-            new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionTypeDialog");
-            return true;
+        switch (item.getItemId()) {
+            case R.id.add: {
+                new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionTypeDialog");
+                return true;
+            }
+            case android.R.id.home: {
+                setResult(RESULT_CANCELED, null);
+                finish();
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -144,8 +151,8 @@ public class InteractionTypesActivity
     }
 
     @Override
-    public void nullifyActionMode(){
-        mActionMode = null;
+    public void finishActionMode(){
+        mActionMode.finish();
     }
 
     @Override

@@ -9,7 +9,9 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.FriendName;
+import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
+import com.trulden.friends.database.wrappers.LastInteraction;
 
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +43,14 @@ class FriendsRepository {
         return mFriendsDao.getLastInteractions(/*currDate, Util.MILLISECONDS_IN_DAYS*/);
     }
 
+    LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendsIDs(){
+        return mFriendsDao.getInteractionsWithFriendIDs();
+    }
+
+    LiveData<List<FriendName>> getFriendNames(){
+        return mFriendsDao.getFriendNames();
+    }
+
     /**
      * Available tasks
      */
@@ -57,9 +67,6 @@ class FriendsRepository {
         UPDATE_INTERACTION,
         REMOVE_INTERACTION
     }
-
-    // FIXME horrifying amounts of boilerplate code
-    // It can be pushed in one big AsyncTask, I think
 
     // -----------------------------------------
     // Friend
@@ -106,7 +113,20 @@ class FriendsRepository {
                     break;
 
                 case REMOVE_FRIEND:
-                    mFriendsDao.delete(friends[0]);
+
+                    Friend friend = friends[0];
+
+                    // Check if there is some interactions with this friend only and delete them
+
+                    List<BindFriendInteraction> binds = mFriendsDao.getBindsOfFriend(friend.getId());
+
+                    for(BindFriendInteraction bind : binds){
+                        if(mFriendsDao.getNumberOfInteractionBinds(bind.getInteractionId()) < 2){
+                            mFriendsDao.deleteInteractionById(bind.getInteractionId());
+                        }
+                    }
+
+                    mFriendsDao.delete(friend);
                     break;
 
                 default:

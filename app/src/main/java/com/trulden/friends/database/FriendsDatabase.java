@@ -66,7 +66,9 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             FriendsDatabase.class, DATABASE_NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+                            .addMigrations(
+                                    MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
+                                    MIGRATION_5_6)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -94,7 +96,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                 mContext.get().getString(R.string.interaction_type_name_texting),
                 mContext.get().getString(R.string.interaction_type_name_call)
         };
-        int[]    defaultInteractionsFrequency = {30, 7, 30}; // TODO how often should you call your mother?
+        int[]    defaultInteractionsFrequency = {30, 7, 30};
 
         private final FriendsDao mDao;
 
@@ -175,6 +177,28 @@ public abstract class FriendsDatabase extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE INDEX index_Interaction_typeId ON interaction_table(interactionTypeId)");
             database.execSQL("CREATE INDEX index_bindFI_interId ON bind_friend_interaction_table(interactionId)");
+        }
+    };
+
+    private static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("DROP INDEX index_Interaction_typeId;");
+
+            database.execSQL("CREATE TABLE interaction_backup (" +
+                    "id INTEGER NOT NULL," +
+                    "interactionTypeId INTEGER NOT NULL," +
+                    "date INTEGER NOT NULL," +
+                    "comment TEXT," +
+                    "PRIMARY KEY(id)," +
+                    "FOREIGN KEY(interactionTypeId) REFERENCES interaction_type_table(id) ON DELETE CASCADE" +
+                    ")");
+            database.execSQL("INSERT INTO interaction_backup(id, interactionTypeId, date, comment) " +
+                    "SELECT id, interactionTypeId, date, comment FROM interaction_table;");
+            database.execSQL("DROP TABLE interaction_table;");
+            database.execSQL("ALTER TABLE interaction_backup RENAME TO interaction_table");
+
+            database.execSQL("CREATE INDEX index_Interaction_typeId ON interaction_table(interactionTypeId)");
         }
     };
 }

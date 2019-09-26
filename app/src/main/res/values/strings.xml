@@ -6,11 +6,11 @@
     <string name="add_interaction">Add Interaction</string>
     <string name="type_input_invitation">Type:</string>
     <string name="date_input_invitation">Date:</string>
-    <string name="default_date">Enter date</string>
+    <string name="hint_enter_date">Enter date</string>
     <string name="friends_input_invitation">Friends:</string>
-    <string name="default_friends">Enter friend names</string>
+    <string name="hint_enter_friends">Enter friend names</string>
     <string name="comment_input_invitation">Comment:</string>
-    <string name="default_interaction_comment">Write something about this interaction</string>
+    <string name="hint_interaction_comment">Describe interaction</string>
     <string name="last_interactions">Last Interactions</string>
     <string name="edit_selection">Edit selection</string>
     <string name="delete_selection">Delete selection</string>
@@ -78,5 +78,6 @@
     <string name="friends_deleted">Friends deleted</string>
     <string name="type_updated">Type updated</string>
     <string name="horizontal_divider_dot" translatable="false">\u0020•\u0020</string>
+    <string name="shared_pref_opened_LI_tab" translatable="false">Opened LI tab</string>
 
 </resources>

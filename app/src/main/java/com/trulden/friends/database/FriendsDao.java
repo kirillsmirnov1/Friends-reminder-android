@@ -12,7 +12,9 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.FriendName;
+import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
+import com.trulden.friends.database.wrappers.LastInteraction;
 
 import java.util.List;
 
@@ -31,6 +33,9 @@ public interface FriendsDao {
 
     @Query("SELECT * FROM friend_table ORDER BY name COLLATE NOCASE ASC")
     LiveData<List<Friend>> getAllFriends();
+
+    @Query("SELECT id, name FROM friend_table")
+    LiveData<List<FriendName>> getFriendNames();
 
     @Delete
     void delete(Friend friend);
@@ -71,11 +76,18 @@ public interface FriendsDao {
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     LiveData<List<Interaction>> getAllInteractions();
 
+    @Query("SELECT * FROM interaction_table ORDER BY date DESC")
+    @Transaction
+    LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendIDs();
+
     @Delete
     void delete(Interaction interaction);
 
     @Update
     void update(Interaction interaction);
+
+    @Query("DELETE FROM interaction_table WHERE id = :interactionId")
+    void deleteInteractionById(long interactionId);
 
     // -----------------------------------------
     // BindFriendInteraction
@@ -93,6 +105,12 @@ public interface FriendsDao {
      */
     @Query("DELETE FROM bind_friend_interaction_table WHERE interactionId = :interactionId;")
     void deleteBindingsByInteractionId(long interactionId);
+
+    @Query("SELECT * FROM bind_friend_interaction_table WHERE friendId = :id")
+    List<BindFriendInteraction> getBindsOfFriend(long id);
+
+    @Query("SELECT COUNT(interactionId) FROM bind_friend_interaction_table WHERE interactionId = :interactionId")
+    int getNumberOfInteractionBinds(long interactionId);
 
     // -----------------------------------------
     // LastInteraction

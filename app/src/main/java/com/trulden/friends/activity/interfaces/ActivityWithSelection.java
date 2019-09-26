@@ -1,7 +1,7 @@
 package com.trulden.friends.activity.interfaces;
 
 /**
- * Interface with edit/delete selection and nullifyActionMode methods
+ * Interface with edit/delete selection and finishActionMode methods
  */
 public interface ActivityWithSelection {
     /**
@@ -16,7 +16,7 @@ public interface ActivityWithSelection {
     void deleteSelection();
 
     /**
-     * Set actionMode = null
+     * Should call mActionMode.finish()
      */
-    void nullifyActionMode();
+    void finishActionMode();
 }
