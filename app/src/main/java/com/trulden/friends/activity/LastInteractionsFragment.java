@@ -161,6 +161,9 @@ public class LastInteractionsFragment extends Fragment {
         }
     }
 
+    /**
+     * Select tab opened before
+     */
     void retrieveSelectedTab(){
         int savedPos = getActivity().getPreferences(MODE_PRIVATE)
                 .getInt(getString(R.string.shared_pref_opened_LI_tab), -1);
@@ -172,6 +175,9 @@ public class LastInteractionsFragment extends Fragment {
         editor.apply();
     }
 
+    /**
+     * Save selected tab position so it can be reopened later
+     */
     void saveSelectedTab(){
         int tabPos = mTabLayout.getSelectedTabPosition();
 
