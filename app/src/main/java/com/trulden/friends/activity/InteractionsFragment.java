@@ -199,7 +199,7 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
     }
 
     @Override
-    public void nullifyActionMode() {
+    public void finishActionMode() {
         mActionMode.finish();
     }
 

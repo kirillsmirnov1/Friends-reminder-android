@@ -190,7 +190,7 @@ public class MainActivity
         saveSelectedLastInteractionTab();
 
         if(mFragment instanceof ActivityWithSelection){
-            ((ActivityWithSelection) mFragment ).nullifyActionMode();
+            ((ActivityWithSelection) mFragment ).finishActionMode();
         }
 
         Intent intent = new Intent(this, EditFriendActivity.class);
@@ -203,7 +203,7 @@ public class MainActivity
         saveSelectedLastInteractionTab();
 
         if(mFragment instanceof ActivityWithSelection){
-            ((ActivityWithSelection) mFragment ).nullifyActionMode();
+            ((ActivityWithSelection) mFragment ).finishActionMode();
         }
 
         Intent intent = new Intent(this, EditInteractionActivity.class);
