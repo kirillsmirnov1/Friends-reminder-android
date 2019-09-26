@@ -1,5 +1,6 @@
 package com.trulden.friends.adapter;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -33,5 +34,16 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return types.size();
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        // I am honestly have no idea why, but without this thing notifydatasethaschanged simply doesn't work
+        // Look up https://stackoverflow.com/a/36348078/11845909
+        return POSITION_NONE;
+    }
+
+    public void setLastInteractionsMap(HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap) {
+        this.lastInteractionsMap = lastInteractionsMap;
     }
 }

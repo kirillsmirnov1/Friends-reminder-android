@@ -1,6 +1,6 @@
 package com.trulden.friends.activity;
 
-
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Holds {@link LastInteractionsTabFragment}.
  */
@@ -37,6 +39,8 @@ public class LastInteractionsFragment extends Fragment {
     private List<InteractionType> types = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
+    private TabLayout mTabLayout;
+    private LastInteractionsPagerAdapter mPagerAdapter;
 
     LastInteractionsFragment(FriendsViewModel friendsViewModel) {
         mFriendsViewModel = friendsViewModel;
@@ -66,6 +70,8 @@ public class LastInteractionsFragment extends Fragment {
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
                 }
 
+                initTabsAndPageViewer(view);
+
                 mFriendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
                         .observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
                     @Override
@@ -88,39 +94,50 @@ public class LastInteractionsFragment extends Fragment {
                             }
                         }
 
-                        initTabsAndPageViewer(view);
+                        for(int i = 0; i < types.size(); ++i){
+                            ((TabCounterView)mTabLayout.getTabAt(i).getCustomView())
+                                    .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
+                        }
+
+                        mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
+                        mPagerAdapter.notifyDataSetChanged();
                     }
                 });
 
 
             }
         });
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        retrieveSelectedTab();
     }
 
     private void initTabsAndPageViewer(View view) {
-        TabLayout tabLayout = view.findViewById(R.id.last_interactions_tab_layout);
-        tabLayout.removeAllTabs();
+        mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
+        mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
             TabCounterView tcv = new TabCounterView(getContext(),
-                    type.getInteractionTypeName(), counterMap.get(type.getInteractionTypeName()));
+                    type.getInteractionTypeName(), 0);
 
-            tabLayout.addTab(tabLayout.newTab().setCustomView(tcv));
+            mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
         }
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
-        final LastInteractionsPagerAdapter adapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
+        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
 
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(mPagerAdapter);
 
         viewPager.addOnPageChangeListener(new
-                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -136,8 +153,38 @@ public class LastInteractionsFragment extends Fragment {
 
             }
         });
+    }
 
-        adapter.notifyDataSetChanged();
+    private void selectTab(int pos){
+        if(mTabLayout != null && pos < mTabLayout.getTabCount() && pos != -1){
+            mTabLayout.getTabAt(pos).select();
+        }
+    }
+
+    /**
+     * Select tab opened before
+     */
+    void retrieveSelectedTab(){
+        int savedPos = getActivity().getPreferences(MODE_PRIVATE)
+                .getInt(getString(R.string.shared_pref_opened_LI_tab), -1);
+
+        selectTab(savedPos);
+
+        SharedPreferences.Editor editor = getActivity().getPreferences(MODE_PRIVATE).edit();
+        editor.remove(getString(R.string.shared_pref_opened_LI_tab));
+        editor.apply();
+    }
+
+    /**
+     * Save selected tab position so it can be reopened later
+     */
+    void saveSelectedTab(){
+        int tabPos = mTabLayout.getSelectedTabPosition();
+
+        SharedPreferences preferences = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(getString(R.string.shared_pref_opened_LI_tab), tabPos);
+        editor.apply();
     }
 
 }

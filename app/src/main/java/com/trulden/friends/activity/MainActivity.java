@@ -46,6 +46,7 @@ import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
 import static com.trulden.friends.util.Util.NEW_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
+import static com.trulden.friends.util.Util.NO_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.makeSnackbar;
@@ -70,6 +71,7 @@ public class MainActivity
     private FriendsViewModel mFriendsViewModel;
 
     private CustomBroadcastReceiver mReceiver;
+    private Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,8 +152,11 @@ public class MainActivity
             }
 
             case R.id.manage_interaction_types: {
+
+                saveSelectedLastInteractionTab();
+
                 Intent intent = new Intent(this, InteractionTypesActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, NO_REQUEST);
             }
 
             default:
@@ -180,12 +185,18 @@ public class MainActivity
     }
 
     public void addFriend(View view) {
+
+        saveSelectedLastInteractionTab();
+
         Intent intent = new Intent(this, EditFriendActivity.class);
         startActivityForResult(intent, NEW_FRIEND_REQUEST);
         mFabMenu.collapse();
     }
 
     public void addInteraction(View view) {
+
+        saveSelectedLastInteractionTab();
+
         Intent intent = new Intent(this, EditInteractionActivity.class);
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         mFabMenu.collapse();
@@ -194,6 +205,13 @@ public class MainActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent resultingIntent) {
         super.onActivityResult(requestCode, resultCode, resultingIntent);
+
+        if(mFragment instanceof LastInteractionsFragment) {
+            ((LastInteractionsFragment) mFragment).retrieveSelectedTab();
+        }
+
+        // Always check resultingIntent for null.
+        // When result is not ok, intent might be null
 
         switch (requestCode) {
 
@@ -211,12 +229,12 @@ public class MainActivity
             }
 
             case UPDATE_INTERACTION_REQUEST: {
+                if (resultCode == RESULT_OK && resultingIntent != null) {
+                    HashSet<Long> friendsIds = (HashSet<Long>)
+                            resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
-                HashSet<Long> friendsIds = (HashSet<Long>)
-                        resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
-
-                mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
-
+                    mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
+                }
                 break;
             }
 
@@ -299,21 +317,21 @@ public class MainActivity
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){
-        Fragment fragment = null;
+        mFragment = null;
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case INTERACTIONS_FRAGMENT:
-                fragment = new InteractionsFragment(mFriendsViewModel);
+                mFragment = new InteractionsFragment(mFriendsViewModel);
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                fragment = new LastInteractionsFragment(mFriendsViewModel);
+                mFragment = new LastInteractionsFragment(mFriendsViewModel);
                 break;
             case FRIENDS_FRAGMENT:
-                fragment = new FriendsFragment(mFriendsViewModel);
+                mFragment = new FriendsFragment(mFriendsViewModel);
                 break;
         }
         setToolbarTitle();
-        return loadFragment(fragment);
+        return loadFragment(mFragment);
     }
 
     public void setToolbarTitle(){
@@ -344,12 +362,18 @@ public class MainActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-            case R.id.bottom_interactions:
+
+            case R.id.bottom_interactions: {
+                saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
-            case R.id.bottom_last_interactions:
+            }
+            case R.id.bottom_last_interactions: {
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
-            case R.id.bottom_friends:
+            }
+            case R.id.bottom_friends: {
+                saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
+            }
         }
 
         return false;
@@ -363,5 +387,11 @@ public class MainActivity
 
     public static FragmentToLoad getFragmentToLoad() {
         return mFragmentToLoad;
+    }
+
+    private void saveSelectedLastInteractionTab(){
+        if(mFragment instanceof LastInteractionsFragment){
+            ((LastInteractionsFragment)mFragment).saveSelectedTab();
+        }
     }
 }
