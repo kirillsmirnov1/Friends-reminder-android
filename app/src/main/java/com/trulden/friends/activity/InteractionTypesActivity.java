@@ -152,7 +152,7 @@ public class InteractionTypesActivity
 
     @Override
     public void nullifyActionMode(){
-        mActionMode = null;
+        mActionMode.finish();
     }
 
     @Override
