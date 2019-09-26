@@ -1,12 +1,9 @@
 package com.trulden.friends.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -394,15 +391,7 @@ public class MainActivity
 
     private void saveSelectedLastInteractionTab(){
         if(mFragment instanceof LastInteractionsFragment){
-
-            int tabPos = ((LastInteractionsFragment) mFragment ).getSelectedTabPos();
-
-            SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(getString(R.string.shared_pref_opened_LI_tab), tabPos);
-            editor.apply();
-        } else {
-            Log.d(LOG_TAG, "Tried to save selected LI tab, but mFragment wasn't correct instance");
+            ((LastInteractionsFragment)mFragment).saveSelectedTab();
         }
     }
 }
