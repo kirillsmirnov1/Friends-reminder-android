@@ -104,8 +104,6 @@ public class LastInteractionsFragment extends Fragment {
 
             }
         });
-
-
     }
 
     private void initTabsAndPageViewer(View view) {
@@ -152,7 +150,7 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     void selectTab(int pos){
-        if(mTabLayout != null && pos < mTabLayout.getTabCount()){
+        if(mTabLayout != null && pos < mTabLayout.getTabCount() && pos != -1){
             mTabLayout.getTabAt(pos).select();
         }
     }
