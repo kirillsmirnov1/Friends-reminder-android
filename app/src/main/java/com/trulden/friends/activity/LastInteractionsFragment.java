@@ -155,10 +155,6 @@ public class LastInteractionsFragment extends Fragment {
         });
     }
 
-    int getSelectedTabPos(){
-        return mTabLayout.getSelectedTabPosition();
-    }
-
     void selectTab(int pos){
         if(mTabLayout != null && pos < mTabLayout.getTabCount() && pos != -1){
             mTabLayout.getTabAt(pos).select();
@@ -177,7 +173,7 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     void saveSelectedTab(){
-        int tabPos = getSelectedTabPos();
+        int tabPos = mTabLayout.getSelectedTabPosition();
 
         SharedPreferences preferences = getActivity().getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
