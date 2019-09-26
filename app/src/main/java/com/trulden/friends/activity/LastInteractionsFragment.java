@@ -1,5 +1,6 @@
 package com.trulden.friends.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Holds {@link LastInteractionsTabFragment}.
@@ -153,6 +156,17 @@ public class LastInteractionsFragment extends Fragment {
         if(mTabLayout != null && pos < mTabLayout.getTabCount() && pos != -1){
             mTabLayout.getTabAt(pos).select();
         }
+    }
+
+    void retrieveSelectedTab(){
+        int savedPos = getActivity().getPreferences(MODE_PRIVATE)
+                .getInt(getString(R.string.shared_pref_opened_LI_tab), -1);
+
+        selectTab(savedPos);
+
+        SharedPreferences.Editor editor = getActivity().getPreferences(MODE_PRIVATE).edit();
+        editor.remove(getString(R.string.shared_pref_opened_LI_tab));
+        editor.apply();
     }
 
 }
