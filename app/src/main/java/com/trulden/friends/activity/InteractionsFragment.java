@@ -199,7 +199,15 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
     }
 
     @Override
-    public void nullifyActionMode() {
-        mActionMode = null;
+    public void finishActionMode() {
+        mActionMode.finish();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(mActionMode != null && MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.INTERACTIONS_FRAGMENT) {
+            mActionMode.finish();
+        }
     }
 }

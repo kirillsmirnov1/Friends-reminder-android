@@ -151,8 +151,8 @@ public class InteractionTypesActivity
     }
 
     @Override
-    public void nullifyActionMode(){
-        mActionMode = null;
+    public void finishActionMode(){
+        mActionMode.finish();
     }
 
     @Override
