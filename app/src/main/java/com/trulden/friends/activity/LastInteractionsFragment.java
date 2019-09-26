@@ -155,7 +155,7 @@ public class LastInteractionsFragment extends Fragment {
         });
     }
 
-    void selectTab(int pos){
+    private void selectTab(int pos){
         if(mTabLayout != null && pos < mTabLayout.getTabCount() && pos != -1){
             mTabLayout.getTabAt(pos).select();
         }
