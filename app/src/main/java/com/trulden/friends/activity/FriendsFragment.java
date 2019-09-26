@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,8 +50,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
     private HashSet<Integer> selectedFriendsPositions = new HashSet<>();
 
-    FriendsFragment(FriendsViewModel friendsViewModel) {
-        mFriendsViewModel = friendsViewModel;
+    public FriendsFragment() {
+        // Fragments require public constructor with no args
     }
 
 
@@ -64,6 +65,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_FRIENDS_POSITIONS)){
             selectedFriendsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -42,8 +43,8 @@ public class LastInteractionsFragment extends Fragment {
     private TabLayout mTabLayout;
     private LastInteractionsPagerAdapter mPagerAdapter;
 
-    LastInteractionsFragment(FriendsViewModel friendsViewModel) {
-        mFriendsViewModel = friendsViewModel;
+    public LastInteractionsFragment() {
+        // Fragments require public constructor with no args
     }
 
     @Override
@@ -58,8 +59,7 @@ public class LastInteractionsFragment extends Fragment {
     public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
-//                .get(FriendsViewModel.class);
+        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override

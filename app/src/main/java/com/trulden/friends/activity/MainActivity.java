@@ -321,13 +321,13 @@ public class MainActivity
         mFragmentToLoad = fragmentToLoad;
         switch (fragmentToLoad){
             case INTERACTIONS_FRAGMENT:
-                mFragment = new InteractionsFragment(mFriendsViewModel);
+                mFragment = new InteractionsFragment();
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
-                mFragment = new LastInteractionsFragment(mFriendsViewModel);
+                mFragment = new LastInteractionsFragment();
                 break;
             case FRIENDS_FRAGMENT:
-                mFragment = new FriendsFragment(mFriendsViewModel);
+                mFragment = new FriendsFragment();
                 break;
         }
         setToolbarTitle();
