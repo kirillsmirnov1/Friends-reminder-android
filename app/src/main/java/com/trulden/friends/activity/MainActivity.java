@@ -209,7 +209,9 @@ public class MainActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent resultingIntent) {
         super.onActivityResult(requestCode, resultCode, resultingIntent);
 
-        retrieveLastInteractionTab();
+        if(mFragment instanceof LastInteractionsFragment) {
+            ((LastInteractionsFragment) mFragment).retrieveSelectedTab();
+        }
 
         // Always check resultingIntent for null.
         // When result is not ok, intent might be null
