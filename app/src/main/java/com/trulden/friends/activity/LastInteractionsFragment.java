@@ -176,4 +176,13 @@ public class LastInteractionsFragment extends Fragment {
         editor.apply();
     }
 
+    void saveSelectedTab(){
+        int tabPos = getSelectedTabPos();
+
+        SharedPreferences preferences = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(getString(R.string.shared_pref_opened_LI_tab), tabPos);
+        editor.apply();
+    }
+
 }
