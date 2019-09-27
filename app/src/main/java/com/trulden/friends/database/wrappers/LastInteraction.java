@@ -41,7 +41,7 @@ public class LastInteraction implements Entity {
      * @return true if enough days have passed
      */
     public boolean itsTime(){
-        return (daysPassed(this) > getInteractionType().getFrequency());
+        return (daysPassed(this) >= getInteractionType().getFrequency());
     }
 
 
