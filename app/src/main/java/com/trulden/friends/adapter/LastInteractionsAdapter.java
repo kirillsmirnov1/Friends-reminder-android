@@ -65,7 +65,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
             mTime.setText(dateString);
 
             // Grey out LI for which time have not yet come
-            if(daysPassed < lastInteraction.getInteractionType().getFrequency()) {
+            if(!lastInteraction.itsTime()) {
                 layout.setBackground(ContextCompat
                         .getDrawable(mContext, R.drawable.item_backgroung_grey));
             }
