@@ -19,4 +19,9 @@ public interface ActivityWithSelection {
      * Should call mActionMode.finish()
      */
     void finishActionMode();
+
+    /**
+     * Set actionMode = null
+     */
+    void nullifyActionMode();
 }
