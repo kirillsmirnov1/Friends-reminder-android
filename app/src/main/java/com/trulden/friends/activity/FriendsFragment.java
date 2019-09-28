@@ -190,6 +190,12 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
     public void finishActionMode() {
         if(mActionMode != null) {
             mActionMode.finish();
+        }
+    }
+
+    @Override
+    public void nullifyActionMode() {
+        if(mActionMode != null) {
             mActionMode = null;
         }
     }
