@@ -1,17 +1,19 @@
 package com.trulden.friends.activity;
 
-import android.app.Instrumentation.ActivityResult;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.room.Room;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.filters.LargeTest;
+import androidx.test.rule.ActivityTestRule;
 
 import com.trulden.friends.R;
+import com.trulden.friends.database.FriendsDao;
+import com.trulden.friends.database.FriendsDatabase;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -21,13 +23,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static android.app.Activity.RESULT_OK;
-import static android.content.Intent.ACTION_OPEN_DOCUMENT;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.intent.Intents.intending;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -38,62 +36,22 @@ import static org.hamcrest.Matchers.allOf;
 public class TabPersistenceTest {
 
     @Rule
-    public IntentsTestRule<MainActivity> mIntentsRule = new IntentsTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
+            MainActivity.class, false, false);
 
     @Before
-    public void stubImportIntent(){
-        ActivityResult activityResult = createImportActivityResultStub();
+    public void initDB(){
 
-        intending(hasAction(ACTION_OPEN_DOCUMENT)).respondWith(activityResult);
+        Context c = ApplicationProvider.getApplicationContext();
+        FriendsDatabase db = Room.inMemoryDatabaseBuilder(c, FriendsDatabase.class).build();
+        FriendsDao dao = db.friendsDao();
+
+        mActivityRule.launchActivity(null);
     }
 
-    private ActivityResult createImportActivityResultStub() {
-
-        Uri uri = Uri.parse("content://com.android.externalstorage.documents/document/131B-0B08%3ADownload%2Ffriends_db_stoics.zip");
-        Intent resultData = new Intent();
-        resultData.setData(uri);
-
-        return new ActivityResult(RESULT_OK, resultData);
-    }
 
     @Test
-    public void tabPersistanceTest() {
-        ViewInteraction overflowMenuButton = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withId(R.id.toolbar),
-                                1),
-                        0),
-                        isDisplayed()));
-        overflowMenuButton.perform(click());
-
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(R.id.title), withText("Import database"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        appCompatTextView.perform(click());
-
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void tabPersistenceTest() {
 
         ViewInteraction tabView = onView(
                 allOf(childAtPosition(
