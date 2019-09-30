@@ -51,6 +51,10 @@ class FriendsRepository {
         return mFriendsDao.getFriendNames();
     }
 
+    FriendsDao getDao() {
+        return mFriendsDao;
+    }
+
     /**
      * Available tasks
      */
