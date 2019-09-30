@@ -26,9 +26,6 @@ public abstract class Util {
 
     public static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
 
-    // Can't access db version from Room in runtime, but want to save backup with version in name
-    // Probably not the best way to do it, but can't think of something else
-
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Keys
     ////////////////////////////////////////////////////////////////////////////////////////////////
