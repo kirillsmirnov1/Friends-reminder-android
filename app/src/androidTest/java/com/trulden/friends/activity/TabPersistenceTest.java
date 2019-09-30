@@ -1,19 +1,16 @@
 package com.trulden.friends.activity;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
+import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
-import com.trulden.friends.database.FriendsDao;
-import com.trulden.friends.database.FriendsDatabase;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -42,9 +39,7 @@ public class TabPersistenceTest {
     @Before
     public void initDB(){
 
-        Context c = ApplicationProvider.getApplicationContext();
-        FriendsDatabase db = Room.inMemoryDatabaseBuilder(c, FriendsDatabase.class).build();
-        FriendsDao dao = db.friendsDao();
+        DatabaseTestingHandler.initAndFillDatabase(ApplicationProvider.getApplicationContext());
 
         mActivityRule.launchActivity(null);
     }
