@@ -1,45 +1,49 @@
 package com.trulden.friends;
 
-import android.content.Context;
-
-import androidx.room.Room;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.database.FriendsDao;
-import com.trulden.friends.database.FriendsDatabase;
+import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class DatabaseTestingHandler {
-    public static void initAndFillDatabase(Context context){
-        FriendsDatabase db = Room.inMemoryDatabaseBuilder(context, FriendsDatabase.class).build();
-        FriendsDao dao = db.friendsDao();
+    public static void initAndFillDatabase(FragmentActivity activity){
+
+        FriendsViewModel mFriendsViewModel = ViewModelProviders.of(activity).get(FriendsViewModel.class);
+        FriendsDao dao = mFriendsViewModel.getDao();
+
+        dao.wipeTypes();
+        dao.wipeFriends();
+        dao.wipeInteractions();
+        dao.wipeBinds();
 
         InteractionType[] types = {
-                new InteractionType("Meeting", 30),
-                new InteractionType("Texting", 7)
+                new InteractionType(1, "Meeting", 30),
+                new InteractionType(2, "Texting", 7)
         };
 
         Friend[] friends = {
-                new Friend("Aaron", "A prophet, high priest, and the brother of Moses"),
-                new Friend("Balaam", "Told King Balak how to get the Israelites to commit sin by enticing them with sexual immorality and food sacrificed to idols"),
-                new Friend("Caleb", "One of the twelve spies sent by Moses into Canaan")
+                new Friend(1, "Aaron", "A prophet, high priest, and the brother of Moses"),
+                new Friend(2, "Balaam", "Told King Balak how to get the Israelites to commit sin by enticing them with sexual immorality and food sacrificed to idols"),
+                new Friend(3, "Caleb", "One of the twelve spies sent by Moses into Canaan")
         };
 
-        Calendar dates[] = { Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance() };
+        Calendar[] dates = {Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance()};
 
         dates[0].add(Calendar.DATE, -29);
         dates[1].add(Calendar.DATE, -30);
         dates[2].add(Calendar.DATE, -31);
 
         Interaction[] interactions = {
-                new Interaction( 1, dates[0].getTimeInMillis(), "A + B"),
-                new Interaction( 1, dates[1].getTimeInMillis(), "B + C"),
-                new Interaction( 1, dates[2].getTimeInMillis(), "C + A")
+                new Interaction( 1, 1, dates[0].getTimeInMillis(), "A + B"),
+                new Interaction( 2, 1, dates[1].getTimeInMillis(), "B + C"),
+                new Interaction( 3, 1, dates[2].getTimeInMillis(), "C + A")
         };
 
         BindFriendInteraction[] binds = {
@@ -54,8 +58,6 @@ public class DatabaseTestingHandler {
         for(InteractionType type : types) { dao.add(type); }
 
         for(Friend friend : friends) { dao.add(friend); }
-
-        List friendsList = dao.getAllFriendsAsList();
 
         for(Interaction interaction : interactions) { dao.add(interaction); }
 
