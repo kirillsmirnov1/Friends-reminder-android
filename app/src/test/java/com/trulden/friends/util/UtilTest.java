@@ -21,7 +21,7 @@ public class UtilTest {
     @Test
     public void testYesterdayCounter(){
         Calendar calendar = Calendar.getInstance();
-        calendar.roll(Calendar.DATE, false);
+        calendar.add(Calendar.DATE, -1);
         LastInteraction lastInteraction = new LastInteraction(0, calendar.getTimeInMillis(), null);
 
         assertEquals(daysPassed(lastInteraction), 1);
