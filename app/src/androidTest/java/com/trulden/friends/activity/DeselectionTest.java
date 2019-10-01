@@ -17,6 +17,7 @@ import com.trulden.friends.TestUtil;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -39,10 +40,14 @@ public class DeselectionTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
+    @Before
+    public void initDB(){
+        DatabaseTestingHandler.initAndFillDatabase(
+                (FragmentActivity) TestUtil.getActivityInstance());
+    }
+
     @Test
     public void manualDeselectionLogTest() {
-        DatabaseTestingHandler.initAndFillDatabase( // FIXME why not @BeforeEveryone?
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_interactions), withContentDescription("Log"),
@@ -117,8 +122,6 @@ public class DeselectionTest {
 
     @Test
     public void manualDeselectionFriendsTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_friends), withContentDescription("Friends"),
@@ -193,8 +196,6 @@ public class DeselectionTest {
 
     @Test
     public void manualDeselectionTypesTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction overflowMenuButton2 = onView(
                 allOf(childAtPosition(
@@ -296,8 +297,6 @@ public class DeselectionTest {
 
     @Test
     public void logAddInteractionDeselectionTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_interactions), withContentDescription("Log"),
@@ -395,8 +394,6 @@ public class DeselectionTest {
 
     @Test
     public void logAddFriendDeselectionTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_interactions), withContentDescription("Log"),
@@ -488,8 +485,6 @@ public class DeselectionTest {
 
     @Test
     public void friendsAddInteractionDeselectionTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_friends),
@@ -582,8 +577,6 @@ public class DeselectionTest {
 
     @Test
     public void friendsAddFriendDeselectionTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_friends),
@@ -670,8 +663,6 @@ public class DeselectionTest {
 
     @Test
     public void logDeleteDeselectionTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_interactions), withContentDescription("Log"),
@@ -736,8 +727,6 @@ public class DeselectionTest {
 
     @Test
     public void friendsDeleteDeselectionTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_friends),
@@ -797,8 +786,6 @@ public class DeselectionTest {
 
     @Test
     public void typesDeleteDeselectionTest() {
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction overflowMenuButton2 = onView(
                 allOf(childAtPosition(
