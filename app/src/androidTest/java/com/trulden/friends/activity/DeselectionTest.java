@@ -147,6 +147,88 @@ public class DeselectionTest {
         textView.check(doesNotExist());
     }
 
+    @Test
+    public void manualDeselectionTypesTest() {
+        DatabaseTestingHandler.initAndFillDatabase(
+                (FragmentActivity) TestUtil.getActivityInstance());
+
+        ViewInteraction overflowMenuButton2 = onView(
+                allOf(childAtPosition(
+                        childAtPosition(
+                                withId(R.id.toolbar),
+                                1),
+                        0),
+                        isDisplayed()));
+        overflowMenuButton2.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatTextView2 = onView(
+                allOf(withId(R.id.title), withText("Interaction types"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.content),
+                                        0),
+                                0),
+                        isDisplayed()));
+        appCompatTextView2.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction relativeLayout = onView(
+                allOf(withId(R.id.interaction_type_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.interaction_type_recyclerview),
+                                        0),
+                                0),
+                        isDisplayed()));
+        relativeLayout.perform(longClick());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction textView = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView.check(matches(withText("1")));
+
+        ViewInteraction relativeLayout2 = onView(
+                allOf(withId(R.id.interaction_type_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.interaction_type_recyclerview),
+                                        0),
+                                0),
+                        isDisplayed()));
+        relativeLayout2.perform(click());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        textView.check(doesNotExist());
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
