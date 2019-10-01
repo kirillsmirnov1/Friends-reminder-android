@@ -54,11 +54,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -67,21 +63,13 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -96,11 +84,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -109,21 +93,13 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -138,11 +114,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -151,21 +123,13 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, false);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
         selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -207,14 +171,7 @@ public class DeselectionTest {
                         isDisplayed()));
         floatingActionButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Navigate up"),
@@ -227,14 +184,7 @@ public class DeselectionTest {
                         isDisplayed()));
         appCompatImageButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
@@ -274,14 +224,7 @@ public class DeselectionTest {
                         isDisplayed()));
         floatingActionButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Navigate up"),
@@ -294,14 +237,7 @@ public class DeselectionTest {
                         isDisplayed()));
         appCompatImageButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
@@ -347,14 +283,7 @@ public class DeselectionTest {
                         isDisplayed()));
         floatingActionButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Navigate up"),
@@ -367,14 +296,7 @@ public class DeselectionTest {
                         isDisplayed()));
         appCompatImageButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
@@ -414,14 +336,7 @@ public class DeselectionTest {
                         isDisplayed()));
         floatingActionButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Navigate up"),
@@ -434,14 +349,7 @@ public class DeselectionTest {
                         isDisplayed()));
         appCompatImageButton.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
@@ -569,14 +477,7 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction actionMenuItemView2 = onView(
                 allOf(withId(R.id.icon_save), withContentDescription("Save"),
@@ -588,14 +489,7 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView2.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
@@ -629,14 +523,7 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction actionMenuItemView2 = onView(
                 allOf(withId(R.id.icon_save), withContentDescription("Save"),
@@ -648,14 +535,7 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView2.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
@@ -684,14 +564,7 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(android.R.id.button1), withText("Save"),
@@ -702,14 +575,7 @@ public class DeselectionTest {
                                 3)));
         appCompatButton.perform(scrollTo(), click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         textView.check(doesNotExist());
 
@@ -738,6 +604,14 @@ public class DeselectionTest {
                         && view.equals(((ViewGroup) parent).getChildAt(position));
             }
         };
+    }
+
+    private void sleep(int millis){
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // UI interactions
@@ -772,11 +646,7 @@ public class DeselectionTest {
                         isDisplayed()));
         overflowMenuButton2.perform(click());
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction appCompatTextView2 = onView(
                 allOf(withId(R.id.title), withText("Interaction types"),
@@ -788,11 +658,7 @@ public class DeselectionTest {
                         isDisplayed()));
         appCompatTextView2.perform(click());
 
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
     }
 
     private void selectEntry(int pos, int entryID, int recyclerviewID, boolean longClick) {
