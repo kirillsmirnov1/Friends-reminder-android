@@ -56,10 +56,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
 
@@ -71,10 +68,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -86,10 +80,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
 
@@ -101,10 +92,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -116,10 +104,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, false);
 
@@ -131,10 +116,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -144,10 +126,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         ViewInteraction viewInteraction = onView(
                 allOf(withId(R.id.fab_expand_menu_button),
@@ -190,10 +169,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -203,10 +179,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);;
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         ViewInteraction viewInteraction = onView(
                 allOf(withId(R.id.fab_expand_menu_button),
@@ -243,10 +216,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -256,10 +226,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         ViewInteraction viewInteraction = onView(
                 allOf(withId(R.id.fab_expand_menu_button),
@@ -302,10 +269,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -315,10 +279,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         ViewInteraction viewInteraction = onView(
                 allOf(withId(R.id.fab_expand_menu_button),
@@ -355,10 +316,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -370,10 +328,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
 
-        ViewInteraction textView = onView(
-                allOf(withText("2"),
-                        isDisplayed()));
-        textView.check(matches(withText("2")));
+        ViewInteraction textView = checkSelectionCounter("2");
 
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.delete_selection), withContentDescription("Delete selection"),
@@ -385,12 +340,11 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
+        textView.check(doesNotExist());
+
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -402,10 +356,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
 
-        ViewInteraction textView = onView(
-                allOf(withText("2"),
-                        isDisplayed()));
-        textView.check(matches(withText("2")));
+        ViewInteraction textView = checkSelectionCounter("2");
 
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.delete_selection), withContentDescription("Delete selection"),
@@ -417,12 +368,11 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
+        textView.check(doesNotExist());
+
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -432,10 +382,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.delete_selection), withContentDescription("Delete selection"),
@@ -449,10 +396,9 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        ViewInteraction textView2 = onView(
-                allOf( withText("1"),
-                        isDisplayed()));
-        textView2.check(matches(withText("1")));
+        textView.check(doesNotExist());
+
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -462,10 +408,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.edit_selection), withContentDescription("Edit selection"),
@@ -495,10 +438,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction textView3 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView3.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -508,10 +448,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.edit_selection), withContentDescription("Edit selection"),
@@ -541,10 +478,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView3 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView3.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     @Test
@@ -554,10 +488,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        ViewInteraction textView = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView.check(matches(withText("1")));
+        ViewInteraction textView = checkSelectionCounter("1");
 
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.edit_selection),
@@ -581,10 +512,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        ViewInteraction textView3 = onView(
-                allOf(withText("1"),
-                        isDisplayed()));
-        textView3.check(matches(withText("1")));
+        checkSelectionCounter("1");
     }
 
     private static Matcher<View> childAtPosition(
@@ -671,6 +599,15 @@ public class DeselectionTest {
                                 0),
                         isDisplayed()));
         constraintLayout.perform(longClick ? longClick() : click());
+    }
+
+    private ViewInteraction checkSelectionCounter(String value) {
+        ViewInteraction textView = onView(
+                allOf(withText(value),
+                        isDisplayed()));
+        textView.check(matches(withText(value)));
+
+        return textView;
     }
 
 }
