@@ -50,7 +50,7 @@ public class DeselectionTest {
     @Test
     public void logManualDeselectionTest() {
 
-        pressBottomNavigationLog();
+        openLog();
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
@@ -219,7 +219,7 @@ public class DeselectionTest {
     @Test
     public void logAddInteractionDeselectionTest() {
 
-        pressBottomNavigationLog();
+        openLog();
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
@@ -292,7 +292,7 @@ public class DeselectionTest {
     @Test
     public void logAddFriendDeselectionTest() {
 
-        pressBottomNavigationLog();
+        openLog();
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);;
 
@@ -505,7 +505,7 @@ public class DeselectionTest {
     @Test
     public void logDeleteDeselectionTest() {
 
-        pressBottomNavigationLog();
+        openLog();
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
@@ -637,7 +637,7 @@ public class DeselectionTest {
     @Test
     public void logEditDeselectionTest() {
 
-        pressBottomNavigationLog();
+        openLog();
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
@@ -867,7 +867,7 @@ public class DeselectionTest {
 
     // UI interactions
 
-    private void pressBottomNavigationLog() {
+    private void openLog() {
 
         ViewInteraction bottomNavigationItemView = onView(
             allOf(
