@@ -15,7 +15,7 @@ public class LastInteractionTest {
     public void itsTimeFalse() {
 
         Calendar weekAgo = Calendar.getInstance();
-        weekAgo.roll(Calendar.DATE, -7);
+        weekAgo.add(Calendar.DATE, -7);
 
         LastInteraction lastInteraction = new LastInteraction(0, weekAgo.getTimeInMillis(), null);
         InteractionType type = new InteractionType("8 days", 8);
