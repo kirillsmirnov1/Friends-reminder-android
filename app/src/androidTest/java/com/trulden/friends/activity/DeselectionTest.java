@@ -486,6 +486,188 @@ public class DeselectionTest {
         textView2.check(matches(withText("1")));
     }
 
+    @Test
+    public void friendsAddInteractionDeselectionTest() {
+        DatabaseTestingHandler.initAndFillDatabase(
+                (FragmentActivity) TestUtil.getActivityInstance());
+
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(withId(R.id.bottom_friends),
+                        isDisplayed()));
+        bottomNavigationItemView.perform(click());
+
+        ViewInteraction constraintLayout = onView(
+                allOf(withId(R.id.friend_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.friends_recyclerView),
+                                        0),
+                                0),
+                        isDisplayed()));
+        constraintLayout.perform(longClick());
+
+        ViewInteraction textView = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView.check(matches(withText("1")));
+
+        ViewInteraction viewInteraction = onView(
+                allOf(withId(R.id.fab_expand_menu_button),
+                        childAtPosition(
+                                allOf(withId(R.id.fab_main_activity),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.RelativeLayout")),
+                                                1)),
+                                2),
+                        isDisplayed()));
+        viewInteraction.perform(click());
+
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.fab_add_interaction),
+                        childAtPosition(
+                                allOf(withId(R.id.fab_main_activity),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.RelativeLayout")),
+                                                1)),
+                                0),
+                        isDisplayed()));
+        floatingActionButton.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Navigate up"),
+                        childAtPosition(
+                                allOf(withId(R.id.action_bar),
+                                        childAtPosition(
+                                                withId(R.id.action_bar_container),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        textView.check(doesNotExist());
+
+        ViewInteraction constraintLayout2 = onView(
+                allOf(withId(R.id.friend_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.friends_recyclerView),
+                                        1),
+                                0),
+                        isDisplayed()));
+        constraintLayout2.perform(longClick());
+
+        ViewInteraction textView2 = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView2.check(matches(withText("1")));
+    }
+
+    @Test
+    public void friendsAddFriendDeselectionTest() {
+        DatabaseTestingHandler.initAndFillDatabase(
+                (FragmentActivity) TestUtil.getActivityInstance());
+
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(withId(R.id.bottom_friends),
+                        isDisplayed()));
+        bottomNavigationItemView.perform(click());
+
+        ViewInteraction constraintLayout = onView(
+                allOf(withId(R.id.friend_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.friends_recyclerView),
+                                        0),
+                                0),
+                        isDisplayed()));
+        constraintLayout.perform(longClick());
+
+        ViewInteraction textView = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView.check(matches(withText("1")));
+
+        ViewInteraction viewInteraction = onView(
+                allOf(withId(R.id.fab_expand_menu_button),
+                        childAtPosition(
+                                allOf(withId(R.id.fab_main_activity),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.RelativeLayout")),
+                                                1)),
+                                2),
+                        isDisplayed()));
+        viewInteraction.perform(click());
+
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.fab_add_friend),
+                        isDisplayed()));
+        floatingActionButton.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Navigate up"),
+                        childAtPosition(
+                                allOf(withId(R.id.action_bar),
+                                        childAtPosition(
+                                                withId(R.id.action_bar_container),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        textView.check(doesNotExist());
+
+        ViewInteraction constraintLayout2 = onView(
+                allOf(withId(R.id.friend_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.friends_recyclerView),
+                                        1),
+                                0),
+                        isDisplayed()));
+        constraintLayout2.perform(longClick());
+
+        ViewInteraction textView2 = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView2.check(matches(withText("1")));
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
