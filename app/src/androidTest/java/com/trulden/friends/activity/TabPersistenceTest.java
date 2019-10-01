@@ -91,12 +91,6 @@ public class TabPersistenceTest {
                         isDisplayed()));
         bottomNavigationItemView.perform(click());
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         ViewInteraction bottomNavigationItemView2 = onView(
                 allOf(withId(R.id.bottom_last_interactions), withContentDescription("Last Interactions"),
                         childAtPosition(
