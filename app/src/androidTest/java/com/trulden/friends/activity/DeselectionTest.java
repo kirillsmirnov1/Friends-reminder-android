@@ -92,6 +92,61 @@ public class DeselectionTest {
         textView.check(doesNotExist());
     }
 
+    @Test
+    public void manualDeselectionFriendsTest() {
+        DatabaseTestingHandler.initAndFillDatabase(
+                (FragmentActivity) TestUtil.getActivityInstance());
+
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(withId(R.id.bottom_friends), withContentDescription("Friends"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.bottom_navigation),
+                                        0),
+                                2),
+                        isDisplayed()));
+        bottomNavigationItemView.perform(click());
+
+        ViewInteraction relativeLayout = onView(
+                allOf(withId(R.id.friend_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.friends_recyclerView),
+                                        0),
+                                0),
+                        isDisplayed()));
+        relativeLayout.perform(longClick());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction textView = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView.check(matches(withText("1")));
+
+        ViewInteraction relativeLayout2 = onView(
+                allOf(withId(R.id.friend_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.friends_recyclerView),
+                                        0),
+                                0),
+                        isDisplayed()));
+        relativeLayout2.perform(click());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        textView.check(doesNotExist());
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
