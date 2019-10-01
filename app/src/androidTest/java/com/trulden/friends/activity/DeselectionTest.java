@@ -50,15 +50,7 @@ public class DeselectionTest {
     @Test
     public void manualDeselectionLogTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_interactions), withContentDescription("Log"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                0),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        pressBottomNavigationLog();
 
         ViewInteraction constraintLayout = onView(
                 allOf(withId(R.id.interaction_entry_layout),
@@ -299,15 +291,7 @@ public class DeselectionTest {
     @Test
     public void logAddInteractionDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_interactions), withContentDescription("Log"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                0),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        pressBottomNavigationLog();
 
         ViewInteraction constraintLayout = onView(
                 allOf(withId(R.id.interaction_entry_layout),
@@ -396,15 +380,7 @@ public class DeselectionTest {
     @Test
     public void logAddFriendDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_interactions), withContentDescription("Log"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                0),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        pressBottomNavigationLog();
 
         ViewInteraction constraintLayout = onView(
                 allOf(withId(R.id.interaction_entry_layout),
@@ -665,15 +641,7 @@ public class DeselectionTest {
     @Test
     public void logDeleteDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_interactions), withContentDescription("Log"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                0),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        pressBottomNavigationLog();
 
         ViewInteraction constraintLayout = onView(
                 allOf(withId(R.id.interaction_entry_layout),
@@ -869,10 +837,7 @@ public class DeselectionTest {
     @Test
     public void logEditDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_interactions),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        pressBottomNavigationLog();
 
         ViewInteraction constraintLayout = onView(
                 allOf(withId(R.id.interaction_entry_layout),
@@ -1147,4 +1112,17 @@ public class DeselectionTest {
             }
         };
     }
+
+    // UI interactions
+
+    private void pressBottomNavigationLog() {
+
+        ViewInteraction bottomNavigationItemView = onView(
+            allOf(
+                withId(R.id.bottom_interactions),
+                isDisplayed()));
+
+        bottomNavigationItemView.perform(click());
+    }
+
 }
