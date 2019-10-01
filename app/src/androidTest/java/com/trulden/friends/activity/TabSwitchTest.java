@@ -23,6 +23,7 @@ import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -37,7 +38,7 @@ public class TabSwitchTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void tabSwitchTest() {
+    public void tabClickSwitchTest() {
 
         DatabaseTestingHandler.initAndFillDatabase(
                 (FragmentActivity) TestUtil.getActivityInstance());
@@ -71,6 +72,52 @@ public class TabSwitchTest {
                         1),
                         isDisplayed()));
         tabView3.perform(click());
+
+        ViewInteraction relativeLayout2 = onView(
+                allOf(withId(R.id.last_interaction_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.tab_last_interaction_recyclerview),
+                                        0),
+                                0),
+                        isDisplayed()));
+        relativeLayout2.check(doesNotExist());
+    }
+
+    @Test
+    public void tabSwipeSwitchTest() {
+
+        DatabaseTestingHandler.initAndFillDatabase(
+                (FragmentActivity) TestUtil.getActivityInstance());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.last_interaction_name), withText("Caleb"),
+                        childAtPosition(
+                                allOf(withId(R.id.last_interaction_entry_layout),
+                                        childAtPosition(
+                                                IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
+                                                0)),
+                                0),
+                        isDisplayed()));
+        textView.check(matches(withText("Caleb")));
+
+        ViewInteraction relativeLayout = onView(
+                allOf(withId(R.id.last_interaction_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.tab_last_interaction_recyclerview),
+                                        0),
+                                0),
+                        isDisplayed()));
+        relativeLayout.check(matches(isDisplayed()));
+
+        onView(withId(R.id.root_layout)).perform(swipeLeft());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         ViewInteraction relativeLayout2 = onView(
                 allOf(withId(R.id.last_interaction_entry_layout),
