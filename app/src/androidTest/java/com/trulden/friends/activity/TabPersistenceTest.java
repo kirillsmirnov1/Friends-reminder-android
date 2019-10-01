@@ -1,6 +1,5 @@
 package com.trulden.friends.activity;
 
-import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -9,11 +8,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import androidx.test.runner.lifecycle.Stage;
 
 import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
+import com.trulden.friends.TestUtil;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -22,9 +20,6 @@ import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -32,7 +27,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
@@ -42,25 +36,11 @@ public class TabPersistenceTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
             MainActivity.class, true, true);
 
-    private Activity getActivityInstance(){
-        final Activity[] currentActivity = {null};
-
-        getInstrumentation().runOnMainSync(new Runnable(){
-            public void run(){
-                Collection<Activity> resumedActivity = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                Iterator<Activity> it = resumedActivity.iterator();
-                currentActivity[0] = it.next();
-            }
-        });
-
-        return currentActivity[0];
-    }
-
-
     @Test
     public void tabPersistenceTest() {
 
-        DatabaseTestingHandler.initAndFillDatabase((FragmentActivity)getActivityInstance());
+        DatabaseTestingHandler.initAndFillDatabase(
+                (FragmentActivity) TestUtil.getActivityInstance());
 
         ViewInteraction tabView = onView(
                 allOf(childAtPosition(
