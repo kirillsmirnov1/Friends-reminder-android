@@ -48,7 +48,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void manualDeselectionLogTest() {
+    public void logManualDeselectionTest() {
 
         pressBottomNavigationLog();
 
@@ -90,7 +90,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void manualDeselectionFriendsTest() {
+    public void friendsManualDeselectionTest() {
 
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.bottom_friends), withContentDescription("Friends"),
@@ -140,7 +140,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void manualDeselectionTypesTest() {
+    public void typesManualDeselectionTest() {
 
         ViewInteraction overflowMenuButton2 = onView(
                 allOf(childAtPosition(
