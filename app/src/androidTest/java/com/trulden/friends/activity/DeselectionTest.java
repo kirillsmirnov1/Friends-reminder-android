@@ -90,6 +90,27 @@ public class DeselectionTest {
         }
 
         textView.check(doesNotExist());
+
+        ViewInteraction constraintLayout3 = onView(
+                allOf(withId(R.id.interaction_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.interactions_recyclerview),
+                                        1),
+                                0),
+                        isDisplayed()));
+        constraintLayout3.perform(longClick());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction textView2 = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView2.check(matches(withText("1")));
     }
 
     @Test
@@ -145,6 +166,27 @@ public class DeselectionTest {
         }
 
         textView.check(doesNotExist());
+
+        ViewInteraction constraintLayout3 = onView(
+                allOf(withId(R.id.friend_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.friends_recyclerView),
+                                        1),
+                                0),
+                        isDisplayed()));
+        constraintLayout3.perform(longClick());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction textView2 = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView2.check(matches(withText("1")));
     }
 
     @Test
@@ -227,6 +269,27 @@ public class DeselectionTest {
         }
 
         textView.check(doesNotExist());
+
+        ViewInteraction constraintLayout3 = onView(
+                allOf(withId(R.id.interaction_type_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.interaction_type_recyclerview),
+                                        1),
+                                0),
+                        isDisplayed()));
+        constraintLayout3.perform(longClick());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction textView2 = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView2.check(matches(withText("1")));
     }
 
     private static Matcher<View> childAtPosition(
