@@ -52,15 +52,7 @@ public class DeselectionTest {
 
         pressBottomNavigationLog();
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         try {
             Thread.sleep(250);
@@ -73,15 +65,7 @@ public class DeselectionTest {
                         isDisplayed()));
         textView.check(matches(withText("1")));
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(click());
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
 
         try {
             Thread.sleep(250);
@@ -91,15 +75,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout3 = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout3.perform(longClick());
+        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         try {
             Thread.sleep(250);
@@ -126,15 +102,7 @@ public class DeselectionTest {
                         isDisplayed()));
         bottomNavigationItemView.perform(click());
 
-        ViewInteraction relativeLayout = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout.perform(longClick());
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         try {
             Thread.sleep(250);
@@ -147,15 +115,7 @@ public class DeselectionTest {
                         isDisplayed()));
         textView.check(matches(withText("1")));
 
-        ViewInteraction relativeLayout2 = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout2.perform(click());
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
 
         try {
             Thread.sleep(250);
@@ -165,15 +125,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout3 = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout3.perform(longClick());
+        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         try {
             Thread.sleep(250);
@@ -227,15 +179,7 @@ public class DeselectionTest {
             e.printStackTrace();
         }
 
-        ViewInteraction relativeLayout = onView(
-                allOf(withId(R.id.interaction_type_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interaction_type_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout.perform(longClick());
+        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
         try {
             Thread.sleep(250);
@@ -248,15 +192,7 @@ public class DeselectionTest {
                         isDisplayed()));
         textView.check(matches(withText("1")));
 
-        ViewInteraction relativeLayout2 = onView(
-                allOf(withId(R.id.interaction_type_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interaction_type_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout2.perform(click());
+        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, false);
 
         try {
             Thread.sleep(250);
@@ -266,15 +202,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout3 = onView(
-                allOf(withId(R.id.interaction_type_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interaction_type_recyclerview),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout3.perform(longClick());
+        selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
         try {
             Thread.sleep(250);
@@ -293,15 +221,7 @@ public class DeselectionTest {
 
         pressBottomNavigationLog();
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -361,15 +281,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(longClick());
+        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -382,15 +294,7 @@ public class DeselectionTest {
 
         pressBottomNavigationLog();
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);;
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -444,15 +348,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(longClick());
+        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -468,15 +364,7 @@ public class DeselectionTest {
                         isDisplayed()));
         bottomNavigationItemView.perform(click());
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -536,15 +424,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(longClick());
+        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -560,15 +440,7 @@ public class DeselectionTest {
                         isDisplayed()));
         bottomNavigationItemView.perform(click());
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -622,15 +494,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(longClick());
+        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -643,25 +507,9 @@ public class DeselectionTest {
 
         pressBottomNavigationLog();
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(click());
+        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
 
         ViewInteraction textView = onView(
                 allOf(withText("2"),
@@ -678,15 +526,7 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
-        ViewInteraction constraintLayout3 = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout3.perform(longClick());
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -702,25 +542,9 @@ public class DeselectionTest {
                         isDisplayed()));
         bottomNavigationItemView.perform(click());
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(click());
+        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
 
         ViewInteraction textView = onView(
                 allOf(withText("2"),
@@ -737,15 +561,7 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
-        ViewInteraction constraintLayout3 = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout3.perform(longClick());
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         ViewInteraction textView2 = onView(
                 allOf(withText("1"),
@@ -793,15 +609,7 @@ public class DeselectionTest {
             e.printStackTrace();
         }
 
-        ViewInteraction relativeLayout = onView(
-                allOf(withId(R.id.interaction_type_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interaction_type_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout.perform(longClick());
+        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -818,15 +626,7 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
-        ViewInteraction relativeLayout2 = onView(
-                allOf(withId(R.id.interaction_type_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interaction_type_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout2.perform(longClick());
+        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
         ViewInteraction textView2 = onView(
                 allOf( withText("1"),
@@ -839,15 +639,7 @@ public class DeselectionTest {
 
         pressBottomNavigationLog();
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -894,15 +686,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interactions_recyclerview),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(longClick());
+        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         ViewInteraction textView3 = onView(
                 allOf(withText("1"),
@@ -918,15 +702,7 @@ public class DeselectionTest {
                         isDisplayed()));
         bottomNavigationItemView.perform(click());
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -973,15 +749,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.friend_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.friends_recyclerView),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(longClick());
+        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
         ViewInteraction textView3 = onView(
                 allOf(withText("1"),
@@ -1029,15 +797,7 @@ public class DeselectionTest {
             e.printStackTrace();
         }
 
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(R.id.interaction_type_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interaction_type_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick());
+        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
         ViewInteraction textView = onView(
                 allOf(withText("1"),
@@ -1078,15 +838,7 @@ public class DeselectionTest {
 
         textView.check(doesNotExist());
 
-        ViewInteraction constraintLayout2 = onView(
-                allOf(withId(R.id.interaction_type_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.interaction_type_recyclerview),
-                                        1),
-                                0),
-                        isDisplayed()));
-        constraintLayout2.perform(longClick());
+        selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
         ViewInteraction textView3 = onView(
                 allOf(withText("1"),
@@ -1123,6 +875,18 @@ public class DeselectionTest {
                 isDisplayed()));
 
         bottomNavigationItemView.perform(click());
+    }
+
+    private void selectEntry(int pos, int entryID, int recyclerviewID, boolean longClick) {
+        ViewInteraction constraintLayout = onView(
+                allOf(withId(entryID),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(recyclerviewID),
+                                        pos),
+                                0),
+                        isDisplayed()));
+        constraintLayout.perform(longClick ? longClick() : click());
     }
 
 }
