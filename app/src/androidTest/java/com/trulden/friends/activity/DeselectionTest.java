@@ -92,15 +92,7 @@ public class DeselectionTest {
     @Test
     public void friendsManualDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_friends), withContentDescription("Friends"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                2),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        openFriends();
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
@@ -359,10 +351,7 @@ public class DeselectionTest {
     @Test
     public void friendsAddInteractionDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_friends),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        openFriends();
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
@@ -435,10 +424,7 @@ public class DeselectionTest {
     @Test
     public void friendsAddFriendDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_friends),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        openFriends();
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
@@ -537,10 +523,7 @@ public class DeselectionTest {
     @Test
     public void friendsDeleteDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_friends),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        openFriends();
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
@@ -697,10 +680,7 @@ public class DeselectionTest {
     @Test
     public void friendsEditDeselectionTest() {
 
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_friends),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
+        openFriends();
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
@@ -873,6 +853,16 @@ public class DeselectionTest {
             allOf(
                 withId(R.id.bottom_interactions),
                 isDisplayed()));
+
+        bottomNavigationItemView.perform(click());
+    }
+
+    private void openFriends() {
+
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(
+                        withId(R.id.bottom_friends),
+                        isDisplayed()));
 
         bottomNavigationItemView.perform(click());
     }
