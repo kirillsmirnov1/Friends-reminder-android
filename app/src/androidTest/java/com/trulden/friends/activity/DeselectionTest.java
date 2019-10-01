@@ -120,7 +120,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void logAddInteractionDeselectionTest() {
+    public void logAddInteractionDeselectionTest() { // FIXME boilerplate code
 
         openLog();
 
@@ -173,7 +173,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void logAddFriendDeselectionTest() {
+    public void logAddFriendDeselectionTest() { // FIXME boilerplate code
 
         openLog();
 
@@ -220,7 +220,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void friendsAddInteractionDeselectionTest() {
+    public void friendsAddInteractionDeselectionTest() { // FIXME boilerplate code
 
         openFriends();
 
@@ -273,7 +273,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void friendsAddFriendDeselectionTest() {
+    public void friendsAddFriendDeselectionTest() { // FIXME boilerplate code
 
         openFriends();
 
@@ -320,7 +320,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void logDeleteDeselectionTest() {
+    public void logDeleteDeselectionTest() { // FIXME boilerplate code
 
         openLog();
 
@@ -350,7 +350,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void friendsDeleteDeselectionTest() {
+    public void friendsDeleteDeselectionTest() { // FIXME boilerplate code
 
         openFriends();
 
@@ -380,7 +380,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void typesDeleteDeselectionTest() {
+    public void typesDeleteDeselectionTest() { // FIXME boilerplate code
 
         openTypes();
 
@@ -406,7 +406,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void logEditDeselectionTest() {
+    public void logEditDeselectionTest() { // FIXME boilerplate code
 
         openLog();
 
@@ -446,7 +446,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void friendsEditDeselectionTest() {
+    public void friendsEditDeselectionTest() { // FIXME boilerplate code
 
         openFriends();
 
@@ -486,7 +486,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void typesEditDeselectionTest() {
+    public void typesEditDeselectionTest() { // FIXME boilerplate code
 
         openTypes();
 
