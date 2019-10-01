@@ -398,9 +398,9 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
-        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
-
         textView.check(doesNotExist());
+
+        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
         checkSelectionCounter("1");
     }
