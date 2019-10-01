@@ -24,6 +24,7 @@ import org.junit.Test;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.longClick;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -1012,6 +1013,111 @@ public class DeselectionTest {
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.friends_recyclerView),
+                                        1),
+                                0),
+                        isDisplayed()));
+        constraintLayout2.perform(longClick());
+
+        ViewInteraction textView3 = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView3.check(matches(withText("1")));
+    }
+
+    @Test
+    public void typesEditDeselectionTest() {
+
+        ViewInteraction overflowMenuButton2 = onView(
+                allOf(childAtPosition(
+                        childAtPosition(
+                                withId(R.id.toolbar),
+                                1),
+                        0),
+                        isDisplayed()));
+        overflowMenuButton2.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatTextView2 = onView(
+                allOf(withId(R.id.title), withText("Interaction types"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.content),
+                                        0),
+                                0),
+                        isDisplayed()));
+        appCompatTextView2.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction constraintLayout = onView(
+                allOf(withId(R.id.interaction_type_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.interaction_type_recyclerview),
+                                        0),
+                                0),
+                        isDisplayed()));
+        constraintLayout.perform(longClick());
+
+        ViewInteraction textView = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView.check(matches(withText("1")));
+
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.edit_selection),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(android.R.id.button1), withText("Save"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        appCompatButton.perform(scrollTo(), click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        textView.check(doesNotExist());
+
+        ViewInteraction constraintLayout2 = onView(
+                allOf(withId(R.id.interaction_type_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.interaction_type_recyclerview),
                                         1),
                                 0),
                         isDisplayed()));
