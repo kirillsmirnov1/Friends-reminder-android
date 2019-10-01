@@ -340,6 +340,8 @@ public class DeselectionTest {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
+        sleep(250);
+
         textView.check(doesNotExist());
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
@@ -367,6 +369,8 @@ public class DeselectionTest {
                                 0),
                         isDisplayed()));
         actionMenuItemView.perform(click());
+
+        sleep(250);
 
         textView.check(doesNotExist());
 
