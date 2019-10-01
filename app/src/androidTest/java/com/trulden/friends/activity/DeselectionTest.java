@@ -865,6 +865,85 @@ public class DeselectionTest {
         textView2.check(matches(withText("1")));
     }
 
+    @Test
+    public void logEditDeselectionTest() {
+
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(withId(R.id.bottom_interactions),
+                        isDisplayed()));
+        bottomNavigationItemView.perform(click());
+
+        ViewInteraction constraintLayout = onView(
+                allOf(withId(R.id.interaction_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.interactions_recyclerview),
+                                        0),
+                                0),
+                        isDisplayed()));
+        constraintLayout.perform(longClick());
+
+        ViewInteraction textView = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView.check(matches(withText("1")));
+
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.edit_selection), withContentDescription("Edit selection"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_mode_bar),
+                                        1),
+                                0),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction actionMenuItemView2 = onView(
+                allOf(withId(R.id.icon_save), withContentDescription("Save"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_bar),
+                                        2),
+                                0),
+                        isDisplayed()));
+        actionMenuItemView2.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        textView.check(doesNotExist());
+
+        ViewInteraction constraintLayout2 = onView(
+                allOf(withId(R.id.interaction_entry_layout),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.interactions_recyclerview),
+                                        1),
+                                0),
+                        isDisplayed()));
+        constraintLayout2.perform(longClick());
+
+        ViewInteraction textView3 = onView(
+                allOf(withText("1"),
+                        isDisplayed()));
+        textView3.check(matches(withText("1")));
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
