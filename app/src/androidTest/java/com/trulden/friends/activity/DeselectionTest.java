@@ -266,7 +266,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void typesDeleteDeselectionTest() { // FIXME boilerplate code
+    public void typesDeleteDeselectionTest() {
 
         openTypes();
 
@@ -274,15 +274,7 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("1");
 
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.delete_selection), withContentDescription("Delete selection"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_context_bar),
-                                        1),
-                                1),
-                        isDisplayed()));
-        actionMenuItemView.perform(click());
+        deleteSelection();
 
         textView.check(doesNotExist());
 
