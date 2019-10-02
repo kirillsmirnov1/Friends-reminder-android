@@ -355,6 +355,28 @@ public class DeselectionTest {
         checkSelectionCounter("1");
     }
 
+    @Test
+    public void logSwitchFragmentDeselectionTest(){
+        openLog();
+
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
+
+        ViewInteraction selectionCounter = checkSelectionCounter("2");
+
+        openFriends();
+
+        sleep(250);
+
+        selectionCounter.check(doesNotExist());
+
+        openLog();
+
+        selectEntry(2, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+
+        checkSelectionCounter("1");
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
