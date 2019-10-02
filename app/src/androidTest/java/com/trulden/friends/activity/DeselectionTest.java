@@ -244,7 +244,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void friendsDeleteDeselectionTest() { // FIXME boilerplate code
+    public void friendsDeleteDeselectionTest() {
 
         openFriends();
 
@@ -254,15 +254,7 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("2");
 
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.delete_selection), withContentDescription("Delete selection"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_mode_bar),
-                                        1),
-                                0),
-                        isDisplayed()));
-        actionMenuItemView.perform(click());
+        deleteSelection();
 
         sleep(250);
 
