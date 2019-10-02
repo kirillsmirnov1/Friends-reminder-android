@@ -399,6 +399,27 @@ public class DeselectionTest {
         checkSelectionCounterValue("1");
     }
 
+    @Test
+    public void logDeselectAllTest() {
+
+        openLog();
+
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
+
+        ViewInteraction selectionCounter = checkSelectionCounterValue("2");
+
+        deselectAll();
+
+        sleep(250);
+
+        selectionCounter.check(doesNotExist());
+
+        selectEntry(2, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+
+        checkSelectionCounterValue("1");
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
