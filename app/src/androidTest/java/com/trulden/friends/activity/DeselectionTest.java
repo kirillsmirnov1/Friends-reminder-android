@@ -28,12 +28,10 @@ import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 @LargeTest
 public class DeselectionTest {
@@ -198,7 +196,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void friendsAddFriendDeselectionTest() { // FIXME boilerplate code
+    public void friendsAddFriendDeselectionTest() {
 
         openFriends();
 
@@ -206,34 +204,13 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("1");
 
-        ViewInteraction viewInteraction = onView(
-                allOf(withId(R.id.fab_expand_menu_button),
-                        childAtPosition(
-                                allOf(withId(R.id.fab_main_activity),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                1)),
-                                2),
-                        isDisplayed()));
-        viewInteraction.perform(click());
+        openFab();
 
-        ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.fab_add_friend),
-                        isDisplayed()));
-        floatingActionButton.perform(click());
+        fabClickAddFriend();
 
         sleep(250);
 
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Navigate up"),
-                        childAtPosition(
-                                allOf(withId(R.id.action_bar),
-                                        childAtPosition(
-                                                withId(R.id.action_bar_container),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+        navigateUp();
 
         sleep(250);
 
