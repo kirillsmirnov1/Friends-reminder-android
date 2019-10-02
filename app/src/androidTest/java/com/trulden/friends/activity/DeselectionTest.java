@@ -222,7 +222,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void logDeleteDeselectionTest() { // FIXME boilerplate code
+    public void logDeleteDeselectionTest() {
 
         openLog();
 
@@ -232,15 +232,7 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("2");
 
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.delete_selection), withContentDescription("Delete selection"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_mode_bar),
-                                        1),
-                                0),
-                        isDisplayed()));
-        actionMenuItemView.perform(click());
+        deleteSelection();
 
         sleep(250);
 
@@ -548,6 +540,13 @@ public class DeselectionTest {
                                 1),
                         isDisplayed()));
         appCompatImageButton.perform(click());
+    }
+
+    private void deleteSelection() {
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.delete_selection),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
     }
 
 }
