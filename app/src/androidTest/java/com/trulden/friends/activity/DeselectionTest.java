@@ -120,7 +120,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void logAddInteractionDeselectionTest() { // FIXME boilerplate code
+    public void logAddInteractionDeselectionTest() {
 
         openLog();
 
@@ -128,40 +128,13 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("1");
 
-        ViewInteraction viewInteraction = onView(
-                allOf(withId(R.id.fab_expand_menu_button),
-                        childAtPosition(
-                                allOf(withId(R.id.fab_main_activity),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                1)),
-                                2),
-                        isDisplayed()));
-        viewInteraction.perform(click());
+        openFab();
 
-        ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.fab_add_interaction),
-                        childAtPosition(
-                                allOf(withId(R.id.fab_main_activity),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                1)),
-                                0),
-                        isDisplayed()));
-        floatingActionButton.perform(click());
+        fabClickAddInteraction();
 
         sleep(250);
 
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Navigate up"),
-                        childAtPosition(
-                                allOf(withId(R.id.action_bar),
-                                        childAtPosition(
-                                                withId(R.id.action_bar_container),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+        navigateUp();
 
         sleep(250);
 
@@ -173,7 +146,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void logAddFriendDeselectionTest() { // FIXME boilerplate code
+    public void logAddFriendDeselectionTest() {
 
         openLog();
 
@@ -181,34 +154,13 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("1");
 
-        ViewInteraction viewInteraction = onView(
-                allOf(withId(R.id.fab_expand_menu_button),
-                        childAtPosition(
-                                allOf(withId(R.id.fab_main_activity),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                1)),
-                                2),
-                        isDisplayed()));
-        viewInteraction.perform(click());
+        openFab();
 
-        ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.fab_add_friend),
-                        isDisplayed()));
-        floatingActionButton.perform(click());
+        fabClickAddFriend();
 
         sleep(250);
 
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Navigate up"),
-                        childAtPosition(
-                                allOf(withId(R.id.action_bar),
-                                        childAtPosition(
-                                                withId(R.id.action_bar_container),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+        navigateUp();
 
         sleep(250);
 
@@ -612,6 +564,40 @@ public class DeselectionTest {
         textView.check(matches(withText(value)));
 
         return textView;
+    }
+
+    private void openFab() {
+        ViewInteraction viewInteraction = onView(
+                allOf(withId(R.id.fab_expand_menu_button),
+                        isDisplayed()));
+        viewInteraction.perform(click());
+    }
+
+    private void fabClickAddInteraction() {
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.fab_add_interaction),
+                        isDisplayed()));
+        floatingActionButton.perform(click());
+    }
+
+    private void fabClickAddFriend() {
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.fab_add_friend),
+                        isDisplayed()));
+        floatingActionButton.perform(click());
+    }
+
+    private void navigateUp() {
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Navigate up"),
+                        childAtPosition(
+                                allOf(withId(R.id.action_bar),
+                                        childAtPosition(
+                                                withId(R.id.action_bar_container),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
     }
 
 }
