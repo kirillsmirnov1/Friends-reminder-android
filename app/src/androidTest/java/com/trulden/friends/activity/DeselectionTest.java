@@ -54,7 +54,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
 
@@ -66,7 +66,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -78,7 +78,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
 
@@ -90,7 +90,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, false);
 
@@ -114,7 +114,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -124,7 +124,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         openFab();
 
@@ -140,7 +140,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -150,7 +150,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);;
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         openFab();
 
@@ -166,7 +166,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -176,7 +176,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         openFab();
 
@@ -192,7 +192,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -202,7 +202,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         openFab();
 
@@ -218,7 +218,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -230,7 +230,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
 
-        ViewInteraction textView = checkSelectionCounter("2");
+        ViewInteraction textView = checkSelectionCounterValue("2");
 
         deleteSelection();
 
@@ -240,7 +240,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -252,7 +252,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
 
-        ViewInteraction textView = checkSelectionCounter("2");
+        ViewInteraction textView = checkSelectionCounterValue("2");
 
         deleteSelection();
 
@@ -262,7 +262,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -272,7 +272,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         deleteSelection();
 
@@ -280,7 +280,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -290,7 +290,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         editSelection();
 
@@ -304,7 +304,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -314,7 +314,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         editSelection();
 
@@ -328,7 +328,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -338,7 +338,7 @@ public class DeselectionTest {
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        ViewInteraction textView = checkSelectionCounter("1");
+        ViewInteraction textView = checkSelectionCounterValue("1");
 
         editSelection();
 
@@ -352,7 +352,7 @@ public class DeselectionTest {
 
         selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -362,7 +362,7 @@ public class DeselectionTest {
         selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
         selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
 
-        ViewInteraction selectionCounter = checkSelectionCounter("2");
+        ViewInteraction selectionCounter = checkSelectionCounterValue("2");
 
         openFriends();
 
@@ -374,7 +374,7 @@ public class DeselectionTest {
 
         selectEntry(2, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     @Test
@@ -384,7 +384,7 @@ public class DeselectionTest {
         selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
         selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
 
-        ViewInteraction selectionCounter = checkSelectionCounter("2");
+        ViewInteraction selectionCounter = checkSelectionCounterValue("2");
 
         openLog();
 
@@ -396,7 +396,7 @@ public class DeselectionTest {
 
         selectEntry(2, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
 
-        checkSelectionCounter("1");
+        checkSelectionCounterValue("1");
     }
 
     private static Matcher<View> childAtPosition(
@@ -485,7 +485,7 @@ public class DeselectionTest {
         constraintLayout.perform(longClick ? longClick() : click());
     }
 
-    private ViewInteraction checkSelectionCounter(String value) {
+    private ViewInteraction checkSelectionCounterValue(String value) {
         ViewInteraction textView = onView(
                 allOf(withText(value),
                         isDisplayed()));
