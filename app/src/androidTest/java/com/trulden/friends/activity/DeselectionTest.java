@@ -377,6 +377,28 @@ public class DeselectionTest {
         checkSelectionCounter("1");
     }
 
+    @Test
+    public void friendsSwitchFragmentDeselectionTest(){
+        openFriends();
+
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
+
+        ViewInteraction selectionCounter = checkSelectionCounter("2");
+
+        openLog();
+
+        sleep(250);
+
+        selectionCounter.check(doesNotExist());
+
+        openFriends();
+
+        selectEntry(2, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+
+        checkSelectionCounter("1");
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
