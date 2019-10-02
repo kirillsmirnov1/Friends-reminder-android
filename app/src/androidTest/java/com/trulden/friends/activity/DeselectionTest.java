@@ -292,15 +292,7 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("1");
 
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.edit_selection), withContentDescription("Edit selection"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_mode_bar),
-                                        1),
-                                0),
-                        isDisplayed()));
-        actionMenuItemView.perform(click());
+        editSelection();
 
         sleep(250);
 
@@ -332,15 +324,7 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("1");
 
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.edit_selection), withContentDescription("Edit selection"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_mode_bar),
-                                        1),
-                                0),
-                        isDisplayed()));
-        actionMenuItemView.perform(click());
+        editSelection();
 
         sleep(250);
 
@@ -372,10 +356,7 @@ public class DeselectionTest {
 
         ViewInteraction textView = checkSelectionCounter("1");
 
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.edit_selection),
-                        isDisplayed()));
-        actionMenuItemView.perform(click());
+        editSelection();
 
         sleep(250);
 
@@ -529,6 +510,14 @@ public class DeselectionTest {
     private void deleteSelection() {
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.delete_selection),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+    }
+
+    private void editSelection() {
+
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.edit_selection),
                         isDisplayed()));
         actionMenuItemView.perform(click());
     }
