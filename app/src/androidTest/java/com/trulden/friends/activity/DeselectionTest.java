@@ -556,4 +556,18 @@ public class DeselectionTest {
         appCompatButton.perform(scrollTo(), click());
     }
 
+    private void deselectAll() {
+
+        ViewInteraction appCompatImageView = onView(
+                allOf(withId(R.id.action_mode_close_button), withContentDescription("Done"),
+                        childAtPosition(
+                                allOf(withId(R.id.action_mode_bar),
+                                        childAtPosition(
+                                                withId(R.id.action_bar_root),
+                                                1)),
+                                0),
+                        isDisplayed()));
+        appCompatImageView.perform(click());
+    }
+
 }
