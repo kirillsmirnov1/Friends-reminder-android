@@ -284,7 +284,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void logEditDeselectionTest() { // FIXME boilerplate code
+    public void logEditDeselectionTest() {
 
         openLog();
 
@@ -296,15 +296,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction actionMenuItemView2 = onView(
-                allOf(withId(R.id.icon_save), withContentDescription("Save"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_bar),
-                                        2),
-                                0),
-                        isDisplayed()));
-        actionMenuItemView2.perform(click());
+        clickSaveOnActionBar();
 
         sleep(250);
 
@@ -316,7 +308,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void friendsEditDeselectionTest() { // FIXME boilerplate code
+    public void friendsEditDeselectionTest() {
 
         openFriends();
 
@@ -328,15 +320,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction actionMenuItemView2 = onView(
-                allOf(withId(R.id.icon_save), withContentDescription("Save"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_bar),
-                                        2),
-                                0),
-                        isDisplayed()));
-        actionMenuItemView2.perform(click());
+        clickSaveOnActionBar();
 
         sleep(250);
 
@@ -520,6 +504,13 @@ public class DeselectionTest {
                 allOf(withId(R.id.edit_selection),
                         isDisplayed()));
         actionMenuItemView.perform(click());
+    }
+
+    private void clickSaveOnActionBar() {
+        ViewInteraction actionMenuItemView2 = onView(
+                allOf(withId(R.id.icon_save),
+                        isDisplayed()));
+        actionMenuItemView2.perform(click());
     }
 
 }
