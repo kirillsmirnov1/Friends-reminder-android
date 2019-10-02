@@ -332,7 +332,7 @@ public class DeselectionTest {
     }
 
     @Test
-    public void typesEditDeselectionTest() { // FIXME boilerplate code
+    public void typesEditDeselectionTest() {
 
         openTypes();
 
@@ -344,14 +344,7 @@ public class DeselectionTest {
 
         sleep(250);
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(android.R.id.button1), withText("Save"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
-        appCompatButton.perform(scrollTo(), click());
+        clickSaveOnDialog();
 
         sleep(250);
 
@@ -511,6 +504,12 @@ public class DeselectionTest {
                 allOf(withId(R.id.icon_save),
                         isDisplayed()));
         actionMenuItemView2.perform(click());
+    }
+
+    private void clickSaveOnDialog() {
+        ViewInteraction appCompatButton = onView(
+                allOf(withText("Save")));
+        appCompatButton.perform(scrollTo(), click());
     }
 
 }
