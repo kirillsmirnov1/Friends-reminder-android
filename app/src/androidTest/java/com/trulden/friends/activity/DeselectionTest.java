@@ -589,10 +589,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void clickSaveOnActionBar() {
-        ViewInteraction actionMenuItemView2 = onView(
-                allOf(withId(R.id.icon_save),
-                        isDisplayed()));
-        actionMenuItemView2.perform(click());
+        onView(withId(R.id.icon_save)).perform(click());
     }
 
     private void clickSaveOnDialog() {
