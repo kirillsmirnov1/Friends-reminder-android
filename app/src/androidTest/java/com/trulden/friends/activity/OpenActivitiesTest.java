@@ -73,4 +73,14 @@ public class OpenActivitiesTest extends AbstractTest {
         }
 
     }
+
+    @Test
+    public void openAddFriendActivity(){
+        openAddFriend();
+
+        onView(withText(R.string.add_friend)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.edit_friends_name)).check(matches(withText("")));
+        onView(withId(R.id.edit_friends_info)).check(matches(withText("")));
+    }
 }
