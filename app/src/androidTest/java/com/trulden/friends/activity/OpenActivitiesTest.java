@@ -144,4 +144,22 @@ public class OpenActivitiesTest extends AbstractTest {
 
         onView(withId(R.id.friend_page_notes)).check(matches(withText(friend.getInfo())));
     }
+
+    @Test
+    public void switchFragmentsTest(){
+        openLog();
+
+        onView(childAtPosition(withId(R.id.toolbar), 0))
+                .check(matches(withText(R.string.log)));
+
+        openLastInteractions();
+
+        onView(childAtPosition(withId(R.id.toolbar), 0))
+                .check(matches(withText(R.string.last_interactions)));
+
+        openFriends();
+
+        onView(childAtPosition(withId(R.id.toolbar),0))
+                .check(matches(withText(R.string.friends)));
+    }
 }
