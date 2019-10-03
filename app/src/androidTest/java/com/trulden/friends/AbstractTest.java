@@ -9,7 +9,6 @@ import android.view.WindowManager;
 import androidx.fragment.app.FragmentActivity;
 import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -20,7 +19,6 @@ import org.junit.Before;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
@@ -107,9 +105,9 @@ public abstract class AbstractTest {
         }
     }
 
-    protected void checkIfToastAppeared(ActivityTestRule activityTestRule, int toastStringId) {
+    protected void checkIfToastAppeared(int toastStringId) {
         onView(withText(toastStringId))
-                .inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView())))
+                .inRoot(isToast())
                 .check(matches(isDisplayed()));
     }
 
