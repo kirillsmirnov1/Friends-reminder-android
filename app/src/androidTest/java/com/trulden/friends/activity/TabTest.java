@@ -14,7 +14,6 @@ import com.trulden.friends.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,11 +21,9 @@ import org.junit.Test;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeLeft;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.allOf;
 
@@ -62,77 +59,25 @@ public class TabTest  extends AbstractTest {
     @Test
     public void tabClickSwitchTest() {
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.last_interaction_name), withText("Caleb"),
-                        childAtPosition(
-                                allOf(withId(R.id.last_interaction_entry_layout),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("Caleb")));
-
-        ViewInteraction relativeLayout = onView(
-                allOf(withId(R.id.last_interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.tab_last_interaction_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout.check(matches(isDisplayed()));
+        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(isDisplayed()));
 
         clickOnLITab(1);
 
-        ViewInteraction relativeLayout2 = onView(
-                allOf(withId(R.id.last_interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.tab_last_interaction_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout2.check(doesNotExist());
+        sleep(250);
+
+        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
     }
 
     @Test
     public void tabSwipeSwitchTest() {
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.last_interaction_name), withText("Caleb"),
-                        childAtPosition(
-                                allOf(withId(R.id.last_interaction_entry_layout),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("Caleb")));
-
-        ViewInteraction relativeLayout = onView(
-                allOf(withId(R.id.last_interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.tab_last_interaction_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout.check(matches(isDisplayed()));
+        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(isDisplayed()));
 
         onView(withId(R.id.root_layout)).perform(swipeLeft());
 
         sleep(250);
 
-        ViewInteraction relativeLayout2 = onView(
-                allOf(withId(R.id.last_interaction_entry_layout),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.tab_last_interaction_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        relativeLayout2.check(doesNotExist());
+        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
     }
 
     private static Matcher<View> childAtPosition(
