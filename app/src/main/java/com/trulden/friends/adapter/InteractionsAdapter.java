@@ -17,11 +17,12 @@ import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
+import com.trulden.friends.util.Util;
 
 import java.util.HashSet;
 import java.util.List;
 
-import static com.trulden.friends.util.Util.dateFormat;
+import static com.trulden.friends.util.Util.formatDate;
 
 /**
  * RecyclerView adapter for Interaction objects.
@@ -81,7 +82,7 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
             String interactionTypeName = mInteractionTypes.get(interaction.getInteractionTypeId());
 
             mType.setText(interactionTypeName);
-            mDate.setText(dateFormat.format(interaction.getDate()));
+            mDate.setText(formatDate(interaction.getDate()));
             mNames.setText(generateNameString(interactionWithFriendIDs.friendIDs));
             mComment.setText(interaction.getComment());
 
