@@ -429,19 +429,6 @@ public class DeselectionTest extends AbstractTest {
 
     // UI interactions
 
-    private void openTypes() {
-        onView(childAtPosition(
-                childAtPosition(withId(R.id.toolbar),1),
-                0))
-                .perform(click());
-
-        sleep(250);
-
-        onView(withText(R.string.manage_interaction_types)).perform(click());
-
-        sleep(250);
-    }
-
     private ViewInteraction checkSelectionCounterValue(String value) {
         ViewInteraction textView = onView(withText(value));
         textView.check(matches(isDisplayed()));

@@ -34,6 +34,19 @@ public abstract class AbstractTest {
         onView(withId(R.id.bottom_friends)).perform(click());
     }
 
+    protected void openTypes() {
+        onView(childAtPosition(
+                childAtPosition(withId(R.id.toolbar),1),
+                0))
+                .perform(click());
+
+        sleep(250);
+
+        onView(withText(R.string.manage_interaction_types)).perform(click());
+
+        sleep(250);
+    }
+
     protected void openFab() {
         onView(withId(R.id.fab_expand_menu_button)).perform(click());
     }
