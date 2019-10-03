@@ -1,20 +1,11 @@
 package com.trulden.friends.activity;
 
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
-
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -111,9 +102,7 @@ public class DeselectionTest extends AbstractTest {
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        openFab();
-
-        fabClickAddInteraction();
+        openAddInteraction();
 
         sleep(250);
 
@@ -137,9 +126,7 @@ public class DeselectionTest extends AbstractTest {
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        openFab();
-
-        fabClickAddFriend();
+        openAddFriend();
 
         sleep(250);
 
@@ -163,9 +150,7 @@ public class DeselectionTest extends AbstractTest {
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        openFab();
-
-        fabClickAddInteraction();
+        openAddInteraction();
 
         sleep(250);
 
@@ -189,11 +174,7 @@ public class DeselectionTest extends AbstractTest {
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        openFab();
-
-        fabClickAddFriend();
-
-        sleep(250);
+        openAddFriend();
 
         navigateUp();
 
