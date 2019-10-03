@@ -7,12 +7,20 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
 public class AbstractTest {
 
     @Before
     public void initDB(){
         DatabaseTestingHandler.initAndFillDatabase(
                 (FragmentActivity) TestUtil.getActivityInstance());
+    }
+
+    protected void openFriends() {
+        onView(withId(R.id.bottom_friends)).perform(click());
     }
 
     protected void sleep(int millis){
