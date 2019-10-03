@@ -90,7 +90,7 @@ public class OpenActivitiesTest extends AbstractTest {
 
         onView(withId(R.id.edit_interaction_type_name)).check(matches(withText(type.getInteractionTypeName())));
         onView(withId(R.id.edit_interaction_type_frequency))
-                .check(matches(withText((String.valueOf(type.getFrequency())))));
+                .check(matches(withText(String.valueOf(type.getFrequency()))));
     }
 
     @Test
@@ -114,6 +114,18 @@ public class OpenActivitiesTest extends AbstractTest {
         onView(withId(R.id.editDate)).check(matches(withText("")));
         onView(withId(R.id.editFriends)).check(matches(withText("")));
         onView(withId(R.id.editComment)).check(matches(withText("")));
+    }
+
+    @Test
+    public void openAddType(){
+        openTypes();
+
+        onView(withId(R.id.add)).perform(click());
+
+        onView(withText(R.string.new_interaction_type)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.edit_interaction_type_name)).check(matches(withText("")));
+        onView(withId(R.id.edit_interaction_type_frequency)).check(matches(withText("")));
     }
 
 }
