@@ -164,11 +164,7 @@ public class TabTest  extends AbstractTest {
 
         onView(withId(R.id.root_layout)).perform(swipeLeft());
 
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(250);
 
         ViewInteraction relativeLayout2 = onView(
                 allOf(withId(R.id.last_interaction_entry_layout),
