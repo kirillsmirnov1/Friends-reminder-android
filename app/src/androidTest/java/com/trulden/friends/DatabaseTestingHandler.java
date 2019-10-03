@@ -13,6 +13,12 @@ import com.trulden.friends.database.entity.InteractionType;
 import java.util.Calendar;
 
 public class DatabaseTestingHandler {
+
+    static public InteractionType[] types;
+    static public Friend[] friends;
+    static public Interaction[] interactions;
+    static public BindFriendInteraction[] binds;
+
     public static void initAndFillDatabase(FragmentActivity activity){
 
         FriendsViewModel mFriendsViewModel = ViewModelProviders.of(activity).get(FriendsViewModel.class);
@@ -23,12 +29,12 @@ public class DatabaseTestingHandler {
         dao.wipeInteractions();
         dao.wipeBinds();
 
-        InteractionType[] types = {
+        types = new InteractionType[]{
                 new InteractionType(1, "Meeting", 30),
                 new InteractionType(2, "Texting", 7)
         };
 
-        Friend[] friends = {
+        friends = new Friend[]{
                 new Friend(1, "Aaron", "A prophet, high priest, and the brother of Moses"),
                 new Friend(2, "Balaam", "Told King Balak how to get the Israelites to commit sin by enticing them with sexual immorality and food sacrificed to idols"),
                 new Friend(3, "Caleb", "One of the twelve spies sent by Moses into Canaan")
@@ -40,13 +46,13 @@ public class DatabaseTestingHandler {
         dates[1].add(Calendar.DATE, -30);
         dates[2].add(Calendar.DATE, -31);
 
-        Interaction[] interactions = {
+        interactions = new Interaction[]{
                 new Interaction( 1, 1, dates[0].getTimeInMillis(), "A + B"),
                 new Interaction( 2, 1, dates[1].getTimeInMillis(), "B + C"),
                 new Interaction( 3, 1, dates[2].getTimeInMillis(), "C + A")
         };
 
-        BindFriendInteraction[] binds = {
+        binds = new BindFriendInteraction[]{
                 new BindFriendInteraction(1,1),
                 new BindFriendInteraction(2,1),
                 new BindFriendInteraction(2,2),
