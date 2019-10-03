@@ -83,4 +83,17 @@ public class OpenActivitiesTest extends AbstractTest {
         onView(withId(R.id.edit_friends_name)).check(matches(withText("")));
         onView(withId(R.id.edit_friends_info)).check(matches(withText("")));
     }
+
+    @Test
+    public void openAddInteractionActivity(){
+        openAddInteraction();
+
+        onView(withText(R.string.add_interaction)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.interaction_type_spinner))
+                .check(matches(withSpinnerText(DatabaseTestingHandler.types[0].getInteractionTypeName())));
+        onView(withId(R.id.editDate)).check(matches(withText("")));
+        onView(withId(R.id.editFriends)).check(matches(withText("")));
+        onView(withId(R.id.editComment)).check(matches(withText("")));
+    }
 }
