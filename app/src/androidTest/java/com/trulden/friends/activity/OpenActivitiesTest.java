@@ -10,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.*;
+import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
@@ -23,13 +24,13 @@ public class OpenActivitiesTest extends AbstractTest {
     public void openEditFriendActivity(){
         openFriends();
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        onView(withText("Aaron")).perform(longClick());
 
         editSelection();
 
         onView(withText(R.string.action_bar_title_edit_friend)).check(matches(isDisplayed()));
 
-        //TODO check data correctness
+        onView(withText("Aaron")).check(matches(isDisplayed()));
     }
 
     @Test
