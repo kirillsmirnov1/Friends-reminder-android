@@ -15,6 +15,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -32,13 +33,16 @@ import static org.hamcrest.Matchers.allOf;
 @LargeTest
 public class TabTest  extends AbstractTest {
 
+    @Before
+    public void openTabsAtStart(){
+        openLastInteractionFragment();
+    }
+
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void tabPersistenceTest() {
-
-        openLastInteractionFragment();
 
         ViewInteraction tabView = onView(
                 allOf(childAtPosition(
@@ -93,8 +97,6 @@ public class TabTest  extends AbstractTest {
     @Test
     public void tabClickSwitchTest() {
 
-        openLastInteractionFragment();
-
         ViewInteraction textView = onView(
                 allOf(withId(R.id.last_interaction_name), withText("Caleb"),
                         childAtPosition(
@@ -138,8 +140,6 @@ public class TabTest  extends AbstractTest {
 
     @Test
     public void tabSwipeSwitchTest() {
-
-        openLastInteractionFragment();
 
         ViewInteraction textView = onView(
                 allOf(withId(R.id.last_interaction_name), withText("Caleb"),
