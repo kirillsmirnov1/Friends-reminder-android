@@ -26,6 +26,7 @@ public class OpenActivitiesTest extends AbstractTest {
         openFriends();
 
         String friendsName = DatabaseTestingHandler.friends[0].getName();
+        String friendsNotes = DatabaseTestingHandler.friends[0].getInfo();
 
         onView(withText(friendsName)).perform(longClick());
 
@@ -34,6 +35,7 @@ public class OpenActivitiesTest extends AbstractTest {
         onView(withText(R.string.action_bar_title_edit_friend)).check(matches(isDisplayed()));
 
         onView(withText(friendsName)).check(matches(isDisplayed()));
+        onView(withText(friendsNotes)).check(matches(isDisplayed()));
     }
 
     @Test
