@@ -4,6 +4,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import com.trulden.friends.AbstractTest;
+import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
 
 import org.junit.Rule;
@@ -24,13 +25,15 @@ public class OpenActivitiesTest extends AbstractTest {
     public void openEditFriendActivity(){
         openFriends();
 
-        onView(withText("Aaron")).perform(longClick());
+        String friendsName = DatabaseTestingHandler.friends[0].getName();
+
+        onView(withText(friendsName)).perform(longClick());
 
         editSelection();
 
         onView(withText(R.string.action_bar_title_edit_friend)).check(matches(isDisplayed()));
 
-        onView(withText("Aaron")).check(matches(isDisplayed()));
+        onView(withText(friendsName)).check(matches(isDisplayed()));
     }
 
     @Test
