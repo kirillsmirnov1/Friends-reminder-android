@@ -561,16 +561,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void navigateUp() {
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Navigate up"),
-                        childAtPosition(
-                                allOf(withId(R.id.action_bar),
-                                        childAtPosition(
-                                                withId(R.id.action_bar_container),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+        onView(withContentDescription("Navigate up")).perform(click());
     }
 
     private void deleteSelection() {
