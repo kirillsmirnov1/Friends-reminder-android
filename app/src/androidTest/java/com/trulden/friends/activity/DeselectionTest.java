@@ -448,10 +448,6 @@ public class DeselectionTest extends AbstractTest {
 
     // UI interactions
 
-    private void openLog() {
-        onView(withId(R.id.bottom_interactions)).perform(click());
-    }
-
     private void openTypes() {
         onView(childAtPosition(
                 childAtPosition(withId(R.id.toolbar),1),

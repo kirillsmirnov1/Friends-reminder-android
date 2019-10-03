@@ -26,6 +26,10 @@ public class AbstractTest {
                 (FragmentActivity) TestUtil.getActivityInstance());
     }
 
+    protected void openLog() {
+        onView(withId(R.id.bottom_interactions)).perform(click());
+    }
+
     protected void openFriends() {
         onView(withId(R.id.bottom_friends)).perform(click());
     }
