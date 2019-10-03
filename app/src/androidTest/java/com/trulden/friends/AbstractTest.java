@@ -18,7 +18,7 @@ import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.allOf;
 
-public class AbstractTest {
+public abstract class AbstractTest {
 
     @Before
     public void initDB(){
