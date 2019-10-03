@@ -93,7 +93,7 @@ public class DeselectionTest extends AbstractTest {
 
         sleep(250);
 
-        textView.check(doesNotExist());
+        textView.check(matches(not(isDisplayed())));
 
         selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
@@ -261,7 +261,7 @@ public class DeselectionTest extends AbstractTest {
 
         deleteSelection();
 
-        textView.check(doesNotExist());
+        textView.check(matches(not(isDisplayed())));
 
         selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
@@ -333,7 +333,7 @@ public class DeselectionTest extends AbstractTest {
 
         sleep(250);
 
-        textView.check(doesNotExist());
+        textView.check(matches(not(isDisplayed())));
 
         selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
@@ -439,7 +439,7 @@ public class DeselectionTest extends AbstractTest {
 
         sleep(250);
 
-        selectionCounter.check(doesNotExist());
+        selectionCounter.check(matches(not(isDisplayed())));
 
         selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
 
