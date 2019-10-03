@@ -5,10 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.rule.ActivityTestRule;
 
 import com.trulden.friends.activity.MainActivity;
@@ -19,6 +21,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Rule;
+
+import java.util.Calendar;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
@@ -116,6 +120,12 @@ public abstract class AbstractTest {
         onView(withText(toastStringId))
                 .inRoot(isToast())
                 .check(matches(isDisplayed()));
+    }
+
+    protected void setDatePicker(Calendar c) {
+        onView(withClassName(equalTo(DatePicker.class.getName())))
+                .perform(PickerActions
+                        .setDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH)));
     }
 
     protected static Matcher<View> childAtPosition(
