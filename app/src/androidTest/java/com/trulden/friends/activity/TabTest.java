@@ -38,24 +38,6 @@ public class TabTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    private void openLastInteractionFragment(){
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_last_interactions), withContentDescription("Last Interactions"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                1),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
-
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Test
     public void tabPersistenceTest() {
 
@@ -228,5 +210,23 @@ public class TabTest {
                         && view.equals(((ViewGroup) parent).getChildAt(position));
             }
         };
+    }
+
+    private void openLastInteractionFragment(){
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(withId(R.id.bottom_last_interactions), withContentDescription("Last Interactions"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.bottom_navigation),
+                                        0),
+                                1),
+                        isDisplayed()));
+        bottomNavigationItemView.perform(click());
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
