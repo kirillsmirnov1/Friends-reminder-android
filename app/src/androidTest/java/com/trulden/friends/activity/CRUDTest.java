@@ -76,7 +76,17 @@ public class CRUDTest extends AbstractTest {
 
         onView(withId(R.id.editDate)).perform(click());
 
+
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
+
+        setDatePicker(tomorrow);
+        onView(withText("OK")).perform(click()); // And it won't work
+
+        setDatePicker(Calendar.getInstance());
         onView(withText("OK")).perform(click());
+
+        // TODO check old friends
 
         onView(withId(R.id.editFriends)).perform(replaceText("Goliath"), closeSoftKeyboard());
 
