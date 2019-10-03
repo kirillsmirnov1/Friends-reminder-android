@@ -420,6 +420,27 @@ public class DeselectionTest {
         checkSelectionCounterValue("1");
     }
 
+    @Test
+    public void friendsDeselectAllTest(){
+
+        openFriends();
+
+        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
+
+        ViewInteraction selectionCounter = checkSelectionCounterValue("2");
+
+        deselectAll();
+
+        sleep(250);
+
+        selectionCounter.check(doesNotExist());
+
+        selectEntry(2, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+
+        checkSelectionCounterValue("1");
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
