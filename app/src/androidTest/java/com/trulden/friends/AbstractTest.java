@@ -9,12 +9,16 @@ import android.view.WindowManager;
 import androidx.fragment.app.FragmentActivity;
 import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.rule.ActivityTestRule;
+
+import com.trulden.friends.activity.MainActivity;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
+import org.junit.Rule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
@@ -23,6 +27,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
 public abstract class AbstractTest {
+
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void initDB(){

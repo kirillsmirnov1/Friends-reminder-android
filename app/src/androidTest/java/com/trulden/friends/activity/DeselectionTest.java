@@ -2,11 +2,9 @@ package com.trulden.friends.activity;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
-import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -17,9 +15,6 @@ import static org.hamcrest.Matchers.*;
 
 @LargeTest
 public class DeselectionTest extends AbstractTest {
-
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void logManualDeselectionTest() {

@@ -1,7 +1,6 @@
 package com.trulden.friends.activity;
 
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.DatabaseTestingHandler;
@@ -12,7 +11,6 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.util.Util;
 
-import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.*;
@@ -22,9 +20,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 @LargeTest
 public class OpenActivitiesTest extends AbstractTest {
-
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void openEditFriendActivityTest(){
