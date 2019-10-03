@@ -12,4 +12,12 @@ public class AbstractTest {
                 (FragmentActivity) TestUtil.getActivityInstance());
     }
 
+    protected void sleep(int millis){
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

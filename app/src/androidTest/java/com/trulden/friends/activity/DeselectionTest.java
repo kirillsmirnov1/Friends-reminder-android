@@ -471,14 +471,6 @@ public class DeselectionTest extends AbstractTest {
         };
     }
 
-    private void sleep(int millis){
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     // UI interactions
 
     private void openLog() {
