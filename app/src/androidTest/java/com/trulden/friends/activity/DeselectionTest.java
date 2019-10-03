@@ -444,10 +444,6 @@ public class DeselectionTest extends AbstractTest {
         onView(withId(R.id.delete_selection)).perform(click());
     }
 
-    private void clickSaveOnActionBar() {
-        onView(withId(R.id.icon_save)).perform(click());
-    }
-
     private void clickSaveOnDialog() {
         onView(withText("Save")).perform(scrollTo(), click());
     }
