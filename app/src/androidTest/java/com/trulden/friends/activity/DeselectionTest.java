@@ -596,9 +596,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void clickSaveOnDialog() {
-        ViewInteraction appCompatButton = onView(
-                allOf(withText("Save")));
-        appCompatButton.perform(scrollTo(), click());
+        onView(withText("Save")).perform(scrollTo(), click());
     }
 
     private void deselectAll() {
