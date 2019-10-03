@@ -6,6 +6,10 @@ import androidx.test.rule.ActivityTestRule;
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
+import com.trulden.friends.database.entity.BindFriendInteraction;
+import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.util.Util;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,14 +46,31 @@ public class OpenActivitiesTest extends AbstractTest {
     public void openEditInteractionActivity(){
         openLog();
 
-        String interactionComment = DatabaseTestingHandler.interactions[0].getComment();
+        Interaction interaction = DatabaseTestingHandler.interactions[0];
+        Friend[] friends = DatabaseTestingHandler.friends;
 
-        onView(withText(interactionComment)).perform(longClick());
+        String type = DatabaseTestingHandler.types[(int) (interaction.getInteractionTypeId()-1)]
+                .getInteractionTypeName();
+        String date = Util.formatDate(interaction.getDate());
+        String comment = interaction.getComment();
+
+        onView(withText(comment)).perform(longClick());
 
         editSelection();
 
         onView(withText(R.string.edit_interaction)).check(matches(isDisplayed()));
 
-        onView(withText(interactionComment)).check(matches(isDisplayed()));
+        onView(withText(type)).check(matches(isDisplayed()));
+        onView(withText(comment)).check(matches(isDisplayed()));
+        onView(withText(date)).check(matches(isDisplayed()));
+
+        // Check friend names
+        for (BindFriendInteraction bind : DatabaseTestingHandler.binds) {
+            if (bind.getInteractionId() == interaction.getId()) {
+                String friendsName = friends[(int) (bind.getFriendId() - 1)].getName();
+                onView(withSubstring(friendsName)).check(matches(isDisplayed()));
+            }
+        }
+
     }
 }
