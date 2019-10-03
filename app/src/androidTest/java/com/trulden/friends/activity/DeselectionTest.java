@@ -602,11 +602,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void deselectAll() {
-
-        ViewInteraction appCompatImageView = onView(
-                allOf(withId(R.id.action_mode_close_button), withContentDescription("Done"),
-                        isDisplayed()));
-        appCompatImageView.perform(click());
+        onView(withId(R.id.action_mode_close_button)).perform(click());
     }
 
 }
