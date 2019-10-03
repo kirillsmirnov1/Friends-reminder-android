@@ -468,13 +468,7 @@ public class DeselectionTest extends AbstractTest {
     // UI interactions
 
     private void openLog() {
-
-        ViewInteraction bottomNavigationItemView = onView(
-            allOf(
-                withId(R.id.bottom_interactions),
-                isDisplayed()));
-
-        bottomNavigationItemView.perform(click());
+        onView(withId(R.id.bottom_interactions)).perform(click());
     }
 
     private void openFriends() {
