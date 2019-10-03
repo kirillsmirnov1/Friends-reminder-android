@@ -105,15 +105,11 @@ public class TabTest  extends AbstractTest {
     }
 
     private void clickOnLITab(int position) {
-
-        ViewInteraction tabView = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withId(R.id.last_interactions_tab_layout),
-                                0),
-                        position),
-                        isDisplayed()));
-        tabView.perform(click());
-
+        onView(childAtPosition(
+                    childAtPosition(
+                            withId(R.id.last_interactions_tab_layout),
+                            0),
+                    position))
+                .perform(click());
     }
 }
