@@ -540,10 +540,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void openFab() {
-        ViewInteraction viewInteraction = onView(
-                allOf(withId(R.id.fab_expand_menu_button),
-                        isDisplayed()));
-        viewInteraction.perform(click());
+        onView(withId(R.id.fab_expand_menu_button)).perform(click());
     }
 
     private void fabClickAddInteraction() {
