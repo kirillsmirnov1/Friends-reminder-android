@@ -40,12 +40,14 @@ public class OpenActivitiesTest extends AbstractTest {
     public void openEditInteractionActivity(){
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        String interactionComment = DatabaseTestingHandler.interactions[0].getComment();
+
+        onView(withText(interactionComment)).perform(longClick());
 
         editSelection();
 
         onView(withText(R.string.edit_interaction)).check(matches(isDisplayed()));
 
-        //TODO check data correctness
+        onView(withText(interactionComment)).check(matches(isDisplayed()));
     }
 }
