@@ -87,7 +87,7 @@ public abstract class Util {
 
     @SuppressLint("DefaultLocale")
     public static String generateBackupFileName() {
-        String date = dateFormat.format(Calendar.getInstance().getTime());
+        String date = formatDate(Calendar.getInstance().getTime().getTime());
 
         return String.format("friends_db_v%d_%s.zip", DATABASE_VERSION, date);
     }
