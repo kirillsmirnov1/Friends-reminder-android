@@ -128,4 +128,20 @@ public class OpenActivitiesTest extends AbstractTest {
         onView(withId(R.id.edit_interaction_type_frequency)).check(matches(withText("")));
     }
 
+    @Test
+    public void openFriendTest(){
+
+        Friend friend = DatabaseTestingHandler.friends[0];
+
+        openFriends();
+
+        onView(withText(friend.getName())).perform(click());
+
+        sleep(250);
+
+        onView(childAtPosition(withId(R.id.action_bar),0))
+                .check(matches(withText("Aaron")));
+
+        onView(withId(R.id.friend_page_notes)).check(matches(withText(friend.getInfo())));
+    }
 }
