@@ -554,10 +554,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void fabClickAddFriend() {
-        ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.fab_add_friend),
-                        isDisplayed()));
-        floatingActionButton.perform(click());
+        onView(withId(R.id.fab_add_friend)).perform(click());
     }
 
     private void navigateUp() {
