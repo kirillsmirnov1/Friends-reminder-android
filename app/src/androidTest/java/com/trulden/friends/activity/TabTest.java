@@ -27,6 +27,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
@@ -43,54 +44,19 @@ public class TabTest  extends AbstractTest {
     @Test
     public void tabPersistenceTest() {
 
-        ViewInteraction tabView = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withId(R.id.last_interactions_tab_layout),
-                                0),
-                        1),
-                        isDisplayed()));
-        tabView.perform(click());
+        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(isDisplayed()));
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.tab_label), withText("Texting"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("Texting")));
+        clickOnLITab(1);
 
-        ViewInteraction bottomNavigationItemView2 = onView(
-                allOf(withId(R.id.bottom_friends), withContentDescription("Friends"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                2),
-                        isDisplayed()));
-        bottomNavigationItemView2.perform(click());
+        sleep(250);
 
-        ViewInteraction bottomNavigationItemView3 = onView(
-                allOf(withId(R.id.bottom_last_interactions), withContentDescription("Last Interactions"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                1),
-                        isDisplayed()));
-        bottomNavigationItemView3.perform(click());
+        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.tab_label), withText("Texting"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView2.check(matches(withText("Texting")));
+        onView(withId(R.id.bottom_friends)).perform(click());
+
+        openLastInteractionFragment();
+
+        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
     }
 
     @Test
@@ -117,14 +83,7 @@ public class TabTest  extends AbstractTest {
                         isDisplayed()));
         relativeLayout.check(matches(isDisplayed()));
 
-        ViewInteraction tabView3 = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withId(R.id.last_interactions_tab_layout),
-                                0),
-                        1),
-                        isDisplayed()));
-        tabView3.perform(click());
+        clickOnLITab(1);
 
         ViewInteraction relativeLayout2 = onView(
                 allOf(withId(R.id.last_interaction_entry_layout),
@@ -196,21 +155,8 @@ public class TabTest  extends AbstractTest {
     }
 
     private void openLastInteractionFragment(){
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.bottom_last_interactions), withContentDescription("Last Interactions"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.bottom_navigation),
-                                        0),
-                                1),
-                        isDisplayed()));
-        bottomNavigationItemView.perform(click());
-
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        onView(withId(R.id.bottom_last_interactions)).perform(click());
+        sleep(250);
     }
 
     private void clickOnLITab(int position) {
