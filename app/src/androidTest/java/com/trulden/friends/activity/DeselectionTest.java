@@ -581,11 +581,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void editSelection() {
-
-        ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.edit_selection),
-                        isDisplayed()));
-        actionMenuItemView.perform(click());
+        onView(withId(R.id.edit_selection)).perform(click());
     }
 
     private void clickSaveOnActionBar() {
