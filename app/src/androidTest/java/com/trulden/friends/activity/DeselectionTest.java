@@ -488,26 +488,14 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void openTypes() {
-        ViewInteraction overflowMenuButton2 = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withId(R.id.toolbar),
-                                1),
-                        0),
-                        isDisplayed()));
-        overflowMenuButton2.perform(click());
+        onView(childAtPosition(
+                childAtPosition(withId(R.id.toolbar),1),
+                0))
+                .perform(click());
 
         sleep(250);
 
-        ViewInteraction appCompatTextView2 = onView(
-                allOf(withId(R.id.title), withText("Interaction types"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        appCompatTextView2.perform(click());
+        onView(withText(R.string.manage_interaction_types)).perform(click());
 
         sleep(250);
     }
