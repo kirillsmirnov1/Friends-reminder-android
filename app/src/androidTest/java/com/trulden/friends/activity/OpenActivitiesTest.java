@@ -9,6 +9,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.util.Util;
 
 import org.junit.Rule;
@@ -75,6 +76,22 @@ public class OpenActivitiesTest extends AbstractTest {
     }
 
     @Test
+    public void openEditType(){
+
+        InteractionType type = DatabaseTestingHandler.types[0];
+
+        openTypes();
+
+        onView(withText(type.getInteractionTypeName())).perform(longClick());
+
+        editSelection();
+
+        onView(withId(R.id.edit_interaction_type_name)).check(matches(withText(type.getInteractionTypeName())));
+        onView(withId(R.id.edit_interaction_type_frequency))
+                .check(matches(withText((String.valueOf(type.getFrequency())))));
+    }
+
+    @Test
     public void openAddFriendActivity(){
         openAddFriend();
 
@@ -96,4 +113,5 @@ public class OpenActivitiesTest extends AbstractTest {
         onView(withId(R.id.editFriends)).check(matches(withText("")));
         onView(withId(R.id.editComment)).check(matches(withText("")));
     }
+
 }
