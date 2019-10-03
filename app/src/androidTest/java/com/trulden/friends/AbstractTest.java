@@ -30,6 +30,10 @@ public abstract class AbstractTest {
         onView(withId(R.id.bottom_interactions)).perform(click());
     }
 
+    protected void openLastInteractions(){
+        onView(withId(R.id.bottom_last_interactions)).perform(click());
+    }
+
     protected void openFriends() {
         onView(withId(R.id.bottom_friends)).perform(click());
     }
