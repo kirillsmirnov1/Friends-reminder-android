@@ -5,19 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import com.trulden.friends.DatabaseTestingHandler;
+import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
-import com.trulden.friends.TestUtil;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -34,16 +31,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
-public class DeselectionTest {
+public class DeselectionTest extends AbstractTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-
-    @Before
-    public void initDB(){
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
-    }
 
     @Test
     public void logManualDeselectionTest() {
@@ -148,7 +139,7 @@ public class DeselectionTest {
 
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);;
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
