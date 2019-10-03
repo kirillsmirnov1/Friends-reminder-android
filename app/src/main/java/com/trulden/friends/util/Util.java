@@ -81,6 +81,10 @@ public abstract class Util {
         return context.getFilesDir().getAbsolutePath() + "/backup.zip";
     }
 
+    public static String formatDate(long millis){
+        return dateFormat.format(millis);
+    }
+
     @SuppressLint("DefaultLocale")
     public static String generateBackupFileName() {
         String date = dateFormat.format(Calendar.getInstance().getTime());
