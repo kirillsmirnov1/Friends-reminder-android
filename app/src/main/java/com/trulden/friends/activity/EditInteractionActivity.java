@@ -123,7 +123,10 @@ public class EditInteractionActivity
 
                 String[] spinnerOptions = new String[mTypesMap.size() + 1];
 
-                System.arraycopy(mTypesMap.keySet().toArray(new String[0]), 0, spinnerOptions, 0, mTypesMap.size());
+                String[] typeNames = mTypesMap.keySet().toArray(new String[0]);
+                Arrays.sort(typeNames);
+
+                System.arraycopy(typeNames, 0, spinnerOptions, 0, mTypesMap.size());
 
                 spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
