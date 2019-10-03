@@ -28,5 +28,20 @@ public class OpenActivitiesTest extends AbstractTest {
         editSelection();
 
         onView(withText(R.string.action_bar_title_edit_friend)).check(matches(isDisplayed()));
+
+        //TODO check data correctness
+    }
+
+    @Test
+    public void openEditInteractionActivity(){
+        openLog();
+
+        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+
+        editSelection();
+
+        onView(withText(R.string.edit_interaction)).check(matches(isDisplayed()));
+
+        //TODO check data correctness
     }
 }
