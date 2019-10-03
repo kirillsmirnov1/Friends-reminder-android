@@ -30,6 +30,18 @@ public class AbstractTest {
         onView(withId(R.id.bottom_friends)).perform(click());
     }
 
+    protected void selectEntry(int pos, int entryID, int recyclerviewID, boolean longClick) {
+        ViewInteraction constraintLayout = onView(
+                allOf(withId(entryID),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(recyclerviewID),
+                                        pos),
+                                0),
+                        isDisplayed()));
+        constraintLayout.perform(longClick ? longClick() : click());
+    }
+
     protected void sleep(int millis){
         try {
             Thread.sleep(millis);

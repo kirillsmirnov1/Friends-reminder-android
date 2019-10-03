@@ -465,18 +465,6 @@ public class DeselectionTest extends AbstractTest {
         sleep(250);
     }
 
-    private void selectEntry(int pos, int entryID, int recyclerviewID, boolean longClick) {
-        ViewInteraction constraintLayout = onView(
-                allOf(withId(entryID),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(recyclerviewID),
-                                        pos),
-                                0),
-                        isDisplayed()));
-        constraintLayout.perform(longClick ? longClick() : click());
-    }
-
     private ViewInteraction checkSelectionCounterValue(String value) {
         ViewInteraction textView = onView(withText(value));
         textView.check(matches(isDisplayed()));
