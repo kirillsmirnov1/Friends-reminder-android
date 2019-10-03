@@ -27,7 +27,7 @@ public class OpenActivitiesTest extends AbstractTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void openEditFriendActivity(){
+    public void openEditFriendActivityTest(){
         openFriends();
 
         String friendsName = DatabaseTestingHandler.friends[0].getName();
@@ -44,7 +44,7 @@ public class OpenActivitiesTest extends AbstractTest {
     }
 
     @Test
-    public void openEditInteractionActivity(){
+    public void openEditInteractionActivityTest(){
         openLog();
 
         Interaction interaction = DatabaseTestingHandler.interactions[0];
@@ -76,7 +76,7 @@ public class OpenActivitiesTest extends AbstractTest {
     }
 
     @Test
-    public void openEditType(){
+    public void openEditTypeTest(){
 
         InteractionType type = DatabaseTestingHandler.types[0];
 
@@ -94,7 +94,7 @@ public class OpenActivitiesTest extends AbstractTest {
     }
 
     @Test
-    public void openAddFriendActivity(){
+    public void openAddFriendActivityTest(){
         openAddFriend();
 
         onView(withText(R.string.add_friend)).check(matches(isDisplayed()));
@@ -104,7 +104,7 @@ public class OpenActivitiesTest extends AbstractTest {
     }
 
     @Test
-    public void openAddInteractionActivity(){
+    public void openAddInteractionActivityTest(){
         openAddInteraction();
 
         onView(withText(R.string.add_interaction)).check(matches(isDisplayed()));
@@ -117,7 +117,7 @@ public class OpenActivitiesTest extends AbstractTest {
     }
 
     @Test
-    public void openAddType(){
+    public void openAddTypeTest(){
         openTypes();
 
         onView(withId(R.id.add)).perform(click());
