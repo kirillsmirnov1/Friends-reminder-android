@@ -13,6 +13,7 @@ import com.trulden.friends.database.wrappers.LastInteraction;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
@@ -24,7 +25,7 @@ public abstract class Util {
 
     private static final String LOG_TAG = Util.class.getSimpleName();
 
-    public static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+    private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Keys
@@ -81,13 +82,17 @@ public abstract class Util {
         return context.getFilesDir().getAbsolutePath() + "/backup.zip";
     }
 
+    public static String formatDate(Date date){
+        return formatDate(date.getTime());
+    }
+
     public static String formatDate(long millis){
         return dateFormat.format(millis);
     }
 
     @SuppressLint("DefaultLocale")
     public static String generateBackupFileName() {
-        String date = formatDate(Calendar.getInstance().getTime().getTime());
+        String date = formatDate(Calendar.getInstance().getTime());
 
         return String.format("friends_db_v%d_%s.zip", DATABASE_VERSION, date);
     }
