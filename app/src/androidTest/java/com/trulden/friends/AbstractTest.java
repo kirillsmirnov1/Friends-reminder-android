@@ -42,6 +42,10 @@ public class AbstractTest {
         constraintLayout.perform(longClick ? longClick() : click());
     }
 
+    protected void editSelection() {
+        onView(withId(R.id.edit_selection)).perform(click());
+    }
+
     protected void sleep(int millis){
         try {
             Thread.sleep(millis);
