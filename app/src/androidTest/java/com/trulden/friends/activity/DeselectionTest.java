@@ -602,12 +602,6 @@ public class DeselectionTest {
 
         ViewInteraction appCompatImageView = onView(
                 allOf(withId(R.id.action_mode_close_button), withContentDescription("Done"),
-                        childAtPosition(
-                                allOf(withId(R.id.action_mode_bar),
-                                        childAtPosition(
-                                                withId(R.id.action_bar_root),
-                                                1)),
-                                0),
                         isDisplayed()));
         appCompatImageView.perform(click());
     }
