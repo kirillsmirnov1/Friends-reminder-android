@@ -525,10 +525,8 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private ViewInteraction checkSelectionCounterValue(String value) {
-        ViewInteraction textView = onView(
-                allOf(withText(value),
-                        isDisplayed()));
-        textView.check(matches(withText(value)));
+        ViewInteraction textView = onView(withText(value));
+        textView.check(matches(isDisplayed()));
 
         return textView;
     }
