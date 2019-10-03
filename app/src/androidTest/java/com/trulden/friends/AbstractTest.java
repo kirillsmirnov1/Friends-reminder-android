@@ -34,6 +34,18 @@ public abstract class AbstractTest {
         onView(withId(R.id.bottom_friends)).perform(click());
     }
 
+    protected void openFab() {
+        onView(withId(R.id.fab_expand_menu_button)).perform(click());
+    }
+
+    protected void fabClickAddInteraction() {
+        onView(withId(R.id.fab_add_interaction)).perform(click());
+    }
+
+    protected void fabClickAddFriend() {
+        onView(withId(R.id.fab_add_friend)).perform(click());
+    }
+
     protected void selectEntry(int pos, int entryID, int recyclerviewID, boolean longClick) {
         ViewInteraction constraintLayout = onView(
                 allOf(withId(entryID),

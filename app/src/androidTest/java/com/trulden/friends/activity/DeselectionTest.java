@@ -468,18 +468,6 @@ public class DeselectionTest extends AbstractTest {
         return textView;
     }
 
-    private void openFab() {
-        onView(withId(R.id.fab_expand_menu_button)).perform(click());
-    }
-
-    private void fabClickAddInteraction() {
-        onView(withId(R.id.fab_add_interaction)).perform(click());
-    }
-
-    private void fabClickAddFriend() {
-        onView(withId(R.id.fab_add_friend)).perform(click());
-    }
-
     private void navigateUp() {
         onView(withContentDescription("Navigate up")).perform(click());
     }
