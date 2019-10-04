@@ -431,10 +431,6 @@ public class DeselectionTest extends AbstractTest {
         return textView;
     }
 
-    private void navigateUp() {
-        onView(withContentDescription("Navigate up")).perform(click());
-    }
-
     private void deleteSelection() {
         onView(withId(R.id.delete_selection)).perform(click());
     }

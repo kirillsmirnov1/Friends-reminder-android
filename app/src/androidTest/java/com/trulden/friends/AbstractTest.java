@@ -108,6 +108,10 @@ public abstract class AbstractTest {
         onView(withId(R.id.icon_save)).perform(click());
     }
 
+    protected void navigateUp() {
+        onView(withContentDescription("Navigate up")).perform(click());
+    }
+
     protected void sleep(int millis){
         try {
             Thread.sleep(millis);
