@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import java.util.Calendar;
 
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
@@ -62,10 +61,7 @@ public class CRUDTest extends AbstractTest {
 
         sleep(250);
 
-        onData(anything())
-                .inAdapterView(withClassName(is("androidx.appcompat.widget.DropDownListView")))
-                .atPosition(2)
-                .perform(click());
+        chooseDropDownOption(2);
 
         onView(withId(R.id.edit_interaction_type_name))
                 .perform(replaceText("Meeting"));
