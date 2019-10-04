@@ -217,4 +217,61 @@ public class CRUDTest extends AbstractTest {
         onView(withSubstring(oldFriend.getName())).check(doesNotExist());
 
     }
+
+    @Test
+    public void updateInteractionTest(){
+
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DAY_OF_MONTH, -1);
+        String yesterdayString = Util.formatDate(yesterday);
+
+        openLog();
+
+        onView(withText("A + B")).perform(longClick());
+
+        onView(withId(R.id.edit_selection)).perform(click());
+
+        sleep(250);
+
+        onView(withId(R.id.interaction_type_spinner)).perform(click());
+        chooseDropDownOption(1);
+
+        onView(withId(R.id.editDate)).perform(click());
+
+        setDatePicker(yesterday);
+        onView(withText("OK")).perform(click());
+
+        onView(withId(R.id.editFriends))
+                .perform(typeText(", Caleb"), closeSoftKeyboard());
+        onView(withId(R.id.editComment))
+                .perform(click(), typeText(" + C"));
+
+        onView(withId(R.id.icon_save)).perform(click());
+
+        onView(withText("A + B + C")).check(matches(allOf(
+                hasSibling(allOf(
+                        withSubstring("Aaron"),
+                        withSubstring("Balaam"),
+                        withSubstring("Caleb")
+                        )),
+                hasSibling(allOf(
+                        hasDescendant(withText(yesterdayString)),
+                        hasDescendant(withText("Texting"))))
+        )));
+
+        openLastInteractions();
+
+        onView(allOf(withText("Caleb"), isDisplayed()))
+                .check(matches(hasSibling(withText("30 d. ago"))));
+        onView(withText("Meeting")).check(matches(hasSibling(withText("3"))));
+
+        onView(withText("Texting")).perform(click());
+
+        onView(allOf(withText("Aaron"), isDisplayed()))
+                .check(matches(hasSibling(withText("1 d. ago"))));
+        onView(allOf(withText("Balaam"), isDisplayed()))
+                .check(matches(hasSibling(withText("1 d. ago"))));
+        onView(allOf(withText("Caleb"), isDisplayed()))
+                .check(matches(hasSibling(withText("1 d. ago"))));
+    }
 }
