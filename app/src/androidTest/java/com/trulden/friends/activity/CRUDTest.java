@@ -67,33 +67,50 @@ public class CRUDTest extends AbstractTest {
                 .perform(click());
 
         onView(withId(R.id.edit_interaction_type_name))
-                .perform(replaceText("Mess"));
+                .perform(replaceText("Meeting"));
 
         onView(withId(R.id.edit_interaction_type_frequency))
                 .perform(replaceText("7"));
+
+        onView(withText("Save")).perform(scrollTo(), click()); // Won't work because type already exists
+
+        onView(withId(R.id.edit_interaction_type_name))
+                .perform(replaceText("Mess"));
 
         onView(withText("Save")).perform(scrollTo(), click());
 
         onView(withId(R.id.editDate)).perform(click());
 
+        sleep(250);
 
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.add(Calendar.DAY_OF_MONTH, 1);
 
         setDatePicker(tomorrow);
-        onView(withText("OK")).perform(click()); // And it won't work
+        onView(withText("OK")).perform(click()); // And it won't work and it's okay
 
         setDatePicker(Calendar.getInstance());
         onView(withText("OK")).perform(click());
 
-        // TODO check old friends
+        String today = Util.formatDate(Calendar.getInstance().getTimeInMillis());
 
-        onView(withId(R.id.editFriends)).perform(replaceText("Goliath"), closeSoftKeyboard());
+        onView(withId(R.id.editDate)).check(matches(withText(today)));
+
+        onView(withId(R.id.editFriends)).perform(replaceText("Baron, Goliath"), closeSoftKeyboard());
 
         onView(withId(R.id.editComment))
                 .perform(replaceText("Death to everybody"), closeSoftKeyboard());
 
         onView(withId(R.id.icon_save)).perform(click());
+
+        onView(withText("You don't have friend named «Baron»"))
+                .check(matches(isDisplayed()));
+
+        onView(withText("Edit")).perform(scrollTo(), click());
+
+        onView(withText("Baron")).perform(replaceText("Aaron"));
+
+        onView(withText("Save")).perform(scrollTo(), click());
 
         onView(withText("You don't have friend named «Goliath»"))
                 .check(matches(isDisplayed()));
@@ -104,21 +121,24 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText("Mess")).perform(click());
 
-        onView(allOf(withId(R.id.last_interaction_name), isDisplayed()))
-                .check(matches(withText("Goliath")));
+        onView(allOf(withId(R.id.last_interaction_name), withText("Goliath")))
+                .check(matches(isDisplayed()));
 
-        onView(allOf(withId(R.id.last_interaction_time), isDisplayed()))
+        onView(allOf(withId(R.id.last_interaction_time), isDisplayed(), hasSibling(withText("Goliath"))))
+                .check(matches(withText("0 d. ago")));
+
+        onView(allOf(withId(R.id.last_interaction_time), isDisplayed(), hasSibling(withText("Aaron"))))
                 .check(matches(withText("0 d. ago")));
 
         onView(withId(R.id.bottom_interactions)).perform(click());
 
-        onView(withText("Goliath")).check(matches(isDisplayed()));
-
-        onView(withText("Mess")).check(matches(isDisplayed()));
-
-        onView(withText(Util.formatDate(Calendar.getInstance().getTimeInMillis())))
-                .check(matches(isDisplayed()));
-
-        onView(withText("Death to everybody")).check(matches(isDisplayed()));
+        onView(allOf(withSubstring("Aaron"),withSubstring("Goliath")))
+                .check(matches(allOf(
+                        isDisplayed(),
+                        hasSibling(allOf(
+                            hasDescendant(withText("Mess")),
+                            hasDescendant(withText(today)))
+                        ),
+                        hasSibling(withText("Death to everybody")))));
     }
 }
