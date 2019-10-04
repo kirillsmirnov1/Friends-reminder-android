@@ -82,6 +82,10 @@ public abstract class Util {
         return context.getFilesDir().getAbsolutePath() + "/backup.zip";
     }
 
+    public static String formatDate(Calendar calendar) {
+        return formatDate(calendar.getTimeInMillis());
+    }
+
     public static String formatDate(Date date){
         return formatDate(date.getTime());
     }
