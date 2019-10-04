@@ -14,7 +14,7 @@ import java.util.Calendar;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
@@ -177,5 +177,48 @@ public class CRUDTest extends AbstractTest {
         onView(withId(R.id.bottom_last_interactions)).perform(click());
 
         onView(withText(call)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void updateFriendTest(){
+        Friend oldFriend = DatabaseTestingHandler.friends[0];
+        Friend newFriend = new Friend("Adam", "First man");
+
+        openFriends();
+
+        onView(withText(oldFriend.getName())).perform(longClick());
+
+        onView(withId(R.id.edit_selection)).perform(click());
+
+        // TODO check replace with name of some other friend
+
+        onView(withText(oldFriend.getName()))
+                .perform(replaceText(newFriend.getName()));
+        onView(withText(oldFriend.getInfo()))
+                .perform(replaceText(newFriend.getInfo()));
+
+        onView(withId(R.id.icon_save)).perform(click());
+
+        onView(withText(oldFriend.getName())).check(doesNotExist());
+
+        onView(withText(newFriend.getName())).perform(click());
+
+        onView(withText(newFriend.getInfo())).check(matches(isDisplayed()))
+                .perform(pressBack());
+
+        onView(withId(R.id.bottom_interactions)).perform(click());
+
+        onView(withText("A + B")).check(matches(allOf(
+                hasSibling(withSubstring(newFriend.getName())),
+                not(hasSibling(withSubstring(oldFriend.getName()))))));
+
+        onView(withSubstring(oldFriend.getName())).check(doesNotExist());
+
+        onView(withId(R.id.bottom_last_interactions)).perform(click());
+
+        onView(withText(newFriend.getName())).check(matches(isDisplayed()));
+
+        onView(withSubstring(oldFriend.getName())).check(doesNotExist());
+
     }
 }
