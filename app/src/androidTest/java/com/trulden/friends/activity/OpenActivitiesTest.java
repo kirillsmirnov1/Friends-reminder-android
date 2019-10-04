@@ -89,18 +89,6 @@ public class OpenActivitiesTest extends AbstractTest {
     }
 
     @Test
-    public void openAddTypeTest(){
-        openTypes();
-
-        onView(withId(R.id.add)).perform(click());
-
-        onView(withText(R.string.new_interaction_type)).check(matches(isDisplayed()));
-
-        onView(withId(R.id.edit_interaction_type_name)).check(matches(withText("")));
-        onView(withId(R.id.edit_interaction_type_frequency)).check(matches(withText("")));
-    }
-
-    @Test
     public void openFriendTest(){
 
         Friend friend = DatabaseTestingHandler.friends[0];
