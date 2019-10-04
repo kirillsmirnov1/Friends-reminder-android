@@ -89,7 +89,7 @@ public class CRUDTest extends AbstractTest {
         setDatePicker(Calendar.getInstance());
         onView(withText("OK")).perform(click());
 
-        String today = Util.formatDate(Calendar.getInstance().getTimeInMillis());
+        String today = Util.formatDate(Calendar.getInstance());
 
         onView(withId(R.id.editDate)).check(matches(withText(today)));
 
