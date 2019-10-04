@@ -4,6 +4,7 @@ import com.trulden.friends.AbstractTest;
 import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.util.Util;
 
 import org.junit.Test;
@@ -140,5 +141,39 @@ public class CRUDTest extends AbstractTest {
                             hasDescendant(withText(today)))
                         ),
                         hasSibling(withText("Death to everybody")))));
+    }
+
+    @Test
+    public void createTypeTest(){
+
+        InteractionType type = DatabaseTestingHandler.types[0];
+        String call = "Call";
+        String freq = "20";
+
+        openTypes();
+
+        onView(withId(R.id.add)).perform(click());
+
+        onView(withText(R.string.new_interaction_type)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.edit_interaction_type_name))
+                .perform(typeText(type.getInteractionTypeName()));
+        onView(withId(R.id.edit_interaction_type_frequency))
+                .perform(typeText(String.valueOf(type.getFrequency())));
+
+        onView(withText(R.string.save)).perform(click());
+
+        onView(withId(R.id.edit_interaction_type_name))
+                .perform(replaceText(call));
+        onView(withId(R.id.edit_interaction_type_frequency))
+                .perform(replaceText(freq));
+
+        onView(withText(R.string.save)).perform(click());
+
+        onView(withText(call)).check(matches(hasSibling(withSubstring(freq))));
+
+        navigateUp();
+
+        onView(withText(call)).check(matches(isDisplayed()));
     }
 }
