@@ -24,6 +24,7 @@ import org.junit.Rule;
 
 import java.util.Calendar;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -130,6 +131,13 @@ public abstract class AbstractTest {
         onView(withClassName(equalTo(DatePicker.class.getName())))
                 .perform(PickerActions
                         .setDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH)));
+    }
+
+    protected void chooseDropDownOption(int pos) {
+        onData(anything())
+                .inAdapterView(withClassName(is("androidx.appcompat.widget.DropDownListView")))
+                .atPosition(pos)
+                .perform(click());
     }
 
     protected static Matcher<View> childAtPosition(
