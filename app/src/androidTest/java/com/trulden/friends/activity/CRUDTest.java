@@ -174,6 +174,8 @@ public class CRUDTest extends AbstractTest {
 
         navigateUp();
 
+        onView(withId(R.id.bottom_last_interactions)).perform(click());
+
         onView(withText(call)).check(matches(isDisplayed()));
     }
 }
