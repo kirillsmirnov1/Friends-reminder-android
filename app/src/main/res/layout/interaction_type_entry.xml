@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardMaxElevation="5dp"
-    app:cardElevation="5dp"
     app:cardCornerRadius="5dp"
-    style="@style/card"
-    >
+    app:cardElevation="5dp"
+    app:cardMaxElevation="5dp">
 
     <RelativeLayout
         android:id="@+id/interaction_type_entry_layout"
@@ -16,31 +15,28 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
         android:clickable="true"
-        android:focusable="true"
-        >
+        android:focusable="true">
 
         <TextView
             android:id="@+id/interaction_type_entry_name"
-            android:text="@string/interaction_type"
+            style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:paddingTop="8dp"
             android:paddingStart="8dp"
+            android:paddingTop="8dp"
             android:paddingEnd="8dp"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            />
+            android:textSize="24sp"
+            tools:text="Name" />
 
         <TextView
             android:id="@+id/interaction_type_entry_frequency"
-            android:layout_below="@id/interaction_type_entry_name"
-            android:text="@string/interaction_freq_stub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/interaction_type_entry_name"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:paddingBottom="8dp"
-            />
+            tools:text="per 100 days" />
 
     </RelativeLayout>
 

@@ -26,15 +26,8 @@
 
     <string name="title_activity_interaction_types">Interaction types</string>
     <string name="add">Add</string>
-    <string name="friend_name">Friend name</string>
-    <string name="friend_s_notes">Friend\'s notes</string>
     <string name="notes">Notes:</string>
     <string name="name">Name:</string>
-    <string name="interaction_type">Name</string>
-    <string name="interaction_freq_stub">per 100 days</string>
-    <string name="friend_reminder_date_stub">5 days ago</string>
-    <string name="tab_inter_type_name_stub" translatable="false">Inter. type</string>
-    <string name="tab_inter_type_count_stub" translatable="false">99</string>
     <string name="set_date_future_warning">Can\'t interact in the future</string>
 
 
@@ -79,5 +72,6 @@
     <string name="type_updated">Type updated</string>
     <string name="horizontal_divider_dot" translatable="false">\u0020•\u0020</string>
     <string name="shared_pref_opened_LI_tab" translatable="false">Opened LI tab</string>
+    <string name="friend_name">Friend Name</string>
 
 </resources>
