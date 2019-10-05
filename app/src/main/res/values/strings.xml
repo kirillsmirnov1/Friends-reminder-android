@@ -79,5 +79,10 @@
     <string name="type_updated">Type updated</string>
     <string name="horizontal_divider_dot" translatable="false">\u0020•\u0020</string>
     <string name="shared_pref_opened_LI_tab" translatable="false">Opened LI tab</string>
+    <string name="no_friend_text">You have no friends</string>
+    <string name="no_logs_text">You have no Logs</string>
+    <string name="no_meetings_text">You have no meetings</string>
+    <string name="no_textings_text">You have no textings</string>
+    <string name="no_calls_text">You have no calls</string>
 
 </resources>

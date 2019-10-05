@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +46,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
     private FriendsViewModel mFriendsViewModel;
     private FriendsAdapter mFriendsAdapter;
 
+    private TextView noFriendsTextView;
+
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
@@ -72,6 +75,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
             selectedFriendsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
         }
 
+        noFriendsTextView = view.findViewById(R.id.friends_no_data);
+
         RecyclerView recyclerView = view.findViewById(R.id.friends_recyclerView);
         mFriendsAdapter = new FriendsAdapter(getActivity(), selectedFriendsPositions);
         recyclerView.setAdapter(mFriendsAdapter);
@@ -85,6 +90,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
                 mFriendsAdapter.setEntries(friends);
                 // We need to tell adapter to refresh view, otherwise it might not happen
                 mFriendsAdapter.notifyDataSetChanged();
+                changeNoDataTextVisibility();
             }
         });
 
@@ -147,6 +153,14 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
                 mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
             }
 
+        }
+    }
+
+    private void changeNoDataTextVisibility(){
+        if(mFriendsAdapter.getItemCount() == 0){
+            noFriendsTextView.setVisibility(View.VISIBLE);
+        }else{
+            noFriendsTextView.setVisibility(View.GONE);
         }
     }
 

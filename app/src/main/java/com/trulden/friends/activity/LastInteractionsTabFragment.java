@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,13 +27,17 @@ public class LastInteractionsTabFragment extends Fragment {
 
     private ArrayList<LastInteraction> mLastInteractions = new ArrayList<>();
 
+    private TextView noDataTextView;
+
+    private String noDataText;
+
     public LastInteractionsTabFragment() {
         // Required empty public constructor
     }
 
-    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteraction> lastInteractions){
+    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteraction> lastInteractions,String name){
         LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
-
+        tr.noDataText = "You have no "+name.toLowerCase()+"s";
         tr.setLastInteractions(lastInteractions);
 
         return tr;
@@ -59,6 +64,9 @@ public class LastInteractionsTabFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        noDataTextView = view.findViewById(R.id.last_interaction_no_data);
+        noDataTextView.setText(noDataText);
+
         RecyclerView recyclerView = view.findViewById(R.id.tab_last_interaction_recyclerview);
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
@@ -69,5 +77,14 @@ public class LastInteractionsTabFragment extends Fragment {
 
         // Might be unnecessary, might fix issue with empty LI tab
         mAdapter.notifyDataSetChanged();
+        changeNoDataTextVisibility();
+    }
+
+    private void changeNoDataTextVisibility(){
+        if(mLastInteractions == null || mLastInteractions.size() == 0){
+            noDataTextView.setVisibility(View.VISIBLE);
+        }else{
+            noDataTextView.setVisibility(View.GONE);
+        }
     }
 }

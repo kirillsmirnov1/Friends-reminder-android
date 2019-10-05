@@ -4,6 +4,14 @@
                 android:layout_height="match_parent"
         >
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/last_interaction_no_data"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"

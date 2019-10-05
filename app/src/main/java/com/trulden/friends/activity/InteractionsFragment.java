@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,6 +56,8 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
     private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
     private LongSparseArray<String> mTypes;
 
+    private TextView noInteractionTextView;
+
     public InteractionsFragment() {
         // Fragments require public constructor with no args
     }
@@ -76,6 +79,8 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
             selectedInteractionsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
         }
 
+        noInteractionTextView = view.findViewById(R.id.interaction_no_data);
+
         RecyclerView recyclerView = view.findViewById(R.id.interactions_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -96,6 +101,7 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
 
                 mInteractionsAdapter.setFriends(friendNamesLSA);
                 mInteractionsAdapter.notifyDataSetChanged();
+                changeNoDataTextVisibility();
             }
         });
 
@@ -109,6 +115,7 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
                 }
                 mInteractionsAdapter.setInteractionTypes(mTypes);
                 mInteractionsAdapter.notifyDataSetChanged();
+                changeNoDataTextVisibility();
             }
         });
 
@@ -117,6 +124,7 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
             public void onChanged(List<InteractionWithFriendIDs> interactionWithFriendIDs) {
                 mInteractionsAdapter.setEntries(interactionWithFriendIDs);
                 mInteractionsAdapter.notifyDataSetChanged();
+                changeNoDataTextVisibility();
             }
         });
 
@@ -162,10 +170,22 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
 
             if(count == 1){
                 mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(true);
-            } else {
+             if(selectedInteractionsPositions == null || selectedInteractionsPositions.size() == 0){
+                    noInteractionTextView.setVisibility(View.VISIBLE);
+                }else{
+                    noInteractionTextView.setVisibility(View.GONE);
+                }} else {
                 mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
             }
 
+        }
+    }
+
+    private void changeNoDataTextVisibility(){
+        if(mInteractionsAdapter.getItemCount() == 0){
+            noInteractionTextView.setVisibility(View.VISIBLE);
+        }else{
+            noInteractionTextView.setVisibility(View.GONE);
         }
     }
 
