@@ -15,6 +15,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.util.Util;
 
 import java.lang.ref.WeakReference;
@@ -24,7 +25,9 @@ import java.lang.ref.WeakReference;
  * Stores static instance of database.
  */
 @Database(
-        entities = {Friend.class, InteractionType.class, Interaction.class, BindFriendInteraction.class},
+        entities = {
+                Friend.class, InteractionType.class, Interaction.class,
+                BindFriendInteraction.class, LastInteraction.class},
         version = Util.DATABASE_VERSION,
         exportSchema = false
 )
@@ -68,7 +71,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                             FriendsDatabase.class, DATABASE_NAME)
                             .addMigrations(
                                     MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
-                                    MIGRATION_5_6)
+                                    MIGRATION_5_6, MIGRATION_6_7)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -199,6 +202,23 @@ public abstract class FriendsDatabase extends RoomDatabase {
             database.execSQL("ALTER TABLE interaction_backup RENAME TO interaction_table");
 
             database.execSQL("CREATE INDEX index_Interaction_typeId ON interaction_table(interactionTypeId)");
+        }
+    };
+
+    private static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL(
+                    "CREATE TABLE last_interaction_table(" +
+                    "friendId INTEGER NOT NULL," +
+                    "typeId INTEGER NOT NULL," +
+                    "interactionId INTEGER NOT NULL," +
+                    "date INTEGER NOT NULL," +
+                    "status INTEGER NOT NULL," +
+                    "PRIMARY KEY(friendId, typeId)," +
+                    "FOREIGN KEY(friendId) REFERENCES friend_table(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY(typeId) REFERENCES interaction_type_table(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY(interactionId) REFERENCES interaction_table(id) ON DELETE CASCADE);");
         }
     };
 }
