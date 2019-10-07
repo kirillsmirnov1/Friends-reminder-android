@@ -296,7 +296,7 @@ public class CRUDTest extends AbstractTest {
     }
 
     @Test
-    public void deleteFriend(){
+    public void deleteFriendTest(){
         openFriends();
 
         String aaron = DatabaseTestingHandler.friends[0].getName();
