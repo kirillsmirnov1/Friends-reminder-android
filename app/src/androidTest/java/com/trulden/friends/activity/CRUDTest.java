@@ -362,4 +362,24 @@ public class CRUDTest extends AbstractTest {
         onView(withText(balaam)).check(doesNotExist());
         onView(withText(caleb)).check(matches(hasSibling(withText("31 d. ago"))));
     }
+
+    @Test
+    public void deleteTypeTest(){
+
+        String meeting = "Meeting";
+
+        openTypes();
+
+        onView(withText(meeting)).perform(longClick());
+
+        onView(withId(R.id.delete_selection)).perform(click());
+
+        navigateUp();
+
+        onView(withText(meeting)).check(doesNotExist());
+
+        openLog();
+
+        onView(withText(meeting)).check(doesNotExist());
+    }
 }
