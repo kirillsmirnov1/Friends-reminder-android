@@ -1,14 +1,37 @@
 package com.trulden.friends.database.entity;
 
+import androidx.room.ForeignKey;
 import androidx.room.Relation;
 
 import java.util.List;
 
+import static androidx.room.ForeignKey.CASCADE;
 import static com.trulden.friends.util.Util.daysPassed;
 
 /**
  * Shows how much time passed since interaction of some type with some friend.
  */
+@androidx.room.Entity(
+        tableName = "last_interaction_table",
+
+        primaryKeys = {"friendId", "interactionId"},
+
+        foreignKeys = {
+                @ForeignKey(entity = Friend.class,
+                            parentColumns = "id",
+                            childColumns = "friendId",
+                            onDelete = CASCADE),
+
+                @ForeignKey(entity = InteractionType.class,
+                            parentColumns = "id",
+                            childColumns = "typeId",
+                            onDelete = CASCADE),
+
+                @ForeignKey(entity = Interaction.class,
+                            parentColumns = "id",
+                            childColumns = "interactionId",
+                            onDelete = CASCADE) // TODO What else can we do on delete?
+        })
 public class LastInteraction implements Entity {
 
     private int friendId;
