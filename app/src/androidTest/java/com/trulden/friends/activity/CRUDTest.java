@@ -353,6 +353,9 @@ public class CRUDTest extends AbstractTest {
 
         onView(withId(R.id.delete_selection)).perform(click());
 
+        onView(withText("A + B")).check(doesNotExist());
+        onView(withText("B + C")).check(doesNotExist());
+
         openLastInteractions();
 
         onView(withText(aaron)).check(matches(hasSibling(withText("31 d. ago"))));
