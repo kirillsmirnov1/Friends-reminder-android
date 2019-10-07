@@ -308,6 +308,9 @@ public class CRUDTest extends AbstractTest {
 
         onView(withId(R.id.delete_selection)).perform(click());
 
+        onView(withText(aaron)).check(doesNotExist());
+        onView(withText(balaam)).check(doesNotExist());
+
         openLastInteractions();
 
         onView(withText(aaron)).check(doesNotExist());
