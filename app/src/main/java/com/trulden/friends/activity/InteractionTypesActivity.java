@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class InteractionTypesActivity
             EditInteractionType {
 
     private FriendsViewModel mFriendsViewModel;
+    private TextView noInteractionTypesTextView;
 
     private InteractionTypeAdapter mInteractionTypeAdapter;
 
@@ -50,6 +52,7 @@ public class InteractionTypesActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interaction_types);
 
+        noInteractionTypesTextView = findViewById(R.id.interaction_types_no_data);
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_TYPES_POSITIONS)){
@@ -66,6 +69,7 @@ public class InteractionTypesActivity
             public void onChanged(List<InteractionType> interactionTypes) {
                 mInteractionTypeAdapter.setEntries(interactionTypes);
                 mInteractionTypeAdapter.notifyDataSetChanged();
+                changeNoDataTextVisibility();
             }
         });
 
@@ -147,6 +151,14 @@ public class InteractionTypesActivity
                 mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
             }
 
+        }
+    }
+
+    private void changeNoDataTextVisibility(){
+        if(mInteractionTypeAdapter.getItemCount() == 0){
+            noInteractionTypesTextView.setVisibility(View.VISIBLE);
+        }else{
+            noInteractionTypesTextView.setVisibility(View.GONE);
         }
     }
 

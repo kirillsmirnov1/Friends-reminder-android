@@ -71,8 +71,8 @@
     <string name="friends_deleted">Друзья удалены</string>
     <string name="type_updated">Тип обновлён</string>
     <string name="no_friend_text">У тебя нет друзей</string>
-    <string name="no_logs_text">У вас нет журналов</string>
-
+    <string name="no_interactions_text">У вас нет взаимодействия</string>
+    <string name="no_interaction_types_text">У вас нет типов взаимодействия</string>
     <string name="no_meetings_text">У вас нет встреч</string>
     <string name="no_textings_text">У вас нет текстовых сообщений</string>
     <string name="no_calls_text">У вас нет звонков</string>

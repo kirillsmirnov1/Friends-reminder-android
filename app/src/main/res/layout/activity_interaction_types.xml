@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activity.InteractionTypesActivity">
 
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/interaction_types_no_data"
+        android:layout_gravity="center"
+        android:text="@string/no_interaction_types_text"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/interaction_type_recyclerview"
         android:layout_width="match_parent"
