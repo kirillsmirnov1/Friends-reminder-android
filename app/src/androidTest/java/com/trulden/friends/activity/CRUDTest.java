@@ -274,4 +274,24 @@ public class CRUDTest extends AbstractTest {
         onView(allOf(withText("Caleb"), isDisplayed()))
                 .check(matches(hasSibling(withText("1 d. ago"))));
     }
+
+    @Test
+    public void updateTypeTest(){
+        onView(allOf(withId(R.id.tab_content_count), hasSibling(withText("Meeting"))))
+                .check(matches(withText("1")));
+
+        openTypes();
+        onView(withText("Meeting")).perform(longClick());
+        onView(withId(R.id.edit_selection)).perform(click());
+
+        onView(withId(R.id.edit_interaction_type_frequency))
+                .perform(replaceText("29"));
+
+        onView(withText("SAVE")).perform(click());
+
+        navigateUp();
+
+        onView(allOf(withId(R.id.tab_content_count), hasSibling(withText("Meeting"))))
+                .check(matches(withText("3")));
+    }
 }
