@@ -331,7 +331,7 @@ public class CRUDTest extends AbstractTest {
     }
 
     @Test
-    public void deleteInteraction(){
+    public void deleteInteractionTest(){
 
         openLastInteractions();
 
