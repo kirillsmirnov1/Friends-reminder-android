@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,7 +11,7 @@
 
     <TextView
             android:id="@+id/tab_label"
-            android:text="@string/tab_inter_type_name_stub"
+            tools:text="Inter. type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
@@ -20,7 +21,7 @@
 
     <TextView
             android:id="@+id/tab_content_count"
-            android:text="@string/tab_inter_type_count_stub"
+            tools:text="99"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@drawable/circle"

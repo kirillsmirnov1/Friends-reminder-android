@@ -13,15 +13,10 @@
     <string name="edit_selection">Изменить выбранное</string>
     <string name="export_database">Экспорт базы данных</string>
     <string name="frequency_of_interaction">Частота взаимодействия в днях</string>
-    <string name="friend_name">Имя друга</string>
-    <string name="friend_reminder_date_stub">5 дней назад</string>
-    <string name="friend_s_notes">Заметки о друге</string>
     <string name="friends">Друзья</string>
     <string name="friends_input_invitation">Друзья:</string>
     <string name="icon_title_save">Сохранить</string>
     <string name="import_database">Импорт базы данных</string>
-    <string name="interaction_freq_stub">Раз в сто дней</string>
-    <string name="interaction_type">Название</string>
     <string name="interaction_type_name_call">Звонок</string>
     <string name="interaction_type_name_meeting">Встреча</string>
     <string name="interaction_type_name_texting">Переписка</string>
@@ -70,4 +65,5 @@
     <string name="import_in_progress">Импорт начался</string>
     <string name="friends_deleted">Друзья удалены</string>
     <string name="type_updated">Тип обновлён</string>
+    <string name="friend_name">Friend Name</string>
 </resources>

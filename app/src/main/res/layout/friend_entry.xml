@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         card_view:cardMaxElevation="5dp"
         card_view:cardElevation="5dp"
@@ -29,7 +30,7 @@
 
         <TextView
             android:id="@+id/friend_entry_text"
-            android:text="@string/friend_name"
+            tools:text="Friend name"
             android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
