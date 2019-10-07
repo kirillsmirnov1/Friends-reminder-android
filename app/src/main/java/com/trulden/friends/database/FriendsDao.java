@@ -134,4 +134,16 @@ public interface FriendsDao {
             //+ " WHERE date < (:currDate - frequency * :k)"
             )
     LiveData<List<LastInteraction>> getLastInteractions(/*long currDate, int k*/);
+
+    @Query("DELETE FROM friend_table;")
+    void wipeFriends();
+
+    @Query("DELETE FROM interaction_type_table;")
+    void wipeTypes();
+
+    @Query("DELETE FROM interaction_table;")
+    void wipeInteractions();
+
+    @Query("DELETE FROM bind_friend_interaction_table")
+    void wipeBinds();
 }

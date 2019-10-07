@@ -66,8 +66,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
             // Grey out LI for which time have not yet come
             if(!lastInteraction.itsTime()) {
-                layout.setBackground(ContextCompat
-                        .getDrawable(mContext, R.drawable.item_backgroung_grey));
+                layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_grey));
             }
         }
     }

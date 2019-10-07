@@ -47,7 +47,7 @@ import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
-import static com.trulden.friends.util.Util.dateFormat;
+import static com.trulden.friends.util.Util.formatDate;
 import static com.trulden.friends.util.Util.makeToast;
 
 /**
@@ -123,7 +123,10 @@ public class EditInteractionActivity
 
                 String[] spinnerOptions = new String[mTypesMap.size() + 1];
 
-                System.arraycopy(mTypesMap.keySet().toArray(new String[0]), 0, spinnerOptions, 0, mTypesMap.size());
+                String[] typeNames = mTypesMap.keySet().toArray(new String[0]);
+                Arrays.sort(typeNames);
+
+                System.arraycopy(typeNames, 0, spinnerOptions, 0, mTypesMap.size());
 
                 spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
@@ -173,7 +176,7 @@ public class EditInteractionActivity
             mPickedDate = Calendar.getInstance();
             mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, -1));
 
-            mDateText.setText(dateFormat.format(mPickedDate.getTime()));
+            mDateText.setText(formatDate(mPickedDate.getTime()));
 
             mFriendsText.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
         }
@@ -190,7 +193,7 @@ public class EditInteractionActivity
      */
     public void processDatePickerResult(Calendar pickedDate){
         mPickedDate = pickedDate;
-        mDateText.setText(dateFormat.format(mPickedDate.getTime()));
+        mDateText.setText(formatDate(mPickedDate.getTime()));
     }
 
     @Override

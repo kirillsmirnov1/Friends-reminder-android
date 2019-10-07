@@ -37,6 +37,8 @@ public class FriendsViewModel extends AndroidViewModel {
         mAllInteractions = mRepository.getAllInteractions();
     }
 
+    public FriendsDao getDao(){return mRepository.getDao();}
+
     public LiveData<List<Friend>> getAllFriends() {
         return mAllFriends;
     }
