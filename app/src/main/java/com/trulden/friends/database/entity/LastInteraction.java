@@ -36,9 +36,9 @@ public class LastInteraction implements Entity {
 
     private int friendId;
 
-    private int interactionId;
-
     private int typeId;
+
+    private int interactionId;
 
     private long date;
 
@@ -55,10 +55,10 @@ public class LastInteraction implements Entity {
      * @param typeId type of Interaction
      * @param date Unix epoch time of interaction
      */
-    public LastInteraction(int friendId, int interactionId, int typeId, long date, int status){
+    public LastInteraction(int friendId, int typeId, int interactionId, long date, int status){
         this.friendId = friendId;
-        this.interactionId = interactionId;
         this.typeId = typeId;
+        this.interactionId = interactionId;
         this.date = date;
         this.status = status;
     }
