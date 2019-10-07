@@ -294,4 +294,39 @@ public class CRUDTest extends AbstractTest {
         onView(allOf(withId(R.id.tab_content_count), hasSibling(withText("Meeting"))))
                 .check(matches(withText("3")));
     }
+
+    @Test
+    public void deleteFriend(){
+        openFriends();
+
+        String aaron = DatabaseTestingHandler.friends[0].getName();
+        String balaam = DatabaseTestingHandler.friends[1].getName();
+        String caleb = DatabaseTestingHandler.friends[2].getName();
+
+        onView(withText(aaron)).perform(longClick());
+        onView(withText(balaam)).perform(click());
+
+        onView(withId(R.id.delete_selection)).perform(click());
+
+        openLastInteractions();
+
+        onView(withText(aaron)).check(doesNotExist());
+        onView(withText(balaam)).check(doesNotExist());
+
+        onView(withText("Caleb")).check(matches(isDisplayed()));
+
+        openLog();
+
+        onView(withText("A + B")).check(doesNotExist());
+
+        onView(withText("B + C")).check(matches(allOf(
+            hasSibling(withText(caleb)),
+            not(hasSibling(withText(balaam)))
+        )));
+
+        onView(withText("C + A")).check(matches(allOf(
+                hasSibling(withText(caleb)),
+                not(hasSibling(withText(aaron)))
+        )));
+    }
 }
