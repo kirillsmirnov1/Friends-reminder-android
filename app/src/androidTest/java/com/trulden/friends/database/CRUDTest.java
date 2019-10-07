@@ -1,4 +1,4 @@
-package com.trulden.friends.activity;
+package com.trulden.friends.database;
 
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.DatabaseTestingHandler;
@@ -277,6 +277,9 @@ public class CRUDTest extends AbstractTest {
 
     @Test
     public void updateTypeTest(){
+
+        openLastInteractions();
+
         onView(allOf(withId(R.id.tab_content_count), hasSibling(withText("Meeting"))))
                 .check(matches(withText("1")));
 
