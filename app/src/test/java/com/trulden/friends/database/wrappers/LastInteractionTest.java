@@ -1,6 +1,7 @@
 package com.trulden.friends.database.wrappers;
 
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import org.junit.Test;
 

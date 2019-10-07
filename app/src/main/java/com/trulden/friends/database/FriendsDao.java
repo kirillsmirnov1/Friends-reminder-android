@@ -14,7 +14,7 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.List;
 

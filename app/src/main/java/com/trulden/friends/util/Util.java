@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.io.File;
 import java.text.DateFormat;
