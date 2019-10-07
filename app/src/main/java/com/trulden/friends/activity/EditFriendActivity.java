@@ -33,6 +33,7 @@ public class EditFriendActivity extends AppCompatActivity {
     private EditText mInfo;
 
     private long mFriendId;
+    private String mOldName;
 
     private List<Friend> mFriends = new ArrayList<>();
 
@@ -54,14 +55,16 @@ public class EditFriendActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         mFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
-        mName.setText(intent.getStringExtra(EXTRA_FRIEND_NAME));
-        mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
 
         if(mFriendId == -1){
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_friend));
         } else {
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.action_bar_title_edit_friend));
+            mOldName = intent.getStringExtra(EXTRA_FRIEND_NAME);
         }
+
+        mName.setText(mOldName);
+        mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
     }
 
     private void saveFriend() {
@@ -73,7 +76,7 @@ public class EditFriendActivity extends AppCompatActivity {
 
         if(name.isEmpty()) {
             makeToast(this, getString(R.string.toast_warning_empty_name));
-        } else if(mFriendId == -1 && friendExists(name)) {
+        } else if(friendExists(name)) {
             makeToast(this, getString(R.string.toast_warning_friend_exists));
         } else {
 
@@ -120,6 +123,9 @@ public class EditFriendActivity extends AppCompatActivity {
     }
 
     private boolean friendExists(String name){
+
+        if(name.equals(mOldName)) return false;
+
         for(Friend friend : mFriends){
             if(friend.getName().equals(name))
                 return true;
