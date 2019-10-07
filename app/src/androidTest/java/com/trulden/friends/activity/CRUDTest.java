@@ -329,4 +329,31 @@ public class CRUDTest extends AbstractTest {
                 not(hasSibling(withText(aaron)))
         )));
     }
+
+    @Test
+    public void deleteInteraction(){
+
+        openLastInteractions();
+
+        String aaron = DatabaseTestingHandler.friends[0].getName();
+        String balaam = DatabaseTestingHandler.friends[1].getName();
+        String caleb = DatabaseTestingHandler.friends[2].getName();
+
+        onView(withText(aaron)).check(matches(hasSibling(withText("29 d. ago"))));
+        onView(withText(balaam)).check(matches(hasSibling(withText("29 d. ago"))));
+        onView(withText(caleb)).check(matches(hasSibling(withText("30 d. ago"))));
+
+        openLog();
+
+        onView(withText("A + B")).perform(longClick());
+        onView(withText("B + C")).perform(click());
+
+        onView(withId(R.id.delete_selection)).perform(click());
+
+        openLastInteractions();
+
+        onView(withText(aaron)).check(matches(hasSibling(withText("31 d. ago"))));
+        onView(withText(balaam)).check(doesNotExist());
+        onView(withText(caleb)).check(matches(hasSibling(withText("31 d. ago"))));
+    }
 }
