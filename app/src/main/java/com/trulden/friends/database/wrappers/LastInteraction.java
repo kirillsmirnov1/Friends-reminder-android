@@ -11,15 +11,21 @@ import static com.trulden.friends.util.Util.daysPassed;
 
 /**
  * Shows how much time passed since interaction of some type with some friend.
- * Not stored in database.
  */
 public class LastInteraction implements Entity {
+
+    private int friendId;
+
+    private int interactionId;
 
     private int typeId;
 
     private long date;
 
-    private String friend;
+    /**
+     * Will be used to set visibility and other params of that LI
+     */
+    private int status;
 
     @Relation(parentColumn = "typeId", entityColumn = "id", entity = InteractionType.class)
     private List<InteractionType> interactionTypes;
@@ -28,12 +34,13 @@ public class LastInteraction implements Entity {
      * Constructor for LI entry. Must be used only by database classes
      * @param typeId type of Interaction
      * @param date Unix epoch time of interaction
-     * @param friend name of friend
      */
-    public LastInteraction(int typeId, long date, String friend){
+    public LastInteraction(int friendId, int interactionId, int typeId, long date, int status){
+        this.friendId = friendId;
+        this.interactionId = interactionId;
         this.typeId = typeId;
         this.date = date;
-        this.friend = friend;
+        this.status = status;
     }
 
     /**
@@ -57,14 +64,6 @@ public class LastInteraction implements Entity {
         this.date = date;
     }
 
-    public String getFriend() {
-        return friend;
-    }
-
-    public void setFriend(String friend) {
-        this.friend = friend;
-    }
-
     public InteractionType getInteractionType() {
         return interactionTypes.get(0);
     }
@@ -79,5 +78,33 @@ public class LastInteraction implements Entity {
 
     public int getTypeId() {
         return typeId;
+    }
+
+    public int getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(int friendId) {
+        this.friendId = friendId;
+    }
+
+    public int getInteractionId() {
+        return interactionId;
+    }
+
+    public void setInteractionId(int interactionId) {
+        this.interactionId = interactionId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
