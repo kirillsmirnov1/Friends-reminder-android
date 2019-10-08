@@ -2,12 +2,8 @@ package com.trulden.friends.database.entity;
 
 import androidx.room.ForeignKey;
 import androidx.room.Index;
-import androidx.room.Relation;
-
-import java.util.List;
 
 import static androidx.room.ForeignKey.CASCADE;
-import static com.trulden.friends.util.Util.daysPassed;
 
 /**
  * Shows how much time passed since interaction of some type with some friend.
@@ -54,9 +50,6 @@ public class LastInteraction implements Entity {
      */
     private int status;
 
-//    @Relation(parentColumn = "typeId", entityColumn = "id", entity = InteractionType.class)
-//    private List<InteractionType> interactionTypes;
-
     /**
      * Constructor for LI entry. Must be used only by database classes
      * @param typeId type of Interaction
@@ -70,15 +63,6 @@ public class LastInteraction implements Entity {
         this.status = status;
     }
 
-//    /**
-//     * Check if it's time to interact again
-//     * @return true if enough days have passed
-//     */
-//    public boolean itsTime(){
-//        return (daysPassed(this) >= getInteractionType().getFrequency());
-//    }
-
-
     // -----------------------------------------
     // Getters and setters
     // -----------------------------------------
@@ -90,18 +74,6 @@ public class LastInteraction implements Entity {
     public void setDate(long date) {
         this.date = date;
     }
-
-//    public InteractionType getInteractionType() {
-//        return interactionTypes.get(0);
-//    }
-//
-//    public void setInteractionTypes(List<InteractionType> interactionTypes) {
-//        this.interactionTypes = interactionTypes;
-//    }
-//
-//    public List<InteractionType> getInteractionTypes() {
-//        return interactionTypes;
-//    }
 
     public int getTypeId() {
         return typeId;
