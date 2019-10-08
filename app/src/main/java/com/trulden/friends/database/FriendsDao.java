@@ -12,6 +12,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
@@ -115,6 +116,12 @@ public interface FriendsDao {
     // -----------------------------------------
     // LastInteraction
     // -----------------------------------------
+
+    @Insert
+    void add(LastInteraction interaction);
+
+    @Update
+    void update(LastInteraction lastInteraction);
 
     /**
      * @return {@link LastInteractionWrapper} list.
