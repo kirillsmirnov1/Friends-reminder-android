@@ -120,7 +120,7 @@ public interface FriendsDao {
      * @return {@link LastInteractionWrapper} list.
      */
     @Transaction
-    @Query("SELECT * FROM last_interaction_table ORDER BY date DESC")
+    @Query("SELECT * FROM last_interaction_table ORDER BY date ASC")
     LiveData<List<LastInteractionWrapper>> getLastInteractions();
 
     @Query("DELETE FROM friend_table;")
