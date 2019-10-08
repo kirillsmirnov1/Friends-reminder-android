@@ -218,8 +218,8 @@ class FriendsRepository {
                 .execute();
     }
 
-    public void delete(Interaction interaction) {
-        new InteractionAsyncTask(mFriendsDao, TaskSelector.REMOVE_INTERACTION, interaction, null)
+    public void delete(Interaction interaction, HashSet<Long> friendIDs) {
+        new InteractionAsyncTask(mFriendsDao, TaskSelector.REMOVE_INTERACTION, interaction, friendIDs)
                 .execute();
     }
 

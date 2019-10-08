@@ -193,7 +193,9 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
     @Override
     public void deleteSelection() {
         for(InteractionWithFriendIDs interactionWithFriendIDs : mInteractionsAdapter.getSelectedItems()) {
-            mFriendsViewModel.delete(interactionWithFriendIDs.interaction);
+            HashSet ids = new HashSet();
+            ids.addAll(interactionWithFriendIDs.friendIDs);
+            mFriendsViewModel.delete(interactionWithFriendIDs.interaction, ids);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
     }
