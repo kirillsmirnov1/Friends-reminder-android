@@ -228,7 +228,7 @@ class FriendsRepository {
     }
 
     /**
-     * Handlse Interaction-based queries to database
+     * Handles Interaction-based queries to database
      */
     private static class InteractionAsyncTask extends AsyncTask<Void, Void, Void>{
 
