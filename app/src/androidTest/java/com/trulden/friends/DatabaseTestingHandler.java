@@ -9,6 +9,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.Calendar;
 
@@ -18,6 +19,7 @@ public class DatabaseTestingHandler {
     static public Friend[] friends;
     static public Interaction[] interactions;
     static public BindFriendInteraction[] binds;
+    static public LastInteraction[] lastInteractions;
 
     public static void initAndFillDatabase(FragmentActivity activity){
 
@@ -61,6 +63,12 @@ public class DatabaseTestingHandler {
                 new BindFriendInteraction(1,3)
         };
 
+        lastInteractions = new LastInteraction[]{
+                new LastInteraction(1, 1, 1, dates[0].getTimeInMillis(), 0),
+                new LastInteraction(2, 1, 1, dates[0].getTimeInMillis(), 0),
+                new LastInteraction(3, 1, 2, dates[1].getTimeInMillis(), 0)
+        };
+
         for(InteractionType type : types) { dao.add(type); }
 
         for(Friend friend : friends) { dao.add(friend); }
@@ -68,6 +76,8 @@ public class DatabaseTestingHandler {
         for(Interaction interaction : interactions) { dao.add(interaction); }
 
         for(BindFriendInteraction bind : binds) { dao.add(bind); }
+
+        for(LastInteraction lastInteraction : lastInteractions) {dao.add(lastInteraction);}
 
     }
 }
