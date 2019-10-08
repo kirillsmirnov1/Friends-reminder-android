@@ -11,7 +11,7 @@ import static androidx.room.ForeignKey.CASCADE;
 @androidx.room.Entity(
         tableName = "last_interaction_table",
 
-        primaryKeys = {"friendId", "interactionId"},
+        primaryKeys = {"friendId", "typeId"},
 
         foreignKeys = {
                 @ForeignKey(entity = Friend.class,
@@ -29,10 +29,6 @@ import static androidx.room.ForeignKey.CASCADE;
                             childColumns = "interactionId",
                             onDelete = CASCADE) // TODO What else can we do on delete?
         }
-//        ,indices = {
-//                @Index(value = "typeId"),
-//                @Index(value = "interactionId")
-//        }
 )
 public class LastInteraction implements Entity {
 
