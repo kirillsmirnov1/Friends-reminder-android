@@ -3,6 +3,7 @@ package com.trulden.friends.database.wrappers;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import com.trulden.friends.database.entity.Entity;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.entity.LastInteraction;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static com.trulden.friends.util.Util.daysPassed;
 
-public class LastInteractionWrapper {
+public class LastInteractionWrapper implements Entity {
     @Embedded
     private LastInteraction lastInteraction;
 
