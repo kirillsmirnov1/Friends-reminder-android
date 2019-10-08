@@ -130,6 +130,14 @@ public interface FriendsDao {
     @Query("SELECT * FROM last_interaction_table ORDER BY date ASC")
     LiveData<List<LastInteractionWrapper>> getLastInteractions();
 
+    @Transaction
+    @Query("SELECT * FROM last_interaction_table " +
+            "WHERE typeId = :typeId " +
+            "AND   friendId = :friendId;")
+    List<LastInteraction> getLastInteraction(long typeId, long friendId);
+
+    // TODO clean up
+
     @Query("DELETE FROM friend_table;")
     void wipeFriends();
 
