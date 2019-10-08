@@ -23,7 +23,7 @@ import static androidx.room.ForeignKey.CASCADE;
                     parentColumns = "id",
                     childColumns = "interactionId",
                     onDelete = CASCADE)
-        },
+    },
 
     indices =
     @Index(value = "interactionId")
