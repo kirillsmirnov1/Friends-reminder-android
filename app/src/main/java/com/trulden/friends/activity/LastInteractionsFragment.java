@@ -18,7 +18,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 import com.trulden.friends.view.TabCounterView;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class LastInteractionsFragment extends Fragment {
     private FriendsViewModel mFriendsViewModel;
 
     private List<InteractionType> types = new ArrayList<>();
-    private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
+    private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
     private TabLayout mTabLayout;
     private LastInteractionsPagerAdapter mPagerAdapter;
@@ -67,15 +67,15 @@ public class LastInteractionsFragment extends Fragment {
                 types = interactionTypes;
 
                 for(InteractionType type : types){
-                    lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
+                    lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
                 }
 
                 initTabsAndPageViewer(view);
 
                 mFriendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
-                        .observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
+                        .observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
                     @Override
-                    public void onChanged(List<LastInteraction> lastInteractions) {
+                    public void onChanged(List<LastInteractionWrapper> lastInteractions) {
 
                         for(InteractionType type : types){
                             Objects.requireNonNull(
@@ -83,8 +83,8 @@ public class LastInteractionsFragment extends Fragment {
                             counterMap.put(type.getInteractionTypeName(), 0);
                         }
 
-                        for(LastInteraction interaction : lastInteractions){
-                            String currentType = interaction.getInteractionType().getInteractionTypeName();
+                        for(LastInteractionWrapper interaction : lastInteractions){
+                            String currentType = interaction.getType().getInteractionTypeName();
 
                             Objects.requireNonNull(
                                     lastInteractionsMap.get(currentType)).add(interaction);
