@@ -88,12 +88,6 @@ public abstract class FriendsDatabase extends RoomDatabase {
      */
     private static class PopulateDBAsync extends AsyncTask<Void, Void, Void>{
 
-        // For debug
-//        String[] defaultFriends =
-//                {"Aaron", "Benjamin", "Carol", "Dominick", "Eve", "Frank", "George", "Hamlet", "Ian",
-//                 "Jacob", "Kate", "Leonard", "Michael", "Nikolas", "Oprah", "Peter", "Quynh",
-//                 "Richard", "Stephen", "Thomas", "Utah", "Victor", "Wilfred", "Xan", "Yan", "Zorro"};
-
         String[] defaultInteractionsNames = {
                 mContext.get().getString(R.string.interaction_type_name_meeting),
                 mContext.get().getString(R.string.interaction_type_name_texting),
@@ -109,12 +103,6 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-//            if(mDao.getAnyFriend().length<1){
-//                for(String friend : defaultFriends){
-//                    mDao.add(new Friend(friend, ""));
-//                }
-//            }
 
             if(mDao.getAnyInteractionType().length<1){
                 for(int i = 0; i < defaultInteractionsNames.length; ++i){
