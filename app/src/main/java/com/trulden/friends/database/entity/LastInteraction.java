@@ -36,7 +36,7 @@ import static androidx.room.ForeignKey.CASCADE;
         }
 )
 public class LastInteraction implements Entity {
-// FIXME replace all ints with longs
+
     private long friendId;
 
     private long typeId;
