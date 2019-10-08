@@ -7,9 +7,8 @@
         >
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/interactions_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+        android:id="@+id/interactions_recyclerview"
+        style="@style/recycler_view"
+        />
 
 </FrameLayout>

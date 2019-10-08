@@ -5,12 +5,9 @@
         >
 
     <androidx.recyclerview.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:scrollbars="vertical"
-            android:id="@+id/tab_last_interaction_recyclerview"
-            >
+        android:id="@+id/tab_last_interaction_recyclerview"
+        style="@style/recycler_view"
+        >
     </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>
