@@ -160,6 +160,9 @@ public interface FriendsDao {
     )
     void recalcLastInteraction(long typeId, Long friendId);
 
+    @Query("DELETE FROM last_interaction_table WHERE interactionId = :interactionId;")
+    void deleteLastInteractionsByInteractionId(long interactionId);
+
     // TODO clean up
 
     @Query("DELETE FROM friend_table;")
