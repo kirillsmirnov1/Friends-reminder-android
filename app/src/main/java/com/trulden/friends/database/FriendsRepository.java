@@ -55,6 +55,17 @@ class FriendsRepository {
         return mFriendsDao;
     }
 
+    public void refreshLastInteractions() {
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                mFriendsDao.refreshLastInteractions();
+                return null;
+            }
+        }.execute();
+    }
+
     /**
      * Available tasks
      */

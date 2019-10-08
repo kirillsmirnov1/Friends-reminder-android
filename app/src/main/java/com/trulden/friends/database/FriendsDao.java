@@ -134,4 +134,21 @@ public interface FriendsDao {
 
     @Query("DELETE FROM bind_friend_interaction_table")
     void wipeBinds();
+
+    @Transaction
+    @Query(
+            "INSERT OR REPLACE INTO last_interaction_table(friendId, typeId, interactionId, date)" +
+                    "SELECT friendId, typeId, interactionId, date FROM\n" +
+                    "(SELECT friend_table.id AS friendId, interaction_type_table.id AS typeId, interaction_table.id AS interactionId, MAX(interaction_table.date) AS date\n" +
+                    " FROM \n" +
+                    " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
+                    "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +
+                    "  INNER JOIN interaction_type_table\n" +
+                    "  ON interaction_table.interactionTypeId = interaction_type_table.id)\n" +
+                    "  INNER JOIN friend_table\n" +
+                    "  ON bind_friend_interaction_table.friendId = friend_table.id)\n" +
+                    " GROUP BY friendId, interactionTypeId\n" +
+                    " ORDER BY interactionTypeId, date ASC)"
+    )
+    void refreshLastInteractions();
 }
