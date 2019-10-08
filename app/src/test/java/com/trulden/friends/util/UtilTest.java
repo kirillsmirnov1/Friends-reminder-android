@@ -1,6 +1,6 @@
 package com.trulden.friends.util;
 
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class UtilTest {
 
     @Test
     public void testTodayDayCounter(){
-        LastInteraction lastInteraction = new LastInteraction(0, Calendar.getInstance().getTimeInMillis(), null);
+        LastInteraction lastInteraction = new LastInteraction(0, 0, 0, Calendar.getInstance().getTimeInMillis(), 0);
 
         assertEquals(daysPassed(lastInteraction), 0);
     }
@@ -22,7 +22,7 @@ public class UtilTest {
     public void testYesterdayCounter(){
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
-        LastInteraction lastInteraction = new LastInteraction(0, calendar.getTimeInMillis(), null);
+        LastInteraction lastInteraction = new LastInteraction(0, 0, 0, calendar.getTimeInMillis(), 0);
 
         assertEquals(daysPassed(lastInteraction), 1);
     }

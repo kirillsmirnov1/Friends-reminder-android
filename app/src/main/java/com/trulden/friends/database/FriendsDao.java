@@ -12,9 +12,10 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.List;
 
@@ -76,6 +77,9 @@ public interface FriendsDao {
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     LiveData<List<Interaction>> getAllInteractions();
 
+    @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
+    List<Interaction> getInteraction(long interactionId);
+
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     @Transaction
     LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendIDs();
@@ -109,6 +113,9 @@ public interface FriendsDao {
     @Query("SELECT * FROM bind_friend_interaction_table WHERE friendId = :id")
     List<BindFriendInteraction> getBindsOfFriend(long id);
 
+    @Query("SELECT * FROM bind_friend_interaction_table WHERE interactionId = :interactionId")
+    List<BindFriendInteraction> getBindsOfInteraction(long interactionId);
+
     @Query("SELECT COUNT(interactionId) FROM bind_friend_interaction_table WHERE interactionId = :interactionId")
     int getNumberOfInteractionBinds(long interactionId);
 
@@ -116,24 +123,47 @@ public interface FriendsDao {
     // LastInteraction
     // -----------------------------------------
 
+    @Insert
+    void add(LastInteraction interaction);
+
+    @Update
+    void update(LastInteraction lastInteraction);
+
     /**
-     * @return {@link LastInteraction} list.
+     * @return {@link LastInteractionWrapper} list.
      */
     @Transaction
-    @Query("SELECT typeId, friend, date FROM\n" +
-            "(SELECT interaction_type_table.id AS typeId, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
-            " FROM \n" +
-            " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
-            "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +
-            "  INNER JOIN interaction_type_table\n" +
-            "  ON interaction_table.interactionTypeId = interaction_type_table.id)\n" +
-            "  INNER JOIN friend_table\n" +
-            "  ON bind_friend_interaction_table.friendId = friend_table.id)\n" +
-            " GROUP BY friendId, interactionTypeId\n" +
-            " ORDER BY interactionTypeId, date ASC)"
-            //+ " WHERE date < (:currDate - frequency * :k)"
-            )
-    LiveData<List<LastInteraction>> getLastInteractions(/*long currDate, int k*/);
+    @Query("SELECT * FROM last_interaction_table ORDER BY date ASC")
+    LiveData<List<LastInteractionWrapper>> getLastInteractions();
+
+    @Transaction
+    @Query("SELECT * FROM last_interaction_table " +
+            "WHERE typeId = :typeId " +
+            "AND   friendId = :friendId;")
+    List<LastInteraction> getLastInteraction(long typeId, long friendId);
+
+    @Transaction
+    @Query(
+        "INSERT OR IGNORE INTO \n" +
+        "  last_interaction_table(friendId, typeId, interactionId, date)\n" +
+        "SELECT \n" +
+        "  friendId, typeId, interactionId, MAX(date)\n" +
+        "FROM \n" +
+        "    (SELECT id AS interId, interactionTypeId as typeId, date \n" +
+        "    FROM interaction_table WHERE typeId = :typeId) \n" +
+        "  t1 \n" +
+        "  INNER JOIN\n" +
+        "    (SELECT friendId, interactionId  \n" +
+        "    FROM bind_friend_interaction_table WHERE friendId = :friendId)\n" +
+        "  t2\n" +
+        "  ON (t1.interId = t2.interactionId); "
+    )
+    void recalcLastInteraction(long typeId, Long friendId);
+
+    @Query("DELETE FROM last_interaction_table WHERE interactionId = :interactionId;")
+    void deleteLastInteractionsByInteractionId(long interactionId);
+
+    // TODO clean up
 
     @Query("DELETE FROM friend_table;")
     void wipeFriends();
@@ -146,4 +176,21 @@ public interface FriendsDao {
 
     @Query("DELETE FROM bind_friend_interaction_table")
     void wipeBinds();
+
+    @Transaction
+    @Query(
+            "INSERT OR REPLACE INTO last_interaction_table(friendId, typeId, interactionId, date)" +
+                    "SELECT friendId, typeId, interactionId, date FROM\n" +
+                    "(SELECT friend_table.id AS friendId, interaction_type_table.id AS typeId, interaction_table.id AS interactionId, MAX(interaction_table.date) AS date\n" +
+                    " FROM \n" +
+                    " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
+                    "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +
+                    "  INNER JOIN interaction_type_table\n" +
+                    "  ON interaction_table.interactionTypeId = interaction_type_table.id)\n" +
+                    "  INNER JOIN friend_table\n" +
+                    "  ON bind_friend_interaction_table.friendId = friend_table.id)\n" +
+                    " GROUP BY friendId, interactionTypeId\n" +
+                    " ORDER BY interactionTypeId, date ASC)"
+    )
+    void refreshLastInteractions();
 }

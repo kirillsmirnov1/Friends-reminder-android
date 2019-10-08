@@ -9,9 +9,10 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.HashSet;
 import java.util.List;
@@ -39,8 +40,8 @@ class FriendsRepository {
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
 
-    LiveData<List<LastInteraction>> getLastInteractions(/*long currDate*/) {
-        return mFriendsDao.getLastInteractions(/*currDate, Util.MILLISECONDS_IN_DAYS*/);
+    LiveData<List<LastInteractionWrapper>> getLastInteractions() {
+        return mFriendsDao.getLastInteractions();
     }
 
     LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendsIDs(){
@@ -53,6 +54,17 @@ class FriendsRepository {
 
     FriendsDao getDao() {
         return mFriendsDao;
+    }
+
+    public void refreshLastInteractions() {
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                mFriendsDao.refreshLastInteractions();
+                return null;
+            }
+        }.execute();
     }
 
     /**
@@ -206,8 +218,8 @@ class FriendsRepository {
                 .execute();
     }
 
-    public void delete(Interaction interaction) {
-        new InteractionAsyncTask(mFriendsDao, TaskSelector.REMOVE_INTERACTION, interaction, null)
+    public void delete(Interaction interaction, HashSet<Long> friendIDs) {
+        new InteractionAsyncTask(mFriendsDao, TaskSelector.REMOVE_INTERACTION, interaction, friendIDs)
                 .execute();
     }
 
@@ -217,7 +229,7 @@ class FriendsRepository {
     }
 
     /**
-     * Handlse Interaction-based queries to database
+     * Handles Interaction-based queries to database
      */
     private static class InteractionAsyncTask extends AsyncTask<Void, Void, Void>{
 
@@ -240,9 +252,28 @@ class FriendsRepository {
                 case ADD_INTERACTION: {
 
                     long interactionId = mFriendsDao.add(interaction);
+                    long typeId = interaction.getInteractionTypeId();
 
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
+
+                        List<LastInteraction> interactions = mFriendsDao
+                                .getLastInteraction(typeId, friendId);
+
+                        if(interactions.size() == 0){
+                            mFriendsDao.add(new LastInteraction(friendId, typeId, interactionId, interaction.getDate(), 0));
+                        } else {
+
+                            LastInteraction oldInteraction = interactions.get(0);
+
+                            if(interaction.getDate() > oldInteraction.getDate()){
+                                oldInteraction.setDate(interaction.getDate());
+                                oldInteraction.setInteractionId(interactionId);
+                                oldInteraction.setStatus(0);
+
+                                mFriendsDao.update(oldInteraction);
+                            }
+                        }
                     }
 
                     break;
@@ -252,12 +283,31 @@ class FriendsRepository {
 
                     long interactionId = interaction.getId();
 
+                    Interaction oldInteraction = mFriendsDao.getInteraction(interactionId).get(0);
+                    List<BindFriendInteraction> oldBinds = mFriendsDao.getBindsOfInteraction(interactionId);
+
+                    // It's easier to delete old binds and recalculate them, than to check every change
+                    mFriendsDao.deleteLastInteractionsByInteractionId(interactionId);
                     mFriendsDao.deleteBindingsByInteractionId(interactionId);
 
                     mFriendsDao.update(interaction);
 
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
+                        mFriendsDao.recalcLastInteraction(interaction.getInteractionTypeId(), friendId);
+
+                        // If type of interaction changed, need to recalc LI of that type too
+                        if(interaction.getInteractionTypeId() != oldInteraction.getInteractionTypeId()){
+                            mFriendsDao.recalcLastInteraction(oldInteraction.getInteractionTypeId(), friendId);
+                        }
+                    }
+
+                    // Handle deleted friends
+                    for(BindFriendInteraction bind : oldBinds){
+                        if(!friendIds.contains(bind.getFriendId())){
+                            mFriendsDao.recalcLastInteraction(
+                                    oldInteraction.getInteractionTypeId(), bind.getFriendId());
+                        }
                     }
 
                     break;
@@ -265,7 +315,18 @@ class FriendsRepository {
 
                 case REMOVE_INTERACTION: {
 
+                    long typeId = interaction.getInteractionTypeId();
+
                     mFriendsDao.delete(interaction);
+
+                    for(Long friendId : friendIds){
+                        List<LastInteraction> interactions = mFriendsDao
+                                .getLastInteraction(typeId, friendId);
+
+                        if(interactions.size() == 0){
+                            mFriendsDao.recalcLastInteraction(typeId, friendId);
+                        }
+                    }
 
                     break;
                 }

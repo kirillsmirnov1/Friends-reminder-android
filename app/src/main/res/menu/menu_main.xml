@@ -30,4 +30,13 @@
         app:showAsAction="never"
     />
 
+<!--    Refresh LI manually. For debug purpose only, shouldn't get in release   -->
+
+<!--    <item-->
+<!--        android:id="@+id/refresh_li"-->
+<!--        android:title="Refresh"-->
+<!--        android:orderInCategory="0"-->
+<!--        app:showAsAction="always"-->
+<!--        />-->
+
 </menu>

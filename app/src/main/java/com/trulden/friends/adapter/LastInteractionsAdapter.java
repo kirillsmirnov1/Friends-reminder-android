@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import static com.trulden.friends.util.Util.daysPassed;
 
@@ -22,7 +22,7 @@ import static com.trulden.friends.util.Util.daysPassed;
  * RecyclerView adapter for LastInteraction objects.
  * Used in {@link com.trulden.friends.activity.LastInteractionsTabFragment LastInteractionsTabFragment}
  */
-public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteraction> {
+public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteractionWrapper> {
 
     public LastInteractionsAdapter(Context context){
         //noinspection ConstantConditions
@@ -38,7 +38,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
     class ViewHolder
             extends RecyclerView.ViewHolder
-            implements BindableViewHolder<LastInteraction> {
+            implements BindableViewHolder<LastInteractionWrapper> {
 
         private TextView mName;
         private TextView mTime;
@@ -54,18 +54,18 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
             layout = itemView.findViewById(R.id.last_interaction_entry_layout);
         }
 
-        public void bindTo(final LastInteraction lastInteraction, int pos) {
+        public void bindTo(final LastInteractionWrapper interaction, int pos) {
 
-            mName.setText(lastInteraction.getFriend());
+            mName.setText(interaction.getFriendName());
 
-            int daysPassed = daysPassed(lastInteraction);
+            int daysPassed = daysPassed(interaction.getLastInteraction());
 
             String dateString = daysPassed + mContext.getString(R.string.days_ago);
 
             mTime.setText(dateString);
 
             // Grey out LI for which time have not yet come
-            if(!lastInteraction.itsTime()) {
+            if(!interaction.itsTime()) {
                 layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_grey));
             }
         }

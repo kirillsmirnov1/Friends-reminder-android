@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -32,7 +32,7 @@ public abstract class Util {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /** Version of database used in app */
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
 
     // Use when need to get onActivityResult() call, but don't need any actual data
     public static final int NO_REQUEST                 = 0;

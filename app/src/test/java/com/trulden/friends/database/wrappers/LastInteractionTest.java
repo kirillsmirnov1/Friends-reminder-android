@@ -1,6 +1,7 @@
 package com.trulden.friends.database.wrappers;
 
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import org.junit.Test;
 
@@ -17,13 +18,16 @@ public class LastInteractionTest {
         Calendar weekAgo = Calendar.getInstance();
         weekAgo.add(Calendar.DATE, -7);
 
-        LastInteraction lastInteraction = new LastInteraction(0, weekAgo.getTimeInMillis(), null);
+        LastInteraction lastInteraction = new LastInteraction(0, 0, 0, weekAgo.getTimeInMillis(), 0);
+        LastInteractionWrapper lastInteractionWrapper = new LastInteractionWrapper();
+        lastInteractionWrapper.setLastInteraction(lastInteraction);
+
         InteractionType type = new InteractionType("8 days", 8);
         ArrayList<InteractionType> typeArrayList = new ArrayList<>();
         typeArrayList.add(type);
 
-        lastInteraction.setInteractionTypes(typeArrayList);
+        lastInteractionWrapper.setTypes(typeArrayList);
 
-        assertFalse(lastInteraction.itsTime());
+        assertFalse(lastInteractionWrapper.itsTime());
     }
 }

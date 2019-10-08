@@ -26,9 +26,11 @@ import java.util.Calendar;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.Matchers.*;
 
 public abstract class AbstractTest {
@@ -55,10 +57,8 @@ public abstract class AbstractTest {
     }
 
     protected void openTypes() {
-        onView(childAtPosition(
-                childAtPosition(withId(R.id.toolbar),1),
-                0))
-                .perform(click());
+
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
         sleep(250);
 
