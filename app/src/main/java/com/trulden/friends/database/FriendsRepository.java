@@ -283,12 +283,31 @@ class FriendsRepository {
 
                     long interactionId = interaction.getId();
 
+                    Interaction oldInteraction = mFriendsDao.getInteraction(interactionId).get(0);
+                    List<BindFriendInteraction> oldBinds = mFriendsDao.getBindsOfInteraction(interactionId);
+
+                    // It's easier to delete old binds and recalculate them, than to check every change
+                    mFriendsDao.deleteLastInteractionsByInteractionId(interactionId);
                     mFriendsDao.deleteBindingsByInteractionId(interactionId);
 
                     mFriendsDao.update(interaction);
 
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
+                        mFriendsDao.recalcLastInteraction(interaction.getInteractionTypeId(), friendId);
+
+                        // If type of interaction changed, need to recalc LI of that type too
+                        if(interaction.getInteractionTypeId() != oldInteraction.getInteractionTypeId()){
+                            mFriendsDao.recalcLastInteraction(oldInteraction.getInteractionTypeId(), friendId);
+                        }
+                    }
+
+                    // Handle deleted friends
+                    for(BindFriendInteraction bind : oldBinds){
+                        if(!friendIds.contains(bind.getFriendId())){
+                            mFriendsDao.recalcLastInteraction(
+                                    oldInteraction.getInteractionTypeId(), bind.getFriendId());
+                        }
                     }
 
                     break;
