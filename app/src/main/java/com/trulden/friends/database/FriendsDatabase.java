@@ -223,10 +223,8 @@ public abstract class FriendsDatabase extends RoomDatabase {
                             " ORDER BY interactionTypeId, date ASC)"
             );
 
-//            database.execSQL("CREATE INDEX index_LastInteraction_typeId ON last_interaction_table(typeId)");
-//            database.execSQL("CREATE INDEX index_LastInteraction_interactionId ON last_interaction_table(interactionId)");
-
-//            database.execSQL("UPDATE last_interaction_table SET status = 0");
+            database.execSQL("CREATE INDEX index_LastInteraction_typeId ON last_interaction_table(typeId)");
+            database.execSQL("CREATE INDEX index_LastInteraction_interactionId ON last_interaction_table(interactionId)");
         }
     };
 }
