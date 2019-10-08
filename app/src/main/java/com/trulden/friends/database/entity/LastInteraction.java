@@ -36,12 +36,12 @@ import static androidx.room.ForeignKey.CASCADE;
         }
 )
 public class LastInteraction implements Entity {
+// FIXME replace all ints with longs
+    private long friendId;
 
-    private int friendId;
+    private long typeId;
 
-    private int typeId;
-
-    private int interactionId;
+    private long interactionId;
 
     private long date;
 
@@ -55,7 +55,7 @@ public class LastInteraction implements Entity {
      * @param typeId type of Interaction
      * @param date Unix epoch time of interaction
      */
-    public LastInteraction(int friendId, int typeId, int interactionId, long date, int status){
+    public LastInteraction(long friendId, long typeId, long interactionId, long date, int status){
         this.friendId = friendId;
         this.typeId = typeId;
         this.interactionId = interactionId;
@@ -75,27 +75,27 @@ public class LastInteraction implements Entity {
         this.date = date;
     }
 
-    public int getTypeId() {
+    public long getTypeId() {
         return typeId;
     }
 
-    public int getFriendId() {
+    public long getFriendId() {
         return friendId;
     }
 
-    public void setFriendId(int friendId) {
+    public void setFriendId(long friendId) {
         this.friendId = friendId;
     }
 
-    public int getInteractionId() {
+    public long getInteractionId() {
         return interactionId;
     }
 
-    public void setInteractionId(int interactionId) {
+    public void setInteractionId(long interactionId) {
         this.interactionId = interactionId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setTypeId(long typeId) {
         this.typeId = typeId;
     }
 
