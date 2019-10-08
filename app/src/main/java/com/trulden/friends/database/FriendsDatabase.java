@@ -202,7 +202,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                     "typeId INTEGER NOT NULL," +
                     "interactionId INTEGER NOT NULL," +
                     "date INTEGER NOT NULL," +
-                    "status INTEGER NOT NULL," +
+                    "status INTEGER NOT NULL DEFAULT 0," +
                     "PRIMARY KEY(friendId, typeId)," +
                     "FOREIGN KEY(friendId) REFERENCES friend_table(id) ON DELETE CASCADE," +
                     "FOREIGN KEY(typeId) REFERENCES interaction_type_table(id) ON DELETE CASCADE," +
