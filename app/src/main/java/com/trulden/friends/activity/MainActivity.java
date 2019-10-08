@@ -160,9 +160,9 @@ public class MainActivity
                 startActivityForResult(intent, NO_REQUEST);
             }
 
-            case R.id.refresh_li: {
-                mFriendsViewModel.refreshLastInteractions();
-            }
+//            case R.id.refresh_li: {
+//                mFriendsViewModel.refreshLastInteractions();
+//            }
 
             default:
                 return super.onOptionsItemSelected(item);
