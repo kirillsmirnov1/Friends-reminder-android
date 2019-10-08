@@ -9,6 +9,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
@@ -251,9 +252,28 @@ class FriendsRepository {
                 case ADD_INTERACTION: {
 
                     long interactionId = mFriendsDao.add(interaction);
+                    long typeId = interaction.getInteractionTypeId();
 
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
+
+                        List<LastInteraction> interactions = mFriendsDao
+                                .getLastInteraction(typeId, friendId);
+
+                        if(interactions.size() == 0){
+                            mFriendsDao.add(new LastInteraction(friendId, typeId, interactionId, interaction.getDate(), 0));
+                        } else {
+
+                            LastInteraction oldInteraction = interactions.get(0);
+
+                            if(interaction.getDate() > oldInteraction.getDate()){
+                                oldInteraction.setDate(interaction.getDate());
+                                oldInteraction.setInteractionId(interactionId);
+                                oldInteraction.setStatus(0);
+
+                                mFriendsDao.update(oldInteraction);
+                            }
+                        }
                     }
 
                     break;
