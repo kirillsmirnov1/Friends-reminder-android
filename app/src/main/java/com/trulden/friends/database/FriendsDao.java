@@ -120,20 +120,8 @@ public interface FriendsDao {
      * @return {@link LastInteraction} list.
      */
     @Transaction
-    @Query("SELECT typeId, friend, date FROM\n" +
-            "(SELECT interaction_type_table.id AS typeId, frequency, friend_table.name AS friend, MAX(interaction_table.date) AS date\n" +
-            " FROM \n" +
-            " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
-            "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +
-            "  INNER JOIN interaction_type_table\n" +
-            "  ON interaction_table.interactionTypeId = interaction_type_table.id)\n" +
-            "  INNER JOIN friend_table\n" +
-            "  ON bind_friend_interaction_table.friendId = friend_table.id)\n" +
-            " GROUP BY friendId, interactionTypeId\n" +
-            " ORDER BY interactionTypeId, date ASC)"
-            //+ " WHERE date < (:currDate - frequency * :k)"
-            )
-    LiveData<List<LastInteraction>> getLastInteractions(/*long currDate, int k*/);
+    @Query("SELECT * FROM last_interaction_table ORDER BY date DESC")
+    LiveData<List<LastInteraction>> getLastInteractions();
 
     @Query("DELETE FROM friend_table;")
     void wipeFriends();
