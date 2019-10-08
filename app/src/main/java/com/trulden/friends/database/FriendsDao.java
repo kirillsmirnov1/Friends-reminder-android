@@ -14,7 +14,7 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.List;
 
@@ -117,11 +117,11 @@ public interface FriendsDao {
     // -----------------------------------------
 
     /**
-     * @return {@link LastInteraction} list.
+     * @return {@link LastInteractionWrapper} list.
      */
     @Transaction
     @Query("SELECT * FROM last_interaction_table ORDER BY date DESC")
-    LiveData<List<LastInteraction>> getLastInteractions();
+    LiveData<List<LastInteractionWrapper>> getLastInteractions();
 
     @Query("DELETE FROM friend_table;")
     void wipeFriends();

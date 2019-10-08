@@ -11,7 +11,7 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.HashSet;
 import java.util.List;
@@ -39,8 +39,8 @@ class FriendsRepository {
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
 
-    LiveData<List<LastInteraction>> getLastInteractions(/*long currDate*/) {
-        return mFriendsDao.getLastInteractions(/*currDate, Util.MILLISECONDS_IN_DAYS*/);
+    LiveData<List<LastInteractionWrapper>> getLastInteractions() {
+        return mFriendsDao.getLastInteractions();
     }
 
     LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendsIDs(){

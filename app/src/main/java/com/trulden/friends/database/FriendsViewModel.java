@@ -11,7 +11,7 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
-import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +49,7 @@ public class FriendsViewModel extends AndroidViewModel {
         return mAllInteractions;
     }
 
-    public LiveData<List<LastInteraction>> getLastInteractions(/*long currDate*/) { return mRepository.getLastInteractions(/*currDate*/); }
+    public LiveData<List<LastInteractionWrapper>> getLastInteractions() { return mRepository.getLastInteractions(); }
     public LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendIDs() {return mRepository.getInteractionsWithFriendsIDs();}
     public LiveData<List<FriendName>> getFriendNames() { return mRepository.getFriendNames(); }
 
