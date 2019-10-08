@@ -1,6 +1,7 @@
 package com.trulden.friends.database.entity;
 
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.Relation;
 
 import java.util.List;
@@ -31,7 +32,13 @@ import static com.trulden.friends.util.Util.daysPassed;
                             parentColumns = "id",
                             childColumns = "interactionId",
                             onDelete = CASCADE) // TODO What else can we do on delete?
-        })
+        },
+
+        indices = {
+                @Index(value = "typeId"),
+                @Index(value = "interactionId")
+        }
+)
 public class LastInteraction implements Entity {
 
     private int friendId;

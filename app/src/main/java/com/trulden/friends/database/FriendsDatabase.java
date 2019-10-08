@@ -237,7 +237,8 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
             database.execSQL("UPDATE last_interaction_table SET status = 0");
 
-            // TODO use index
+            database.execSQL("CREATE INDEX index_LastInteraction_typeId ON last_interaction_table(typeId)");
+            database.execSQL("CREATE INDEX index_LastInteraction_interactionId ON last_interaction_table(interactionId)");
         }
     };
 }
