@@ -296,7 +296,18 @@ class FriendsRepository {
 
                 case REMOVE_INTERACTION: {
 
+                    long typeId = interaction.getInteractionTypeId();
+
                     mFriendsDao.delete(interaction);
+
+                    for(Long friendId : friendIds){
+                        List<LastInteraction> interactions = mFriendsDao
+                                .getLastInteraction(typeId, friendId);
+
+                        if(interactions.size() == 0){
+                            mFriendsDao.recalcLastInteraction(typeId, friendId);
+                        }
+                    }
 
                     break;
                 }
