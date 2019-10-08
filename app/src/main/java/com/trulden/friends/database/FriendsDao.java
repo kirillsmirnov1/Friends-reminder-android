@@ -136,6 +136,24 @@ public interface FriendsDao {
             "AND   friendId = :friendId;")
     List<LastInteraction> getLastInteraction(long typeId, long friendId);
 
+    @Transaction
+    @Query(
+        "INSERT OR IGNORE INTO \n" +
+        "  last_interaction_table(friendId, typeId, interactionId, date)\n" +
+        "SELECT \n" +
+        "  friendId, typeId, interactionId, MAX(date)\n" +
+        "FROM \n" +
+        "    (SELECT id AS interId, interactionTypeId as typeId, date \n" +
+        "    FROM interaction_table WHERE typeId = :typeId) \n" +
+        "  t1 \n" +
+        "  INNER JOIN\n" +
+        "    (SELECT friendId, interactionId  \n" +
+        "    FROM bind_friend_interaction_table WHERE friendId = :friendId)\n" +
+        "  t2\n" +
+        "  ON (t1.interId = t2.interactionId); "
+    )
+    void recalcLastInteraction(long typeId, Long friendId);
+
     // TODO clean up
 
     @Query("DELETE FROM friend_table;")
