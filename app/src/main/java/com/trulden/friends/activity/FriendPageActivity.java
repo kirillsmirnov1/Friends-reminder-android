@@ -39,7 +39,7 @@ public class FriendPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_page);
 
-        mPersonNotes = findViewById(R.id.friend_page_notes);
+        mPersonNotes = findViewById(R.id.afp_notes);
 
         Intent intent = getIntent();
 

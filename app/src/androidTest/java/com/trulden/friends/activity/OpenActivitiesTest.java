@@ -102,7 +102,7 @@ public class OpenActivitiesTest extends AbstractTest {
         onView(childAtPosition(withId(R.id.action_bar),0))
                 .check(matches(withText("Aaron")));
 
-        onView(withId(R.id.friend_page_notes)).check(matches(withText(friend.getInfo())));
+        onView(withId(R.id.afp_notes)).check(matches(withText(friend.getInfo())));
     }
 
     @Test
