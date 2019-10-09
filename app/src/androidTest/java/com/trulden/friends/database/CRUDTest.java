@@ -57,7 +57,7 @@ public class CRUDTest extends AbstractTest {
 
         openAddInteraction();
 
-        onView(withId(R.id.interaction_type_spinner)).perform(click());
+        onView(withId(R.id.aei_type_spinner)).perform(click());
 
         sleep(250);
 
@@ -76,7 +76,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText("Save")).perform(scrollTo(), click());
 
-        onView(withId(R.id.editDate)).perform(click());
+        onView(withId(R.id.aei_edit_date)).perform(click());
 
         sleep(250);
 
@@ -91,11 +91,11 @@ public class CRUDTest extends AbstractTest {
 
         String today = Util.formatDate(Calendar.getInstance());
 
-        onView(withId(R.id.editDate)).check(matches(withText(today)));
+        onView(withId(R.id.aei_edit_date)).check(matches(withText(today)));
 
-        onView(withId(R.id.editFriends)).perform(replaceText("Baron, Goliath"), closeSoftKeyboard());
+        onView(withId(R.id.aei_edit_friends)).perform(replaceText("Baron, Goliath"), closeSoftKeyboard());
 
-        onView(withId(R.id.editComment))
+        onView(withId(R.id.aei_edit_comment))
                 .perform(replaceText("Death to everybody"), closeSoftKeyboard());
 
         onView(withId(R.id.menu_save_save)).perform(click());
@@ -233,17 +233,17 @@ public class CRUDTest extends AbstractTest {
 
         sleep(250);
 
-        onView(withId(R.id.interaction_type_spinner)).perform(click());
+        onView(withId(R.id.aei_type_spinner)).perform(click());
         chooseDropDownOption(1);
 
-        onView(withId(R.id.editDate)).perform(click());
+        onView(withId(R.id.aei_edit_date)).perform(click());
 
         setDatePicker(yesterday);
         onView(withText("OK")).perform(click());
 
-        onView(withId(R.id.editFriends))
+        onView(withId(R.id.aei_edit_friends))
                 .perform(typeText(", Caleb"), closeSoftKeyboard());
-        onView(withId(R.id.editComment))
+        onView(withId(R.id.aei_edit_comment))
                 .perform(click(), typeText(" + C"));
 
         onView(withId(R.id.menu_save_save)).perform(click());

@@ -145,16 +145,16 @@ public class EditInteractionActivity
             }
         });
 
-        mType = findViewById(R.id.interaction_type_spinner);
+        mType = findViewById(R.id.aei_type_spinner);
 
-        mDateText = findViewById(R.id.editDate);
+        mDateText = findViewById(R.id.aei_edit_date);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // I guess, 15% which still uses android 4 will have to suffer
             mDateText.setShowSoftInputOnFocus(false);
         }
 
-        mFriendsText = findViewById(R.id.editFriends);
-        mCommentText = findViewById(R.id.editComment);
+        mFriendsText = findViewById(R.id.aei_edit_friends);
+        mCommentText = findViewById(R.id.aei_edit_comment);
 
         mFriendsText.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
