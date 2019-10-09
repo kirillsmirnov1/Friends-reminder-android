@@ -44,7 +44,7 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     // Hide progress bar
-                    mMainActivity.get().findViewById(R.id.progress_bar_main).setVisibility(View.INVISIBLE);
+                    mMainActivity.get().findViewById(R.id.am_progress_bar).setVisibility(View.INVISIBLE);
 
                     // Make window touchable again
                     mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

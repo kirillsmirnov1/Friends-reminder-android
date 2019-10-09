@@ -59,7 +59,7 @@ public class TabTest  extends AbstractTest {
 
         onView(first(withId(R.id.eli_layout))).check(matches(isDisplayed()));
 
-        onView(withId(R.id.root_layout)).perform(swipeLeft());
+        onView(withId(R.id.am_root_layout)).perform(swipeLeft());
 
         sleep(250);
 

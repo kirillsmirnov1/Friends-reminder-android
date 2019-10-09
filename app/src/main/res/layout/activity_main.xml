@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/root_layout"
+    android:id="@+id/am_root_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +9,7 @@
     >
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
+        android:id="@+id/am_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.MainActivity"
@@ -21,18 +21,18 @@
             >
 
             <FrameLayout
-                android:id="@+id/fragment_container"
+                android:id="@+id/am_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_above="@id/bottom_navigation"
+                android:layout_above="@id/am_bottom_navigation"
                 android:layout_below="@id/toolbar"
                 />
 
             <com.getbase.floatingactionbutton.FloatingActionsMenu
-                android:id="@+id/fab_main_activity"
+                android:id="@+id/am_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/bottom_navigation"
+                android:layout_above="@id/am_bottom_navigation"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="8dp"
@@ -47,7 +47,7 @@
                 >
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_add_interaction"
+                    android:id="@+id/am_fab_add_interaction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="addInteraction"
@@ -60,7 +60,7 @@
                     />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_add_friend"
+                    android:id="@+id/am_fab_add_friend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="addFriend"
@@ -75,7 +75,7 @@
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
+                android:id="@+id/am_bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -93,7 +93,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <ProgressBar
-        android:id="@+id/progress_bar_main"
+        android:id="@+id/am_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"

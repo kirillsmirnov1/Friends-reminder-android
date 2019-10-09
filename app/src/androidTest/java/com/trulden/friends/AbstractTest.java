@@ -72,11 +72,11 @@ public abstract class AbstractTest {
     }
 
     protected void fabClickAddInteraction() {
-        onView(withId(R.id.fab_add_interaction)).perform(click());
+        onView(withId(R.id.am_fab_add_interaction)).perform(click());
     }
 
     protected void fabClickAddFriend() {
-        onView(withId(R.id.fab_add_friend)).perform(click());
+        onView(withId(R.id.am_fab_add_friend)).perform(click());
     }
 
     protected void openAddInteraction(){

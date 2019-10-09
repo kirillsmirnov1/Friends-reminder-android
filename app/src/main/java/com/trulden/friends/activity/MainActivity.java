@@ -89,10 +89,10 @@ public class MainActivity
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
         }
 
-        BottomNavigationView mBottomNavigation = findViewById(R.id.bottom_navigation);
+        BottomNavigationView mBottomNavigation = findViewById(R.id.am_bottom_navigation);
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
 
-        mFabMenu = findViewById(R.id.fab_main_activity);
+        mFabMenu = findViewById(R.id.am_fab);
 
         if(savedInstanceState == null) {
             switch (mFragmentToLoad){
@@ -279,7 +279,7 @@ public class MainActivity
                 if(resultCode == RESULT_OK && resultingIntent != null) {
 
                     makeToast(this, getString(R.string.export_in_progress));
-                    findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
+                    findViewById(R.id.am_progress_bar).setVisibility(View.VISIBLE);
 
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -318,8 +318,8 @@ public class MainActivity
 
     private void importDatabaseFromUri(Uri uri) {
 
-        makeSnackbar(findViewById(R.id.root_layout), getString(R.string.import_in_progress));
-        findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
+        makeSnackbar(findViewById(R.id.am_root_layout), getString(R.string.import_in_progress));
+        findViewById(R.id.am_progress_bar).setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -365,7 +365,7 @@ public class MainActivity
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.am_fragment_container, fragment)
                     .commit();
             return true;
         }
