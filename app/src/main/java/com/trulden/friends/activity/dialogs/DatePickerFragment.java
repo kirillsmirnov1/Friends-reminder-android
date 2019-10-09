@@ -25,16 +25,24 @@ import static com.trulden.friends.util.Util.makeToast;
  */
 public class DatePickerFragment extends DialogFragment{
 
+    private final Calendar calendarInstance;
+
+    public DatePickerFragment(Calendar calendarInstance){
+        if(calendarInstance != null){
+            this.calendarInstance = calendarInstance;
+        } else {
+            this.calendarInstance = Calendar.getInstance();
+        }
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        final Calendar c = Calendar.getInstance();
-
         final DatePickerDialog datePickerDialog =
                 new DatePickerDialog(Objects.requireNonNull(getActivity()), null,
-                                    c.get(Calendar.YEAR),
-                                    c.get(Calendar.MONTH),
-                                    c.get(Calendar.DAY_OF_MONTH));
+                                    calendarInstance.get(Calendar.YEAR),
+                                    calendarInstance.get(Calendar.MONTH),
+                                    calendarInstance.get(Calendar.DAY_OF_MONTH));
 
         datePickerDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
