@@ -76,7 +76,7 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
             selectedInteractionsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.interactions_recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.fi_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mInteractionsAdapter = new InteractionsAdapter(getActivity(), selectedInteractionsPositions);
