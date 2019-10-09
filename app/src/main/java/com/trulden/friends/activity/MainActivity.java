@@ -142,17 +142,17 @@ public class MainActivity
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
-            case R.id.action_export_database: {
+            case R.id.menu_main_export_database: {
                 onClickExportDatabase();
                 return true;
             }
 
-            case R.id.action_import_database: {
+            case R.id.menu_main_import_database: {
                 onClickImportDatabase();
                 return true;
             }
 
-            case R.id.manage_interaction_types: {
+            case R.id.menu_main_interaction_types: {
 
                 saveSelectedLastInteractionTab();
 
