@@ -84,4 +84,6 @@ public class LastInteractionTest extends AbstractTest {
         onView(withText("Caleb")).check(matches(hasSibling(withText("31 d. ago"))));
         onView(withText("Balaam")).check(doesNotExist());
     }
+
+    // Update is handled by CRUDTest.updateInteractionTest()
 }
