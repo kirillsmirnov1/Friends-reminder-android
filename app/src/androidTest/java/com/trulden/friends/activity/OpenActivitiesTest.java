@@ -83,8 +83,8 @@ public class OpenActivitiesTest extends AbstractTest {
 
         onView(withText(R.string.edit_interaction_type)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.edit_interaction_type_name)).check(matches(withText(type.getInteractionTypeName())));
-        onView(withId(R.id.edit_interaction_type_frequency))
+        onView(withId(R.id.deit_name)).check(matches(withText(type.getInteractionTypeName())));
+        onView(withId(R.id.deit_frequency))
                 .check(matches(withText(String.valueOf(type.getFrequency()))));
     }
 

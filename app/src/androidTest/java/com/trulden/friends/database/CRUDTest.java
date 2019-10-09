@@ -63,15 +63,15 @@ public class CRUDTest extends AbstractTest {
 
         chooseDropDownOption(2);
 
-        onView(withId(R.id.edit_interaction_type_name))
+        onView(withId(R.id.deit_name))
                 .perform(replaceText("Meeting"));
 
-        onView(withId(R.id.edit_interaction_type_frequency))
+        onView(withId(R.id.deit_frequency))
                 .perform(replaceText("7"));
 
         onView(withText("Save")).perform(scrollTo(), click()); // Won't work because type already exists
 
-        onView(withId(R.id.edit_interaction_type_name))
+        onView(withId(R.id.deit_name))
                 .perform(replaceText("Mess"));
 
         onView(withText("Save")).perform(scrollTo(), click());
@@ -152,16 +152,16 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText(R.string.new_interaction_type)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.edit_interaction_type_name))
+        onView(withId(R.id.deit_name))
                 .perform(typeText(type.getInteractionTypeName()));
-        onView(withId(R.id.edit_interaction_type_frequency))
+        onView(withId(R.id.deit_frequency))
                 .perform(typeText(String.valueOf(type.getFrequency())));
 
         onView(withText(R.string.save)).perform(click());
 
-        onView(withId(R.id.edit_interaction_type_name))
+        onView(withId(R.id.deit_name))
                 .perform(replaceText(call));
-        onView(withId(R.id.edit_interaction_type_frequency))
+        onView(withId(R.id.deit_frequency))
                 .perform(replaceText(freq));
 
         onView(withText(R.string.save)).perform(click());
@@ -287,7 +287,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText("Meeting")).perform(longClick());
         onView(withId(R.id.menu_selection_edit)).perform(click());
 
-        onView(withId(R.id.edit_interaction_type_frequency))
+        onView(withId(R.id.deit_frequency))
                 .perform(replaceText("29"));
 
         onView(withText("SAVE")).perform(click());
