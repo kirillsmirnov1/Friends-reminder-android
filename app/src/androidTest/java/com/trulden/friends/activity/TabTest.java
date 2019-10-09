@@ -69,7 +69,7 @@ public class TabTest  extends AbstractTest {
     private void clickOnLITab(int position) {
         onView(childAtPosition(
                     childAtPosition(
-                            withId(R.id.last_interactions_tab_layout),
+                            withId(R.id.fli_tab_layout),
                             0),
                     position))
                 .perform(click());

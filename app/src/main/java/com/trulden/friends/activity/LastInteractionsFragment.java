@@ -117,7 +117,7 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     private void initTabsAndPageViewer(View view) {
-        mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
+        mTabLayout = view.findViewById(R.id.fli_tab_layout);
         mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
@@ -129,7 +129,7 @@ public class LastInteractionsFragment extends Fragment {
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
+        final ViewPager viewPager = view.findViewById(R.id.fli_view_pager);
         mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
 
         viewPager.setAdapter(mPagerAdapter);
