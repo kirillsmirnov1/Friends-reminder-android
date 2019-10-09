@@ -9,7 +9,7 @@
         >
 
     <TextView
-            android:id="@+id/tab_label"
+            android:id="@+id/vtlwc_label"
             android:text="@string/tab_inter_type_name_stub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             />
 
     <TextView
-            android:id="@+id/tab_content_count"
+            android:id="@+id/vtlwc_count"
             android:text="@string/tab_inter_type_count_stub"
             android:layout_width="25dp"
             android:layout_height="25dp"

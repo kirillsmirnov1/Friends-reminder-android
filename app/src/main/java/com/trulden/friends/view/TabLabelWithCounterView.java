@@ -21,8 +21,8 @@ public class TabLabelWithCounterView extends LinearLayout {
 
         inflate(context, R.layout.view_tab_label_with_counter, this);
 
-        mCounterView = findViewById(R.id.tab_content_count);
-        mLabelView = findViewById(R.id.tab_label);
+        mCounterView = findViewById(R.id.vtlwc_count);
+        mLabelView = findViewById(R.id.vtlwc_label);
 
         setLabelText(label);
         setCounter(counter);

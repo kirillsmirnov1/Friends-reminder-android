@@ -280,7 +280,7 @@ public class CRUDTest extends AbstractTest {
 
         openLastInteractions();
 
-        onView(allOf(withId(R.id.tab_content_count), hasSibling(withText("Meeting"))))
+        onView(allOf(withId(R.id.vtlwc_count), hasSibling(withText("Meeting"))))
                 .check(matches(withText("1")));
 
         openTypes();
@@ -294,7 +294,7 @@ public class CRUDTest extends AbstractTest {
 
         navigateUp();
 
-        onView(allOf(withId(R.id.tab_content_count), hasSibling(withText("Meeting"))))
+        onView(allOf(withId(R.id.vtlwc_count), hasSibling(withText("Meeting"))))
                 .check(matches(withText("3")));
     }
 
