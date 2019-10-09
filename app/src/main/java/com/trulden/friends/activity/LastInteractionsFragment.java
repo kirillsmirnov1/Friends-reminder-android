@@ -19,7 +19,7 @@ import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
-import com.trulden.friends.view.TabCounterView;
+import com.trulden.friends.view.TabLabelWithCounterView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,7 +95,7 @@ public class LastInteractionsFragment extends Fragment {
                         }
 
                         for(int i = 0; i < types.size(); ++i){
-                            ((TabCounterView)mTabLayout.getTabAt(i).getCustomView())
+                            ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
                                     .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
                         }
 
@@ -121,7 +121,7 @@ public class LastInteractionsFragment extends Fragment {
         mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
-            TabCounterView tcv = new TabCounterView(getContext(),
+            TabLabelWithCounterView tcv = new TabLabelWithCounterView(getContext(),
                     type.getInteractionTypeName(), 0);
 
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
