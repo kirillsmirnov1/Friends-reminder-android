@@ -127,7 +127,7 @@ public class CRUDTest extends AbstractTest {
         onView(allOf(withId(R.id.last_interaction_time), isDisplayed(), hasSibling(withText("Aaron"))))
                 .check(matches(withText("0 d. ago")));
 
-        onView(withId(R.id.bottom_interactions)).perform(click());
+        onView(withId(R.id.menu_bot_nav_interactions)).perform(click());
 
         onView(allOf(withSubstring("Aaron"),withSubstring("Goliath")))
                 .check(matches(allOf(
@@ -170,7 +170,7 @@ public class CRUDTest extends AbstractTest {
 
         navigateUp();
 
-        onView(withId(R.id.bottom_last_interactions)).perform(click());
+        onView(withId(R.id.menu_bot_nav_last_interactions)).perform(click());
 
         onView(withText(call)).check(matches(isDisplayed()));
     }
@@ -202,7 +202,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText(newFriend.getInfo())).check(matches(isDisplayed()))
                 .perform(pressBack());
 
-        onView(withId(R.id.bottom_interactions)).perform(click());
+        onView(withId(R.id.menu_bot_nav_interactions)).perform(click());
 
         onView(withText("A + B")).check(matches(allOf(
                 hasSibling(withSubstring(newFriend.getName())),
@@ -210,7 +210,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withSubstring(oldFriend.getName())).check(doesNotExist());
 
-        onView(withId(R.id.bottom_last_interactions)).perform(click());
+        onView(withId(R.id.menu_bot_nav_last_interactions)).perform(click());
 
         onView(withText(newFriend.getName())).check(matches(isDisplayed()));
 

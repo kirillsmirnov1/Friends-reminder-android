@@ -45,15 +45,15 @@ public abstract class AbstractTest {
     }
 
     protected void openLog() {
-        onView(withId(R.id.bottom_interactions)).perform(click());
+        onView(withId(R.id.menu_bot_nav_interactions)).perform(click());
     }
 
     protected void openLastInteractions(){
-        onView(withId(R.id.bottom_last_interactions)).perform(click());
+        onView(withId(R.id.menu_bot_nav_last_interactions)).perform(click());
     }
 
     protected void openFriends() {
-        onView(withId(R.id.bottom_friends)).perform(click());
+        onView(withId(R.id.menu_bot_nav_friends)).perform(click());
     }
 
     protected void openTypes() {
