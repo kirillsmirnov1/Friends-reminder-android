@@ -107,7 +107,7 @@ public class InteractionTypesActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.add: {
+            case R.id.menu_add_add: {
                 new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionTypeDialog");
                 return true;
             }

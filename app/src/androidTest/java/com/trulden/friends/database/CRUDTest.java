@@ -148,7 +148,7 @@ public class CRUDTest extends AbstractTest {
 
         openTypes();
 
-        onView(withId(R.id.add)).perform(click());
+        onView(withId(R.id.menu_add_add)).perform(click());
 
         onView(withText(R.string.new_interaction_type)).check(matches(isDisplayed()));
 
