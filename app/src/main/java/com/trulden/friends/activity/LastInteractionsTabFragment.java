@@ -52,14 +52,14 @@ public class LastInteractionsTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.tab_last_interaction_content, container, false);
+        return inflater.inflate(R.layout.page_last_interaction_content, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = view.findViewById(R.id.tab_last_interaction_recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.pli_recycler_view);
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 

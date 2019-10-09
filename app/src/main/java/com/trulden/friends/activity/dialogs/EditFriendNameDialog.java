@@ -40,7 +40,7 @@ public class EditFriendNameDialog extends DialogFragment {
         View dialogView = requireActivity().getLayoutInflater()
                 .inflate(R.layout.dialog_edit_friend_name, null);
 
-        editName = dialogView.findViewById(R.id.dialog_edit_friend_name);
+        editName = dialogView.findViewById(R.id.defn_name);
         editName.setText(name);
 
         builder

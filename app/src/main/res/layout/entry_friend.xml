@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        card_view:cardMaxElevation="5dp"
-        card_view:cardElevation="5dp"
-        card_view:cardCornerRadius="5dp"
-        style="@style/card"
-        >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    card_view:cardMaxElevation="5dp"
+    card_view:cardElevation="5dp"
+    card_view:cardCornerRadius="5dp"
+    style="@style/card"
+    >
 
     <RelativeLayout
-        android:id="@+id/friend_entry_layout"
+        android:id="@+id/ef_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
@@ -28,14 +29,14 @@
 <!--                />-->
 
         <TextView
-            android:id="@+id/friend_entry_text"
-            android:text="@string/friend_name"
+            android:id="@+id/ef_name"
+            tools:text="Friend name"
             android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             style="@style/TextAppearance.AppCompat.Subhead"
-        />
+            />
 
 <!--        android:layout_toRightOf="@id/friend_entry_image"-->
 <!--        android:layout_toEndOf="@id/friend_entry_image"-->

@@ -23,13 +23,13 @@ public class LastInteractionTest extends AbstractTest {
 
         openAddInteraction();
 
-        onView(withId(R.id.editDate)).perform(click());
+        onView(withId(R.id.aei_edit_date)).perform(click());
 
         onView(withText("OK")).perform(click());
 
-        onView(withId(R.id.editFriends)).perform(typeText("Aaron, Caleb"));
+        onView(withId(R.id.aei_edit_friends)).perform(typeText("Aaron, Caleb"));
 
-        onView(withId(R.id.icon_save)).perform(click());
+        onView(withId(R.id.menu_save_save)).perform(click());
 
         onView(withText("Balaam")).check(matches(hasSibling(withText("29 d. ago"))));
         onView(withText("Aaron")).check(matches(hasSibling(withText("0 d. ago"))));
@@ -37,7 +37,7 @@ public class LastInteractionTest extends AbstractTest {
 
         openAddInteraction();
 
-        onView(withId(R.id.editDate)).perform(click());
+        onView(withId(R.id.aei_edit_date)).perform(click());
 
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
@@ -46,9 +46,9 @@ public class LastInteractionTest extends AbstractTest {
 
         onView(withText("OK")).perform(click());
 
-        onView(withId(R.id.editFriends)).perform(typeText("Aaron, Balaam"));
+        onView(withId(R.id.aei_edit_friends)).perform(typeText("Aaron, Balaam"));
 
-        onView(withId(R.id.icon_save)).perform(click());
+        onView(withId(R.id.menu_save_save)).perform(click());
 
         onView(withText("Balaam")).check(matches(hasSibling(withText("1 d. ago"))));
         onView(withText("Aaron")).check(matches(hasSibling(withText("0 d. ago"))));
@@ -65,7 +65,7 @@ public class LastInteractionTest extends AbstractTest {
         openLog();
 
         onView(withText("A + B")).perform(longClick());
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
 
         openLastInteractions();
 
@@ -76,7 +76,7 @@ public class LastInteractionTest extends AbstractTest {
         openLog();
 
         onView(withText("B + C")).perform(longClick());
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
 
         openLastInteractions();
 

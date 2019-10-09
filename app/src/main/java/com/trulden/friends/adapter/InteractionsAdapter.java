@@ -17,7 +17,6 @@ import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
-import com.trulden.friends.util.Util;
 
 import java.util.HashSet;
 import java.util.List;
@@ -40,7 +39,7 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.interaction_entry, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.entry_interaction, parent, false));
     }
 
     public void setInteractionTypes(LongSparseArray<String> interactionTypes){
@@ -65,12 +64,12 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mType = itemView.findViewById(R.id.interaction_entry_type);
-            mDate = itemView.findViewById(R.id.interaction_entry_date);
-            mNames = itemView.findViewById(R.id.interaction_entry_names);
-            mComment = itemView.findViewById(R.id.interaction_entry_comment);
+            mType = itemView.findViewById(R.id.ei_type);
+            mDate = itemView.findViewById(R.id.ei_date);
+            mNames = itemView.findViewById(R.id.ei_names);
+            mComment = itemView.findViewById(R.id.ei_comment);
 
-            mInteractionEntryLayout = itemView.findViewById(R.id.interaction_entry_layout);
+            mInteractionEntryLayout = itemView.findViewById(R.id.ei_layout);
         }
 
         public void bindTo(final InteractionWithFriendIDs interactionWithFriendIDs, final int position) {

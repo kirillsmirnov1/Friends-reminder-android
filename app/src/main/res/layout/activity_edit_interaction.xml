@@ -1,74 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_height="match_parent"
-        android:layout_width="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
     <TableLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            tools:context=".activity.EditInteractionActivity"
-            android:stretchColumns="1"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
-            app:layout_constraintHorizontal_bias="1.0" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:context=".activity.EditInteractionActivity"
+        android:stretchColumns="1"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="1.0" android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         >
 
     <!--INTERACTION TYPE-->
 
         <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
             <TextView
-                    android:text="@string/type_input_invitation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textType"
-                    android:layout_gravity="center_vertical"
+                android:text="@string/type_input_invitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 />
 
             <Spinner
-                    android:id="@+id/interaction_type_spinner"
-            />
+                android:id="@+id/aei_type_spinner"
+                />
         </TableRow>
 
     <!--DATE-->
 
         <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
             <TextView
-                    android:text="@string/date_input_invitation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textDate"/>
+                android:text="@string/date_input_invitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
             <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/editDate"
-                    android:hint="@string/hint_enter_date"
-                    android:onClick="pickADate"
-                    />
+                android:id="@+id/aei_edit_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:hint="@string/hint_enter_date"
+                android:onClick="pickADate"
+                />
         </TableRow>
 
     <!--Friends-->
 
         <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
             <TextView
-                    android:text="@string/friends_input_invitation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textFriends"/>
+                android:text="@string/friends_input_invitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
 
             <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
-                android:id="@+id/editFriends"
+                android:id="@+id/aei_edit_friends"
                 android:completionThreshold="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,22 +86,23 @@
     <!--COMMENT-->
 
         <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
             <TextView
-                    android:text="@string/comment_input_invitation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textComment"/>
+                android:text="@string/comment_input_invitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
             <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:ems="10"
-                    android:id="@+id/editComment"
-                    android:hint="@string/hint_interaction_comment"
-                    android:imeOptions="actionDone"
-            />
+                android:id="@+id/aei_edit_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:ems="10"
+                android:hint="@string/hint_interaction_comment"
+                android:imeOptions="actionDone"
+                />
         </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,7 +33,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.last_interaction_entry, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.entry_last_interaction, parent, false));
     }
 
     class ViewHolder
@@ -48,10 +48,10 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mName = itemView.findViewById(R.id.last_interaction_name);
-            mTime = itemView.findViewById(R.id.last_interaction_time);
+            mName = itemView.findViewById(R.id.eli_friend_name);
+            mTime = itemView.findViewById(R.id.eli_time_passed);
 
-            layout = itemView.findViewById(R.id.last_interaction_entry_layout);
+            layout = itemView.findViewById(R.id.eli_layout);
         }
 
         public void bindTo(final LastInteractionWrapper interaction, int pos) {

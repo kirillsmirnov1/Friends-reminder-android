@@ -21,19 +21,19 @@ public class DeselectionTest extends AbstractTest {
 
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         sleep(250);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, false);
 
         sleep(250);
 
         textView.check(doesNotExist());
 
-        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         sleep(250);
 
@@ -45,19 +45,19 @@ public class DeselectionTest extends AbstractTest {
 
         openFriends();
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         sleep(250);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, false);
 
         sleep(250);
 
         textView.check(doesNotExist());
 
-        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         sleep(250);
 
@@ -69,19 +69,19 @@ public class DeselectionTest extends AbstractTest {
 
         openTypes();
 
-        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
+        selectEntry(0, R.id.eit_layout, R.id.ait_recycler_view, true);
 
         sleep(250);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, false);
+        selectEntry(0, R.id.eit_layout, R.id.ait_recycler_view, false);
 
         sleep(250);
 
         textView.check(matches(not(isDisplayed())));
 
-        selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
+        selectEntry(1, R.id.eit_layout, R.id.ait_recycler_view, true);
 
         sleep(250);
 
@@ -93,7 +93,7 @@ public class DeselectionTest extends AbstractTest {
 
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
@@ -107,7 +107,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(doesNotExist());
 
-        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -117,7 +117,7 @@ public class DeselectionTest extends AbstractTest {
 
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
@@ -131,7 +131,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(doesNotExist());
 
-        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -141,7 +141,7 @@ public class DeselectionTest extends AbstractTest {
 
         openFriends();
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
@@ -155,7 +155,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(doesNotExist());
 
-        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -165,7 +165,7 @@ public class DeselectionTest extends AbstractTest {
 
         openFriends();
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
@@ -177,7 +177,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(doesNotExist());
 
-        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -187,9 +187,9 @@ public class DeselectionTest extends AbstractTest {
 
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
-        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
+        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, false);
 
         ViewInteraction textView = checkSelectionCounterValue("2");
 
@@ -199,7 +199,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(doesNotExist());
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -209,9 +209,9 @@ public class DeselectionTest extends AbstractTest {
 
         openFriends();
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
 
-        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
+        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, false);
 
         ViewInteraction textView = checkSelectionCounterValue("2");
 
@@ -221,7 +221,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(doesNotExist());
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -231,7 +231,7 @@ public class DeselectionTest extends AbstractTest {
 
         openTypes();
 
-        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
+        selectEntry(0, R.id.eit_layout, R.id.ait_recycler_view, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
@@ -239,7 +239,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(matches(not(isDisplayed())));
 
-        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
+        selectEntry(0, R.id.eit_layout, R.id.ait_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -249,7 +249,7 @@ public class DeselectionTest extends AbstractTest {
 
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
@@ -263,7 +263,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(doesNotExist());
 
-        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -273,7 +273,7 @@ public class DeselectionTest extends AbstractTest {
 
         openFriends();
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
@@ -287,7 +287,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(doesNotExist());
 
-        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -297,7 +297,7 @@ public class DeselectionTest extends AbstractTest {
 
         openTypes();
 
-        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
+        selectEntry(0, R.id.eit_layout, R.id.ait_recycler_view, true);
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
@@ -311,7 +311,7 @@ public class DeselectionTest extends AbstractTest {
 
         textView.check(matches(not(isDisplayed())));
 
-        selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
+        selectEntry(1, R.id.eit_layout, R.id.ait_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -320,8 +320,8 @@ public class DeselectionTest extends AbstractTest {
     public void logSwitchFragmentDeselectionTest(){
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
-        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
+        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, false);
 
         ViewInteraction selectionCounter = checkSelectionCounterValue("2");
 
@@ -333,7 +333,7 @@ public class DeselectionTest extends AbstractTest {
 
         openLog();
 
-        selectEntry(2, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(2, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -342,8 +342,8 @@ public class DeselectionTest extends AbstractTest {
     public void friendsSwitchFragmentDeselectionTest(){
         openFriends();
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
-        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
+        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, false);
 
         ViewInteraction selectionCounter = checkSelectionCounterValue("2");
 
@@ -355,7 +355,7 @@ public class DeselectionTest extends AbstractTest {
 
         openFriends();
 
-        selectEntry(2, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(2, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -365,8 +365,8 @@ public class DeselectionTest extends AbstractTest {
 
         openLog();
 
-        selectEntry(0, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
-        selectEntry(1, R.id.interaction_entry_layout, R.id.interactions_recyclerview, false);
+        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
+        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, false);
 
         ViewInteraction selectionCounter = checkSelectionCounterValue("2");
 
@@ -376,7 +376,7 @@ public class DeselectionTest extends AbstractTest {
 
         selectionCounter.check(doesNotExist());
 
-        selectEntry(2, R.id.interaction_entry_layout, R.id.interactions_recyclerview, true);
+        selectEntry(2, R.id.ei_layout, R.id.fi_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -386,8 +386,8 @@ public class DeselectionTest extends AbstractTest {
 
         openFriends();
 
-        selectEntry(0, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
-        selectEntry(1, R.id.friend_entry_layout, R.id.friends_recyclerView, false);
+        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
+        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, false);
 
         ViewInteraction selectionCounter = checkSelectionCounterValue("2");
 
@@ -397,7 +397,7 @@ public class DeselectionTest extends AbstractTest {
 
         selectionCounter.check(doesNotExist());
 
-        selectEntry(2, R.id.friend_entry_layout, R.id.friends_recyclerView, true);
+        selectEntry(2, R.id.ef_layout, R.id.ff_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -406,8 +406,8 @@ public class DeselectionTest extends AbstractTest {
     public void typesDeselectAllTest(){
         openTypes();
 
-        selectEntry(0, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
-        selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, false);
+        selectEntry(0, R.id.eit_layout, R.id.ait_recycler_view, true);
+        selectEntry(1, R.id.eit_layout, R.id.ait_recycler_view, false);
 
         ViewInteraction selectionCounter = checkSelectionCounterValue("2");
 
@@ -417,7 +417,7 @@ public class DeselectionTest extends AbstractTest {
 
         selectionCounter.check(matches(not(isDisplayed())));
 
-        selectEntry(1, R.id.interaction_type_entry_layout, R.id.interaction_type_recyclerview, true);
+        selectEntry(1, R.id.eit_layout, R.id.ait_recycler_view, true);
 
         checkSelectionCounterValue("1");
     }
@@ -432,7 +432,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void deleteSelection() {
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
     }
 
     private void clickSaveOnDialog() {

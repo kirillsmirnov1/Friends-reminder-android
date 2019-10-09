@@ -45,15 +45,15 @@ public abstract class AbstractTest {
     }
 
     protected void openLog() {
-        onView(withId(R.id.bottom_interactions)).perform(click());
+        onView(withId(R.id.menu_bot_nav_interactions)).perform(click());
     }
 
     protected void openLastInteractions(){
-        onView(withId(R.id.bottom_last_interactions)).perform(click());
+        onView(withId(R.id.menu_bot_nav_last_interactions)).perform(click());
     }
 
     protected void openFriends() {
-        onView(withId(R.id.bottom_friends)).perform(click());
+        onView(withId(R.id.menu_bot_nav_friends)).perform(click());
     }
 
     protected void openTypes() {
@@ -72,11 +72,11 @@ public abstract class AbstractTest {
     }
 
     protected void fabClickAddInteraction() {
-        onView(withId(R.id.fab_add_interaction)).perform(click());
+        onView(withId(R.id.am_fab_add_interaction)).perform(click());
     }
 
     protected void fabClickAddFriend() {
-        onView(withId(R.id.fab_add_friend)).perform(click());
+        onView(withId(R.id.am_fab_add_friend)).perform(click());
     }
 
     protected void openAddInteraction(){
@@ -102,11 +102,11 @@ public abstract class AbstractTest {
     }
 
     protected void editSelection() {
-        onView(withId(R.id.edit_selection)).perform(click());
+        onView(withId(R.id.menu_selection_edit)).perform(click());
     }
 
     protected void clickSaveOnActionBar() {
-        onView(withId(R.id.icon_save)).perform(click());
+        onView(withId(R.id.menu_save_save)).perform(click());
     }
 
     protected void navigateUp() {

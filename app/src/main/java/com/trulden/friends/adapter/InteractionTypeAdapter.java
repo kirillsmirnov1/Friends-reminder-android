@@ -30,7 +30,7 @@ public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapt
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.interaction_type_entry, parent, false));
+                .inflate(R.layout.entry_interaction_type, parent, false));
     }
 
     public class ViewHolder
@@ -44,10 +44,10 @@ public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapt
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mInteractionName = itemView.findViewById(R.id.interaction_type_entry_name);
-            mInteractionFrequency = itemView.findViewById(R.id.interaction_type_entry_frequency);
+            mInteractionName = itemView.findViewById(R.id.eit_name);
+            mInteractionFrequency = itemView.findViewById(R.id.eit_frequency);
 
-            mInteractionTypeEntryLayout = itemView.findViewById(R.id.interaction_type_entry_layout);
+            mInteractionTypeEntryLayout = itemView.findViewById(R.id.eit_layout);
         }
 
         public void bindTo(final InteractionType interactionType, final int position) {

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/colorPrimary"
+    >
+
+    <TextView
+        android:id="@+id/vtlwc_label"
+        tools:text="Inter. type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/vtlwc_count"
+        tools:text="99"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/circle"
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="4dp"
+        android:gravity="center"
+        />
+
+</LinearLayout>

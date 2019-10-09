@@ -7,7 +7,7 @@
     >
 
     <EditText
-        android:id="@+id/dialog_edit_friend_name"
+        android:id="@+id/defn_name"
         android:inputType="textCapWords"
         android:hint="@string/friend_name"
         android:layout_width="match_parent"

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FriendPageActivity">
+    tools:context=".activity.FriendPageActivity"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <ScrollView
             android:layout_width="match_parent"
@@ -16,13 +18,13 @@
             >
 
             <TextView
-                android:id="@+id/friend_page_notes"
+                android:id="@+id/afp_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/friend_s_notes"
+                tools:text="Friend's notes"
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:padding="8dp"
-            />
+                />
 
         </ScrollView>
 

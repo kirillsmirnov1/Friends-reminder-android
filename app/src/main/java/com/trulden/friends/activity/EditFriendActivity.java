@@ -50,8 +50,8 @@ public class EditFriendActivity extends AppCompatActivity {
             }
         });
 
-        mName = findViewById(R.id.edit_friends_name);
-        mInfo = findViewById(R.id.edit_friends_info);
+        mName = findViewById(R.id.aef_edit_name);
+        mInfo = findViewById(R.id.aef_edit_info);
 
         Intent intent = getIntent();
         mFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
@@ -108,7 +108,7 @@ public class EditFriendActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.icon_save: {
+            case R.id.menu_save_save: {
                 saveFriend();
                 return true;
             }

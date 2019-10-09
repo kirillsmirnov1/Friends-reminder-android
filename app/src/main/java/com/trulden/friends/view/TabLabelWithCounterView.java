@@ -11,18 +11,18 @@ import com.trulden.friends.R;
  * View which holds tab name and counter
  */
 @SuppressLint("ViewConstructor")
-public class TabCounterView extends LinearLayout {
+public class TabLabelWithCounterView extends LinearLayout {
 
     private TextView mCounterView;
     private TextView mLabelView;
 
-    public TabCounterView(Context context, String label, int counter) {
+    public TabLabelWithCounterView(Context context, String label, int counter) {
         super(context);
 
-        inflate(context, R.layout.tab_counter_view, this);
+        inflate(context, R.layout.view_tab_label_with_counter, this);
 
-        mCounterView = findViewById(R.id.tab_content_count);
-        mLabelView = findViewById(R.id.tab_label);
+        mCounterView = findViewById(R.id.vtlwc_count);
+        mLabelView = findViewById(R.id.vtlwc_label);
 
         setLabelText(label);
         setCounter(counter);

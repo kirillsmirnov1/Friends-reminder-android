@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardMaxElevation="5dp"
@@ -11,7 +12,7 @@
     >
 
     <RelativeLayout
-        android:id="@+id/interaction_type_entry_layout"
+        android:id="@+id/eit_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
@@ -20,8 +21,8 @@
         >
 
         <TextView
-            android:id="@+id/interaction_type_entry_name"
-            android:text="@string/interaction_type"
+            android:id="@+id/eit_name"
+            tools:text="Type name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
@@ -32,9 +33,9 @@
             />
 
         <TextView
-            android:id="@+id/interaction_type_entry_frequency"
-            android:layout_below="@id/interaction_type_entry_name"
-            android:text="@string/interaction_freq_stub"
+            android:id="@+id/eit_frequency"
+            android:layout_below="@id/eit_name"
+            tools:text="per 100 days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"

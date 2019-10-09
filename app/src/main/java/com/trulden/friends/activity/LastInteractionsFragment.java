@@ -19,7 +19,7 @@ import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
-import com.trulden.friends.view.TabCounterView;
+import com.trulden.friends.view.TabLabelWithCounterView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,7 +95,7 @@ public class LastInteractionsFragment extends Fragment {
                         }
 
                         for(int i = 0; i < types.size(); ++i){
-                            ((TabCounterView)mTabLayout.getTabAt(i).getCustomView())
+                            ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
                                     .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
                         }
 
@@ -117,11 +117,11 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     private void initTabsAndPageViewer(View view) {
-        mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
+        mTabLayout = view.findViewById(R.id.fli_tab_layout);
         mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
-            TabCounterView tcv = new TabCounterView(getContext(),
+            TabLabelWithCounterView tcv = new TabLabelWithCounterView(getContext(),
                     type.getInteractionTypeName(), 0);
 
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
@@ -129,7 +129,7 @@ public class LastInteractionsFragment extends Fragment {
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
+        final ViewPager viewPager = view.findViewById(R.id.fli_view_pager);
         mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
 
         viewPager.setAdapter(mPagerAdapter);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/root_layout"
+    android:id="@+id/am_root_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,27 +9,29 @@
     >
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.MainActivity">
+        tools:context=".activity.MainActivity"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <FrameLayout
-                android:id="@+id/fragment_container"
+                android:id="@+id/am_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_above="@id/bottom_navigation"
-                android:layout_below="@id/toolbar" />
+                android:layout_above="@id/am_bottom_navigation"
+                android:layout_below="@id/toolbar"
+                />
 
             <com.getbase.floatingactionbutton.FloatingActionsMenu
-                android:id="@+id/fab_main_activity"
+                android:id="@+id/am_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/bottom_navigation"
+                android:layout_above="@id/am_bottom_navigation"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="8dp"
@@ -40,10 +42,11 @@
                 app:fab_addButtonPlusIconColor="@color/half_black"
                 app:fab_addButtonSize="normal"
                 app:fab_expandDirection="up"
-                app:fab_labelStyle="@style/menu_labels_style">
+                app:fab_labelStyle="@style/menu_labels_style"
+                >
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_add_interaction"
+                    android:id="@+id/am_fab_add_interaction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="addInteraction"
@@ -52,10 +55,11 @@
                     app:fab_icon="@drawable/ic_watch_later_"
                     app:fab_labelStyle="@style/menu_labels_style"
                     app:fab_size="mini"
-                    app:fab_title="@string/add_interaction" />
+                    app:fab_title="@string/add_interaction"
+                    />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_add_friend"
+                    android:id="@+id/am_fab_add_friend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="addFriend"
@@ -64,12 +68,13 @@
                     app:fab_icon="@drawable/ic_friend_add_black"
                     app:fab_labelStyle="@style/menu_labels_style"
                     app:fab_size="mini"
-                    app:fab_title="@string/add_friend" />
+                    app:fab_title="@string/add_friend"
+                    />
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
+                android:id="@+id/am_bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -77,7 +82,8 @@
                 app:itemIconTint="@drawable/bottom_navigation_colors"
                 app:itemTextColor="@drawable/bottom_navigation_colors"
                 app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_navigation_menu" />
+                app:menu="@menu/menu_bottom_navigation"
+                />
 
             <include layout="@layout/toolbar" />
 
@@ -86,7 +92,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <ProgressBar
-        android:id="@+id/progress_bar_main"
+        android:id="@+id/am_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
