@@ -30,7 +30,7 @@ public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapt
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.interaction_type_entry, parent, false));
+                .inflate(R.layout.entry_interaction_type, parent, false));
     }
 
     public class ViewHolder
