@@ -83,7 +83,7 @@
                 app:itemIconTint="@drawable/bottom_navigation_colors"
                 app:itemTextColor="@drawable/bottom_navigation_colors"
                 app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_navigation_menu"
+                app:menu="@menu/menu_bottom_navigation"
                 />
 
             <include layout="@layout/toolbar" />
