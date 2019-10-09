@@ -33,7 +33,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.last_interaction_entry, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.entry_last_interaction, parent, false));
     }
 
     class ViewHolder
