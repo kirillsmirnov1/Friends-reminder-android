@@ -65,7 +65,7 @@ public class LastInteractionTest extends AbstractTest {
         openLog();
 
         onView(withText("A + B")).perform(longClick());
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
 
         openLastInteractions();
 
@@ -76,7 +76,7 @@ public class LastInteractionTest extends AbstractTest {
         openLog();
 
         onView(withText("B + C")).perform(longClick());
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
 
         openLastInteractions();
 

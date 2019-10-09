@@ -39,12 +39,12 @@ public class SelectionCallback implements ActionMode.Callback {
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
         switch(item.getItemId()) {
-            case R.id.delete_selection: {
+            case R.id.menu_selection_delete: {
                 mActivity.deleteSelection();
                 mode.finish();
                 return true;
             }
-            case R.id.edit_selection: {
+            case R.id.menu_selection_edit: {
                 mActivity.editSelection();
                 mode.finish();
                 return true;

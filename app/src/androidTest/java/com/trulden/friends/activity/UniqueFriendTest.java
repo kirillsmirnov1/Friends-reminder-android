@@ -40,7 +40,7 @@ public class UniqueFriendTest extends AbstractTest {
 
         onView(withText(balaam)).perform(click());
 
-        onView(withId(R.id.edit_selection)).perform(click());
+        onView(withId(R.id.menu_selection_edit)).perform(click());
 
         onView(withId(R.id.aef_edit_name)).perform(replaceText(aaron));
 

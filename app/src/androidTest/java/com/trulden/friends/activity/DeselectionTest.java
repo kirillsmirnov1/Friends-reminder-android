@@ -432,7 +432,7 @@ public class DeselectionTest extends AbstractTest {
     }
 
     private void deleteSelection() {
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
     }
 
     private void clickSaveOnDialog() {

@@ -184,7 +184,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText(oldFriend.getName())).perform(longClick());
 
-        onView(withId(R.id.edit_selection)).perform(click());
+        onView(withId(R.id.menu_selection_edit)).perform(click());
 
         // TODO check replace with name of some other friend
 
@@ -229,7 +229,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText("A + B")).perform(longClick());
 
-        onView(withId(R.id.edit_selection)).perform(click());
+        onView(withId(R.id.menu_selection_edit)).perform(click());
 
         sleep(250);
 
@@ -285,7 +285,7 @@ public class CRUDTest extends AbstractTest {
 
         openTypes();
         onView(withText("Meeting")).perform(longClick());
-        onView(withId(R.id.edit_selection)).perform(click());
+        onView(withId(R.id.menu_selection_edit)).perform(click());
 
         onView(withId(R.id.edit_interaction_type_frequency))
                 .perform(replaceText("29"));
@@ -309,7 +309,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText(aaron)).perform(longClick());
         onView(withText(balaam)).perform(click());
 
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
 
         onView(withText(aaron)).check(doesNotExist());
         onView(withText(balaam)).check(doesNotExist());
@@ -354,7 +354,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText("A + B")).perform(longClick());
         onView(withText("B + C")).perform(click());
 
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
 
         onView(withText("A + B")).check(doesNotExist());
         onView(withText("B + C")).check(doesNotExist());
@@ -375,7 +375,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText(meeting)).perform(longClick());
 
-        onView(withId(R.id.delete_selection)).perform(click());
+        onView(withId(R.id.menu_selection_delete)).perform(click());
 
         navigateUp();
 

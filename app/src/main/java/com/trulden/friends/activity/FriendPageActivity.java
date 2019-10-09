@@ -70,7 +70,7 @@ public class FriendPageActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.edit_selection: {
+            case R.id.menu_selection_edit: {
                 Intent intent = new Intent(this, EditFriendActivity.class);
 
                 intent.putExtra(EXTRA_FRIEND_ID, mFriend.getId());
@@ -81,7 +81,7 @@ public class FriendPageActivity extends AppCompatActivity {
                 break;
             }
 
-            case R.id.delete_selection: {
+            case R.id.menu_selection_delete: {
                 mFriendsViewModel.delete(mFriend);
                 makeToast(this, "«" + mFriend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
                 finish();

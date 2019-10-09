@@ -142,9 +142,9 @@ public class InteractionTypesActivity
             mActionMode.invalidate();
 
             if(count == 1){
-                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(true);
+                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(true);
             } else {
-                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
+                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(false);
             }
 
         }

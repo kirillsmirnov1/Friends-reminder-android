@@ -102,7 +102,7 @@ public abstract class AbstractTest {
     }
 
     protected void editSelection() {
-        onView(withId(R.id.edit_selection)).perform(click());
+        onView(withId(R.id.menu_selection_edit)).perform(click());
     }
 
     protected void clickSaveOnActionBar() {
