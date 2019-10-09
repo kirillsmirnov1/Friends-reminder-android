@@ -21,7 +21,7 @@ public class TabTest  extends AbstractTest {
 
     @Before
     public void openTabsAtStart(){
-        openLastInteractionFragment();
+        openLastInteractions();
     }
 
     @Test
@@ -37,7 +37,7 @@ public class TabTest  extends AbstractTest {
 
         onView(withId(R.id.bottom_friends)).perform(click());
 
-        openLastInteractionFragment();
+        openLastInteractions();
 
         onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
     }
@@ -64,11 +64,6 @@ public class TabTest  extends AbstractTest {
         sleep(250);
 
         onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
-    }
-
-    private void openLastInteractionFragment(){
-        onView(withId(R.id.bottom_last_interactions)).perform(click());
-        sleep(250);
     }
 
     private void clickOnLITab(int position) {
