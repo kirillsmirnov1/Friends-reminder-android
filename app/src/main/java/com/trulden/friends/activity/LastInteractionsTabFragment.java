@@ -59,7 +59,7 @@ public class LastInteractionsTabFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = view.findViewById(R.id.tab_last_interaction_recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.pli_recycler_view);
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 
