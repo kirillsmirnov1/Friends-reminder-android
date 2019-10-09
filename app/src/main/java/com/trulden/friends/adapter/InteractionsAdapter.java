@@ -17,7 +17,6 @@ import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
-import com.trulden.friends.util.Util;
 
 import java.util.HashSet;
 import java.util.List;
@@ -40,7 +39,7 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.interaction_entry, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.entry_interaction, parent, false));
     }
 
     public void setInteractionTypes(LongSparseArray<String> interactionTypes){
