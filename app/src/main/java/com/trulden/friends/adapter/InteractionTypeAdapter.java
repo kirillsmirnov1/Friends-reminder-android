@@ -44,10 +44,10 @@ public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapt
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mInteractionName = itemView.findViewById(R.id.interaction_type_entry_name);
-            mInteractionFrequency = itemView.findViewById(R.id.interaction_type_entry_frequency);
+            mInteractionName = itemView.findViewById(R.id.eit_name);
+            mInteractionFrequency = itemView.findViewById(R.id.eit_frequency);
 
-            mInteractionTypeEntryLayout = itemView.findViewById(R.id.interaction_type_entry_layout);
+            mInteractionTypeEntryLayout = itemView.findViewById(R.id.eit_layout);
         }
 
         public void bindTo(final InteractionType interactionType, final int position) {
