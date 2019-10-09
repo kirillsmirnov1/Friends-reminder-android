@@ -56,7 +56,7 @@ public class InteractionTypesActivity
             selectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_TYPES_POSITIONS);
         }
 
-        RecyclerView recyclerView = findViewById(R.id.interaction_type_recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.ait_recycler_view);
         mInteractionTypeAdapter = new InteractionTypeAdapter(this, selectedPositions);
         recyclerView.setAdapter(mInteractionTypeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
