@@ -108,7 +108,7 @@ public class EditFriendActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.icon_save: {
+            case R.id.menu_save_save: {
                 saveFriend();
                 return true;
             }

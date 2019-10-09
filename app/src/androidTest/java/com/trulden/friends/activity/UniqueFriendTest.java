@@ -22,7 +22,7 @@ public class UniqueFriendTest extends AbstractTest {
 
         onView(withId(R.id.aef_edit_name)).perform(typeText(aaron));
 
-        onView(withId(R.id.icon_save)).perform(click());
+        onView(withId(R.id.menu_save_save)).perform(click());
 
         // TODO check fab with error
 
@@ -44,7 +44,7 @@ public class UniqueFriendTest extends AbstractTest {
 
         onView(withId(R.id.aef_edit_name)).perform(replaceText(aaron));
 
-        onView(withId(R.id.icon_save)).perform(click());
+        onView(withId(R.id.menu_save_save)).perform(click());
 
         onView(withSubstring("Edit")).check(matches(isDisplayed()));
 

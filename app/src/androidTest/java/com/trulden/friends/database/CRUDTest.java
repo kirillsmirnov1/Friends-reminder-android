@@ -98,7 +98,7 @@ public class CRUDTest extends AbstractTest {
         onView(withId(R.id.editComment))
                 .perform(replaceText("Death to everybody"), closeSoftKeyboard());
 
-        onView(withId(R.id.icon_save)).perform(click());
+        onView(withId(R.id.menu_save_save)).perform(click());
 
         onView(withText("You don't have friend named «Baron»"))
                 .check(matches(isDisplayed()));
@@ -193,7 +193,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText(oldFriend.getInfo()))
                 .perform(replaceText(newFriend.getInfo()));
 
-        onView(withId(R.id.icon_save)).perform(click());
+        onView(withId(R.id.menu_save_save)).perform(click());
 
         onView(withText(oldFriend.getName())).check(doesNotExist());
 
@@ -246,7 +246,7 @@ public class CRUDTest extends AbstractTest {
         onView(withId(R.id.editComment))
                 .perform(click(), typeText(" + C"));
 
-        onView(withId(R.id.icon_save)).perform(click());
+        onView(withId(R.id.menu_save_save)).perform(click());
 
         onView(withText("A + B + C")).check(matches(allOf(
                 hasSibling(allOf(
