@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        card_view:cardMaxElevation="5dp"
-        card_view:cardElevation="5dp"
-        card_view:cardCornerRadius="5dp"
-        style="@style/card"
-        >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    card_view:cardMaxElevation="5dp"
+    card_view:cardElevation="5dp"
+    card_view:cardCornerRadius="5dp"
+    style="@style/card"
+    >
 
     <RelativeLayout
         android:id="@+id/eli_layout"
@@ -21,7 +22,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             style="@style/TextAppearance.AppCompat.Subhead"
-            android:text="@string/friend_name"
+            tools:text="Friend's name"
             />
 
         <TextView
@@ -32,7 +33,7 @@
             android:paddingBottom="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="@string/friend_reminder_date_stub"
+            tools:text="5 days ago"
             />
 
     </RelativeLayout>

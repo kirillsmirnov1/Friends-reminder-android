@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardMaxElevation="5dp"
@@ -21,7 +22,7 @@
 
         <TextView
             android:id="@+id/eit_name"
-            android:text="@string/interaction_type"
+            tools:text="Type name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
@@ -34,7 +35,7 @@
         <TextView
             android:id="@+id/eit_frequency"
             android:layout_below="@id/eit_name"
-            android:text="@string/interaction_freq_stub"
+            tools:text="per 100 days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
