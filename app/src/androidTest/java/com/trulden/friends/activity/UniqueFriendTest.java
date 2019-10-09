@@ -20,7 +20,7 @@ public class UniqueFriendTest extends AbstractTest {
 
         openAddFriend();
 
-        onView(withId(R.id.edit_friends_name)).perform(typeText(aaron));
+        onView(withId(R.id.aef_edit_name)).perform(typeText(aaron));
 
         onView(withId(R.id.icon_save)).perform(click());
 
@@ -42,7 +42,7 @@ public class UniqueFriendTest extends AbstractTest {
 
         onView(withId(R.id.edit_selection)).perform(click());
 
-        onView(withId(R.id.edit_friends_name)).perform(replaceText(aaron));
+        onView(withId(R.id.aef_edit_name)).perform(replaceText(aaron));
 
         onView(withId(R.id.icon_save)).perform(click());
 

@@ -29,17 +29,17 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText(R.string.add_friend)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.edit_friends_name)).check(matches(withText("")));
-        onView(withId(R.id.edit_friends_info)).check(matches(withText("")));
+        onView(withId(R.id.aef_edit_name)).check(matches(withText("")));
+        onView(withId(R.id.aef_edit_info)).check(matches(withText("")));
 
-        onView(withId(R.id.edit_friends_name)).perform(typeText(oldFriend.getName()));
+        onView(withId(R.id.aef_edit_name)).perform(typeText(oldFriend.getName()));
         clickSaveOnActionBar();
 
         // Can't check toasts while running all tests without sleeping a lot
         //checkIfToastAppeared(R.string.toast_warning_friend_exists);
 
-        onView(withId(R.id.edit_friends_name)).perform(clearText(), typeText(newFriend.getName()));
-        onView(withId(R.id.edit_friends_info)).perform(typeText(newFriend.getInfo()));
+        onView(withId(R.id.aef_edit_name)).perform(clearText(), typeText(newFriend.getName()));
+        onView(withId(R.id.aef_edit_info)).perform(typeText(newFriend.getInfo()));
         clickSaveOnActionBar();
 
         //TODO checkIfToastAppeared("«David» is created");
