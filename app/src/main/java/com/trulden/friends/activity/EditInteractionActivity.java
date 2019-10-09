@@ -215,7 +215,7 @@ public class EditInteractionActivity
      * Open date-picker
      */
     public void pickADate(View view) {
-        DialogFragment f = new DatePickerFragment();
+        DialogFragment f = new DatePickerFragment(mPickedDate);
         f.show(getSupportFragmentManager(), "datePicker");
     }
 
