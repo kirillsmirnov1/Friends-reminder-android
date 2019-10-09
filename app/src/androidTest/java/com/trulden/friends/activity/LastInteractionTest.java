@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 public class LastInteractionTest extends AbstractTest {
@@ -53,5 +53,35 @@ public class LastInteractionTest extends AbstractTest {
         onView(withText("Balaam")).check(matches(hasSibling(withText("1 d. ago"))));
         onView(withText("Aaron")).check(matches(hasSibling(withText("0 d. ago"))));
         onView(withText("Caleb")).check(matches(hasSibling(withText("0 d. ago"))));
+    }
+
+    @Test
+    public void deleteInteractionTest(){
+
+        onView(withText("Caleb")).check(matches(hasSibling(withText("30 d. ago"))));
+        onView(withText("Aaron")).check(matches(hasSibling(withText("29 d. ago"))));
+        onView(withText("Balaam")).check(matches(hasSibling(withText("29 d. ago"))));
+
+        openLog();
+
+        onView(withText("A + B")).perform(longClick());
+        onView(withId(R.id.delete_selection)).perform(click());
+
+        openLastInteractions();
+
+        onView(withText("Aaron")).check(matches(hasSibling(withText("31 d. ago"))));
+        onView(withText("Caleb")).check(matches(hasSibling(withText("30 d. ago"))));
+        onView(withText("Balaam")).check(matches(hasSibling(withText("30 d. ago"))));
+
+        openLog();
+
+        onView(withText("B + C")).perform(longClick());
+        onView(withId(R.id.delete_selection)).perform(click());
+
+        openLastInteractions();
+
+        onView(withText("Aaron")).check(matches(hasSibling(withText("31 d. ago"))));
+        onView(withText("Caleb")).check(matches(hasSibling(withText("31 d. ago"))));
+        onView(withText("Balaam")).check(doesNotExist());
     }
 }
