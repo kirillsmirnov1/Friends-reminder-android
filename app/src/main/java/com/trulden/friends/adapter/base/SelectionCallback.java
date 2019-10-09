@@ -25,7 +25,7 @@ public class SelectionCallback implements ActionMode.Callback {
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
+        mode.getMenuInflater().inflate(R.menu.menu_selection, menu);
 
         return true;
     }

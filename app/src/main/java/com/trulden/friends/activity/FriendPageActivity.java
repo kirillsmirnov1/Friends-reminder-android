@@ -62,7 +62,7 @@ public class FriendPageActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.selection_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_selection, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
