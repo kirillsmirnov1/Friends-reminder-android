@@ -44,8 +44,8 @@ public class FriendsAdapter extends CustomRVAdapter<FriendsAdapter.ViewHolder, F
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mTextView = itemView.findViewById(R.id.friend_entry_text);
-            mFriendEntryLayout = itemView.findViewById(R.id.friend_entry_layout);
+            mTextView = itemView.findViewById(R.id.ef_name);
+            mFriendEntryLayout = itemView.findViewById(R.id.ef_layout);
         }
 
         public void bindTo(final Friend friend, final int position) {

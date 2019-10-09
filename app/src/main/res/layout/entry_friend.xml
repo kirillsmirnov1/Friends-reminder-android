@@ -9,7 +9,7 @@
     >
 
     <RelativeLayout
-        android:id="@+id/friend_entry_layout"
+        android:id="@+id/ef_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
@@ -28,7 +28,7 @@
 <!--                />-->
 
         <TextView
-            android:id="@+id/friend_entry_text"
+            android:id="@+id/ef_name"
             android:text="@string/friend_name"
             android:textSize="24sp"
             android:layout_width="wrap_content"
