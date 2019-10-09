@@ -31,7 +31,7 @@ public class FriendsAdapter extends CustomRVAdapter<FriendsAdapter.ViewHolder, F
     @Override
     public FriendsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.friend_entry, parent, false));
+                .inflate(R.layout.entry_friend, parent, false));
     }
 
     public class ViewHolder
