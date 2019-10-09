@@ -9,12 +9,12 @@
         >
 
     <RelativeLayout
-        android:id="@+id/last_interaction_entry_layout"
+        android:id="@+id/eli_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/last_interaction_name"
+            android:id="@+id/eli_friend_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
@@ -25,8 +25,8 @@
             />
 
         <TextView
-            android:id="@+id/last_interaction_time"
-            android:layout_below="@id/last_interaction_name"
+            android:id="@+id/eli_time_passed"
+            android:layout_below="@id/eli_friend_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"

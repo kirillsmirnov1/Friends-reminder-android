@@ -48,10 +48,10 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mName = itemView.findViewById(R.id.last_interaction_name);
-            mTime = itemView.findViewById(R.id.last_interaction_time);
+            mName = itemView.findViewById(R.id.eli_friend_name);
+            mTime = itemView.findViewById(R.id.eli_time_passed);
 
-            layout = itemView.findViewById(R.id.last_interaction_entry_layout);
+            layout = itemView.findViewById(R.id.eli_layout);
         }
 
         public void bindTo(final LastInteractionWrapper interaction, int pos) {

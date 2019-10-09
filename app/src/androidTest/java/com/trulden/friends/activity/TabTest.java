@@ -27,43 +27,43 @@ public class TabTest  extends AbstractTest {
     @Test
     public void tabPersistenceTest() {
 
-        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(isDisplayed()));
+        onView(first(withId(R.id.eli_layout))).check(matches(isDisplayed()));
 
         clickOnLITab(1);
 
         sleep(250);
 
-        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
+        onView(first(withId(R.id.eli_layout))).check(matches(not(isDisplayed())));
 
         onView(withId(R.id.menu_bot_nav_friends)).perform(click());
 
         openLastInteractions();
 
-        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
+        onView(first(withId(R.id.eli_layout))).check(matches(not(isDisplayed())));
     }
 
     @Test
     public void tabClickSwitchTest() {
 
-        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(isDisplayed()));
+        onView(first(withId(R.id.eli_layout))).check(matches(isDisplayed()));
 
         clickOnLITab(1);
 
         sleep(250);
 
-        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
+        onView(first(withId(R.id.eli_layout))).check(matches(not(isDisplayed())));
     }
 
     @Test
     public void tabSwipeSwitchTest() {
 
-        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(isDisplayed()));
+        onView(first(withId(R.id.eli_layout))).check(matches(isDisplayed()));
 
         onView(withId(R.id.root_layout)).perform(swipeLeft());
 
         sleep(250);
 
-        onView(first(withId(R.id.last_interaction_entry_layout))).check(matches(not(isDisplayed())));
+        onView(first(withId(R.id.eli_layout))).check(matches(not(isDisplayed())));
     }
 
     private void clickOnLITab(int position) {

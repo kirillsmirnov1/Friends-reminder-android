@@ -118,13 +118,13 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText("Mess")).perform(click());
 
-        onView(allOf(withId(R.id.last_interaction_name), withText("Goliath")))
+        onView(allOf(withId(R.id.eli_friend_name), withText("Goliath")))
                 .check(matches(isDisplayed()));
 
-        onView(allOf(withId(R.id.last_interaction_time), isDisplayed(), hasSibling(withText("Goliath"))))
+        onView(allOf(withId(R.id.eli_time_passed), isDisplayed(), hasSibling(withText("Goliath"))))
                 .check(matches(withText("0 d. ago")));
 
-        onView(allOf(withId(R.id.last_interaction_time), isDisplayed(), hasSibling(withText("Aaron"))))
+        onView(allOf(withId(R.id.eli_time_passed), isDisplayed(), hasSibling(withText("Aaron"))))
                 .check(matches(withText("0 d. ago")));
 
         onView(withId(R.id.menu_bot_nav_interactions)).perform(click());
