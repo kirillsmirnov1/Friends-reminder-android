@@ -3,6 +3,7 @@ package com.trulden.friends.activity;
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -13,6 +14,11 @@ import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 public class LastInteractionTest extends AbstractTest {
+
+    @Before
+    public void openLITab(){
+        openLastInteractions();
+    }
 
     @Test
     public void newInteractionTest(){
