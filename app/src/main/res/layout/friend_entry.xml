@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        card_view:cardMaxElevation="5dp"
-        card_view:cardElevation="5dp"
-        card_view:cardCornerRadius="5dp"
-        style="@style/card"
-        >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardMaxElevation="5dp"
+    card_view:cardElevation="5dp"
+    card_view:cardCornerRadius="5dp"
+    style="@style/card"
+    >
 
     <RelativeLayout
         android:id="@+id/friend_entry_layout"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             style="@style/TextAppearance.AppCompat.Subhead"
-        />
+            />
 
 <!--        android:layout_toRightOf="@id/friend_entry_image"-->
 <!--        android:layout_toEndOf="@id/friend_entry_image"-->

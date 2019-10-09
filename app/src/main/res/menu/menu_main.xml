@@ -21,14 +21,14 @@
         android:title="@string/export_database"
         android:orderInCategory="10"
         app:showAsAction="never"
-    />
+        />
 
     <item
         android:id="@+id/action_import_database"
         android:title="@string/import_database"
         android:orderInCategory="20"
         app:showAsAction="never"
-    />
+        />
 
 <!--    Refresh LI manually. For debug purpose only, shouldn't get in release   -->
 

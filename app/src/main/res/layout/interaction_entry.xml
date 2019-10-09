@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     card_view:cardMaxElevation="5dp"
     card_view:cardElevation="5dp"
     card_view:cardCornerRadius="5dp"
-    style="@style/card">
+    style="@style/card"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/interaction_entry_layout"
@@ -25,7 +27,8 @@
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            tools:text="Jack, John" />
+            tools:text="Jack, John"
+            />
 
         <LinearLayout
             android:id="@+id/log_entry_type_and_date"
@@ -74,7 +77,8 @@
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@id/log_entry_type_and_date" />
+            card_view:layout_constraintTop_toBottomOf="@id/log_entry_type_and_date"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

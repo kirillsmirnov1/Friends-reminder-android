@@ -12,18 +12,21 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.MainActivity">
+        tools:context=".activity.MainActivity"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <FrameLayout
                 android:id="@+id/fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_above="@id/bottom_navigation"
-                android:layout_below="@id/toolbar" />
+                android:layout_below="@id/toolbar"
+                />
 
             <com.getbase.floatingactionbutton.FloatingActionsMenu
                 android:id="@+id/fab_main_activity"
@@ -40,7 +43,8 @@
                 app:fab_addButtonPlusIconColor="@color/half_black"
                 app:fab_addButtonSize="normal"
                 app:fab_expandDirection="up"
-                app:fab_labelStyle="@style/menu_labels_style">
+                app:fab_labelStyle="@style/menu_labels_style"
+                >
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_add_interaction"
@@ -52,7 +56,8 @@
                     app:fab_icon="@drawable/ic_watch_later_"
                     app:fab_labelStyle="@style/menu_labels_style"
                     app:fab_size="mini"
-                    app:fab_title="@string/add_interaction" />
+                    app:fab_title="@string/add_interaction"
+                    />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_add_friend"
@@ -64,7 +69,8 @@
                     app:fab_icon="@drawable/ic_friend_add_black"
                     app:fab_labelStyle="@style/menu_labels_style"
                     app:fab_size="mini"
-                    app:fab_title="@string/add_friend" />
+                    app:fab_title="@string/add_friend"
+                    />
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
@@ -77,7 +83,8 @@
                 app:itemIconTint="@drawable/bottom_navigation_colors"
                 app:itemTextColor="@drawable/bottom_navigation_colors"
                 app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_navigation_menu" />
+                app:menu="@menu/bottom_navigation_menu"
+                />
 
             <include layout="@layout/toolbar" />
 
