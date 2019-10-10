@@ -29,6 +29,7 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    @NonNull
     public Fragment getItem(int position) {
         return LastInteractionsTabFragment.newInstance(lastInteractionsMap.get(types.get(position).getInteractionTypeName()));
     }
