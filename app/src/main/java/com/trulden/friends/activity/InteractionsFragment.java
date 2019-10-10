@@ -140,14 +140,16 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
             enableActionMode(-1);
     }
 
-    private void enableActionMode(int pos) {
+    @Override
+    public void enableActionMode(int pos) {
         if(mActionMode == null){
             mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
 
-    private void toggleSelection(int pos) {
+    @Override
+    public void toggleSelection(int pos) {
         if(pos != -1) {
             mInteractionsAdapter.toggleSelection(pos);
         }

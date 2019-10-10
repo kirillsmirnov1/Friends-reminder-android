@@ -48,7 +48,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
-    private HashSet<Integer> selectedFriendsPositions = new HashSet<>();
+    private HashSet<Integer> selectedFriendsPositions = new HashSet<>(); // TODO rename
 
     public FriendsFragment() {
         // Fragments require public constructor with no args
@@ -120,7 +120,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         outState.putSerializable(SELECTED_FRIENDS_POSITIONS, selectedFriendsPositions);
     }
 
-    private void enableActionMode(int pos) {
+    @Override
+    public void enableActionMode(int pos) {
         if(mActionMode == null){
             mActionMode = ((AppCompatActivity) Objects.requireNonNull(getActivity()))
                     .startSupportActionMode(mSelectionCallback);
@@ -128,7 +129,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         toggleSelection(pos);
     }
 
-    private void toggleSelection(int pos) {
+    @Override
+    public void toggleSelection(int pos) {
         if(pos != -1) {
             mFriendsAdapter.toggleSelection(pos);
         }

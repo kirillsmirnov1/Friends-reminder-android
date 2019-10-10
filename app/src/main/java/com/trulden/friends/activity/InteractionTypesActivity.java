@@ -121,14 +121,16 @@ public class InteractionTypesActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void enableActionMode(int pos){
+    @Override
+    public void enableActionMode(int pos){
         if(mActionMode == null){
             mActionMode = startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
 
-    private void toggleSelection(int pos) {
+    @Override
+    public void toggleSelection(int pos) {
         if(pos != -1) {
             mInteractionTypeAdapter.toggleSelection(pos);
         }
