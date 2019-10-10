@@ -44,7 +44,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
         private TextView mName;
         private TextView mTime;
 
-        private RelativeLayout layout;
+        private RelativeLayout mLayout;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -52,7 +52,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
             mName = itemView.findViewById(R.id.eli_friend_name);
             mTime = itemView.findViewById(R.id.eli_time_passed);
 
-            layout = itemView.findViewById(R.id.eli_layout);
+            mLayout = itemView.findViewById(R.id.eli_layout);
         }
 
         public void bindTo(final LastInteractionWrapper interaction, final int pos) {
@@ -67,10 +67,10 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
             // Grey out LI for which time have not yet come
             if(!interaction.itsTime()) {
-                layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_grey));
+                mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_grey));
             }
 
-            layout.setOnClickListener(new View.OnClickListener() {
+            mLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(mOnClickListener == null) {
@@ -81,7 +81,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
                 }
             });
 
-            layout.setOnLongClickListener(new View.OnLongClickListener() {
+            mLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     if(mOnClickListener == null) {
