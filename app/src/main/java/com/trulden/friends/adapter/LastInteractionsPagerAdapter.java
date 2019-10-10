@@ -20,18 +20,30 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     private List<InteractionType> types;
     private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap;
 
+    private HashMap<Integer, Fragment> mFragments;
+
     public LastInteractionsPagerAdapter(
             FragmentManager fm, List<InteractionType> types,
             HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap) {
         super(fm);
         this.types = types;
         this.lastInteractionsMap = lastInteractionsMap;
+
+        mFragments = new HashMap<>();
     }
 
     @Override
     @NonNull
     public Fragment getItem(int position) {
-        return LastInteractionsTabFragment.newInstance(lastInteractionsMap.get(types.get(position).getInteractionTypeName()));
+
+        if(!mFragments.containsKey(position)){
+            mFragments.put(position,
+                    LastInteractionsTabFragment
+                        .newInstance(lastInteractionsMap.get(types.get(position)
+                                .getInteractionTypeName())));
+        }
+
+        return mFragments.get(position);
     }
 
     @Override
