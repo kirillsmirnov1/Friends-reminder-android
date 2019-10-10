@@ -24,4 +24,14 @@ public interface ActivityWithSelection {
      * Set actionMode = null
      */
     void nullifyActionMode();
+
+    /**
+     * Enable action mode and toggle position
+     */
+    void enableActionMode(int pos);
+
+    /**
+     * Toggle selection for position
+     */
+    void toggleSelection(int pos);
 }
