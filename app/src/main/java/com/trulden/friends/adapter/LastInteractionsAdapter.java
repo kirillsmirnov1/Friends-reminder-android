@@ -16,6 +16,8 @@ import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
+import java.util.HashSet;
+
 import static com.trulden.friends.util.Util.daysPassed;
 
 /**
@@ -24,9 +26,8 @@ import static com.trulden.friends.util.Util.daysPassed;
  */
 public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteractionWrapper> {
 
-    public LastInteractionsAdapter(Context context){
-        //noinspection ConstantConditions
-        super(context, null);
+    public LastInteractionsAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
+        super(context, selectedPositions);
         mContext = context;
     }
 
@@ -54,7 +55,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
             layout = itemView.findViewById(R.id.eli_layout);
         }
 
-        public void bindTo(final LastInteractionWrapper interaction, int pos) {
+        public void bindTo(final LastInteractionWrapper interaction, final int pos) {
 
             mName.setText(interaction.getFriendName());
 
@@ -68,6 +69,29 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
             if(!interaction.itsTime()) {
                 layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_grey));
             }
+
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mOnClickListener == null) {
+                        return;
+                    }
+
+                    mOnClickListener.onItemClick(view, interaction, pos);
+                }
+            });
+
+            layout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(mOnClickListener == null) {
+                        return false;
+                    }
+
+                    mOnClickListener.onItemLongClick(view, interaction, pos);
+                    return true;
+                }
+            });
         }
     }
 }
