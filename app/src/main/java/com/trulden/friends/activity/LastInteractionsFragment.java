@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.ActivityWithSelection;
 import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
@@ -31,7 +32,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Holds {@link LastInteractionsTabFragment}.
  */
-public class LastInteractionsFragment extends Fragment {
+public class LastInteractionsFragment extends Fragment implements ActivityWithSelection {
 
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
@@ -141,11 +142,14 @@ public class LastInteractionsFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
+                for(int i = 0; i < types.size(); ++i){
+                    getTabFragment(i).finishActionMode();
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -187,4 +191,49 @@ public class LastInteractionsFragment extends Fragment {
         editor.apply();
     }
 
+    @Override
+    public void onDetach() {
+        if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.LAST_INTERACTIONS_FRAGMENT) {
+            getTabFragment().finishActionMode();
+        }
+        super.onDetach();
+    }
+
+    @Override
+    public void editSelection() {
+        // TODO BaseSelection interface
+    }
+
+    @Override
+    public void deleteSelection() {
+
+    }
+
+    @Override
+    public void finishActionMode() {
+        getTabFragment().finishActionMode();
+    }
+
+    @Override
+    public void nullifyActionMode() {
+        getTabFragment().nullifyActionMode();
+    }
+
+    @Override
+    public void enableActionMode(int pos) {
+
+    }
+
+    @Override
+    public void toggleSelection(int pos) {
+
+    }
+
+    private LastInteractionsTabFragment getTabFragment(int pos){
+        return (LastInteractionsTabFragment)mPagerAdapter.getItem(pos);
+    }
+
+    private LastInteractionsTabFragment getTabFragment(){
+        return getTabFragment(mTabLayout.getSelectedTabPosition());
+    }
 }
