@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
@@ -68,4 +69,6 @@ public class FriendsViewModel extends AndroidViewModel {
     public void refreshLastInteractions() {
         mRepository.refreshLastInteractions();
     }
+
+    public void update(LastInteraction lastInteraction) { mRepository.update(lastInteraction); }
 }

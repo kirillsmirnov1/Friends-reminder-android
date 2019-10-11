@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,8 +20,9 @@ import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
 import com.trulden.friends.adapter.LastInteractionsAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
+import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
-import com.trulden.friends.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,6 +33,8 @@ import java.util.Objects;
  * Holds {@link LastInteractionWrapper} entries of specific type
  */
 public class LastInteractionsTabFragment extends Fragment implements LastInteractionsSelection {
+
+    private FriendsViewModel mViewModel;
 
     private ArrayList<LastInteractionWrapper> mLastInteractions = new ArrayList<>();
     private static final String SELECTED_LAST_INTERACTIONS_POSITIONS = "SELECTED_LAST_INTERACTIONS_POSITIONS";
@@ -72,6 +76,8 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_LAST_INTERACTIONS_POSITIONS)){
             mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_LAST_INTERACTIONS_POSITIONS);
@@ -166,13 +172,24 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
     @Override
     public void hideSelection() {
-        // TODO
-        Util.makeToast(getActivity(), "TODO hide");
+        for(LastInteractionWrapper interactionWrapper : mAdapter.getSelectedItems()){
+
+            LastInteraction interaction = interactionWrapper.getLastInteraction();
+
+            interaction.setStatus(LastInteractionWrapper.LastInteractionStatus.HIDDEN.ordinal());
+
+            mViewModel.update(interaction);
+        }
     }
 
     @Override
     public void unhideSelection() {
-        // TODO
-        Util.makeToast(getActivity(), "TODO unhide");
+        for(LastInteractionWrapper interactionWrapper : mAdapter.getSelectedItems()){
+            LastInteraction interaction = interactionWrapper.getLastInteraction();
+
+            interaction.setStatus(LastInteractionWrapper.LastInteractionStatus.DEFAULT.ordinal());
+
+            mViewModel.update(interaction);
+        }
     }
 }

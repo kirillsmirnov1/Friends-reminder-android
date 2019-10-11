@@ -17,6 +17,8 @@ import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.trulden.friends.database.FriendsRepository.TaskSelector.*;
+
 /**
  * Handles database queries
  */
@@ -81,7 +83,9 @@ class FriendsRepository {
 
         ADD_INTERACTION,
         UPDATE_INTERACTION,
-        REMOVE_INTERACTION
+        REMOVE_INTERACTION,
+
+        UPDATE_LAST_INTERACTION
     }
 
     // -----------------------------------------
@@ -339,4 +343,33 @@ class FriendsRepository {
         }
     }
 
+    // -----------------------------------------
+    // Last Interaction
+    // -----------------------------------------
+
+    public void update(LastInteraction lastInteraction) {
+        new LastInteractionAsyncTask(mFriendsDao, UPDATE_LAST_INTERACTION, lastInteraction)
+                .execute();
+    }
+
+    private static class LastInteractionAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        FriendsDao mFriendsDao;
+        TaskSelector mTaskSelector;
+        LastInteraction mLastInteraction;
+
+        public LastInteractionAsyncTask(FriendsDao friendsDao, TaskSelector selector, LastInteraction interaction) {
+            mFriendsDao = friendsDao;
+            mTaskSelector = selector;
+            mLastInteraction = interaction;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if(mTaskSelector == UPDATE_LAST_INTERACTION) {
+                mFriendsDao.update(mLastInteraction);
+            }
+            return null;
+        }
+    }
 }
