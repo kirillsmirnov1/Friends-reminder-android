@@ -112,7 +112,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
     @Override
     public void onDetach() {
-        if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.LAST_INTERACTIONS_FRAGMENT) { // TODO check tab
+        if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.LAST_INTERACTIONS_FRAGMENT) {
             if(mActionMode != null){
                 mActionMode.finish();
             }
