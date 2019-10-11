@@ -15,11 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
 import com.trulden.friends.adapter.LastInteractionsAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
+import com.trulden.friends.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,7 +30,7 @@ import java.util.Objects;
 /**
  * Holds {@link LastInteractionWrapper} entries of specific type
  */
-public class LastInteractionsTabFragment extends Fragment implements ActivityWithSelection {
+public class LastInteractionsTabFragment extends Fragment implements LastInteractionsSelection {
 
     private ArrayList<LastInteractionWrapper> mLastInteractions = new ArrayList<>();
     private static final String SELECTED_LAST_INTERACTIONS_POSITIONS = "SELECTED_LAST_INTERACTIONS_POSITIONS";
@@ -126,16 +127,6 @@ public class LastInteractionsTabFragment extends Fragment implements ActivityWit
     }
 
     @Override
-    public void editSelection() {
-        // TODO move to another interface
-    }
-
-    @Override
-    public void deleteSelection() {
-        // TODO move to another interface
-    }
-
-    @Override
     public void finishActionMode() {
         if(mActionMode != null){
             mActionMode.finish();
@@ -171,5 +162,17 @@ public class LastInteractionsTabFragment extends Fragment implements ActivityWit
         } else {
             mActionMode.setTitle(String.valueOf(count));
         }
+    }
+
+    @Override
+    public void hideSelection() {
+        // TODO
+        Util.makeToast(getActivity(), "TODO hide");
+    }
+
+    @Override
+    public void unhideSelection() {
+        // TODO
+        Util.makeToast(getActivity(), "TODO unhide");
     }
 }
