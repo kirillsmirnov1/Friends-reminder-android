@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.adapter.InteractionTypeAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
@@ -32,7 +32,7 @@ import java.util.List;
 public class InteractionTypesActivity
         extends AppCompatActivity
         implements
-            ActivityWithSelection,
+        EditAndDeleteSelection,
             EditInteractionType {
 
     private FriendsViewModel mFriendsViewModel;

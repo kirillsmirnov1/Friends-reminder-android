@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.adapter.FriendsAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -37,7 +37,7 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Shows list of selectable friends.
  */
-public class FriendsFragment extends Fragment implements ActivityWithSelection{
+public class FriendsFragment extends Fragment implements EditAndDeleteSelection {
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
     private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
