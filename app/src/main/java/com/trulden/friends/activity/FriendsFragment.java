@@ -48,7 +48,7 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
-    private HashSet<Integer> selectedFriendsPositions = new HashSet<>(); // TODO rename
+    private HashSet<Integer> mSelectedPositions = new HashSet<>();
 
     public FriendsFragment() {
         // Fragments require public constructor with no args
@@ -69,11 +69,11 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
         mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_FRIENDS_POSITIONS)){
-            selectedFriendsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
+            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.ff_recycler_view);
-        mFriendsAdapter = new FriendsAdapter(getActivity(), selectedFriendsPositions);
+        mFriendsAdapter = new FriendsAdapter(getActivity(), mSelectedPositions);
         recyclerView.setAdapter(mFriendsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -110,14 +110,14 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
 
         mSelectionCallback = new SelectionCallback(this, mFriendsAdapter);
 
-        if(selectedFriendsPositions.size() > 0)
+        if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_FRIENDS_POSITIONS, selectedFriendsPositions);
+        outState.putSerializable(SELECTED_FRIENDS_POSITIONS, mSelectedPositions);
     }
 
     @Override
