@@ -20,7 +20,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.FriendsViewModel;
@@ -193,8 +193,8 @@ public class MainActivity
 
         saveSelectedLastInteractionTab();
 
-        if(mFragment instanceof ActivityWithSelection){
-            ((ActivityWithSelection) mFragment ).finishActionMode();
+        if(mFragment instanceof SelectionHandler){
+            ((SelectionHandler) mFragment ).finishActionMode();
         }
 
         Intent intent = new Intent(this, EditFriendActivity.class);
@@ -206,8 +206,8 @@ public class MainActivity
 
         saveSelectedLastInteractionTab();
 
-        if(mFragment instanceof ActivityWithSelection){
-            ((ActivityWithSelection) mFragment ).finishActionMode();
+        if(mFragment instanceof SelectionHandler){
+            ((SelectionHandler) mFragment ).finishActionMode();
         }
 
         Intent intent = new Intent(this, EditInteractionActivity.class);
