@@ -15,7 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
@@ -32,7 +32,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Holds {@link LastInteractionsTabFragment}.
  */
-public class LastInteractionsFragment extends Fragment implements ActivityWithSelection {
+public class LastInteractionsFragment extends Fragment implements SelectionHandler {
 
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
@@ -200,16 +200,6 @@ public class LastInteractionsFragment extends Fragment implements ActivityWithSe
     }
 
     @Override
-    public void editSelection() {
-        // TODO BaseSelection interface
-    }
-
-    @Override
-    public void deleteSelection() {
-
-    }
-
-    @Override
     public void finishActionMode() {
         getTabFragment().finishActionMode();
     }
@@ -217,16 +207,6 @@ public class LastInteractionsFragment extends Fragment implements ActivityWithSe
     @Override
     public void nullifyActionMode() {
         getTabFragment().nullifyActionMode();
-    }
-
-    @Override
-    public void enableActionMode(int pos) {
-
-    }
-
-    @Override
-    public void toggleSelection(int pos) {
-
     }
 
     private LastInteractionsTabFragment getTabFragment(int pos){
