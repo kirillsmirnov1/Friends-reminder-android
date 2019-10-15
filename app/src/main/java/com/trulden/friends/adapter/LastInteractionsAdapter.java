@@ -57,7 +57,8 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
         public void bindTo(final LastInteractionWrapper interaction, final int pos) {
 
-            mName.setText(interaction.getFriendName());
+            // TODO handle with icon or some other adequate way
+            mName.setText(interaction.getFriendName() + (interaction.getLastInteraction().getStatus() == 1 ? " [hidden]" : ""));
 
             int daysPassed = daysPassed(interaction.getLastInteraction());
 
