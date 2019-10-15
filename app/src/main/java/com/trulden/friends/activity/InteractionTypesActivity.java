@@ -56,7 +56,7 @@ public class InteractionTypesActivity
             selectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_TYPES_POSITIONS);
         }
 
-        RecyclerView recyclerView = findViewById(R.id.interaction_type_recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.ait_recycler_view);
         mInteractionTypeAdapter = new InteractionTypeAdapter(this, selectedPositions);
         recyclerView.setAdapter(mInteractionTypeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -107,7 +107,7 @@ public class InteractionTypesActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.add: {
+            case R.id.menu_add_add: {
                 new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionTypeDialog");
                 return true;
             }
@@ -142,9 +142,9 @@ public class InteractionTypesActivity
             mActionMode.invalidate();
 
             if(count == 1){
-                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(true);
+                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(true);
             } else {
-                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
+                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(false);
             }
 
         }

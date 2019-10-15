@@ -27,17 +27,9 @@
     <string name="title_activity_interaction_types">Interaction types</string>
     <string name="add">Add</string>
     <string name="friend_name">Friend name</string>
-    <string name="friend_s_notes">Friend\'s notes</string>
     <string name="notes">Notes:</string>
     <string name="name">Name:</string>
-    <string name="interaction_type">Name</string>
-    <string name="interaction_freq_stub">per 100 days</string>
-    <string name="friend_reminder_date_stub">5 days ago</string>
-    <string name="tab_inter_type_name_stub" translatable="false">Inter. type</string>
-    <string name="tab_inter_type_count_stub" translatable="false">99</string>
     <string name="set_date_future_warning">Can\'t interact in the future</string>
-
-
 
     <string name="toast_warning_fill_date">Fill date!</string>
     <string name="toast_warning_fill_friends">Fill friends!</string>
@@ -61,7 +53,6 @@
     <string name="interaction_type_name_texting">Texting</string>
     <string name="interaction_type_name_call">Call</string>
     <string name="edit_interaction">Edit interaction</string>
-    <string name="with">\u0020with\u0020</string>
     <string name="days_ago">\u0020d. ago</string>
     <string name="per_days">per %d d.</string>
     <string name="new_interaction_type">New interaction type</string>

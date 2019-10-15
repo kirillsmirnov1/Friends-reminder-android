@@ -8,4 +8,4 @@
     android:background="@color/colorPrimary"
     app:titleTextColor="@color/white"
     app:title="Stub toolbar title"
-/>
+    />

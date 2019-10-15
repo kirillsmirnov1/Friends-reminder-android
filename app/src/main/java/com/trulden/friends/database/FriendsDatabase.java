@@ -15,6 +15,7 @@ import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.util.Util;
 
 import java.lang.ref.WeakReference;
@@ -24,7 +25,9 @@ import java.lang.ref.WeakReference;
  * Stores static instance of database.
  */
 @Database(
-        entities = {Friend.class, InteractionType.class, Interaction.class, BindFriendInteraction.class},
+        entities = {
+                Friend.class, InteractionType.class, Interaction.class,
+                BindFriendInteraction.class, LastInteraction.class},
         version = Util.DATABASE_VERSION,
         exportSchema = false
 )
@@ -68,7 +71,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                             FriendsDatabase.class, DATABASE_NAME)
                             .addMigrations(
                                     MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
-                                    MIGRATION_5_6)
+                                    MIGRATION_5_6, MIGRATION_6_7)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -85,12 +88,6 @@ public abstract class FriendsDatabase extends RoomDatabase {
      */
     private static class PopulateDBAsync extends AsyncTask<Void, Void, Void>{
 
-        // For debug
-//        String[] defaultFriends =
-//                {"Aaron", "Benjamin", "Carol", "Dominick", "Eve", "Frank", "George", "Hamlet", "Ian",
-//                 "Jacob", "Kate", "Leonard", "Michael", "Nikolas", "Oprah", "Peter", "Quynh",
-//                 "Richard", "Stephen", "Thomas", "Utah", "Victor", "Wilfred", "Xan", "Yan", "Zorro"};
-
         String[] defaultInteractionsNames = {
                 mContext.get().getString(R.string.interaction_type_name_meeting),
                 mContext.get().getString(R.string.interaction_type_name_texting),
@@ -106,12 +103,6 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-//            if(mDao.getAnyFriend().length<1){
-//                for(String friend : defaultFriends){
-//                    mDao.add(new Friend(friend, ""));
-//                }
-//            }
 
             if(mDao.getAnyInteractionType().length<1){
                 for(int i = 0; i < defaultInteractionsNames.length; ++i){
@@ -199,6 +190,41 @@ public abstract class FriendsDatabase extends RoomDatabase {
             database.execSQL("ALTER TABLE interaction_backup RENAME TO interaction_table");
 
             database.execSQL("CREATE INDEX index_Interaction_typeId ON interaction_table(interactionTypeId)");
+        }
+    };
+
+    private static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL(
+                    "CREATE TABLE last_interaction_table(" +
+                    "friendId INTEGER NOT NULL," +
+                    "typeId INTEGER NOT NULL," +
+                    "interactionId INTEGER NOT NULL," +
+                    "date INTEGER NOT NULL," +
+                    "status INTEGER NOT NULL DEFAULT 0," +
+                    "PRIMARY KEY(friendId, typeId)," +
+                    "FOREIGN KEY(friendId) REFERENCES friend_table(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY(typeId) REFERENCES interaction_type_table(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY(interactionId) REFERENCES interaction_table(id) ON DELETE CASCADE);");
+
+            database.execSQL(
+                    "INSERT INTO last_interaction_table(friendId, typeId, interactionId, date)" +
+                    "SELECT friendId, typeId, interactionId, date FROM\n" +
+                        "(SELECT friend_table.id AS friendId, interaction_type_table.id AS typeId, interaction_table.id AS interactionId, MAX(interaction_table.date) AS date\n" +
+                        " FROM \n" +
+                            " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
+                                "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +
+                            "  INNER JOIN interaction_type_table\n" +
+                                "  ON interaction_table.interactionTypeId = interaction_type_table.id)\n" +
+                            "  INNER JOIN friend_table\n" +
+                                "  ON bind_friend_interaction_table.friendId = friend_table.id)\n" +
+                            " GROUP BY friendId, interactionTypeId\n" +
+                            " ORDER BY interactionTypeId, date ASC)"
+            );
+
+            database.execSQL("CREATE INDEX index_LastInteraction_typeId ON last_interaction_table(typeId)");
+            database.execSQL("CREATE INDEX index_LastInteraction_interactionId ON last_interaction_table(interactionId)");
         }
     };
 }

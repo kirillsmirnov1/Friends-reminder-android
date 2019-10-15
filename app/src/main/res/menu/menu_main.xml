@@ -1,7 +1,9 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.trulden.friends.activity.MainActivity">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.trulden.friends.activity.MainActivity"
+    >
 
 <!--    <item android:id="@+id/action_settings"-->
 <!--          android:title="@string/action_settings"-->
@@ -10,24 +12,33 @@
 <!--    />-->
 
     <item
-        android:id="@+id/manage_interaction_types"
+        android:id="@+id/menu_main_interaction_types"
         android:title="@string/manage_interaction_types"
         android:orderInCategory="9"
         app:showAsAction="never"
         />
 
     <item
-        android:id="@+id/action_export_database"
+        android:id="@+id/menu_main_export_database"
         android:title="@string/export_database"
         android:orderInCategory="10"
         app:showAsAction="never"
-    />
+        />
 
     <item
-        android:id="@+id/action_import_database"
+        android:id="@+id/menu_main_import_database"
         android:title="@string/import_database"
         android:orderInCategory="20"
         app:showAsAction="never"
-    />
+        />
+
+<!--    Refresh LI manually. For debug purpose only, shouldn't get in release   -->
+
+<!--    <item-->
+<!--        android:id="@+id/refresh_li"-->
+<!--        android:title="Refresh"-->
+<!--        android:orderInCategory="0"-->
+<!--        app:showAsAction="always"-->
+<!--        />-->
 
 </menu>

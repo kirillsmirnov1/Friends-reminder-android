@@ -54,8 +54,8 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
         final AlertDialog dialog = builder.create();
 
-        mName = dialogView.findViewById(R.id.edit_interaction_type_name);
-        mFrequency = dialogView.findViewById(R.id.edit_interaction_type_frequency);
+        mName = dialogView.findViewById(R.id.deit_name);
+        mFrequency = dialogView.findViewById(R.id.deit_frequency);
 
         if(mType != null){
             mName.setText(mType.getInteractionTypeName());

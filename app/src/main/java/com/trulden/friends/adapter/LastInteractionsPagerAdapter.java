@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.trulden.friends.activity.LastInteractionsTabFragment;
 import com.trulden.friends.database.entity.InteractionType;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +18,11 @@ import java.util.List;
  */
 public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     private List<InteractionType> types;
-    private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap;
+    private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap;
 
-    public LastInteractionsPagerAdapter(FragmentManager fm, List<InteractionType> types, HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap) {
+    public LastInteractionsPagerAdapter(
+            FragmentManager fm, List<InteractionType> types,
+            HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap) {
         super(fm);
         this.types = types;
         this.lastInteractionsMap = lastInteractionsMap;
@@ -43,7 +45,7 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
         return POSITION_NONE;
     }
 
-    public void setLastInteractionsMap(HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap) {
+    public void setLastInteractionsMap(HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap) {
         this.lastInteractionsMap = lastInteractionsMap;
     }
 }

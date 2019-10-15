@@ -18,8 +18,8 @@ import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
-import com.trulden.friends.database.wrappers.LastInteraction;
-import com.trulden.friends.view.TabCounterView;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
+import com.trulden.friends.view.TabLabelWithCounterView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class LastInteractionsFragment extends Fragment {
     private FriendsViewModel mFriendsViewModel;
 
     private List<InteractionType> types = new ArrayList<>();
-    private HashMap<String, ArrayList<LastInteraction>> lastInteractionsMap = new HashMap<>();
+    private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
     private TabLayout mTabLayout;
     private LastInteractionsPagerAdapter mPagerAdapter;
@@ -67,15 +67,15 @@ public class LastInteractionsFragment extends Fragment {
                 types = interactionTypes;
 
                 for(InteractionType type : types){
-                    lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteraction>());
+                    lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
                 }
 
                 initTabsAndPageViewer(view);
 
                 mFriendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
-                        .observe(getViewLifecycleOwner(), new Observer<List<LastInteraction>>() {
+                        .observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
                     @Override
-                    public void onChanged(List<LastInteraction> lastInteractions) {
+                    public void onChanged(List<LastInteractionWrapper> lastInteractions) {
 
                         for(InteractionType type : types){
                             Objects.requireNonNull(
@@ -83,8 +83,8 @@ public class LastInteractionsFragment extends Fragment {
                             counterMap.put(type.getInteractionTypeName(), 0);
                         }
 
-                        for(LastInteraction interaction : lastInteractions){
-                            String currentType = interaction.getInteractionType().getInteractionTypeName();
+                        for(LastInteractionWrapper interaction : lastInteractions){
+                            String currentType = interaction.getType().getInteractionTypeName();
 
                             Objects.requireNonNull(
                                     lastInteractionsMap.get(currentType)).add(interaction);
@@ -95,7 +95,7 @@ public class LastInteractionsFragment extends Fragment {
                         }
 
                         for(int i = 0; i < types.size(); ++i){
-                            ((TabCounterView)mTabLayout.getTabAt(i).getCustomView())
+                            ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
                                     .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
                         }
 
@@ -117,11 +117,11 @@ public class LastInteractionsFragment extends Fragment {
     }
 
     private void initTabsAndPageViewer(View view) {
-        mTabLayout = view.findViewById(R.id.last_interactions_tab_layout);
+        mTabLayout = view.findViewById(R.id.fli_tab_layout);
         mTabLayout.removeAllTabs();
 
         for(InteractionType type : types){
-            TabCounterView tcv = new TabCounterView(getContext(),
+            TabLabelWithCounterView tcv = new TabLabelWithCounterView(getContext(),
                     type.getInteractionTypeName(), 0);
 
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(tcv));
@@ -129,7 +129,7 @@ public class LastInteractionsFragment extends Fragment {
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = view.findViewById(R.id.last_interactions_pager);
+        final ViewPager viewPager = view.findViewById(R.id.fli_view_pager);
         mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
 
         viewPager.setAdapter(mPagerAdapter);

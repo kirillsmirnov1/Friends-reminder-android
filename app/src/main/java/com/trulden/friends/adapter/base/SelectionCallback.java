@@ -25,7 +25,7 @@ public class SelectionCallback implements ActionMode.Callback {
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        mode.getMenuInflater().inflate(R.menu.selection_menu, menu);
+        mode.getMenuInflater().inflate(R.menu.menu_selection, menu);
 
         return true;
     }
@@ -39,12 +39,12 @@ public class SelectionCallback implements ActionMode.Callback {
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
         switch(item.getItemId()) {
-            case R.id.delete_selection: {
+            case R.id.menu_selection_delete: {
                 mActivity.deleteSelection();
                 mode.finish();
                 return true;
             }
-            case R.id.edit_selection: {
+            case R.id.menu_selection_edit: {
                 mActivity.editSelection();
                 mode.finish();
                 return true;

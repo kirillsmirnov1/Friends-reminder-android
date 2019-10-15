@@ -89,21 +89,21 @@ public class MainActivity
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
         }
 
-        BottomNavigationView mBottomNavigation = findViewById(R.id.bottom_navigation);
+        BottomNavigationView mBottomNavigation = findViewById(R.id.am_bottom_navigation);
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
 
-        mFabMenu = findViewById(R.id.fab_main_activity);
+        mFabMenu = findViewById(R.id.am_fab);
 
         if(savedInstanceState == null) {
             switch (mFragmentToLoad){
                 case INTERACTIONS_FRAGMENT:
-                    findViewById(R.id.bottom_interactions).performClick();
+                    findViewById(R.id.menu_bot_nav_interactions).performClick();
                     break;
                 case LAST_INTERACTIONS_FRAGMENT:
-                    findViewById(R.id.bottom_last_interactions).performClick();
+                    findViewById(R.id.menu_bot_nav_last_interactions).performClick();
                     break;
                 case FRIENDS_FRAGMENT:
-                    findViewById(R.id.bottom_friends).performClick();
+                    findViewById(R.id.menu_bot_nav_friends).performClick();
                     break;
             }
         }
@@ -142,23 +142,27 @@ public class MainActivity
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
-            case R.id.action_export_database: {
+            case R.id.menu_main_export_database: {
                 onClickExportDatabase();
                 return true;
             }
 
-            case R.id.action_import_database: {
+            case R.id.menu_main_import_database: {
                 onClickImportDatabase();
                 return true;
             }
 
-            case R.id.manage_interaction_types: {
+            case R.id.menu_main_interaction_types: {
 
                 saveSelectedLastInteractionTab();
 
                 Intent intent = new Intent(this, InteractionTypesActivity.class);
                 startActivityForResult(intent, NO_REQUEST);
             }
+
+//            case R.id.refresh_li: {
+//                mFriendsViewModel.refreshLastInteractions();
+//            }
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -275,7 +279,7 @@ public class MainActivity
                 if(resultCode == RESULT_OK && resultingIntent != null) {
 
                     makeToast(this, getString(R.string.export_in_progress));
-                    findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
+                    findViewById(R.id.am_progress_bar).setVisibility(View.VISIBLE);
 
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -314,8 +318,8 @@ public class MainActivity
 
     private void importDatabaseFromUri(Uri uri) {
 
-        makeSnackbar(findViewById(R.id.root_layout), getString(R.string.import_in_progress));
-        findViewById(R.id.progress_bar_main).setVisibility(View.VISIBLE);
+        makeSnackbar(findViewById(R.id.am_root_layout), getString(R.string.import_in_progress));
+        findViewById(R.id.am_progress_bar).setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -361,7 +365,7 @@ public class MainActivity
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.am_fragment_container, fragment)
                     .commit();
             return true;
         }
@@ -372,14 +376,14 @@ public class MainActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.bottom_interactions: {
+            case R.id.menu_bot_nav_interactions: {
                 saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
             }
-            case R.id.bottom_last_interactions: {
+            case R.id.menu_bot_nav_last_interactions: {
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
             }
-            case R.id.bottom_friends: {
+            case R.id.menu_bot_nav_friends: {
                 saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
             }

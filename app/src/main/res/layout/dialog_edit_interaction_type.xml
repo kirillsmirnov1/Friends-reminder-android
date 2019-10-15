@@ -7,7 +7,7 @@
     >
 
     <EditText
-        android:id="@+id/edit_interaction_type_name"
+        android:id="@+id/deit_name"
         android:inputType="textCapWords"
         android:hint="@string/type_of_interaction"
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         />
 
     <EditText
-        android:id="@+id/edit_interaction_type_frequency"
+        android:id="@+id/deit_frequency"
         android:inputType="number"
         android:hint="@string/frequency_of_interaction"
         android:layout_width="match_parent"

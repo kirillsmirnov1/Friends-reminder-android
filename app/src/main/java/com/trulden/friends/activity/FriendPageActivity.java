@@ -39,7 +39,7 @@ public class FriendPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_page);
 
-        mPersonNotes = findViewById(R.id.friend_page_notes);
+        mPersonNotes = findViewById(R.id.afp_notes);
 
         Intent intent = getIntent();
 
@@ -62,7 +62,7 @@ public class FriendPageActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.selection_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_selection, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -70,7 +70,7 @@ public class FriendPageActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.edit_selection: {
+            case R.id.menu_selection_edit: {
                 Intent intent = new Intent(this, EditFriendActivity.class);
 
                 intent.putExtra(EXTRA_FRIEND_ID, mFriend.getId());
@@ -81,7 +81,7 @@ public class FriendPageActivity extends AppCompatActivity {
                 break;
             }
 
-            case R.id.delete_selection: {
+            case R.id.menu_selection_delete: {
                 mFriendsViewModel.delete(mFriend);
                 makeToast(this, "«" + mFriend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
                 finish();

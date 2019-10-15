@@ -8,11 +8,12 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.entity.LastInteraction;
 
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
@@ -24,17 +25,14 @@ public abstract class Util {
 
     private static final String LOG_TAG = Util.class.getSimpleName();
 
-    public static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-
-    // Can't access db version from Room in runtime, but want to save backup with version in name
-    // Probably not the best way to do it, but can't think of something else
+    private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Keys
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /** Version of database used in app */
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
 
     // Use when need to get onActivityResult() call, but don't need any actual data
     public static final int NO_REQUEST                 = 0;
@@ -84,9 +82,21 @@ public abstract class Util {
         return context.getFilesDir().getAbsolutePath() + "/backup.zip";
     }
 
+    public static String formatDate(Calendar calendar) {
+        return formatDate(calendar.getTimeInMillis());
+    }
+
+    public static String formatDate(Date date){
+        return formatDate(date.getTime());
+    }
+
+    public static String formatDate(long millis){
+        return dateFormat.format(millis);
+    }
+
     @SuppressLint("DefaultLocale")
     public static String generateBackupFileName() {
-        String date = dateFormat.format(Calendar.getInstance().getTime());
+        String date = formatDate(Calendar.getInstance());
 
         return String.format("friends_db_v%d_%s.zip", DATABASE_VERSION, date);
     }

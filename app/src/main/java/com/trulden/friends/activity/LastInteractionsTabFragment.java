@@ -14,23 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.adapter.LastInteractionsAdapter;
-import com.trulden.friends.database.wrappers.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.ArrayList;
 
 
 /**
- * Holds {@link LastInteraction} entries of specific type
+ * Holds {@link LastInteractionWrapper} entries of specific type
  */
 public class LastInteractionsTabFragment extends Fragment {
 
-    private ArrayList<LastInteraction> mLastInteractions = new ArrayList<>();
+    private ArrayList<LastInteractionWrapper> mLastInteractions = new ArrayList<>();
 
     public LastInteractionsTabFragment() {
         // Required empty public constructor
     }
 
-    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteraction> lastInteractions){
+    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteractionWrapper> lastInteractions){
         LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
 
         tr.setLastInteractions(lastInteractions);
@@ -44,7 +44,7 @@ public class LastInteractionsTabFragment extends Fragment {
 
     }
 
-    private void setLastInteractions(ArrayList<LastInteraction> lastInteractions) {
+    private void setLastInteractions(ArrayList<LastInteractionWrapper> lastInteractions) {
         mLastInteractions = lastInteractions;
     }
 
@@ -52,14 +52,14 @@ public class LastInteractionsTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.tab_last_interaction_content, container, false);
+        return inflater.inflate(R.layout.page_last_interaction_content, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = view.findViewById(R.id.tab_last_interaction_recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.pli_recycler_view);
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 

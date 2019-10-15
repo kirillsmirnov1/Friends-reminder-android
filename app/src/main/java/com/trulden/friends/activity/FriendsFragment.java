@@ -72,7 +72,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
             selectedFriendsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.friends_recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.ff_recycler_view);
         mFriendsAdapter = new FriendsAdapter(getActivity(), selectedFriendsPositions);
         recyclerView.setAdapter(mFriendsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -142,9 +142,9 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
             mActionMode.invalidate();
 
             if(count == 1){
-                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(true);
+                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(true);
             } else {
-                mActionMode.getMenu().findItem(R.id.edit_selection).setVisible(false);
+                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(false);
             }
 
         }

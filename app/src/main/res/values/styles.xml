@@ -17,10 +17,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="AppTheme.OverFlow">
         <item name="android:src">@drawable/ic_more_vert_24dp</item>
         <item name="android:padding">10dp</item>
@@ -38,6 +34,19 @@
     <style name="menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="recycler_view">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="fastScrollEnabled">true</item>
+        <item name="fastScrollHorizontalThumbDrawable">@drawable/thumb_drawable</item>
+        <item name="fastScrollHorizontalTrackDrawable">@drawable/line_drawable</item>
+        <item name="fastScrollVerticalThumbDrawable">@drawable/thumb_drawable</item>
+        <item name="fastScrollVerticalTrackDrawable">@drawable/line_drawable</item>
     </style>
 
 </resources>
