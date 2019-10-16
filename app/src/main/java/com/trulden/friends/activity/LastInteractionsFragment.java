@@ -210,7 +210,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     }
 
     private LastInteractionsTabFragment getTabFragment(int pos){
-        return (LastInteractionsTabFragment)mPagerAdapter.getItem(pos);
+        return (LastInteractionsTabFragment) mPagerAdapter.instantiateItem(null, pos);
     }
 
     private LastInteractionsTabFragment getTabFragment(){

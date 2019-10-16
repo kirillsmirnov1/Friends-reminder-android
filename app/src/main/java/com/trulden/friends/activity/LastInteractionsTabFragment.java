@@ -37,7 +37,9 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     private FriendsViewModel mViewModel;
 
     private ArrayList<LastInteractionWrapper> mLastInteractions = new ArrayList<>();
-    private static final String SELECTED_LAST_INTERACTIONS_POSITIONS = "SELECTED_LAST_INTERACTIONS_POSITIONS";
+    private String mTypeName;
+
+    private String SELECTED_LAST_INTERACTIONS_POSITIONS = "SELECTED_LAST_INTERACTIONS_POSITIONS";
 
     private HashSet<Integer> mSelectedPositions = new HashSet<>();
     private SelectionCallback mSelectionCallback;
@@ -48,12 +50,18 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
         // Required empty public constructor
     }
 
-    public static LastInteractionsTabFragment newInstance(ArrayList<LastInteractionWrapper> lastInteractions){
+    public static LastInteractionsTabFragment newInstance(String typeName, ArrayList<LastInteractionWrapper> lastInteractions){
         LastInteractionsTabFragment tr = new LastInteractionsTabFragment();
 
+        tr.setTypeName(typeName);
         tr.setLastInteractions(lastInteractions);
 
         return tr;
+    }
+
+    private void setTypeName(String typeName) {
+        mTypeName = typeName;
+        SELECTED_LAST_INTERACTIONS_POSITIONS += mTypeName;
     }
 
     @Override
