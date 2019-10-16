@@ -14,6 +14,7 @@ import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class FriendsViewModel extends AndroidViewModel {
     private LiveData<List<InteractionType>> mAllInteractionTypes;
     private LiveData<List<Interaction>> mAllInteractions;
 
+    private HashMap<String, HashSet<Integer>> mLITFSelections;
+
     public FriendsViewModel(@NonNull Application application) {
         super(application);
 
@@ -36,6 +39,26 @@ public class FriendsViewModel extends AndroidViewModel {
         mAllFriends = mRepository.getAllFriends();
         mAllInteractionTypes = mRepository.getAllInteractionTypes();
         mAllInteractions = mRepository.getAllInteractions();
+
+        mLITFSelections = new HashMap<>();
+    }
+
+    public HashSet<Integer> getLITFSelections(String type){
+        HashSet<Integer> selection = mLITFSelections.get(type);
+
+        if(selection == null){
+            selection = new HashSet<>();
+        }
+
+        return selection;
+    }
+
+    public void clearLITFSelections() {
+        mLITFSelections.clear();
+    }
+
+    public void setLITF_selections(String type, HashSet<Integer> selection){
+        mLITFSelections.put(type, selection);
     }
 
     public FriendsDao getDao(){return mRepository.getDao();}
