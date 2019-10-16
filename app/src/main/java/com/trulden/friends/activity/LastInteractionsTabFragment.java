@@ -87,8 +87,8 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
         mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_LAST_INTERACTIONS_POSITIONS)){
-            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_LAST_INTERACTIONS_POSITIONS);
+        if(mTypeName != null){
+            mSelectedPositions = mViewModel.getLITFSelections(mTypeName);
         }
 
 
@@ -137,7 +137,9 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_LAST_INTERACTIONS_POSITIONS, mSelectedPositions);
+        if(mTypeName!= null && !mTypeName.isEmpty()) {
+            mViewModel.setLITF_selections(mTypeName, mSelectedPositions);
+        }
     }
 
     @Override
@@ -149,6 +151,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
     @Override
     public void nullifyActionMode() {
+        mViewModel.clearLITFSelections();
         if(mActionMode != null){
             mActionMode = null;
         }
