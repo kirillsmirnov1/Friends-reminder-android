@@ -25,7 +25,7 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     public LastInteractionsPagerAdapter(
             FragmentManager fm, List<InteractionType> types,
             HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap) {
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.types = types;
         this.lastInteractionsMap = lastInteractionsMap;
 
