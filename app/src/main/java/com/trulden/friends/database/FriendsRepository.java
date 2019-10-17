@@ -302,18 +302,18 @@ class FriendsRepository {
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
 
-                        recalcLastInteraction(interaction.getInteractionTypeId(), friendId);
+                        calculateLastInteraction(interaction.getInteractionTypeId(), friendId);
 
                         // If type of interaction changed, need to recalc LI of that type too
                         if(interaction.getInteractionTypeId() != oldInteraction.getInteractionTypeId()){
-                            recalcLastInteraction(oldInteraction.getInteractionTypeId(), friendId);
+                            calculateLastInteraction(oldInteraction.getInteractionTypeId(), friendId);
                         }
                     }
 
                     // Handle deleted friends
                     for(BindFriendInteraction bind : oldBinds){
                         if(!friendIds.contains(bind.getFriendId())){
-                            recalcLastInteraction(
+                            calculateLastInteraction(
                                     oldInteraction.getInteractionTypeId(), bind.getFriendId());
                         }
                     }
@@ -338,7 +338,7 @@ class FriendsRepository {
 
                         // If LI connected to Interaction is deleted, need to calculate new one
                         if(lastInteraction.size() == 0){
-                            recalcLastInteraction(typeId, friendId, statuses.get(friendId));
+                            calculateLastInteraction(typeId, friendId, statuses.get(friendId));
                         }
                     }
 
@@ -356,7 +356,7 @@ class FriendsRepository {
          * Calculates and integrates fresh {@link LastInteraction} entry.
          * Call if old entry isn't deleted.
          */
-        private void recalcLastInteraction(long typeId, long friendId){
+        private void calculateLastInteraction(long typeId, long friendId){
             LastInteraction oldLastInteraction;
 
             try {
@@ -370,15 +370,15 @@ class FriendsRepository {
 
             mFriendsDao.delete(oldLastInteraction);
 
-            recalcLastInteraction(typeId, friendId, status);
+            calculateLastInteraction(typeId, friendId, status);
         }
 
         /**
          * Calculates and integrates fresh {@link LastInteraction} entry.
          * Call if old entry is deleted
          */
-        private void recalcLastInteraction(long typeId, long friendId, long status){
-            mFriendsDao.recalcLastInteraction(typeId, friendId, status);
+        private void calculateLastInteraction(long typeId, long friendId, long status){
+            mFriendsDao.calculateLastInteraction(typeId, friendId, status);
         }
     }
 
