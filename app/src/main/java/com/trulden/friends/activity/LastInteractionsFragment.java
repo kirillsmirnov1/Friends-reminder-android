@@ -36,7 +36,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
 
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
 
     private List<InteractionType> types = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap = new HashMap<>();
@@ -60,9 +60,9 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
+        mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 types = interactionTypes;
@@ -73,7 +73,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
 
                 initTabsAndPageViewer(view);
 
-                mFriendsViewModel.getAllLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
+                mViewModel.getAllLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
                         .observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
                     @Override
                     public void onChanged(List<LastInteractionWrapper> lastInteractions) {
