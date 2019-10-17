@@ -48,14 +48,14 @@ public class LastInteraction implements Entity {
     /**
      * Will be used to set visibility and other params of that LI
      */
-    private int status;
+    private long status;
 
     /**
      * Constructor for LI entry. Must be used only by database classes
      * @param typeId type of Interaction
      * @param date Unix epoch time of interaction
      */
-    public LastInteraction(long friendId, long typeId, long interactionId, long date, int status){
+    public LastInteraction(long friendId, long typeId, long interactionId, long date, long status){
         this.friendId = friendId;
         this.typeId = typeId;
         this.interactionId = interactionId;
@@ -99,11 +99,11 @@ public class LastInteraction implements Entity {
         this.typeId = typeId;
     }
 
-    public int getStatus() {
+    public long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(long status) {
         this.status = status;
     }
 }

@@ -366,7 +366,7 @@ class FriendsRepository {
                 oldLastInteraction = null;
             }
 
-            int status = oldLastInteraction == null ? 0 : oldLastInteraction.getStatus();
+            long status = oldLastInteraction == null ? 0 : oldLastInteraction.getStatus();
 
             mFriendsDao.delete(oldLastInteraction);
 
@@ -378,7 +378,7 @@ class FriendsRepository {
          * Call if old entry is deleted
          */
         private void recalcLastInteraction(long typeId, long friendId, long status){
-            mFriendsDao.recalcLastInteraction(typeId, friendId, (int)status);
+            mFriendsDao.recalcLastInteraction(typeId, friendId, status);
         }
     }
 
