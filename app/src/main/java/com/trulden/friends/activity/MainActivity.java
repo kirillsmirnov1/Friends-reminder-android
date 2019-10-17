@@ -55,7 +55,7 @@ public class MainActivity
 
     private SharedPreferences mPreferences;
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
 
     private CustomBroadcastReceiver mReceiver;
     private Fragment mFragment;
@@ -67,9 +67,9 @@ public class MainActivity
 
         mPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
-        mFriendsViewModel.setShowHiddenLI(
+        mViewModel.setShowHiddenLI(
                 mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
 
         mToolbar = findViewById(R.id.toolbar);
@@ -113,7 +113,7 @@ public class MainActivity
     protected void onPause() {
         mPreferences
             .edit()
-            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mFriendsViewModel.getShowHiddenLI().getValue())
+            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mViewModel.getShowHiddenLI().getValue())
             .apply();
 
         super.onPause();
@@ -138,7 +138,7 @@ public class MainActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.menu_main_show_hidden_li).setChecked(mFriendsViewModel.getShowHiddenLI().getValue());
+        menu.findItem(R.id.menu_main_show_hidden_li).setChecked(mViewModel.getShowHiddenLI().getValue());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -168,9 +168,9 @@ public class MainActivity
             }
 
             case R.id.menu_main_show_hidden_li: {
-                mFriendsViewModel.setShowHiddenLI(!item.isChecked());
+                mViewModel.setShowHiddenLI(!item.isChecked());
 
-                item.setChecked(mFriendsViewModel.getShowHiddenLI().getValue());
+                item.setChecked(mViewModel.getShowHiddenLI().getValue());
             }
 
             default:
@@ -245,7 +245,7 @@ public class MainActivity
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
-                    mFriendsViewModel.add(getInteractionFromIntent(resultingIntent), friendsIds);
+                    mViewModel.add(getInteractionFromIntent(resultingIntent), friendsIds);
                 }
                 break;
             }
@@ -255,21 +255,21 @@ public class MainActivity
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
-                    mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
+                    mViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
                 }
                 break;
             }
 
             case NEW_FRIEND_REQUEST:{
                 if(resultCode == RESULT_OK && resultingIntent != null) {
-                    mFriendsViewModel.add(getFriendFromIntent(resultingIntent));
+                    mViewModel.add(getFriendFromIntent(resultingIntent));
                 }
                 break;
             }
 
             case UPDATE_FRIEND_REQUEST: {
                 if(resultCode == RESULT_OK && resultingIntent != null) {
-                        mFriendsViewModel.update(getFriendFromIntent(resultingIntent));
+                        mViewModel.update(getFriendFromIntent(resultingIntent));
                 }
 
                 break;
