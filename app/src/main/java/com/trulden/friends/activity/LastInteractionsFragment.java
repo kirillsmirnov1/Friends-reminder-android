@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
@@ -73,39 +74,46 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
 
                 initTabsAndPageViewer(view);
 
-                mViewModel.getAllLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
-                        .observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
+                mViewModel.getShowHiddenLI().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override
-                    public void onChanged(List<LastInteractionWrapper> lastInteractions) {
+                    public void onChanged(Boolean showHiddenLI) {
+                        LiveData<List<LastInteractionWrapper>> lastInteractions =
+                            showHiddenLI
+                            ? mViewModel.getAllLastInteractions()
+                            : mViewModel.getVisibleLastInteractions();
 
-                        for(InteractionType type : types){
-                            Objects.requireNonNull(
-                                    lastInteractionsMap.get(type.getInteractionTypeName())).clear();
-                            counterMap.put(type.getInteractionTypeName(), 0);
-                        }
-
-                        for(LastInteractionWrapper interaction : lastInteractions){
-                            String currentType = interaction.getType().getInteractionTypeName();
-
-                            Objects.requireNonNull(
-                                    lastInteractionsMap.get(currentType)).add(interaction);
-
-                            if(interaction.itsTime()){
-                                counterMap.put(currentType, counterMap.get(currentType) + 1);
+                        lastInteractions.observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
+                                    @Override
+                                    public void onChanged(List<LastInteractionWrapper> lastInteractions) {
+                            for(InteractionType type : types){
+                                Objects.requireNonNull(
+                                        lastInteractionsMap.get(type.getInteractionTypeName())).clear();
+                                counterMap.put(type.getInteractionTypeName(), 0);
                             }
-                        }
 
-                        for(int i = 0; i < types.size(); ++i){
-                            ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
-                                    .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
-                        }
+                            for(LastInteractionWrapper interaction : lastInteractions){
+                                String currentType = interaction.getType().getInteractionTypeName();
 
-                        mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
-                        mPagerAdapter.notifyDataSetChanged();
+                                Objects.requireNonNull(
+                                        lastInteractionsMap.get(currentType)).add(interaction);
+
+                                if(interaction.itsTime()){
+                                    counterMap.put(currentType, counterMap.get(currentType) + 1);
+                                }
+                            }
+
+                            for(int i = 0; i < types.size(); ++i){
+                                ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
+                                        .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
+                            }
+
+                            mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
+                            mPagerAdapter.notifyDataSetChanged();
+                        }
+                    });
+
                     }
                 });
-
-
             }
         });
     }
