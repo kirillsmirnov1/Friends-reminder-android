@@ -13,6 +13,7 @@ android {
         versionName "1.0.4.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        dataBinding.enabled = true
     }
     buildTypes {
         release {
