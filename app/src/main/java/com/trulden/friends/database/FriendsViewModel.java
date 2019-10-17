@@ -105,6 +105,10 @@ public class FriendsViewModel extends AndroidViewModel {
         return mShowHiddenLI;
     }
 
+    public boolean getShowHiddenLIValue(){
+        return mShowHiddenLI.getValue();
+    }
+
     public void setShowHiddenLI(boolean showHiddenLI) {
         mShowHiddenLI.setValue(showHiddenLI);
     }
