@@ -129,6 +129,9 @@ public interface FriendsDao {
     @Update
     void update(LastInteraction lastInteraction);
 
+    @Delete
+    void delete(LastInteraction lastInteraction);
+
     /**
      * @return {@link LastInteractionWrapper} list.
      */
