@@ -12,6 +12,14 @@
 <!--    />-->
 
     <item
+        android:orderInCategory="8"
+        android:id="@+id/menu_main_show_hidden_li"
+        android:title="@string/show_hidden_li_entries"
+        app:showAsAction="never"
+        android:checkable="true"
+        />
+
+    <item
         android:id="@+id/menu_main_interaction_types"
         android:title="@string/manage_interaction_types"
         android:orderInCategory="9"
