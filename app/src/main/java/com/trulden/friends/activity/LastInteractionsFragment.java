@@ -44,6 +44,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     private HashMap<String, Integer> counterMap = new HashMap<>();
     private TabLayout mTabLayout;
     private LastInteractionsPagerAdapter mPagerAdapter;
+    private ViewPager mViewPager;
 
     public LastInteractionsFragment() {
         // Fragments require public constructor with no args
@@ -62,6 +63,8 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         super.onViewCreated(view, savedInstanceState);
 
         mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+
+        mViewPager = view.findViewById(R.id.fli_view_pager);
 
         mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
@@ -218,7 +221,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     }
 
     private LastInteractionsTabFragment getTabFragment(int pos){
-        return (LastInteractionsTabFragment) mPagerAdapter.instantiateItem(null, pos);
+        return (LastInteractionsTabFragment) mPagerAdapter.instantiateItem(mViewPager, pos);
     }
 
     private LastInteractionsTabFragment getTabFragment(){
