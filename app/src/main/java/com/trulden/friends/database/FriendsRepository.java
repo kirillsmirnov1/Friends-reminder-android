@@ -14,6 +14,7 @@ import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -277,7 +278,6 @@ class FriendsRepository {
                             if(interaction.getDate() > oldLastInteractionInteraction.getDate()){
                                 oldLastInteractionInteraction.setDate(interaction.getDate());
                                 oldLastInteractionInteraction.setInteractionId(interactionId);
-                                oldLastInteractionInteraction.setStatus(0);
 
                                 mFriendsDao.update(oldLastInteractionInteraction);
                             }
@@ -295,25 +295,25 @@ class FriendsRepository {
                     List<BindFriendInteraction> oldBinds = mFriendsDao.getBindsOfInteraction(interactionId);
 
                     // It's easier to delete old binds and recalculate them, than to check every change
-                    mFriendsDao.deleteLastInteractionsByInteractionId(interactionId);
                     mFriendsDao.deleteBindingsByInteractionId(interactionId);
 
                     mFriendsDao.update(interaction);
 
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
-                        mFriendsDao.recalcLastInteraction(interaction.getInteractionTypeId(), friendId);
+
+                        recalcLastInteraction(interaction.getInteractionTypeId(), friendId);
 
                         // If type of interaction changed, need to recalc LI of that type too
                         if(interaction.getInteractionTypeId() != oldInteraction.getInteractionTypeId()){
-                            mFriendsDao.recalcLastInteraction(oldInteraction.getInteractionTypeId(), friendId);
+                            recalcLastInteraction(oldInteraction.getInteractionTypeId(), friendId);
                         }
                     }
 
                     // Handle deleted friends
                     for(BindFriendInteraction bind : oldBinds){
                         if(!friendIds.contains(bind.getFriendId())){
-                            mFriendsDao.recalcLastInteraction(
+                            recalcLastInteraction(
                                     oldInteraction.getInteractionTypeId(), bind.getFriendId());
                         }
                     }
@@ -324,6 +324,11 @@ class FriendsRepository {
                 case REMOVE_INTERACTION: {
 
                     long typeId = interaction.getInteractionTypeId();
+                    HashMap<Long, Long> statuses = new HashMap<>();
+
+                    for(Long friendId : friendIds){
+                        statuses.put(friendId, mFriendsDao.getLIstatus(typeId, friendId).get(0));
+                    }
 
                     mFriendsDao.delete(interaction);
 
@@ -331,8 +336,9 @@ class FriendsRepository {
                         List<LastInteraction> lastInteraction = mFriendsDao
                                 .getLastInteraction(typeId, friendId);
 
+                        // If LI connected to Interaction is deleted, need to calculate new one
                         if(lastInteraction.size() == 0){
-                            mFriendsDao.recalcLastInteraction(typeId, friendId);
+                            recalcLastInteraction(typeId, friendId, statuses.get(friendId));
                         }
                     }
 
