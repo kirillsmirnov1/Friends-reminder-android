@@ -345,6 +345,35 @@ class FriendsRepository {
 
             return null;
         }
+
+        /**
+         * Calculates and integrates fresh {@link LastInteraction} entry.
+         * Call if old entry isn't deleted.
+         */
+        private void recalcLastInteraction(long typeId, long friendId){
+            LastInteraction oldLastInteraction;
+
+            try {
+                oldLastInteraction = mFriendsDao.getLastInteraction(typeId, friendId).get(0);
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                oldLastInteraction = null;
+            }
+
+            int status = oldLastInteraction == null ? 0 : oldLastInteraction.getStatus();
+
+            mFriendsDao.delete(oldLastInteraction);
+
+            recalcLastInteraction(typeId, friendId, status);
+        }
+
+        /**
+         * Calculates and integrates fresh {@link LastInteraction} entry.
+         * Call if old entry is deleted
+         */
+        private void recalcLastInteraction(long typeId, long friendId, long status){
+            mFriendsDao.recalcLastInteraction(typeId, friendId, (int)status);
+        }
     }
 
     // -----------------------------------------
