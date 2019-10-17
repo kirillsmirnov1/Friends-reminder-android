@@ -139,6 +139,7 @@ public class MainActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.menu_main_show_hidden_li).setChecked(mViewModel.getShowHiddenLIValue());
+        menu.findItem(R.id.menu_main_show_hidden_li).setVisible(mFragmentToLoad == FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
         return super.onPrepareOptionsMenu(menu);
     }
 
