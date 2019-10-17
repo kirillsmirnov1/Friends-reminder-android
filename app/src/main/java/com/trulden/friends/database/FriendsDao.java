@@ -167,8 +167,10 @@ public interface FriendsDao {
     )
     void recalcLastInteraction(long typeId, Long friendId, int status);
 
-    @Query("DELETE FROM last_interaction_table WHERE interactionId = :interactionId;")
-    void deleteLastInteractionsByInteractionId(long interactionId);
+    @Query("SELECT status FROM last_interaction_table " +
+            "WHERE typeId = :typeId " +
+            "AND   friendId = :friendId;")
+    List<Long> getLIstatus(long typeId, long friendId);
 
     // TODO clean up
 
