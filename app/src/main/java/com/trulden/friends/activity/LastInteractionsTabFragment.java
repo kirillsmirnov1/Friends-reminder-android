@@ -169,7 +169,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
         }
 
         mActionMode.getMenu().findItem(R.id.msli_unhide)
-                .setVisible(mViewModel.getShowHiddenLI().getValue());
+                .setVisible(mViewModel.getShowHiddenLIValue());
 
         toggleSelection(pos);
     }

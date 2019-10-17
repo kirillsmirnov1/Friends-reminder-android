@@ -113,7 +113,7 @@ public class MainActivity
     protected void onPause() {
         mPreferences
             .edit()
-            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mViewModel.getShowHiddenLI().getValue())
+            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mViewModel.getShowHiddenLIValue())
             .apply();
 
         super.onPause();
@@ -138,7 +138,7 @@ public class MainActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.menu_main_show_hidden_li).setChecked(mViewModel.getShowHiddenLI().getValue());
+        menu.findItem(R.id.menu_main_show_hidden_li).setChecked(mViewModel.getShowHiddenLIValue());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -170,7 +170,7 @@ public class MainActivity
             case R.id.menu_main_show_hidden_li: {
                 mViewModel.setShowHiddenLI(!item.isChecked());
 
-                item.setChecked(mViewModel.getShowHiddenLI().getValue());
+                item.setChecked(mViewModel.getShowHiddenLIValue());
             }
 
             default:
