@@ -45,6 +45,7 @@ public class MainActivity
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
+    private static boolean mShowHiddenLastInteractionEntries = false;
 
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
@@ -141,9 +142,9 @@ public class MainActivity
             }
 
             case R.id.menu_main_show_hidden_li: {
-                boolean checkedStatus = !item.isChecked();
+                mShowHiddenLastInteractionEntries = !item.isChecked();
 
-                item.setChecked(checkedStatus);
+                item.setChecked(mShowHiddenLastInteractionEntries);
             }
 
             default:
