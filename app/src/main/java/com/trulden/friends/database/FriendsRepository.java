@@ -265,21 +265,21 @@ class FriendsRepository {
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
 
-                        List<LastInteraction> interactions = mFriendsDao
+                        List<LastInteraction> lastInteraction = mFriendsDao
                                 .getLastInteraction(typeId, friendId);
 
-                        if(interactions.size() == 0){
+                        if(lastInteraction.size() == 0){
                             mFriendsDao.add(new LastInteraction(friendId, typeId, interactionId, interaction.getDate(), 0));
                         } else {
 
-                            LastInteraction oldInteraction = interactions.get(0);
+                            LastInteraction oldLastInteractionInteraction = lastInteraction.get(0);
 
-                            if(interaction.getDate() > oldInteraction.getDate()){
-                                oldInteraction.setDate(interaction.getDate());
-                                oldInteraction.setInteractionId(interactionId);
-                                oldInteraction.setStatus(0);
+                            if(interaction.getDate() > oldLastInteractionInteraction.getDate()){
+                                oldLastInteractionInteraction.setDate(interaction.getDate());
+                                oldLastInteractionInteraction.setInteractionId(interactionId);
+                                oldLastInteractionInteraction.setStatus(0);
 
-                                mFriendsDao.update(oldInteraction);
+                                mFriendsDao.update(oldLastInteractionInteraction);
                             }
                         }
                     }
@@ -328,10 +328,10 @@ class FriendsRepository {
                     mFriendsDao.delete(interaction);
 
                     for(Long friendId : friendIds){
-                        List<LastInteraction> interactions = mFriendsDao
+                        List<LastInteraction> lastInteraction = mFriendsDao
                                 .getLastInteraction(typeId, friendId);
 
-                        if(interactions.size() == 0){
+                        if(lastInteraction.size() == 0){
                             mFriendsDao.recalcLastInteraction(typeId, friendId);
                         }
                     }
