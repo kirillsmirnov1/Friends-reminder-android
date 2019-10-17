@@ -149,9 +149,9 @@ public interface FriendsDao {
     @Transaction
     @Query(
         "INSERT OR IGNORE INTO \n" +
-        "  last_interaction_table(friendId, typeId, interactionId, date)\n" +
+        "  last_interaction_table(friendId, typeId, interactionId, date, status)\n" +
         "SELECT \n" +
-        "  friendId, typeId, interactionId, MAX(date)\n" +
+        "  friendId, typeId, interactionId, MAX(date), :status\n" +
         "FROM \n" +
         "    (SELECT id AS interId, interactionTypeId as typeId, date \n" +
         "    FROM interaction_table WHERE typeId = :typeId) \n" +
@@ -162,7 +162,7 @@ public interface FriendsDao {
         "  t2\n" +
         "  ON (t1.interId = t2.interactionId); "
     )
-    void recalcLastInteraction(long typeId, Long friendId);
+    void recalcLastInteraction(long typeId, Long friendId, int status);
 
     @Query("DELETE FROM last_interaction_table WHERE interactionId = :interactionId;")
     void deleteLastInteractionsByInteractionId(long interactionId);
