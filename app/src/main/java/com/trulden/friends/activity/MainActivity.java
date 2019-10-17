@@ -160,6 +160,12 @@ public class MainActivity
                 startActivityForResult(intent, NO_REQUEST);
             }
 
+            case R.id.menu_main_show_hidden_li: {
+                boolean checkedStatus = !item.isChecked();
+
+                item.setChecked(checkedStatus);
+            }
+
 //            case R.id.refresh_li: {
 //                mFriendsViewModel.refreshLastInteractions();
 //            }
