@@ -137,6 +137,10 @@ public interface FriendsDao {
     LiveData<List<LastInteractionWrapper>> getAllLastInteractions();
 
     @Transaction
+    @Query("SELECT * FROM last_interaction_table WHERE status = 0 ORDER BY date ASC")
+    LiveData<List<LastInteractionWrapper>> getVisibleLastInteractions();
+
+    @Transaction
     @Query("SELECT * FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
             "AND   friendId = :friendId;")
