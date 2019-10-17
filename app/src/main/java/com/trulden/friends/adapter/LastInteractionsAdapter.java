@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
         private TextView mName;
         private TextView mTime;
+        private ImageView mHiddenIcon;
 
         private RelativeLayout mLayout;
 
@@ -51,14 +53,20 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
             mName = itemView.findViewById(R.id.eli_friend_name);
             mTime = itemView.findViewById(R.id.eli_time_passed);
+            mHiddenIcon = itemView.findViewById(R.id.eli_hidden_icon);
 
             mLayout = itemView.findViewById(R.id.eli_layout);
         }
 
         public void bindTo(final LastInteractionWrapper interaction, final int pos) {
 
-            // TODO handle with icon or some other adequate way
-            mName.setText(interaction.getFriendName() + (interaction.getLastInteraction().getStatus() == 1 ? " [hidden]" : ""));
+            if(interaction.getLastInteraction().getStatus() == 1){
+                mHiddenIcon.setVisibility(View.VISIBLE);
+            } else {
+                mHiddenIcon.setVisibility(View.INVISIBLE);
+            }
+
+            mName.setText(interaction.getFriendName());
 
             int daysPassed = daysPassed(interaction.getLastInteraction());
 
