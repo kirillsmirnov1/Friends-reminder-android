@@ -5,6 +5,8 @@ import androidx.test.filters.LargeTest;
 
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
+
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -420,6 +422,43 @@ public class DeselectionTest extends AbstractTest {
         selectEntry(1, R.id.eit_layout, R.id.ait_recycler_view, true);
 
         checkSelectionCounterValue("1");
+    }
+
+    @Test
+    public void LISelectionTest(){
+
+        LISelectionTemplateTest(withId(R.id.am_fab_add_friend), withContentDescription("Navigate up"));
+
+        LISelectionTemplateTest(withText("Texting"), withText("Meeting"));
+        LISelectionTemplateTest(withId(R.id.menu_bot_nav_interactions), withId(R.id.menu_bot_nav_last_interactions));
+        LISelectionTemplateTest(withId(R.id.menu_bot_nav_friends), withId(R.id.menu_bot_nav_last_interactions));
+    }
+
+    private void LISelectionTemplateTest(Matcher goTo, Matcher comebackTo){
+        openLastInteractions();
+
+        onView(withText("Caleb")).perform(longClick());
+
+        ViewInteraction selCounter = onView(allOf(withText("1"), not(hasSibling(withText("Meeting")))));
+        selCounter.check(matches(isDisplayed()));
+
+        onView(goTo).perform(click());
+
+        if(goTo.toString().equals("with id: com.trulden.friends:id/am_fab_add_friend")) {
+            sleep(250);
+            onView(goTo).perform(click());
+        }
+
+        sleep(250);
+
+        selCounter.check(doesNotExist());
+
+        onView(comebackTo).perform(click());
+
+        onView(withText("Aaron")).perform(longClick());
+        onView(withText("Balaam")).perform(click());
+
+        checkSelectionCounterValue("2");
     }
 
     // UI interactions
