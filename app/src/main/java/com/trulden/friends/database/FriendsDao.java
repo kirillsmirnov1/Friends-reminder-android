@@ -165,7 +165,7 @@ public interface FriendsDao {
         "  t2\n" +
         "  ON (t1.interId = t2.interactionId); "
     )
-    void recalcLastInteraction(long typeId, Long friendId, int status);
+    void recalcLastInteraction(long typeId, long friendId, int status);
 
     @Query("SELECT status FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
