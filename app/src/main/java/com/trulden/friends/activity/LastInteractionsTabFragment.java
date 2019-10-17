@@ -167,6 +167,10 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
             mActionMode = ((AppCompatActivity) Objects.requireNonNull(getActivity()))
                     .startSupportActionMode(mSelectionCallback);
         }
+
+        mActionMode.getMenu().findItem(R.id.msli_unhide)
+                .setVisible(mViewModel.getShowHiddenLI().getValue());
+
         toggleSelection(pos);
     }
 
