@@ -49,7 +49,6 @@ public class MainActivity
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
 
     private static final String SHOW_HIDDEN_LAST_INTERACTION_ENTRIES = "SHOW_HIDDEN_LAST_INTERACTION_ENTRIES";
-    private static boolean mShowHiddenLastInteractionEntries;
 
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
@@ -68,9 +67,10 @@ public class MainActivity
 
         mPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE);
 
-        mShowHiddenLastInteractionEntries = mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false);
-
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+
+        mFriendsViewModel.setShowHiddenLI(
+                mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -113,7 +113,7 @@ public class MainActivity
     protected void onPause() {
         mPreferences
             .edit()
-            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mShowHiddenLastInteractionEntries)
+            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mFriendsViewModel.getShowHiddenLI().getValue())
             .apply();
 
         super.onPause();
@@ -138,7 +138,7 @@ public class MainActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.menu_main_show_hidden_li).setChecked(mShowHiddenLastInteractionEntries);
+        menu.findItem(R.id.menu_main_show_hidden_li).setChecked(mFriendsViewModel.getShowHiddenLI().getValue());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -168,9 +168,9 @@ public class MainActivity
             }
 
             case R.id.menu_main_show_hidden_li: {
-                mShowHiddenLastInteractionEntries = !item.isChecked();
+                mFriendsViewModel.setShowHiddenLI(!item.isChecked());
 
-                item.setChecked(mShowHiddenLastInteractionEntries);
+                item.setChecked(mFriendsViewModel.getShowHiddenLI().getValue());
             }
 
             default:
