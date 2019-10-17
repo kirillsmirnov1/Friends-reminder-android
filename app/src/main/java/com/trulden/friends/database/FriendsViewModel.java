@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
@@ -29,6 +30,8 @@ public class FriendsViewModel extends AndroidViewModel {
     private LiveData<List<InteractionType>> mAllInteractionTypes;
     private LiveData<List<Interaction>> mAllInteractions;
 
+    private MutableLiveData<Boolean> mShowHiddenLI;
+
     private HashMap<String, HashSet<Integer>> mLITFSelections;
 
     public FriendsViewModel(@NonNull Application application) {
@@ -39,6 +42,8 @@ public class FriendsViewModel extends AndroidViewModel {
         mAllFriends = mRepository.getAllFriends();
         mAllInteractionTypes = mRepository.getAllInteractionTypes();
         mAllInteractions = mRepository.getAllInteractions();
+
+        mShowHiddenLI = new MutableLiveData<>();
 
         mLITFSelections = new HashMap<>();
     }
@@ -95,4 +100,12 @@ public class FriendsViewModel extends AndroidViewModel {
     }
 
     public void update(LastInteraction lastInteraction) { mRepository.update(lastInteraction); }
+
+    public LiveData<Boolean> getShowHiddenLI() {
+        return mShowHiddenLI;
+    }
+
+    public void setShowHiddenLI(boolean showHiddenLI) {
+        mShowHiddenLI.setValue(showHiddenLI);
+    }
 }
