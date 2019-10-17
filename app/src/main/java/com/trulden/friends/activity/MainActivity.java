@@ -32,27 +32,7 @@ import com.trulden.friends.util.Util;
 import java.util.HashSet;
 
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
-import static com.trulden.friends.util.Util.ACTION_DATABASE_EXPORT_FINISHED;
-import static com.trulden.friends.util.Util.ACTION_DATABASE_IMPORT_FINISHED;
-import static com.trulden.friends.util.Util.EXPORT_DATABASE_REQUEST;
-import static com.trulden.friends.util.Util.EXTRA_FRAGMENT_TO_LOAD;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
-import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
-import static com.trulden.friends.util.Util.NEW_FRIEND_REQUEST;
-import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
-import static com.trulden.friends.util.Util.NO_REQUEST;
-import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
-import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
-import static com.trulden.friends.util.Util.makeSnackbar;
-import static com.trulden.friends.util.Util.makeToast;
-import static com.trulden.friends.util.Util.wipeDatabaseFiles;
+import static com.trulden.friends.util.Util.*;
 
 /**
  * Holds {@link InteractionsFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
