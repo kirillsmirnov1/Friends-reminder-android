@@ -107,13 +107,17 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
             @Override
             public void onItemClick(View view, LastInteractionWrapper obj, int pos) {
                 if(mAdapter.getSelectedItemCount() > 0){
-                    enableActionMode(pos);
+                    toggleSelection(pos);
                 }
             }
 
             @Override
             public void onItemLongClick(View view, LastInteractionWrapper obj, int pos) {
-                enableActionMode(pos);
+                if(mAdapter.getSelectedItemCount() > 0){
+                    toggleSelection(pos);
+                } else {
+                    enableActionMode(pos);
+                }
             }
         });
 
