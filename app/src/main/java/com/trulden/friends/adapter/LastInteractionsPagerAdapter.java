@@ -37,7 +37,16 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     @NonNull
     public Fragment getItem(int position) {
-        String typeName = types.get(position).getInteractionTypeName();
+        String typeName;
+
+        // In some cases there might be incorrect input
+        // Better look up into it, but for now, this handles the situation
+        // FIXME
+        if(types != null && types.size() > position){
+            typeName = types.get(position).getInteractionTypeName();
+        } else {
+            typeName = "";
+        }
 
         return LastInteractionsTabFragment.newInstance(typeName, lastInteractionsMap.get(typeName));
     }
