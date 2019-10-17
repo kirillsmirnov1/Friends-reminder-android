@@ -2,6 +2,7 @@ package com.trulden.friends.activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
@@ -45,10 +47,14 @@ public class MainActivity
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
-    private static boolean mShowHiddenLastInteractionEntries = false;
+
+    private static final String SHOW_HIDDEN_LAST_INTERACTION_ENTRIES = "SHOW_HIDDEN_LAST_INTERACTION_ENTRIES";
+    private static boolean mShowHiddenLastInteractionEntries;
 
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
+
+    private SharedPreferences mPreferences;
 
     private FriendsViewModel mFriendsViewModel;
 
@@ -59,6 +65,10 @@ public class MainActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE);
+
+        mShowHiddenLastInteractionEntries = mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false);
 
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
@@ -97,6 +107,16 @@ public class MainActivity
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        mPreferences
+            .edit()
+            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mShowHiddenLastInteractionEntries)
+            .apply();
+
+        super.onPause();
     }
 
     @Override
