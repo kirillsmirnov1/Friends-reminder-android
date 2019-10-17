@@ -73,7 +73,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
 
                 initTabsAndPageViewer(view);
 
-                mFriendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
+                mFriendsViewModel.getAllLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
                         .observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
                     @Override
                     public void onChanged(List<LastInteractionWrapper> lastInteractions) {

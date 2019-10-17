@@ -134,7 +134,7 @@ public interface FriendsDao {
      */
     @Transaction
     @Query("SELECT * FROM last_interaction_table ORDER BY date ASC")
-    LiveData<List<LastInteractionWrapper>> getLastInteractions();
+    LiveData<List<LastInteractionWrapper>> getAllLastInteractions();
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
