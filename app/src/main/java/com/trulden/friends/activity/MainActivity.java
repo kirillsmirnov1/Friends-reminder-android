@@ -146,10 +146,6 @@ public class MainActivity
                 item.setChecked(checkedStatus);
             }
 
-//            case R.id.refresh_li: {
-//                mFriendsViewModel.refreshLastInteractions();
-//            }
-
             default:
                 return super.onOptionsItemSelected(item);
         }
