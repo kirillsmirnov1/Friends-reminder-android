@@ -138,8 +138,8 @@ public class MainActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.menu_main_show_hidden_li).setChecked(mViewModel.getShowHiddenLIValue());
-        menu.findItem(R.id.menu_main_show_hidden_li).setVisible(mFragmentToLoad == FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
+        menu.findItem(R.id.mm_show_hidden_li).setChecked(mViewModel.getShowHiddenLIValue());
+        menu.findItem(R.id.mm_show_hidden_li).setVisible(mFragmentToLoad == FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -150,17 +150,17 @@ public class MainActivity
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
-            case R.id.menu_main_export_database: {
+            case R.id.mm_export_database: {
                 onClickExportDatabase();
                 return true;
             }
 
-            case R.id.menu_main_import_database: {
+            case R.id.mm_import_database: {
                 onClickImportDatabase();
                 return true;
             }
 
-            case R.id.menu_main_interaction_types: {
+            case R.id.mm_interaction_types: {
 
                 saveSelectedLastInteractionTab();
 
@@ -168,7 +168,7 @@ public class MainActivity
                 startActivityForResult(intent, NO_REQUEST);
             }
 
-            case R.id.menu_main_show_hidden_li: {
+            case R.id.mm_show_hidden_li: {
                 mViewModel.setShowHiddenLI(!item.isChecked());
 
                 item.setChecked(mViewModel.getShowHiddenLIValue());

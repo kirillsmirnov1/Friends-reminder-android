@@ -13,28 +13,28 @@
 
     <item
         android:orderInCategory="8"
-        android:id="@+id/menu_main_show_hidden_li"
+        android:id="@+id/mm_show_hidden_li"
         android:title="@string/show_hidden_li_entries"
         app:showAsAction="never"
         android:checkable="true"
         />
 
     <item
-        android:id="@+id/menu_main_interaction_types"
+        android:id="@+id/mm_interaction_types"
         android:title="@string/manage_interaction_types"
         android:orderInCategory="9"
         app:showAsAction="never"
         />
 
     <item
-        android:id="@+id/menu_main_export_database"
+        android:id="@+id/mm_export_database"
         android:title="@string/export_database"
         android:orderInCategory="10"
         app:showAsAction="never"
         />
 
     <item
-        android:id="@+id/menu_main_import_database"
+        android:id="@+id/mm_import_database"
         android:title="@string/import_database"
         android:orderInCategory="20"
         app:showAsAction="never"
