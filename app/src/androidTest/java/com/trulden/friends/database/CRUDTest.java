@@ -184,8 +184,6 @@ public class CRUDTest extends AbstractTest {
 
         onView(withId(R.id.msed_edit)).perform(click());
 
-        // TODO check replace with name of some other friend
-
         onView(withText(oldFriend.getName()))
                 .perform(replaceText(newFriend.getName()));
         onView(withText(oldFriend.getInfo()))
