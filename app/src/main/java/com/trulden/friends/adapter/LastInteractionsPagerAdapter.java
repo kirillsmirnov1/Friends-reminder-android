@@ -39,9 +39,8 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         String typeName;
 
-        // In some cases there might be incorrect input
+        // In some tests there might be incorrect input
         // Better look up into it, but for now, this handles the situation
-        // FIXME
         if(types != null && types.size() > position){
             typeName = types.get(position).getInteractionTypeName();
         } else {
