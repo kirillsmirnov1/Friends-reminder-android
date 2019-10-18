@@ -42,8 +42,6 @@ public class CRUDTest extends AbstractTest {
         onView(withId(R.id.aef_edit_info)).perform(typeText(newFriend.getInfo()));
         clickSaveOnActionBar();
 
-        //TODO checkIfToastAppeared("«David» is created");
-
         openFriends();
 
         onView(withText(newFriend.getName())).perform(click());
