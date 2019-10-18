@@ -98,7 +98,7 @@ public class CRUDTest extends AbstractTest {
         onView(withId(R.id.aei_edit_comment))
                 .perform(replaceText("Death to everybody"), closeSoftKeyboard());
 
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         onView(withText("You don't have friend named «Baron»"))
                 .check(matches(isDisplayed()));
@@ -127,7 +127,7 @@ public class CRUDTest extends AbstractTest {
         onView(allOf(withId(R.id.eli_time_passed), isDisplayed(), hasSibling(withText("Aaron"))))
                 .check(matches(withText("0 d. ago")));
 
-        onView(withId(R.id.menu_bot_nav_interactions)).perform(click());
+        onView(withId(R.id.mbn_interactions)).perform(click());
 
         onView(allOf(withSubstring("Aaron"),withSubstring("Goliath")))
                 .check(matches(allOf(
@@ -148,7 +148,7 @@ public class CRUDTest extends AbstractTest {
 
         openTypes();
 
-        onView(withId(R.id.menu_add_add)).perform(click());
+        onView(withId(R.id.ma_add)).perform(click());
 
         onView(withText(R.string.new_interaction_type)).check(matches(isDisplayed()));
 
@@ -170,7 +170,7 @@ public class CRUDTest extends AbstractTest {
 
         navigateUp();
 
-        onView(withId(R.id.menu_bot_nav_last_interactions)).perform(click());
+        onView(withId(R.id.mbn_last_interactions)).perform(click());
 
         onView(withText(call)).check(matches(isDisplayed()));
     }
@@ -184,7 +184,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText(oldFriend.getName())).perform(longClick());
 
-        onView(withId(R.id.menu_selection_edit)).perform(click());
+        onView(withId(R.id.msed_edit)).perform(click());
 
         // TODO check replace with name of some other friend
 
@@ -193,7 +193,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText(oldFriend.getInfo()))
                 .perform(replaceText(newFriend.getInfo()));
 
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         onView(withText(oldFriend.getName())).check(doesNotExist());
 
@@ -202,7 +202,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText(newFriend.getInfo())).check(matches(isDisplayed()))
                 .perform(pressBack());
 
-        onView(withId(R.id.menu_bot_nav_interactions)).perform(click());
+        onView(withId(R.id.mbn_interactions)).perform(click());
 
         onView(withText("A + B")).check(matches(allOf(
                 hasSibling(withSubstring(newFriend.getName())),
@@ -210,7 +210,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withSubstring(oldFriend.getName())).check(doesNotExist());
 
-        onView(withId(R.id.menu_bot_nav_last_interactions)).perform(click());
+        onView(withId(R.id.mbn_last_interactions)).perform(click());
 
         onView(withText(newFriend.getName())).check(matches(isDisplayed()));
 
@@ -229,7 +229,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText("A + B")).perform(longClick());
 
-        onView(withId(R.id.menu_selection_edit)).perform(click());
+        onView(withId(R.id.msed_edit)).perform(click());
 
         sleep(250);
 
@@ -246,7 +246,7 @@ public class CRUDTest extends AbstractTest {
         onView(withId(R.id.aei_edit_comment))
                 .perform(click(), typeText(" + C"));
 
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         onView(withText("A + B + C")).check(matches(allOf(
                 hasSibling(allOf(
@@ -285,7 +285,7 @@ public class CRUDTest extends AbstractTest {
 
         openTypes();
         onView(withText("Meeting")).perform(longClick());
-        onView(withId(R.id.menu_selection_edit)).perform(click());
+        onView(withId(R.id.msed_edit)).perform(click());
 
         onView(withId(R.id.deit_frequency))
                 .perform(replaceText("29"));
@@ -309,7 +309,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText(aaron)).perform(longClick());
         onView(withText(balaam)).perform(click());
 
-        onView(withId(R.id.menu_selection_delete)).perform(click());
+        onView(withId(R.id.msed_delete)).perform(click());
 
         onView(withText(aaron)).check(doesNotExist());
         onView(withText(balaam)).check(doesNotExist());
@@ -354,7 +354,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText("A + B")).perform(longClick());
         onView(withText("B + C")).perform(click());
 
-        onView(withId(R.id.menu_selection_delete)).perform(click());
+        onView(withId(R.id.msed_delete)).perform(click());
 
         onView(withText("A + B")).check(doesNotExist());
         onView(withText("B + C")).check(doesNotExist());
@@ -375,7 +375,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText(meeting)).perform(longClick());
 
-        onView(withId(R.id.menu_selection_delete)).perform(click());
+        onView(withId(R.id.msed_delete)).perform(click());
 
         navigateUp();
 

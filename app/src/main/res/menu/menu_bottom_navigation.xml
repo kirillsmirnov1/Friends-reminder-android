@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_bot_nav_interactions"
+        android:id="@+id/mbn_interactions"
         android:title="@string/log"
         android:icon="@drawable/ic_list_black"
         android:orderInCategory="1"
         />
 
     <item
-        android:id="@+id/menu_bot_nav_last_interactions"
+        android:id="@+id/mbn_last_interactions"
         android:title="@string/last_interactions"
         android:icon="@drawable/ic_schedule_black"
         android:orderInCategory="2"
         />
 
     <item
-        android:id="@+id/menu_bot_nav_friends"
+        android:id="@+id/mbn_friends"
         android:title="@string/friends"
         android:icon="@drawable/ic_people_black"
         android:orderInCategory="3"

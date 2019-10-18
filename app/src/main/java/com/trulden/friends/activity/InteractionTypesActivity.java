@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.adapter.InteractionTypeAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
@@ -32,7 +32,7 @@ import java.util.List;
 public class InteractionTypesActivity
         extends AppCompatActivity
         implements
-            ActivityWithSelection,
+        EditAndDeleteSelection,
             EditInteractionType {
 
     private FriendsViewModel mFriendsViewModel;
@@ -107,7 +107,7 @@ public class InteractionTypesActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.menu_add_add: {
+            case R.id.ma_add: {
                 new EditInteractionTypeDialog(null).show(getSupportFragmentManager(), "editInteractionTypeDialog");
                 return true;
             }
@@ -121,14 +121,16 @@ public class InteractionTypesActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void enableActionMode(int pos){
+    @Override
+    public void enableActionMode(int pos){
         if(mActionMode == null){
             mActionMode = startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
 
-    private void toggleSelection(int pos) {
+    @Override
+    public void toggleSelection(int pos) {
         if(pos != -1) {
             mInteractionTypeAdapter.toggleSelection(pos);
         }
@@ -142,9 +144,9 @@ public class InteractionTypesActivity
             mActionMode.invalidate();
 
             if(count == 1){
-                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(true);
+                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(true);
             } else {
-                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(false);
+                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(false);
             }
 
         }

@@ -231,7 +231,7 @@ public class EditInteractionActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.menu_save_save: {
+            case R.id.ms_save: {
                 mSaveHandler.startCheckingFriends();
                 return true;
             }

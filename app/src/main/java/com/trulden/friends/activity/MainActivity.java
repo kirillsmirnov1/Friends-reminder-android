@@ -2,6 +2,7 @@ package com.trulden.friends.activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,8 +20,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.FriendsViewModel;
@@ -32,27 +34,7 @@ import com.trulden.friends.util.Util;
 import java.util.HashSet;
 
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
-import static com.trulden.friends.util.Util.ACTION_DATABASE_EXPORT_FINISHED;
-import static com.trulden.friends.util.Util.ACTION_DATABASE_IMPORT_FINISHED;
-import static com.trulden.friends.util.Util.EXPORT_DATABASE_REQUEST;
-import static com.trulden.friends.util.Util.EXTRA_FRAGMENT_TO_LOAD;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
-import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
-import static com.trulden.friends.util.Util.NEW_FRIEND_REQUEST;
-import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
-import static com.trulden.friends.util.Util.NO_REQUEST;
-import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
-import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
-import static com.trulden.friends.util.Util.makeSnackbar;
-import static com.trulden.friends.util.Util.makeToast;
-import static com.trulden.friends.util.Util.wipeDatabaseFiles;
+import static com.trulden.friends.util.Util.*;
 
 /**
  * Holds {@link InteractionsFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
@@ -66,10 +48,14 @@ public class MainActivity
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
 
+    private static final String SHOW_HIDDEN_LAST_INTERACTION_ENTRIES = "SHOW_HIDDEN_LAST_INTERACTION_ENTRIES";
+
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
 
-    private FriendsViewModel mFriendsViewModel;
+    private SharedPreferences mPreferences;
+
+    private FriendsViewModel mViewModel;
 
     private CustomBroadcastReceiver mReceiver;
     private Fragment mFragment;
@@ -79,7 +65,12 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE);
+
+        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+
+        mViewModel.setShowHiddenLI(
+                mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -97,13 +88,13 @@ public class MainActivity
         if(savedInstanceState == null) {
             switch (mFragmentToLoad){
                 case INTERACTIONS_FRAGMENT:
-                    findViewById(R.id.menu_bot_nav_interactions).performClick();
+                    findViewById(R.id.mbn_interactions).performClick();
                     break;
                 case LAST_INTERACTIONS_FRAGMENT:
-                    findViewById(R.id.menu_bot_nav_last_interactions).performClick();
+                    findViewById(R.id.mbn_last_interactions).performClick();
                     break;
                 case FRIENDS_FRAGMENT:
-                    findViewById(R.id.menu_bot_nav_friends).performClick();
+                    findViewById(R.id.mbn_friends).performClick();
                     break;
             }
         }
@@ -116,6 +107,16 @@ public class MainActivity
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        mPreferences
+            .edit()
+            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mViewModel.getShowHiddenLIValue())
+            .apply();
+
+        super.onPause();
     }
 
     @Override
@@ -136,23 +137,30 @@ public class MainActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.mm_show_hidden_li).setChecked(mViewModel.getShowHiddenLIValue());
+        menu.findItem(R.id.mm_show_hidden_li).setVisible(mFragmentToLoad == FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
-            case R.id.menu_main_export_database: {
+            case R.id.mm_export_database: {
                 onClickExportDatabase();
                 return true;
             }
 
-            case R.id.menu_main_import_database: {
+            case R.id.mm_import_database: {
                 onClickImportDatabase();
                 return true;
             }
 
-            case R.id.menu_main_interaction_types: {
+            case R.id.mm_interaction_types: {
 
                 saveSelectedLastInteractionTab();
 
@@ -160,9 +168,11 @@ public class MainActivity
                 startActivityForResult(intent, NO_REQUEST);
             }
 
-//            case R.id.refresh_li: {
-//                mFriendsViewModel.refreshLastInteractions();
-//            }
+            case R.id.mm_show_hidden_li: {
+                mViewModel.setShowHiddenLI(!item.isChecked());
+
+                item.setChecked(mViewModel.getShowHiddenLIValue());
+            }
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -193,8 +203,8 @@ public class MainActivity
 
         saveSelectedLastInteractionTab();
 
-        if(mFragment instanceof ActivityWithSelection){
-            ((ActivityWithSelection) mFragment ).finishActionMode();
+        if(mFragment instanceof SelectionHandler){
+            ((SelectionHandler) mFragment ).finishActionMode();
         }
 
         Intent intent = new Intent(this, EditFriendActivity.class);
@@ -206,8 +216,8 @@ public class MainActivity
 
         saveSelectedLastInteractionTab();
 
-        if(mFragment instanceof ActivityWithSelection){
-            ((ActivityWithSelection) mFragment ).finishActionMode();
+        if(mFragment instanceof SelectionHandler){
+            ((SelectionHandler) mFragment ).finishActionMode();
         }
 
         Intent intent = new Intent(this, EditInteractionActivity.class);
@@ -236,7 +246,7 @@ public class MainActivity
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
-                    mFriendsViewModel.add(getInteractionFromIntent(resultingIntent), friendsIds);
+                    mViewModel.add(getInteractionFromIntent(resultingIntent), friendsIds);
                 }
                 break;
             }
@@ -246,21 +256,21 @@ public class MainActivity
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
-                    mFriendsViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
+                    mViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
                 }
                 break;
             }
 
             case NEW_FRIEND_REQUEST:{
                 if(resultCode == RESULT_OK && resultingIntent != null) {
-                    mFriendsViewModel.add(getFriendFromIntent(resultingIntent));
+                    mViewModel.add(getFriendFromIntent(resultingIntent));
                 }
                 break;
             }
 
             case UPDATE_FRIEND_REQUEST: {
                 if(resultCode == RESULT_OK && resultingIntent != null) {
-                        mFriendsViewModel.update(getFriendFromIntent(resultingIntent));
+                        mViewModel.update(getFriendFromIntent(resultingIntent));
                 }
 
                 break;
@@ -376,14 +386,14 @@ public class MainActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.menu_bot_nav_interactions: {
+            case R.id.mbn_interactions: {
                 saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
             }
-            case R.id.menu_bot_nav_last_interactions: {
+            case R.id.mbn_last_interactions: {
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
             }
-            case R.id.menu_bot_nav_friends: {
+            case R.id.mbn_friends: {
                 saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
             }

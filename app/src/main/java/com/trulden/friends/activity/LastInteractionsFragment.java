@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
@@ -31,17 +33,18 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Holds {@link LastInteractionsTabFragment}.
  */
-public class LastInteractionsFragment extends Fragment {
+public class LastInteractionsFragment extends Fragment implements SelectionHandler {
 
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
 
     private List<InteractionType> types = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
     private TabLayout mTabLayout;
     private LastInteractionsPagerAdapter mPagerAdapter;
+    private ViewPager mViewPager;
 
     public LastInteractionsFragment() {
         // Fragments require public constructor with no args
@@ -59,9 +62,11 @@ public class LastInteractionsFragment extends Fragment {
     public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
+        mViewPager = view.findViewById(R.id.fli_view_pager);
+
+        mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 types = interactionTypes;
@@ -72,39 +77,46 @@ public class LastInteractionsFragment extends Fragment {
 
                 initTabsAndPageViewer(view);
 
-                mFriendsViewModel.getLastInteractions(/*Calendar.getInstance().getTimeInMillis()*/)
-                        .observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
+                mViewModel.getShowHiddenLI().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override
-                    public void onChanged(List<LastInteractionWrapper> lastInteractions) {
+                    public void onChanged(Boolean showHiddenLI) {
+                        LiveData<List<LastInteractionWrapper>> lastInteractions =
+                            showHiddenLI
+                            ? mViewModel.getAllLastInteractions()
+                            : mViewModel.getVisibleLastInteractions();
 
-                        for(InteractionType type : types){
-                            Objects.requireNonNull(
-                                    lastInteractionsMap.get(type.getInteractionTypeName())).clear();
-                            counterMap.put(type.getInteractionTypeName(), 0);
-                        }
-
-                        for(LastInteractionWrapper interaction : lastInteractions){
-                            String currentType = interaction.getType().getInteractionTypeName();
-
-                            Objects.requireNonNull(
-                                    lastInteractionsMap.get(currentType)).add(interaction);
-
-                            if(interaction.itsTime()){
-                                counterMap.put(currentType, counterMap.get(currentType) + 1);
+                        lastInteractions.observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
+                                    @Override
+                                    public void onChanged(List<LastInteractionWrapper> lastInteractions) {
+                            for(InteractionType type : types){
+                                Objects.requireNonNull(
+                                        lastInteractionsMap.get(type.getInteractionTypeName())).clear();
+                                counterMap.put(type.getInteractionTypeName(), 0);
                             }
-                        }
 
-                        for(int i = 0; i < types.size(); ++i){
-                            ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
-                                    .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
-                        }
+                            for(LastInteractionWrapper interaction : lastInteractions){
+                                String currentType = interaction.getType().getInteractionTypeName();
 
-                        mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
-                        mPagerAdapter.notifyDataSetChanged();
+                                Objects.requireNonNull(
+                                        lastInteractionsMap.get(currentType)).add(interaction);
+
+                                if(interaction.itsTime()){
+                                    counterMap.put(currentType, counterMap.get(currentType) + 1);
+                                }
+                            }
+
+                            for(int i = 0; i < types.size(); ++i){
+                                ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
+                                        .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
+                            }
+
+                            mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
+                            mPagerAdapter.notifyDataSetChanged();
+                        }
+                    });
+
                     }
                 });
-
-
             }
         });
     }
@@ -141,11 +153,14 @@ public class LastInteractionsFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
+                for(int i = 0; i < types.size(); ++i){
+                    getTabFragment(i).finishActionMode();
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -187,4 +202,29 @@ public class LastInteractionsFragment extends Fragment {
         editor.apply();
     }
 
+    @Override
+    public void onDetach() {
+        if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.LAST_INTERACTIONS_FRAGMENT) {
+            getTabFragment().finishActionMode();
+        }
+        super.onDetach();
+    }
+
+    @Override
+    public void finishActionMode() {
+        getTabFragment().finishActionMode();
+    }
+
+    @Override
+    public void nullifyActionMode() {
+        getTabFragment().nullifyActionMode();
+    }
+
+    private LastInteractionsTabFragment getTabFragment(int pos){
+        return (LastInteractionsTabFragment) mPagerAdapter.instantiateItem(mViewPager, pos);
+    }
+
+    private LastInteractionsTabFragment getTabFragment(){
+        return getTabFragment(mTabLayout.getSelectedTabPosition());
+    }
 }

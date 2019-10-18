@@ -35,7 +35,7 @@ public class TabTest  extends AbstractTest {
 
         onView(first(withId(R.id.eli_layout))).check(matches(not(isDisplayed())));
 
-        onView(withId(R.id.menu_bot_nav_friends)).perform(click());
+        onView(withId(R.id.mbn_friends)).perform(click());
 
         openLastInteractions();
 

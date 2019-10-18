@@ -45,20 +45,20 @@ public abstract class AbstractTest {
     }
 
     protected void openLog() {
-        onView(withId(R.id.menu_bot_nav_interactions)).perform(click());
+        onView(withId(R.id.mbn_interactions)).perform(click());
     }
 
     protected void openLastInteractions(){
-        onView(withId(R.id.menu_bot_nav_last_interactions)).perform(click());
+        onView(withId(R.id.mbn_last_interactions)).perform(click());
     }
 
     protected void openFriends() {
-        onView(withId(R.id.menu_bot_nav_friends)).perform(click());
+        onView(withId(R.id.mbn_friends)).perform(click());
     }
 
     protected void openTypes() {
 
-        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        openOverflow();
 
         sleep(250);
 
@@ -102,11 +102,11 @@ public abstract class AbstractTest {
     }
 
     protected void editSelection() {
-        onView(withId(R.id.menu_selection_edit)).perform(click());
+        onView(withId(R.id.msed_edit)).perform(click());
     }
 
     protected void clickSaveOnActionBar() {
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
     }
 
     protected void navigateUp() {
@@ -138,6 +138,10 @@ public abstract class AbstractTest {
                 .inAdapterView(withClassName(is("androidx.appcompat.widget.DropDownListView")))
                 .atPosition(pos)
                 .perform(click());
+    }
+
+    protected void openOverflow(){
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
     }
 
     protected static Matcher<View> childAtPosition(

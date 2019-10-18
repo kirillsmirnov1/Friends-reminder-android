@@ -35,7 +35,7 @@ public class LastInteractionTest extends AbstractTest {
 
         onView(withId(R.id.aei_edit_friends)).perform(typeText("Aaron, Caleb"));
 
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         onView(withText("Balaam")).check(matches(hasSibling(withText("29 d. ago"))));
         onView(withText("Aaron")).check(matches(hasSibling(withText("0 d. ago"))));
@@ -54,7 +54,7 @@ public class LastInteractionTest extends AbstractTest {
 
         onView(withId(R.id.aei_edit_friends)).perform(typeText("Aaron, Balaam"));
 
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         onView(withText("Balaam")).check(matches(hasSibling(withText("1 d. ago"))));
         onView(withText("Aaron")).check(matches(hasSibling(withText("0 d. ago"))));
@@ -71,7 +71,7 @@ public class LastInteractionTest extends AbstractTest {
         openLog();
 
         onView(withText("A + B")).perform(longClick());
-        onView(withId(R.id.menu_selection_delete)).perform(click());
+        onView(withId(R.id.msed_delete)).perform(click());
 
         openLastInteractions();
 
@@ -82,7 +82,7 @@ public class LastInteractionTest extends AbstractTest {
         openLog();
 
         onView(withText("B + C")).perform(longClick());
-        onView(withId(R.id.menu_selection_delete)).perform(click());
+        onView(withId(R.id.msed_delete)).perform(click());
 
         openLastInteractions();
 
