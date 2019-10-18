@@ -3,7 +3,7 @@ package com.trulden.friends.activity.interfaces;
 /**
  * Interface with edit/delete selection and finishActionMode methods
  */
-public interface ActivityWithSelection {
+public interface EditAndDeleteSelection extends BasicSelection {
     /**
      * Open editing activity for selected item.
      * Must work only when one item selected
@@ -14,14 +14,4 @@ public interface ActivityWithSelection {
      * Delete selected items
      */
     void deleteSelection();
-
-    /**
-     * Should call mActionMode.finish()
-     */
-    void finishActionMode();
-
-    /**
-     * Set actionMode = null
-     */
-    void nullifyActionMode();
 }

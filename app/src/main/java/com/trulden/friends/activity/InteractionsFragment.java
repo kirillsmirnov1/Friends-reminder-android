@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.adapter.InteractionsAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -43,7 +43,7 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Holds selectable {@link Interaction} entries.
  */
-public class InteractionsFragment extends Fragment implements ActivityWithSelection {
+public class InteractionsFragment extends Fragment implements EditAndDeleteSelection {
     private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mFriendsViewModel;
@@ -140,14 +140,16 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
             enableActionMode(-1);
     }
 
-    private void enableActionMode(int pos) {
+    @Override
+    public void enableActionMode(int pos) {
         if(mActionMode == null){
             mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mSelectionCallback);
         }
         toggleSelection(pos);
     }
 
-    private void toggleSelection(int pos) {
+    @Override
+    public void toggleSelection(int pos) {
         if(pos != -1) {
             mInteractionsAdapter.toggleSelection(pos);
         }
@@ -161,9 +163,9 @@ public class InteractionsFragment extends Fragment implements ActivityWithSelect
             mActionMode.invalidate();
 
             if(count == 1){
-                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(true);
+                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(true);
             } else {
-                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(false);
+                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(false);
             }
 
         }

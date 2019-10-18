@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
-import com.trulden.friends.activity.interfaces.ActivityWithSelection;
+import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.adapter.FriendsAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -37,7 +37,7 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Shows list of selectable friends.
  */
-public class FriendsFragment extends Fragment implements ActivityWithSelection{
+public class FriendsFragment extends Fragment implements EditAndDeleteSelection {
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
     private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
@@ -48,7 +48,7 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
-    private HashSet<Integer> selectedFriendsPositions = new HashSet<>();
+    private HashSet<Integer> mSelectedPositions = new HashSet<>();
 
     public FriendsFragment() {
         // Fragments require public constructor with no args
@@ -69,11 +69,11 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_FRIENDS_POSITIONS)){
-            selectedFriendsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
+            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.ff_recycler_view);
-        mFriendsAdapter = new FriendsAdapter(getActivity(), selectedFriendsPositions);
+        mFriendsAdapter = new FriendsAdapter(getActivity(), mSelectedPositions);
         recyclerView.setAdapter(mFriendsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -110,17 +110,18 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
 
         mSelectionCallback = new SelectionCallback(this, mFriendsAdapter);
 
-        if(selectedFriendsPositions.size() > 0)
+        if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_FRIENDS_POSITIONS, selectedFriendsPositions);
+        outState.putSerializable(SELECTED_FRIENDS_POSITIONS, mSelectedPositions);
     }
 
-    private void enableActionMode(int pos) {
+    @Override
+    public void enableActionMode(int pos) {
         if(mActionMode == null){
             mActionMode = ((AppCompatActivity) Objects.requireNonNull(getActivity()))
                     .startSupportActionMode(mSelectionCallback);
@@ -128,7 +129,8 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
         toggleSelection(pos);
     }
 
-    private void toggleSelection(int pos) {
+    @Override
+    public void toggleSelection(int pos) {
         if(pos != -1) {
             mFriendsAdapter.toggleSelection(pos);
         }
@@ -142,9 +144,9 @@ public class FriendsFragment extends Fragment implements ActivityWithSelection{
             mActionMode.invalidate();
 
             if(count == 1){
-                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(true);
+                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(true);
             } else {
-                mActionMode.getMenu().findItem(R.id.menu_selection_edit).setVisible(false);
+                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(false);
             }
 
         }

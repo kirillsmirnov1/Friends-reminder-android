@@ -1,5 +1,7 @@
 package com.trulden.friends.adapter;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,14 +25,30 @@ public class LastInteractionsPagerAdapter extends FragmentStatePagerAdapter {
     public LastInteractionsPagerAdapter(
             FragmentManager fm, List<InteractionType> types,
             HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap) {
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.types = types;
         this.lastInteractionsMap = lastInteractionsMap;
     }
 
+    /**
+     * Used only to create new instance of fragment.
+     * For getting existing instance use {@link FragmentStatePagerAdapter#instantiateItem(ViewGroup, int) instantiateItem}.
+     */
     @Override
+    @NonNull
     public Fragment getItem(int position) {
-        return LastInteractionsTabFragment.newInstance(lastInteractionsMap.get(types.get(position).getInteractionTypeName()));
+        String typeName;
+
+        // In some cases there might be incorrect input
+        // Better look up into it, but for now, this handles the situation
+        // FIXME
+        if(types != null && types.size() > position){
+            typeName = types.get(position).getInteractionTypeName();
+        } else {
+            typeName = "";
+        }
+
+        return LastInteractionsTabFragment.newInstance(typeName, lastInteractionsMap.get(typeName));
     }
 
     @Override

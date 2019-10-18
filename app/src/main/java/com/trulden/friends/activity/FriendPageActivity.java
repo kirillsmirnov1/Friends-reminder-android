@@ -62,7 +62,7 @@ public class FriendPageActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_selection, menu);
+        getMenuInflater().inflate(R.menu.menu_selection_edit_delete, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -70,7 +70,7 @@ public class FriendPageActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.menu_selection_edit: {
+            case R.id.msed_edit: {
                 Intent intent = new Intent(this, EditFriendActivity.class);
 
                 intent.putExtra(EXTRA_FRIEND_ID, mFriend.getId());
@@ -81,7 +81,7 @@ public class FriendPageActivity extends AppCompatActivity {
                 break;
             }
 
-            case R.id.menu_selection_delete: {
+            case R.id.msed_delete: {
                 mFriendsViewModel.delete(mFriend);
                 makeToast(this, "«" + mFriend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
                 finish();

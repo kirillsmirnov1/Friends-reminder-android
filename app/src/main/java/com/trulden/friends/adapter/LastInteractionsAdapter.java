@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
+import java.util.HashSet;
+
 import static com.trulden.friends.util.Util.daysPassed;
 
 /**
@@ -24,9 +27,8 @@ import static com.trulden.friends.util.Util.daysPassed;
  */
 public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteractionWrapper> {
 
-    public LastInteractionsAdapter(Context context){
-        //noinspection ConstantConditions
-        super(context, null);
+    public LastInteractionsAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
+        super(context, selectedPositions);
         mContext = context;
     }
 
@@ -42,19 +44,27 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
         private TextView mName;
         private TextView mTime;
+        private ImageView mHiddenIcon;
 
-        private RelativeLayout layout;
+        private RelativeLayout mLayout;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mName = itemView.findViewById(R.id.eli_friend_name);
             mTime = itemView.findViewById(R.id.eli_time_passed);
+            mHiddenIcon = itemView.findViewById(R.id.eli_hidden_icon);
 
-            layout = itemView.findViewById(R.id.eli_layout);
+            mLayout = itemView.findViewById(R.id.eli_layout);
         }
 
-        public void bindTo(final LastInteractionWrapper interaction, int pos) {
+        public void bindTo(final LastInteractionWrapper interaction, final int pos) {
+
+            if(interaction.getLastInteraction().getStatus() == 1){
+                mHiddenIcon.setVisibility(View.VISIBLE);
+            } else {
+                mHiddenIcon.setVisibility(View.INVISIBLE);
+            }
 
             mName.setText(interaction.getFriendName());
 
@@ -66,8 +76,35 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
 
             // Grey out LI for which time have not yet come
             if(!interaction.itsTime()) {
-                layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_grey));
+                mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_grey));
+            } else {
+                mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background));
             }
+
+            mLayout.setActivated(mSelectedPositions.contains(pos));
+
+            mLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mOnClickListener == null) {
+                        return;
+                    }
+
+                    mOnClickListener.onItemClick(view, interaction, pos);
+                }
+            });
+
+            mLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(mOnClickListener == null) {
+                        return false;
+                    }
+
+                    mOnClickListener.onItemLongClick(view, interaction, pos);
+                    return true;
+                }
+            });
         }
     }
 }

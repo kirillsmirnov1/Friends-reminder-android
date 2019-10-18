@@ -72,4 +72,9 @@ public class LastInteractionWrapper implements Entity {
     public void setTypes(List<InteractionType> types) {
         this.types = types;
     }
+
+    public enum LastInteractionStatus{
+        DEFAULT, // Always should be first because 0 is default value for status column
+        HIDDEN
+    }
 }
