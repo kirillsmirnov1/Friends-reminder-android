@@ -44,6 +44,9 @@ public interface FriendsDao {
     @Update
     void update(Friend friend);
 
+    @Query("DELETE FROM friend_table;")
+    void wipeFriends();
+
     // -----------------------------------------
     // InteractionType
     // -----------------------------------------
@@ -173,9 +176,6 @@ public interface FriendsDao {
     List<Long> getLIstatus(long typeId, long friendId);
 
     // TODO clean up
-
-    @Query("DELETE FROM friend_table;")
-    void wipeFriends();
 
     @Query("DELETE FROM interaction_type_table;")
     void wipeTypes();
