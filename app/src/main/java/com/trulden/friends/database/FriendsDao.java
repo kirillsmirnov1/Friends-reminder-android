@@ -128,6 +128,9 @@ public interface FriendsDao {
     @Query("SELECT COUNT(interactionId) FROM bind_friend_interaction_table WHERE interactionId = :interactionId")
     int getNumberOfInteractionBinds(long interactionId);
 
+    @Query("DELETE FROM bind_friend_interaction_table")
+    void wipeBinds();
+
     // -----------------------------------------
     // LastInteraction
     // -----------------------------------------
@@ -182,9 +185,6 @@ public interface FriendsDao {
     List<Long> getLIstatus(long typeId, long friendId);
 
     // TODO clean up
-
-    @Query("DELETE FROM bind_friend_interaction_table")
-    void wipeBinds();
 
     @Transaction
     @Query(
