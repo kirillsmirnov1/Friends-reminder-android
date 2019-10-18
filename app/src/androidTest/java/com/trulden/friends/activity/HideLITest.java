@@ -3,6 +3,9 @@ package com.trulden.friends.activity;
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
 
+import junit.framework.AssertionFailedError;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.*;
@@ -12,6 +15,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
 public class HideLITest extends AbstractTest {
+
+    @Before
+    public void before(){
+        openLastInteractions();
+    }
 
     @Test
     public void hideEntriesTest(){
