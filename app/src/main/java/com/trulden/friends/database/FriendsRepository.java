@@ -366,9 +366,14 @@ class FriendsRepository {
                 oldLastInteraction = null;
             }
 
-            long status = oldLastInteraction == null ? 0 : oldLastInteraction.getStatus();
+            long status;
 
-            mFriendsDao.delete(oldLastInteraction);
+            if(oldLastInteraction == null){
+                status = 0;
+            } else {
+                status =  oldLastInteraction.getStatus();
+                mFriendsDao.delete(oldLastInteraction);
+            }
 
             calculateLastInteraction(typeId, friendId, status);
         }
