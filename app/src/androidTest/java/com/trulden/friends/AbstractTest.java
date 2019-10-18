@@ -58,7 +58,7 @@ public abstract class AbstractTest {
 
     protected void openTypes() {
 
-        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        openOverflow();
 
         sleep(250);
 
@@ -138,6 +138,10 @@ public abstract class AbstractTest {
                 .inAdapterView(withClassName(is("androidx.appcompat.widget.DropDownListView")))
                 .atPosition(pos)
                 .perform(click());
+    }
+
+    protected void openOverflow(){
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
     }
 
     protected static Matcher<View> childAtPosition(
