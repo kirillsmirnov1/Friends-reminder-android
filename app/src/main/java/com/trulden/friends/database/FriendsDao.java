@@ -184,8 +184,6 @@ public interface FriendsDao {
             "AND   friendId = :friendId;")
     List<Long> getLIstatus(long typeId, long friendId);
 
-    // TODO clean up
-
     @Transaction
     @Query(
             "INSERT OR REPLACE INTO last_interaction_table(friendId, typeId, interactionId, date)" +
