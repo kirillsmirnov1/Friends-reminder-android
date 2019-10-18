@@ -70,6 +70,9 @@ public interface FriendsDao {
     @Query("SELECT * from interaction_type_table LIMIT 1")
     InteractionType[] getAnyInteractionType();
 
+    @Query("DELETE FROM interaction_type_table;")
+    void wipeTypes();
+
     // -----------------------------------------
     // Interaction
     // -----------------------------------------
@@ -176,9 +179,6 @@ public interface FriendsDao {
     List<Long> getLIstatus(long typeId, long friendId);
 
     // TODO clean up
-
-    @Query("DELETE FROM interaction_type_table;")
-    void wipeTypes();
 
     @Query("DELETE FROM interaction_table;")
     void wipeInteractions();
