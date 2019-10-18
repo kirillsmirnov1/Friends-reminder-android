@@ -35,7 +35,7 @@ public class LastInteractionTest extends AbstractTest {
 
         onView(withId(R.id.aei_edit_friends)).perform(typeText("Aaron, Caleb"));
 
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         onView(withText("Balaam")).check(matches(hasSibling(withText("29 d. ago"))));
         onView(withText("Aaron")).check(matches(hasSibling(withText("0 d. ago"))));
@@ -54,7 +54,7 @@ public class LastInteractionTest extends AbstractTest {
 
         onView(withId(R.id.aei_edit_friends)).perform(typeText("Aaron, Balaam"));
 
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         onView(withText("Balaam")).check(matches(hasSibling(withText("1 d. ago"))));
         onView(withText("Aaron")).check(matches(hasSibling(withText("0 d. ago"))));

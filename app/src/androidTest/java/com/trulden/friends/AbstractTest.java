@@ -106,7 +106,7 @@ public abstract class AbstractTest {
     }
 
     protected void clickSaveOnActionBar() {
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
     }
 
     protected void navigateUp() {

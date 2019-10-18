@@ -94,7 +94,7 @@ public class HideLITest extends AbstractTest {
         onView(withId(R.id.aei_edit_friends)).perform(typeText("Caleb"));
 
         // TODO rename menus to match notation
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         sleep(250);
 
@@ -119,7 +119,7 @@ public class HideLITest extends AbstractTest {
 
         onView(withId(R.id.aei_edit_friends)).perform(typeText(", Aaron"));
 
-        onView(withId(R.id.menu_save_save)).perform(click());
+        onView(withId(R.id.ms_save)).perform(click());
 
         openLastInteractions();
 
