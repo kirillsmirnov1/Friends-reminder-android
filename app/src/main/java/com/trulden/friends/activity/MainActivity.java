@@ -88,13 +88,13 @@ public class MainActivity
         if(savedInstanceState == null) {
             switch (mFragmentToLoad){
                 case INTERACTIONS_FRAGMENT:
-                    findViewById(R.id.menu_bot_nav_interactions).performClick();
+                    findViewById(R.id.mbn_interactions).performClick();
                     break;
                 case LAST_INTERACTIONS_FRAGMENT:
-                    findViewById(R.id.menu_bot_nav_last_interactions).performClick();
+                    findViewById(R.id.mbn_last_interactions).performClick();
                     break;
                 case FRIENDS_FRAGMENT:
-                    findViewById(R.id.menu_bot_nav_friends).performClick();
+                    findViewById(R.id.mbn_friends).performClick();
                     break;
             }
         }
@@ -386,14 +386,14 @@ public class MainActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
-            case R.id.menu_bot_nav_interactions: {
+            case R.id.mbn_interactions: {
                 saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
             }
-            case R.id.menu_bot_nav_last_interactions: {
+            case R.id.mbn_last_interactions: {
                 return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
             }
-            case R.id.menu_bot_nav_friends: {
+            case R.id.mbn_friends: {
                 saveSelectedLastInteractionTab();
                 return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
             }

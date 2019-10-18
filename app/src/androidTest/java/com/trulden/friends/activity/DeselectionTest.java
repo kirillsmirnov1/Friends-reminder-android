@@ -430,8 +430,8 @@ public class DeselectionTest extends AbstractTest {
         LISelectionTemplateTest(withId(R.id.am_fab_add_friend), withContentDescription("Navigate up"));
 
         LISelectionTemplateTest(withText("Texting"), withText("Meeting"));
-        LISelectionTemplateTest(withId(R.id.menu_bot_nav_interactions), withId(R.id.menu_bot_nav_last_interactions));
-        LISelectionTemplateTest(withId(R.id.menu_bot_nav_friends), withId(R.id.menu_bot_nav_last_interactions));
+        LISelectionTemplateTest(withId(R.id.mbn_interactions), withId(R.id.mbn_last_interactions));
+        LISelectionTemplateTest(withId(R.id.mbn_friends), withId(R.id.mbn_last_interactions));
     }
 
     private void LISelectionTemplateTest(Matcher goTo, Matcher comebackTo){
