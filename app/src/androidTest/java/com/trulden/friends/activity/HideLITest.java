@@ -93,7 +93,6 @@ public class HideLITest extends AbstractTest {
 
         onView(withId(R.id.aei_edit_friends)).perform(typeText("Caleb"));
 
-        // TODO rename menus to match notation
         onView(withId(R.id.ms_save)).perform(click());
 
         sleep(250);
