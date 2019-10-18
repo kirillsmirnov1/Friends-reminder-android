@@ -99,6 +99,9 @@ public interface FriendsDao {
     @Query("DELETE FROM interaction_table WHERE id = :interactionId")
     void deleteInteractionById(long interactionId);
 
+    @Query("DELETE FROM interaction_table;")
+    void wipeInteractions();
+
     // -----------------------------------------
     // BindFriendInteraction
     // -----------------------------------------
@@ -179,9 +182,6 @@ public interface FriendsDao {
     List<Long> getLIstatus(long typeId, long friendId);
 
     // TODO clean up
-
-    @Query("DELETE FROM interaction_table;")
-    void wipeInteractions();
 
     @Query("DELETE FROM bind_friend_interaction_table")
     void wipeBinds();
