@@ -30,6 +30,8 @@ public class HideLITest extends AbstractTest {
         // Need to be sure it's checked off
         guaranteeCheckOffShowHiddenLI();
 
+        onView(withText("Meeting")).check(matches(hasSibling(withText("1"))));
+
         onView(withText("Caleb")).check(matches(allOf(isDisplayed(),
                 hasSibling(allOf(withId(R.id.eli_hidden_icon), not(isDisplayed()))))));
 
