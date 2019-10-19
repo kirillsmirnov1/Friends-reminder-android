@@ -136,6 +136,26 @@ public class HideLITest extends AbstractTest {
         onView(withText("Aaron")).check(matches(hasSibling(allOf(withId(R.id.eli_hidden_icon), isDisplayed()))));
     }
 
+    @Test
+    public void openOtherActivitySustainCheckTest(){
+        openOverflow();
+        guaranteeCheckShowHiddenLI(false);
+
+        onView(withText("Caleb")).perform(longClick());
+
+        onView(withId(R.id.msli_hide)).perform(click());
+
+        sleep(250);
+
+        onView(withText("Caleb")).check(doesNotExist());
+
+        openTypes();
+
+        navigateUp();
+
+        onView(withText("Caleb")).check(doesNotExist());
+    }
+
     private void guaranteeCheckShowHiddenLI(boolean checked){
         try {
             // The checkbox of menu item is hidden pretty deep

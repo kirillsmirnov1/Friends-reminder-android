@@ -31,7 +31,7 @@ public class Interaction implements Entity {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
-    private long interactionTypeId; // TODO rename to typeId
+    private long interactionTypeId;
 
     private long date;
 

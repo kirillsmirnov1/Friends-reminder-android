@@ -27,7 +27,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 @ForeignKey(entity = Interaction.class,
                             parentColumns = "id",
                             childColumns = "interactionId",
-                            onDelete = CASCADE) // TODO What else can we do on delete?
+                            onDelete = CASCADE)
         },
 
         indices = {

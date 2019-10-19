@@ -24,8 +24,6 @@ public class UniqueFriendTest extends AbstractTest {
 
         onView(withId(R.id.ms_save)).perform(click());
 
-        // TODO check fab with error
-
         onView(withText(R.string.add_friend)).check(matches(isDisplayed()));
 
         navigateUp();
