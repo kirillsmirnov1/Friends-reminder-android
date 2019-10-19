@@ -166,12 +166,14 @@ public class MainActivity
 
                 Intent intent = new Intent(this, InteractionTypesActivity.class);
                 startActivityForResult(intent, NO_REQUEST);
+                return true;
             }
 
             case R.id.mm_show_hidden_li: {
                 mViewModel.setShowHiddenLI(!item.isChecked());
 
                 item.setChecked(mViewModel.getShowHiddenLIValue());
+                return true;
             }
 
             default:
