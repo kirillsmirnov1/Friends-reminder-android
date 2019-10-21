@@ -3,8 +3,6 @@ package com.trulden.friends.activity;
 import android.content.pm.ActivityInfo;
 import android.view.View;
 
-import com.trulden.friends.AbstractTest;
-
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
@@ -14,7 +12,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
-public class RotateSelectionTest extends AbstractTest {
+public class RotateSelectionTest extends AbstractMATest {
 
     @Test
     public void rotateInteractionsTest(){
@@ -44,9 +42,6 @@ public class RotateSelectionTest extends AbstractTest {
                 break;
             case "Friends":
                 openFriends();
-                break;
-            case "Types":
-                openTypes();
                 break;
         }
 

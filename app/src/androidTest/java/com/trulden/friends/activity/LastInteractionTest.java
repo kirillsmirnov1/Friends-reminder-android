@@ -1,6 +1,5 @@
 package com.trulden.friends.activity;
 
-import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
 
 import org.junit.Before;
@@ -13,7 +12,7 @@ import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
-public class LastInteractionTest extends AbstractTest {
+public class LastInteractionTest extends AbstractMATest {
 
     @Before
     public void openLITab(){

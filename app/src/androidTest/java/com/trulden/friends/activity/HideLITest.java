@@ -6,7 +6,6 @@ import android.widget.CheckBox;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewInteraction;
 
-import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
 
 import junit.framework.AssertionFailedError;
@@ -23,7 +22,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
-public class HideLITest extends AbstractTest {
+public class HideLITest extends AbstractMATest {
 
     @Before
     public void before(){

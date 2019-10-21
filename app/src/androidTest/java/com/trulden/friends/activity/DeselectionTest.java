@@ -3,7 +3,6 @@ package com.trulden.friends.activity;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 
-import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
 
 import org.hamcrest.Matcher;
@@ -16,7 +15,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
 @LargeTest
-public class DeselectionTest extends AbstractTest {
+public class DeselectionTest extends AbstractMATest {
 
     @Test
     public void logManualDeselectionTest() {
