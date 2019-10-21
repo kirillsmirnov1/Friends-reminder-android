@@ -23,6 +23,8 @@ import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashSet;
 import java.util.List;
 
@@ -90,7 +92,7 @@ public class InteractionTypesActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         HashSet<Integer> copyOfSelectedPositions = new HashSet<>();
