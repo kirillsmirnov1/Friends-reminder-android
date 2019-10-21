@@ -8,6 +8,7 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.trulden.friends.AbstractTest;
 import com.trulden.friends.DatabaseTestingHandler;
+import com.trulden.friends.R;
 import com.trulden.friends.TestUtil;
 
 import org.hamcrest.Matcher;
@@ -19,6 +20,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.Matchers.not;
 
 public class RotateSelectionTypesTest extends AbstractTest{
     @Rule
@@ -52,10 +54,10 @@ public class RotateSelectionTypesTest extends AbstractTest{
 
         onView(matcher).check(matches(isDisplayed()));
 
-        onView(withText(entryText)).perform(click());
+        onView(withId(R.id.action_mode_close_button)).perform(click());
 
         sleep(250);
 
-        onView(matcher).check(doesNotExist());
+        onView(matcher).check(matches(not(isDisplayed())));
     }
 }

@@ -92,7 +92,11 @@ public class InteractionTypesActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_TYPES_POSITIONS, mSelectedPositions);
+
+        HashSet<Integer> copyOfSelectedPositions = new HashSet<>();
+        copyOfSelectedPositions.addAll(mSelectedPositions);
+
+        outState.putSerializable(SELECTED_TYPES_POSITIONS, copyOfSelectedPositions);
     }
 
     @Override
