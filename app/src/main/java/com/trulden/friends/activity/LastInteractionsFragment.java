@@ -205,7 +205,12 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     @Override
     public void onDetach() {
         if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.LAST_INTERACTIONS_FRAGMENT) {
-            getTabFragment().finishActionMode();
+
+            LastInteractionsTabFragment fragment = getTabFragment();
+
+            if(fragment != null) {
+                fragment.finishActionMode();
+            }
         }
         super.onDetach();
     }
@@ -221,7 +226,11 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     }
 
     private LastInteractionsTabFragment getTabFragment(int pos){
-        return (LastInteractionsTabFragment) mPagerAdapter.instantiateItem(mViewPager, pos);
+        if(pos >= 0) {
+            return (LastInteractionsTabFragment) mPagerAdapter.instantiateItem(mViewPager, pos);
+        } else {
+            return null;
+        }
     }
 
     private LastInteractionsTabFragment getTabFragment(){
