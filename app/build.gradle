@@ -14,6 +14,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         dataBinding.enabled = true
+        archivesBaseName = "friends-v$versionName"
     }
     buildTypes {
         release {
