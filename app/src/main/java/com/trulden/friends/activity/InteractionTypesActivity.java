@@ -42,7 +42,7 @@ public class InteractionTypesActivity
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
-    private HashSet<Integer> selectedPositions = new HashSet<>();
+    private HashSet<Integer> mSelectedPositions = new HashSet<>();
     public static final String SELECTED_TYPES_POSITIONS = "SELECTED_TYPES_POSITIONS";
 
     @Override
@@ -53,11 +53,11 @@ public class InteractionTypesActivity
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_TYPES_POSITIONS)){
-            selectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_TYPES_POSITIONS);
+            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_TYPES_POSITIONS);
         }
 
         RecyclerView recyclerView = findViewById(R.id.ait_recycler_view);
-        mInteractionTypeAdapter = new InteractionTypeAdapter(this, selectedPositions);
+        mInteractionTypeAdapter = new InteractionTypeAdapter(this, mSelectedPositions);
         recyclerView.setAdapter(mInteractionTypeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -85,14 +85,14 @@ public class InteractionTypesActivity
 
         mSelectionCallback = new SelectionCallback(this, mInteractionTypeAdapter);
 
-        if(selectedPositions.size() > 0)
+        if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_TYPES_POSITIONS, selectedPositions);
+        outState.putSerializable(SELECTED_TYPES_POSITIONS, mSelectedPositions);
     }
 
     @Override
