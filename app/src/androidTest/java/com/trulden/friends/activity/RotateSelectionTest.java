@@ -29,6 +29,11 @@ public class RotateSelectionTest extends AbstractTest {
         rotateTest("LI", m, "Caleb");
     }
 
+    @Test
+    public void rotateFriendsTest(){
+        rotateTest("Friends", withText("1"), "Aaron");
+    }
+
     private void rotateTest(String activity, Matcher<View> matcher, String entryText){
         switch(activity){
             case "LI":
