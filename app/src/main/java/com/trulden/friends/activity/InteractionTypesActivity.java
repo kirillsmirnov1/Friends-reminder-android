@@ -35,7 +35,7 @@ public class InteractionTypesActivity
         EditAndDeleteSelection,
             EditInteractionType {
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
 
     private InteractionTypeAdapter mInteractionTypeAdapter;
 
@@ -50,7 +50,7 @@ public class InteractionTypesActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interaction_types);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_TYPES_POSITIONS)){
             mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_TYPES_POSITIONS);
@@ -61,7 +61,7 @@ public class InteractionTypesActivity
         recyclerView.setAdapter(mInteractionTypeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+        mViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 mInteractionTypeAdapter.setEntries(interactionTypes);
@@ -188,7 +188,7 @@ public class InteractionTypesActivity
     @Override
     public void deleteSelection() {
         for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedItems()){
-            mFriendsViewModel.delete(interactionType);
+            mViewModel.delete(interactionType);
         }
     }
 
@@ -205,9 +205,9 @@ public class InteractionTypesActivity
     @Override
     public void saveType(InteractionType interactionType) {
         if(interactionType.getId() == 0){
-            mFriendsViewModel.add(interactionType);
+            mViewModel.add(interactionType);
         } else {
-            mFriendsViewModel.update(interactionType);
+            mViewModel.update(interactionType);
         }
     }
 }
