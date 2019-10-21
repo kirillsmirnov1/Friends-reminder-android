@@ -2,7 +2,6 @@ package com.trulden.friends.activity;
 
 import androidx.test.filters.LargeTest;
 
-import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
 
 import org.junit.Before;
@@ -17,7 +16,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.CoreMatchers.not;
 
 @LargeTest
-public class TabTest  extends AbstractTest {
+public class TabTest  extends AbstractMATest {
 
     @Before
     public void openTabsAtStart(){

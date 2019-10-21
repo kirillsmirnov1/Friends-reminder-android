@@ -35,9 +35,6 @@ import static org.hamcrest.Matchers.*;
 
 public abstract class AbstractTest {
 
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-
     @Before
     public void initDB(){
         DatabaseTestingHandler.initAndFillDatabase(
