@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import java.util.HashSet;
 import java.util.List;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.trulden.friends.util.Util.formatDate;
 
 /**
@@ -59,6 +61,8 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
         private TextView mNames;
         private TextView mComment;
 
+        private LinearLayout mTypeAndDate;
+
         private View mInteractionEntryLayout;
 
         ViewHolder(@NonNull View itemView) {
@@ -68,6 +72,8 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
             mDate = itemView.findViewById(R.id.ei_date);
             mNames = itemView.findViewById(R.id.ei_names);
             mComment = itemView.findViewById(R.id.ei_comment);
+
+            mTypeAndDate = itemView.findViewById(R.id.ei_type_and_date_linear_layout);
 
             mInteractionEntryLayout = itemView.findViewById(R.id.ei_layout);
         }
@@ -85,19 +91,18 @@ public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.Vie
             mNames.setText(generateNameString(interactionWithFriendIDs.friendIDs));
             mComment.setText(interaction.getComment());
 
-//            // Strange reaction on click when selected — cards with comment hide it
-//            // Couldn't figure why
+            // If there is no comment, hide it's TextView
+            int p = mTypeAndDate.getPaddingStart();
+            if(interaction.getComment() == null || interaction.getComment().isEmpty()){
+                mComment.getLayoutParams().height = 0;
 
-//            int p = mDate.getPaddingStart();
-//            if(mComment.getText().toString().isEmpty() || interaction.getComment() == null || interaction.getComment().isEmpty()){
-//                mComment.setPadding(0, 0, 0, 0);
-//                mComment.setHeight(0);
-//                mDate.setPadding(p, 0, p, p);
-//            } else {
-//                mComment.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
-//                mComment.setPadding(p, 0, p, p);
-//                mDate.setPadding(p, 0, p, 0);
-//            }
+                mTypeAndDate.setPadding(p, 0, p, p);
+            } else {
+                mComment.getLayoutParams().height = WRAP_CONTENT;
+                mComment.requestLayout();
+
+                mTypeAndDate.setPadding(p, 0, p, 0);
+            }
 
             // Set click listeners
 
