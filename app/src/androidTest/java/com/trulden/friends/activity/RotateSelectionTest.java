@@ -1,9 +1,11 @@
 package com.trulden.friends.activity;
 
 import android.content.pm.ActivityInfo;
+import android.view.View;
 
 import com.trulden.friends.AbstractTest;
 
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -15,28 +17,45 @@ public class RotateSelectionTest extends AbstractTest {
 
     @Test
     public void rotateInteractionsTest(){
-        openLog();
+        rotateTest("Log", withText("1"), "A + B");
+    }
 
-        onView(withText("A + B")).perform(longClick());
+    private void rotateTest(String activity, Matcher<View> matcher, String entryText){
+        switch(activity){
+            case "LI":
+                openLastInteractions();
+                break;
+            case "Log":
+                openLog();
+                break;
+            case "Friends":
+                openFriends();
+                break;
+            case "Types":
+                openTypes();
+                break;
+        }
 
-        onView(withText("1")).check(matches(isDisplayed()));
+        onView(withText(entryText)).perform(longClick());
+
+        onView(matcher).check(matches(isDisplayed()));
 
         mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         sleep(500);
 
-        onView(withText("1")).check(matches(isDisplayed()));
+        onView(matcher).check(matches(isDisplayed()));
 
         mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         sleep(500);
 
-        onView(withText("1")).check(matches(isDisplayed()));
+        onView(matcher).check(matches(isDisplayed()));
 
-        onView(withText("A + B")).perform(click());
+        onView(withText(entryText)).perform(click());
 
         sleep(250);
 
-        onView(withText("1")).check(doesNotExist());
+        onView(matcher).check(doesNotExist());
     }
 }
