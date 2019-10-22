@@ -3,10 +3,12 @@ package com.trulden.friends.activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -418,5 +420,24 @@ public class MainActivity
         if(mFragment instanceof LastInteractionsFragment){
             ((LastInteractionsFragment)mFragment).saveSelectedTab();
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        // Hide fab if touch event outside of it
+        // (Other cases handled by gab itself)
+        // Based on https://github.com/futuresimple/android-floating-action-button/issues/204#issuecomment-158073034
+
+        if (mFabMenu.isExpanded()) {
+
+            Rect outRect = new Rect();
+            mFabMenu.getGlobalVisibleRect(outRect);
+
+            if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY()))
+                mFabMenu.collapse();
+        }
+
+        return super.dispatchTouchEvent(ev);
     }
 }
