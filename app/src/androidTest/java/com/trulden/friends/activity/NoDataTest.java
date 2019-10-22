@@ -3,6 +3,7 @@ package com.trulden.friends.activity;
 import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.database.entity.InteractionType;
 
 import org.junit.Test;
 
@@ -60,5 +61,42 @@ public class NoDataTest extends AbstractMATest {
         onView(withId(R.id.ms_save)).perform(click());
 
         onView(withId(R.id.fi_no_data)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void noTypesTest(){
+        openLastInteractions();
+
+        onView(withId(R.id.fli_no_data)).check(matches(not(isDisplayed())));
+
+        openTypes();
+
+        onView(withId(R.id.ait_no_data)).check(matches(not(isDisplayed())));
+
+        for(InteractionType t : DatabaseTestingHandler.types){
+            onView(withText(t.getInteractionTypeName())).perform(longClick());
+        }
+
+        onView(withId(R.id.msed_delete)).perform(click());
+
+        onView(withId(R.id.ait_no_data)).check(matches(isDisplayed()));
+
+        navigateUp();
+
+        onView(withId(R.id.fli_no_data)).check(matches(isDisplayed()));
+
+        openTypes();
+
+        onView(withId(R.id.ma_add)).perform(click());
+
+        onView(withId(R.id.deit_name)).perform(typeText("A"));
+        onView(withId(R.id.deit_frequency)).perform(typeText("1"));
+        onView(withText("SAVE")).perform(click());
+
+        onView(withId(R.id.ait_no_data)).check(matches(not(isDisplayed())));
+
+        navigateUp();
+
+        onView(withId(R.id.fli_no_data)).check(matches(not(isDisplayed())));
     }
 }
