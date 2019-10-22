@@ -1,7 +1,10 @@
 package com.trulden.friends.activity;
 
+import androidx.test.espresso.ViewInteraction;
+
 import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 
@@ -11,6 +14,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 
 public class NoDataTest extends AbstractMATest {
@@ -98,5 +102,32 @@ public class NoDataTest extends AbstractMATest {
         navigateUp();
 
         onView(withId(R.id.fli_no_data)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void noLastInteractionsTest(){
+        openLastInteractions();
+
+        openOverflow();
+
+        guaranteeCheckShowHiddenLI(false);
+
+        for(Friend f : DatabaseTestingHandler.friends){
+            onView(withText(f.getName())).perform(longClick());
+        }
+
+        onView(withId(R.id.msli_hide)).perform(click());
+
+        sleep(250);
+
+        ViewInteraction noData = onView(allOf(withId(R.id.pli_no_data), isDisplayed()));
+        noData.check(matches(isDisplayed()));
+
+        openOverflow();
+        guaranteeCheckShowHiddenLI(true);
+
+        sleep(250);
+
+        noData.check(doesNotExist());
     }
 }
