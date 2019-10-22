@@ -78,14 +78,14 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.page_last_interaction_content, container, false);
+        return inflater.inflate(R.layout.fragment_last_interaction_tab, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.pli_no_data)
+        view.findViewById(R.id.flit_no_data)
             .setVisibility(
                 mLastInteractions == null || mLastInteractions.size() < 1
                 ? View.VISIBLE
@@ -99,7 +99,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
         }
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.pli_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.flit_recycler_view);
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 

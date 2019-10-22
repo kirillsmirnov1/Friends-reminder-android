@@ -74,7 +74,7 @@
 
     <string name="fi_no_data">You have no interactions yet</string>
     <string name="fli_no_data">You have no interaction types</string>
-    <string name="pli_no_data">You have no active interactions of this type</string>
+    <string name="flit_no_data">You have no active interactions of this type</string>
     <string name="ff_no_data">You have no friends yet</string>
     <string name="ait_no_data">You have no interaction types</string>
 

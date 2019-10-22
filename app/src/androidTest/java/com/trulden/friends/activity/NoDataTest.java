@@ -120,7 +120,7 @@ public class NoDataTest extends AbstractMATest {
 
         sleep(250);
 
-        ViewInteraction noData = onView(allOf(withId(R.id.pli_no_data), isDisplayed()));
+        ViewInteraction noData = onView(allOf(withId(R.id.flit_no_data), isDisplayed()));
         noData.check(matches(isDisplayed()));
 
         openOverflow();

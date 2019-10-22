@@ -6,14 +6,14 @@
     >
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pli_recycler_view"
+        android:id="@+id/flit_recycler_view"
         style="@style/recycler_view"
         >
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/pli_no_data"
-        android:text="@string/pli_no_data"
+        android:id="@+id/flit_no_data"
+        android:text="@string/flit_no_data"
         android:visibility="gone"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
