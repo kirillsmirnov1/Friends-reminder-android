@@ -103,7 +103,7 @@ public class InteractionTypesActivity
     protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable(SELECTED_TYPES_POSITIONS, new HashSet<>(mSelectedPositions));
+        outState.putSerializable(SELECTED_TYPES_POSITIONS, mSelectedPositions);
     }
 
     @Override
@@ -175,14 +175,6 @@ public class InteractionTypesActivity
         if(mActionMode != null) {
             mActionMode = null;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if(mActionMode != null){
-            mActionMode.finish();
-        }
-        super.onDestroy();
     }
 
     @Override
