@@ -3,16 +3,12 @@ package com.trulden.friends.activity;
 import android.content.pm.ActivityInfo;
 import android.view.View;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.test.rule.ActivityTestRule;
 
 import com.trulden.friends.AbstractTest;
-import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
-import com.trulden.friends.TestUtil;
 
 import org.hamcrest.Matcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -25,12 +21,6 @@ import static org.hamcrest.Matchers.not;
 public class RotateSelectionTypesTest extends AbstractTest{
     @Rule
     public ActivityTestRule<InteractionTypesActivity> mRule = new ActivityTestRule<>(InteractionTypesActivity.class);
-
-    @Before
-    public void initDB(){
-        DatabaseTestingHandler.initAndFillDatabase(
-                (FragmentActivity) TestUtil.getActivityInstance());
-    }
 
     @Test
     public void rotateTypesTest(){
