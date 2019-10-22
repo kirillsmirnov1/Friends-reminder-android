@@ -14,6 +14,8 @@ import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.PickerActions;
 
+import com.trulden.friends.database.entity.InteractionType;
+
 import junit.framework.AssertionFailedError;
 
 import org.hamcrest.BaseMatcher;
@@ -223,6 +225,12 @@ public abstract class AbstractTest {
 
         } catch (AssertionFailedError e){
             onView(withText(R.string.show_hidden_li_entries)).perform(click());
+        }
+    }
+
+    protected static void selectAllTypes() {
+        for(InteractionType t : DatabaseTestingHandler.types){
+            onView(withText(t.getInteractionTypeName())).perform(longClick());
         }
     }
 }
