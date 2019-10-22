@@ -63,7 +63,7 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
@@ -82,6 +82,14 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
         mFriendsViewModel.getAllFriends().observe(getViewLifecycleOwner(), new Observer<List<Friend>>() {
             @Override
             public void onChanged(List<Friend> friends) {
+
+                view.findViewById(R.id.ff_no_data)
+                    .setVisibility(
+                        friends.size() < 1
+                        ? View.VISIBLE
+                        : View.GONE
+                    );
+
                 mFriendsAdapter.setEntries(friends);
                 // We need to tell adapter to refresh view, otherwise it might not happen
                 mFriendsAdapter.notifyDataSetChanged();
