@@ -1,6 +1,8 @@
 package com.trulden.friends.activity;
 
+import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
+import com.trulden.friends.database.entity.Interaction;
 
 import org.junit.Test;
 
@@ -32,5 +34,31 @@ public class NoDataTest extends AbstractMATest {
         onView(withId(R.id.ms_save)).perform(click());
 
         onView(withId(R.id.ff_no_data)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void noInteractionsTest(){
+        openInteractions();
+
+        onView(withId(R.id.fi_no_data)).check(matches(not(isDisplayed())));
+
+        for(Interaction i : DatabaseTestingHandler.interactions){
+            onView(withText(i.getComment())).perform(longClick());
+        }
+
+        onView(withId(R.id.msed_delete)).perform(click());
+
+        onView(withId(R.id.fi_no_data)).check(matches(isDisplayed()));
+
+        openAddInteraction();
+
+        onView(withId(R.id.aei_edit_date)).perform(click());
+        onView(withText("OK")).perform(click());
+
+        onView(withId(R.id.aei_edit_friends)).perform(typeText("Aaron"));
+
+        onView(withId(R.id.ms_save)).perform(click());
+
+        onView(withId(R.id.fi_no_data)).check(matches(not(isDisplayed())));
     }
 }
