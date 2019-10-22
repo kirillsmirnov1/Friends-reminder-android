@@ -38,7 +38,7 @@ public class RotateSelectionTest extends AbstractMATest {
                 openLastInteractions();
                 break;
             case "Log":
-                openLog();
+                openInteractions();
                 break;
             case "Friends":
                 openFriends();

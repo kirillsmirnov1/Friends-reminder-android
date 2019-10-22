@@ -20,7 +20,7 @@ public class DeselectionTest extends AbstractMATest {
     @Test
     public void logManualDeselectionTest() {
 
-        openLog();
+        openInteractions();
 
         selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
@@ -92,7 +92,7 @@ public class DeselectionTest extends AbstractMATest {
     @Test
     public void logAddInteractionDeselectionTest() {
 
-        openLog();
+        openInteractions();
 
         selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
@@ -116,7 +116,7 @@ public class DeselectionTest extends AbstractMATest {
     @Test
     public void logAddFriendDeselectionTest() {
 
-        openLog();
+        openInteractions();
 
         selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
@@ -186,7 +186,7 @@ public class DeselectionTest extends AbstractMATest {
     @Test
     public void logDeleteDeselectionTest() {
 
-        openLog();
+        openInteractions();
 
         selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
@@ -248,7 +248,7 @@ public class DeselectionTest extends AbstractMATest {
     @Test
     public void logEditDeselectionTest() {
 
-        openLog();
+        openInteractions();
 
         selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
 
@@ -319,7 +319,7 @@ public class DeselectionTest extends AbstractMATest {
 
     @Test
     public void logSwitchFragmentDeselectionTest(){
-        openLog();
+        openInteractions();
 
         selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
         selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, false);
@@ -332,7 +332,7 @@ public class DeselectionTest extends AbstractMATest {
 
         selectionCounter.check(doesNotExist());
 
-        openLog();
+        openInteractions();
 
         selectEntry(2, R.id.ei_layout, R.id.fi_recycler_view, true);
 
@@ -348,7 +348,7 @@ public class DeselectionTest extends AbstractMATest {
 
         ViewInteraction selectionCounter = checkSelectionCounterValue("2");
 
-        openLog();
+        openInteractions();
 
         sleep(250);
 
@@ -364,7 +364,7 @@ public class DeselectionTest extends AbstractMATest {
     @Test
     public void logDeselectAllTest() {
 
-        openLog();
+        openInteractions();
 
         selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
         selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, false);

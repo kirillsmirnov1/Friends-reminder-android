@@ -41,7 +41,7 @@ public abstract class AbstractTest {
                 (FragmentActivity) TestUtil.getActivityInstance());
     }
 
-    protected void openLog() {
+    protected void openInteractions() {
         onView(withId(R.id.mbn_interactions)).perform(click());
     }
 

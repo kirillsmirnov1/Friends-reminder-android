@@ -67,7 +67,7 @@ public class LastInteractionTest extends AbstractMATest {
         onView(withText("Aaron")).check(matches(hasSibling(withText("29 d. ago"))));
         onView(withText("Balaam")).check(matches(hasSibling(withText("29 d. ago"))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("A + B")).perform(longClick());
         onView(withId(R.id.msed_delete)).perform(click());
@@ -78,7 +78,7 @@ public class LastInteractionTest extends AbstractMATest {
         onView(withText("Caleb")).check(matches(hasSibling(withText("30 d. ago"))));
         onView(withText("Balaam")).check(matches(hasSibling(withText("30 d. ago"))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("B + C")).perform(longClick());
         onView(withId(R.id.msed_delete)).perform(click());

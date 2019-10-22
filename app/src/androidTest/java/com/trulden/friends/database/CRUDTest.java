@@ -221,7 +221,7 @@ public class CRUDTest extends AbstractMATest {
         yesterday.add(Calendar.DAY_OF_MONTH, -1);
         String yesterdayString = Util.formatDate(yesterday);
 
-        openLog();
+        openInteractions();
 
         onView(withText("A + B")).perform(longClick());
 
@@ -317,7 +317,7 @@ public class CRUDTest extends AbstractMATest {
 
         onView(withText("Caleb")).check(matches(isDisplayed()));
 
-        openLog();
+        openInteractions();
 
         onView(withText("A + B")).check(doesNotExist());
 
@@ -345,7 +345,7 @@ public class CRUDTest extends AbstractMATest {
         onView(withText(balaam)).check(matches(hasSibling(withText("29 d. ago"))));
         onView(withText(caleb)).check(matches(hasSibling(withText("30 d. ago"))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("A + B")).perform(longClick());
         onView(withText("B + C")).perform(click());
@@ -377,7 +377,7 @@ public class CRUDTest extends AbstractMATest {
 
         onView(withText(meeting)).check(doesNotExist());
 
-        openLog();
+        openInteractions();
 
         onView(withText(meeting)).check(doesNotExist());
     }

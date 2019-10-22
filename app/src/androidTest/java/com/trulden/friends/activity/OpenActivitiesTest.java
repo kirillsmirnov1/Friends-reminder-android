@@ -39,7 +39,7 @@ public class OpenActivitiesTest extends AbstractMATest {
 
     @Test
     public void openEditInteractionActivityTest(){
-        openLog();
+        openInteractions();
 
         Interaction interaction = DatabaseTestingHandler.interactions[0];
         Friend[] friends = DatabaseTestingHandler.friends;
@@ -106,7 +106,7 @@ public class OpenActivitiesTest extends AbstractMATest {
 
     @Test
     public void switchFragmentsTest(){
-        openLog();
+        openInteractions();
 
         onView(childAtPosition(withId(R.id.toolbar), 0))
                 .check(matches(withText(R.string.log)));

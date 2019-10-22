@@ -98,7 +98,7 @@ public class HideLITest extends AbstractMATest {
 
         onView(withText("Caleb")).check(matches(hasSibling(allOf(withId(R.id.eli_hidden_icon), isDisplayed()))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("Caleb")).perform(longClick());
 
@@ -124,7 +124,7 @@ public class HideLITest extends AbstractMATest {
         onView(withText("Caleb")).check(matches(hasSibling(allOf(withId(R.id.eli_hidden_icon), isDisplayed()))));
         onView(withText("Aaron")).check(matches(hasSibling(allOf(withId(R.id.eli_hidden_icon), isDisplayed()))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("Aaron, Caleb")).perform(longClick());
         onView(withId(R.id.msed_delete)).perform(click());
