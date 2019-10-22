@@ -32,4 +32,16 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <TextView
+        android:id="@+id/fli_no_data"
+        android:text="@string/fli_no_data"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

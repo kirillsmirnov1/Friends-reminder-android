@@ -69,7 +69,14 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
-                types = interactionTypes;
+                types = interactionTypes; // TODO rename
+
+                view.findViewById(R.id.fli_no_data)
+                    .setVisibility(
+                        types.size() < 1
+                        ? View.VISIBLE
+                        : View.GONE
+                );
 
                 for(InteractionType type : types){
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
