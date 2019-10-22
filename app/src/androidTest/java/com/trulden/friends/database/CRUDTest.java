@@ -381,4 +381,24 @@ public class CRUDTest extends AbstractMATest {
 
         onView(withText(meeting)).check(doesNotExist());
     }
+
+    /**
+     * Check if deletion of types doesn't cause NPE
+     */
+    @Test
+    public void noTypesTest(){
+        openTypes();
+
+        selectAllTypes();
+
+        onView(withId(R.id.msed_delete)).perform(click());
+
+        navigateUp();
+
+        openFriends();
+
+        openInteractions();
+
+        openAddInteraction();
+    }
 }
