@@ -73,7 +73,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
 
                 view.findViewById(R.id.fli_no_data)
                     .setVisibility(
-                        types.size() < 1
+                        types == null || types.size() < 1
                         ? View.VISIBLE
                         : View.GONE
                 );

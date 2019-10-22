@@ -69,7 +69,7 @@ public class InteractionTypesActivity
 
                 findViewById(R.id.ait_no_data)
                     .setVisibility(
-                        interactionTypes.size() < 1
+                        interactionTypes == null || interactionTypes.size() < 1
                         ? View.VISIBLE
                         : View.GONE
                     );

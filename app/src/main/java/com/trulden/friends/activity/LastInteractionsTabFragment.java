@@ -87,7 +87,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
         view.findViewById(R.id.pli_no_data)
             .setVisibility(
-                mLastInteractions.size() < 1
+                mLastInteractions == null || mLastInteractions.size() < 1
                 ? View.VISIBLE
                 : View.GONE
             );

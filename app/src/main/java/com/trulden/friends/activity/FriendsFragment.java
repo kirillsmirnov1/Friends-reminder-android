@@ -85,7 +85,7 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
 
                 view.findViewById(R.id.ff_no_data)
                     .setVisibility(
-                        friends.size() < 1
+                        friends == null || friends.size() < 1
                         ? View.VISIBLE
                         : View.GONE
                     );

@@ -118,7 +118,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
 
                 view.findViewById(R.id.fi_no_data)
                     .setVisibility(
-                        interactionWithFriendIDs.size() < 1
+                        interactionWithFriendIDs == null || interactionWithFriendIDs.size() < 1
                         ? View.VISIBLE
                         : View.GONE
                 );
