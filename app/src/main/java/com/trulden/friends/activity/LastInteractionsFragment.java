@@ -212,19 +212,18 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     @Override
     public void onDetach() {
         if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.LAST_INTERACTIONS_FRAGMENT) {
-
-            LastInteractionsTabFragment fragment = getTabFragment();
-
-            if(fragment != null) {
-                fragment.finishActionMode();
-            }
+            finishActionMode();
         }
         super.onDetach();
     }
 
     @Override
     public void finishActionMode() {
-        getTabFragment().finishActionMode();
+        LastInteractionsTabFragment fragment = getTabFragment();
+
+        if(fragment != null) {
+            fragment.finishActionMode();
+        }
     }
 
     @Override

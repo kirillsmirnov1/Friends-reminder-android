@@ -6,7 +6,6 @@ import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
-import com.trulden.friends.database.entity.InteractionType;
 
 import org.junit.Test;
 
@@ -77,9 +76,7 @@ public class NoDataTest extends AbstractMATest {
 
         onView(withId(R.id.ait_no_data)).check(matches(not(isDisplayed())));
 
-        for(InteractionType t : DatabaseTestingHandler.types){
-            onView(withText(t.getInteractionTypeName())).perform(longClick());
-        }
+        selectAllTypes();
 
         onView(withId(R.id.msed_delete)).perform(click());
 
