@@ -85,6 +85,13 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        view.findViewById(R.id.pli_no_data)
+            .setVisibility(
+                mLastInteractions == null || mLastInteractions.size() < 1
+                ? View.VISIBLE
+                : View.GONE
+            );
+
         mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(mTypeName != null){

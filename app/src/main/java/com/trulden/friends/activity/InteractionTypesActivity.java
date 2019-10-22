@@ -66,6 +66,14 @@ public class InteractionTypesActivity
         mViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
+
+                findViewById(R.id.ait_no_data)
+                    .setVisibility(
+                        interactionTypes == null || interactionTypes.size() < 1
+                        ? View.VISIBLE
+                        : View.GONE
+                    );
+
                 mInteractionTypeAdapter.setEntries(interactionTypes);
                 mInteractionTypeAdapter.notifyDataSetChanged();
             }

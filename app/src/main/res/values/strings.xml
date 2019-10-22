@@ -72,4 +72,10 @@
     <string name="shared_pref_opened_LI_tab" translatable="false">Opened LI tab</string>
     <string name="show_hidden_li_entries">Show hidden entries</string>
 
+    <string name="fi_no_data">You have no interactions yet</string>
+    <string name="fli_no_data">You have no interaction types</string>
+    <string name="pli_no_data">You have no active interactions of this type</string>
+    <string name="ff_no_data">You have no friends yet</string>
+    <string name="ait_no_data">You have no interaction types</string>
+
 </resources>

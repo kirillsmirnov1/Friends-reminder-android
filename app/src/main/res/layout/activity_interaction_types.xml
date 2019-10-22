@@ -12,4 +12,13 @@
         style="@style/recycler_view"
         />
 
+    <TextView
+        android:id="@+id/ait_no_data"
+        android:text="@string/ait_no_data"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
