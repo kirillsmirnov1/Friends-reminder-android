@@ -67,7 +67,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
@@ -115,6 +115,14 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
         mFriendsViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), new Observer<List<InteractionWithFriendIDs>>() {
             @Override
             public void onChanged(List<InteractionWithFriendIDs> interactionWithFriendIDs) {
+
+                view.findViewById(R.id.fi_no_data)
+                    .setVisibility(
+                        interactionWithFriendIDs.size() < 1
+                        ? View.VISIBLE
+                        : View.GONE
+                );
+
                 mInteractionsAdapter.setEntries(interactionWithFriendIDs);
                 mInteractionsAdapter.notifyDataSetChanged();
             }
