@@ -1,6 +1,5 @@
 package com.trulden.friends.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import static android.content.Context.MODE_PRIVATE;
-
 /**
  * Holds {@link LastInteractionsTabFragment}.
  */
@@ -40,7 +37,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     private FriendsViewModel mViewModel;
 
     private List<InteractionType> mTypes = new ArrayList<>();
-    private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap = new HashMap<>();
+    private HashMap<String, ArrayList<LastInteractionWrapper>> mLastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> mCounterMap = new HashMap<>();
     private TabLayout mTabLayout;
     private LastInteractionsPagerAdapter mPagerAdapter;
@@ -79,7 +76,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                 );
 
                 for(InteractionType type : mTypes){
-                    lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
+                    mLastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
                 }
 
                 initTabsAndPageViewer(view);
@@ -97,7 +94,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                                     public void onChanged(List<LastInteractionWrapper> lastInteractions) {
                             for(InteractionType type : mTypes){
                                 Objects.requireNonNull(
-                                        lastInteractionsMap.get(type.getInteractionTypeName())).clear();
+                                        mLastInteractionsMap.get(type.getInteractionTypeName())).clear();
                                 mCounterMap.put(type.getInteractionTypeName(), 0);
                             }
 
@@ -105,7 +102,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                                 String currentType = interaction.getType().getInteractionTypeName();
 
                                 Objects.requireNonNull(
-                                        lastInteractionsMap.get(currentType)).add(interaction);
+                                        mLastInteractionsMap.get(currentType)).add(interaction);
 
                                 if(interaction.itsTime()){
                                     mCounterMap.put(currentType, mCounterMap.get(currentType) + 1);
@@ -117,7 +114,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                                         .setCounter(mCounterMap.get(mTypes.get(i).getInteractionTypeName()));
                             }
 
-                            mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
+                            mPagerAdapter.setLastInteractionsMap(mLastInteractionsMap);
                             mPagerAdapter.notifyDataSetChanged();
                         }
                     });
@@ -126,6 +123,8 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                 });
             }
         });
+
+        retrieveSelectedTab();
     }
 
     @Override
@@ -149,7 +148,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.fli_view_pager);
-        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), mTypes, lastInteractionsMap);
+        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), mTypes, mLastInteractionsMap);
 
         viewPager.setAdapter(mPagerAdapter);
 
@@ -187,14 +186,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
      * Select tab opened before
      */
     void retrieveSelectedTab(){
-        int savedPos = getActivity().getPreferences(MODE_PRIVATE)
-                .getInt(getString(R.string.shared_pref_opened_LI_tab), -1);
-
-        selectTab(savedPos);
-
-        SharedPreferences.Editor editor = getActivity().getPreferences(MODE_PRIVATE).edit();
-        editor.remove(getString(R.string.shared_pref_opened_LI_tab));
-        editor.apply();
+        selectTab(mViewModel.getSelectedLITabPos());
     }
 
     /**
@@ -203,10 +195,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     void saveSelectedTab(){
         int tabPos = mTabLayout.getSelectedTabPosition();
 
-        SharedPreferences preferences = getActivity().getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(getString(R.string.shared_pref_opened_LI_tab), tabPos);
-        editor.apply();
+        mViewModel.setSelectedLITabPos(tabPos);
     }
 
     @Override
@@ -214,6 +203,9 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.LAST_INTERACTIONS_FRAGMENT) {
             finishActionMode();
         }
+
+        saveSelectedTab();
+
         super.onDetach();
     }
 
