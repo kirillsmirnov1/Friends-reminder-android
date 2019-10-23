@@ -18,7 +18,8 @@ Friends is a mobile app that helps to remember about your friends.
 
 ## Credits
 
-[Floating action button](https://github.com/futuresimple/android-floating-action-button) by Jerzy Chalupski.
+[Floating action button](https://github.com/futuresimple/android-floating-action-button) by Jerzy Chalupski.  
+[Changelog](https://github.com/MFlisar/changelog) by Michael Flisar.
 
 ## License
 

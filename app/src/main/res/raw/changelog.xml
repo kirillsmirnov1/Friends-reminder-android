@@ -1,0 +1,11 @@
+<changelog>
+
+    <release versionCode="13" versionName="Version 1.1.0.1" >
+        <bugfix>Fixed that open of «Interaction Types» activity caused «Show hidden entries» to change state</bugfix>
+    </release>
+
+    <release versionCode="12" versionName="Version 1.1">
+        <new>Now you can hide Last Interaction entries</new>
+        <info>Visibility of hidden entries can be changed in options</info>
+    </release>
+</changelog>

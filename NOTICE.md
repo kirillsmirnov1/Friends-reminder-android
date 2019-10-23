@@ -18,6 +18,12 @@
     See the License for the specific language governing permissions and
     limitations under the License.
     
+### Changelog
+
+<https://github.com/MFlisar/changelog>
+
+Developed by Michael Flisar. Available under Apache License, Version 2.0.
+<!--There was no legal notice at Michael's repo-->
 ### Android Open Source Project
 
 <https://source.android.com/>
