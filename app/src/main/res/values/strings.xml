@@ -78,4 +78,6 @@
     <string name="ff_no_data">You have no friends yet</string>
     <string name="ait_no_data">You have no interaction types</string>
 
+    <string name="changelog_dialog_title">Update %1$s</string>
+
 </resources>

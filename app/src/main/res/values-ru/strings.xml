@@ -71,4 +71,5 @@
     <string name="flit_no_data">У вас нет активных взаимодействий этого типа</string>
     <string name="ff_no_data">У вас ещё нет друзей</string>
     <string name="ait_no_data">У вас нет типов взаимодействий</string>
+    <string name="changelog_dialog_title">Обновление %1$s</string>
 </resources>
