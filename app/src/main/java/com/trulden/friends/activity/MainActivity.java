@@ -23,6 +23,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.michaelflisar.changelog.ChangelogBuilder;
+import com.michaelflisar.changelog.internal.ChangelogPreferenceUtil;
 import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
@@ -111,6 +112,19 @@ public class MainActivity
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
 
+        showChangelog();
+    }
+
+    private void showChangelog() {
+
+        // If changelog was never shown — show it
+        if(ChangelogPreferenceUtil.getAlreadyShownChangelogVersion(this) == -1){
+            new ChangelogBuilder()
+                    .withUseBulletList(true)
+                    .buildAndShowDialog(this, false);
+        }
+
+        // Show changelog on version change
         new ChangelogBuilder()
                 .withUseBulletList(true)
                 .withManagedShowOnStart(true)
