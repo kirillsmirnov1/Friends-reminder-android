@@ -84,8 +84,8 @@ public class MainActivity
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
         }
 
-        BottomNavigationView mBottomNavigation = findViewById(R.id.am_bottom_navigation);
-        mBottomNavigation.setOnNavigationItemSelectedListener(this);
+        ((BottomNavigationView) findViewById(R.id.am_bottom_navigation))
+            .setOnNavigationItemSelectedListener(this);
 
         mFabMenu = findViewById(R.id.am_fab);
 
