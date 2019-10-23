@@ -8,8 +8,7 @@
         android:id="@+id/flit_recycler_view"
         style="@style/recycler_view"
         tools:listitem="@layout/entry_last_interaction"
-        >
-    </androidx.recyclerview.widget.RecyclerView>
+        />
 
     <TextView
         android:id="@+id/flit_no_data"
