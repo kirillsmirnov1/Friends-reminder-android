@@ -79,5 +79,7 @@
     <string name="ait_no_data">You have no interaction types</string>
 
     <string name="changelog_dialog_title">Update %1$s</string>
+    <string name="changelog_bug_prefix" translatable="false">[font color="#FF0000"][b]! [/b][/font]</string>
+    <string name="changelog_bug_improvement" translatable="false">[font color="#009933"][b]+ [/b][/font]</string>
 
 </resources>
