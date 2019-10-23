@@ -41,7 +41,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
 
     private List<InteractionType> mTypes = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap = new HashMap<>();
-    private HashMap<String, Integer> counterMap = new HashMap<>();
+    private HashMap<String, Integer> mCounterMap = new HashMap<>();
     private TabLayout mTabLayout;
     private LastInteractionsPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
@@ -98,7 +98,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                             for(InteractionType type : mTypes){
                                 Objects.requireNonNull(
                                         lastInteractionsMap.get(type.getInteractionTypeName())).clear();
-                                counterMap.put(type.getInteractionTypeName(), 0);
+                                mCounterMap.put(type.getInteractionTypeName(), 0);
                             }
 
                             for(LastInteractionWrapper interaction : lastInteractions){
@@ -108,13 +108,13 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                                         lastInteractionsMap.get(currentType)).add(interaction);
 
                                 if(interaction.itsTime()){
-                                    counterMap.put(currentType, counterMap.get(currentType) + 1);
+                                    mCounterMap.put(currentType, mCounterMap.get(currentType) + 1);
                                 }
                             }
 
                             for(int i = 0; i < mTypes.size(); ++i){
                                 ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
-                                        .setCounter(counterMap.get(mTypes.get(i).getInteractionTypeName()));
+                                        .setCounter(mCounterMap.get(mTypes.get(i).getInteractionTypeName()));
                             }
 
                             mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
