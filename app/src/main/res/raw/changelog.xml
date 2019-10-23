@@ -5,7 +5,7 @@
     </release>
 
     <release versionCode="12" versionName="Version 1.1">
-        <new>Now you can hide Last Interaction entries</new>
+        <new>Now Last Interaction entries can be hidden</new>
         <info>Visibility of hidden entries can be changed in options</info>
     </release>
 </changelog>
