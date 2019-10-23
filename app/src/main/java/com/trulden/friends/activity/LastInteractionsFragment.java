@@ -126,6 +126,8 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                 });
             }
         });
+
+        retrieveSelectedTab();
     }
 
     @Override
@@ -214,6 +216,9 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.LAST_INTERACTIONS_FRAGMENT) {
             finishActionMode();
         }
+
+        saveSelectedTab();
+
         super.onDetach();
     }
 
