@@ -39,7 +39,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
 
     private FriendsViewModel mViewModel;
 
-    private List<InteractionType> types = new ArrayList<>();
+    private List<InteractionType> mTypes = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> counterMap = new HashMap<>();
     private TabLayout mTabLayout;
@@ -69,16 +69,16 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
-                types = interactionTypes; // TODO rename
+                mTypes = interactionTypes;
 
                 view.findViewById(R.id.fli_no_data)
                     .setVisibility(
-                        types == null || types.size() < 1
+                        mTypes == null || mTypes.size() < 1
                         ? View.VISIBLE
                         : View.GONE
                 );
 
-                for(InteractionType type : types){
+                for(InteractionType type : mTypes){
                     lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
                 }
 
@@ -95,7 +95,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                         lastInteractions.observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
                                     @Override
                                     public void onChanged(List<LastInteractionWrapper> lastInteractions) {
-                            for(InteractionType type : types){
+                            for(InteractionType type : mTypes){
                                 Objects.requireNonNull(
                                         lastInteractionsMap.get(type.getInteractionTypeName())).clear();
                                 counterMap.put(type.getInteractionTypeName(), 0);
@@ -112,9 +112,9 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                                 }
                             }
 
-                            for(int i = 0; i < types.size(); ++i){
+                            for(int i = 0; i < mTypes.size(); ++i){
                                 ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
-                                        .setCounter(counterMap.get(types.get(i).getInteractionTypeName()));
+                                        .setCounter(counterMap.get(mTypes.get(i).getInteractionTypeName()));
                             }
 
                             mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
@@ -139,7 +139,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         mTabLayout = view.findViewById(R.id.fli_tab_layout);
         mTabLayout.removeAllTabs();
 
-        for(InteractionType type : types){
+        for(InteractionType type : mTypes){
             TabLabelWithCounterView tcv = new TabLabelWithCounterView(getContext(),
                     type.getInteractionTypeName(), 0);
 
@@ -149,7 +149,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.fli_view_pager);
-        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), types, lastInteractionsMap);
+        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), mTypes, lastInteractionsMap);
 
         viewPager.setAdapter(mPagerAdapter);
 
@@ -161,7 +161,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
 
-                for(int i = 0; i < types.size(); ++i){
+                for(int i = 0; i < mTypes.size(); ++i){
                     getTabFragment(i).finishActionMode();
                 }
             }
