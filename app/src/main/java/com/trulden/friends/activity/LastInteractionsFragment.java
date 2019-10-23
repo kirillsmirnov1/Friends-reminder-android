@@ -40,7 +40,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     private FriendsViewModel mViewModel;
 
     private List<InteractionType> mTypes = new ArrayList<>();
-    private HashMap<String, ArrayList<LastInteractionWrapper>> lastInteractionsMap = new HashMap<>();
+    private HashMap<String, ArrayList<LastInteractionWrapper>> mLastInteractionsMap = new HashMap<>();
     private HashMap<String, Integer> mCounterMap = new HashMap<>();
     private TabLayout mTabLayout;
     private LastInteractionsPagerAdapter mPagerAdapter;
@@ -79,7 +79,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                 );
 
                 for(InteractionType type : mTypes){
-                    lastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
+                    mLastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
                 }
 
                 initTabsAndPageViewer(view);
@@ -97,7 +97,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                                     public void onChanged(List<LastInteractionWrapper> lastInteractions) {
                             for(InteractionType type : mTypes){
                                 Objects.requireNonNull(
-                                        lastInteractionsMap.get(type.getInteractionTypeName())).clear();
+                                        mLastInteractionsMap.get(type.getInteractionTypeName())).clear();
                                 mCounterMap.put(type.getInteractionTypeName(), 0);
                             }
 
@@ -105,7 +105,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                                 String currentType = interaction.getType().getInteractionTypeName();
 
                                 Objects.requireNonNull(
-                                        lastInteractionsMap.get(currentType)).add(interaction);
+                                        mLastInteractionsMap.get(currentType)).add(interaction);
 
                                 if(interaction.itsTime()){
                                     mCounterMap.put(currentType, mCounterMap.get(currentType) + 1);
@@ -117,7 +117,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                                         .setCounter(mCounterMap.get(mTypes.get(i).getInteractionTypeName()));
                             }
 
-                            mPagerAdapter.setLastInteractionsMap(lastInteractionsMap);
+                            mPagerAdapter.setLastInteractionsMap(mLastInteractionsMap);
                             mPagerAdapter.notifyDataSetChanged();
                         }
                     });
@@ -149,7 +149,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.fli_view_pager);
-        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), mTypes, lastInteractionsMap);
+        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), mTypes, mLastInteractionsMap);
 
         viewPager.setAdapter(mPagerAdapter);
 
