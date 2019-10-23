@@ -22,6 +22,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.michaelflisar.changelog.ChangelogBuilder;
 import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
@@ -109,6 +110,11 @@ public class MainActivity
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
+
+        new ChangelogBuilder()
+                .withUseBulletList(true)
+                .withManagedShowOnStart(true)
+                .buildAndShowDialog(this, false);
     }
 
     @Override
