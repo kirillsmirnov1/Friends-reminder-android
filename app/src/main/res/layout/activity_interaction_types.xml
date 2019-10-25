@@ -16,10 +16,7 @@
     <TextView
         android:id="@+id/ait_no_data"
         android:text="@string/ait_no_data"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/notice_no_data"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

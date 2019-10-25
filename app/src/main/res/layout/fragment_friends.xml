@@ -16,10 +16,7 @@
     <TextView
         android:id="@+id/ff_no_data"
         android:text="@string/ff_no_data"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/notice_no_data"
         />
 
 </FrameLayout>
