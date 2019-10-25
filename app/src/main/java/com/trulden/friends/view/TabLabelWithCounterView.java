@@ -34,6 +34,11 @@ public class TabLabelWithCounterView extends LinearLayout {
 
     public void setCounter(int counter){
         mCounterView.setText(String.valueOf(counter));
+        if(counter == 0){
+            mCounterView.setVisibility(GONE);
+        } else {
+            mCounterView.setVisibility(VISIBLE);
+        }
     }
 }
 
