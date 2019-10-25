@@ -131,6 +131,8 @@ public class HideLITest extends AbstractMATest {
         openOverflow();
         guaranteeCheckShowHiddenLI(false);
 
+        onView(withText("Meeting")).perform(click());
+
         onView(withText("Caleb")).perform(longClick());
 
         onView(withId(R.id.msli_hide)).perform(click());
