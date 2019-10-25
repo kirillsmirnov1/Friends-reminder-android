@@ -120,13 +120,11 @@ public class MainActivity
         // If changelog was never shown — show it
         if(ChangelogPreferenceUtil.getAlreadyShownChangelogVersion(this) == -1){
             new ChangelogBuilder()
-                    .withUseBulletList(true)
                     .buildAndShowDialog(this, false);
         }
 
         // Show changelog on version change
         new ChangelogBuilder()
-                .withUseBulletList(true)
                 .withManagedShowOnStart(true)
                 .buildAndShowDialog(this, false);
     }
