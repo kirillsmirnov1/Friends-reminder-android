@@ -10,6 +10,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ff_recycler_view"
         style="@style/recycler_view"
+        tools:listitem="@layout/entry_friend"
+        />
+
+    <TextView
+        android:id="@+id/ff_no_data"
+        android:text="@string/ff_no_data"
+        style="@style/notice_no_data"
         />
 
 </FrameLayout>

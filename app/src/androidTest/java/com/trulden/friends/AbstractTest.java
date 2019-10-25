@@ -5,22 +5,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.PickerActions;
-import androidx.test.rule.ActivityTestRule;
 
-import com.trulden.friends.activity.MainActivity;
+import com.trulden.friends.database.entity.InteractionType;
+
+import junit.framework.AssertionFailedError;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
-import org.junit.Rule;
 
 import java.util.Calendar;
 
@@ -35,16 +38,13 @@ import static org.hamcrest.Matchers.*;
 
 public abstract class AbstractTest {
 
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-
     @Before
     public void initDB(){
         DatabaseTestingHandler.initAndFillDatabase(
                 (FragmentActivity) TestUtil.getActivityInstance());
     }
 
-    protected void openLog() {
+    protected void openInteractions() {
         onView(withId(R.id.mbn_interactions)).perform(click());
     }
 
@@ -207,5 +207,30 @@ public abstract class AbstractTest {
                 return false;
             }
         };
+    }
+
+    protected void guaranteeCheckShowHiddenLI(boolean checked){
+        try {
+            // The checkbox of menu item is hidden pretty deep
+            ViewInteraction v = onView(allOf(Matchers.<View>instanceOf(CheckBox.class), hasSibling(withChild(withText(R.string.show_hidden_li_entries)))));
+
+            if(checked) {
+                v.check(matches(isChecked()));
+            }
+            else {
+                v.check(matches(not(isChecked())));
+            }
+
+            Espresso.pressBack();
+
+        } catch (AssertionFailedError e){
+            onView(withText(R.string.show_hidden_li_entries)).perform(click());
+        }
+    }
+
+    protected static void selectAllTypes() {
+        for(InteractionType t : DatabaseTestingHandler.types){
+            onView(withText(t.getInteractionTypeName())).perform(longClick());
+        }
     }
 }

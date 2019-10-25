@@ -10,6 +10,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ait_recycler_view"
         style="@style/recycler_view"
+        tools:listitem="@layout/entry_interaction_type"
+        />
+
+    <TextView
+        android:id="@+id/ait_no_data"
+        android:text="@string/ait_no_data"
+        style="@style/notice_no_data"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

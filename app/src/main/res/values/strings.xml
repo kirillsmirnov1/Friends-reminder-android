@@ -69,7 +69,17 @@
     <string name="friends_deleted">Friends deleted</string>
     <string name="type_updated">Type updated</string>
     <string name="horizontal_divider_dot" translatable="false">\u0020•\u0020</string>
-    <string name="shared_pref_opened_LI_tab" translatable="false">Opened LI tab</string>
+
     <string name="show_hidden_li_entries">Show hidden entries</string>
+
+    <string name="fi_no_data">You have no interactions yet</string>
+    <string name="fli_no_data">You have no interaction types.\n\nAdd them in «Interaction types» menu or restart an app.</string>
+    <string name="flit_no_data">You have no active interactions of this type.\n\nYou can add some via plus icon.\n\nYou don\'t need to add friends beforehand, that can be done inside «Add Interaction» option</string>
+    <string name="ff_no_data">You have no friends yet</string>
+    <string name="ait_no_data">You have no interaction types</string>
+
+    <string name="changelog_dialog_title">Update %1$s</string>
+    <string name="changelog_bug_prefix" translatable="false">[font color="#FF0000"][b]! [/b][/font]</string>
+    <string name="changelog_bug_improvement" translatable="false">[font color="#009933"][b]+ [/b][/font]</string>
 
 </resources>

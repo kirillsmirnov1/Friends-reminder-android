@@ -1,8 +1,8 @@
 package com.trulden.friends.database;
 
-import com.trulden.friends.AbstractTest;
 import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.AbstractMATest;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.util.Util;
@@ -17,7 +17,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
-public class CRUDTest extends AbstractTest {
+public class CRUDTest extends AbstractMATest {
 
     @Test
     public void createFriendTest(){
@@ -221,7 +221,7 @@ public class CRUDTest extends AbstractTest {
         yesterday.add(Calendar.DAY_OF_MONTH, -1);
         String yesterdayString = Util.formatDate(yesterday);
 
-        openLog();
+        openInteractions();
 
         onView(withText("A + B")).perform(longClick());
 
@@ -317,7 +317,7 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText("Caleb")).check(matches(isDisplayed()));
 
-        openLog();
+        openInteractions();
 
         onView(withText("A + B")).check(doesNotExist());
 
@@ -345,7 +345,7 @@ public class CRUDTest extends AbstractTest {
         onView(withText(balaam)).check(matches(hasSibling(withText("29 d. ago"))));
         onView(withText(caleb)).check(matches(hasSibling(withText("30 d. ago"))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("A + B")).perform(longClick());
         onView(withText("B + C")).perform(click());
@@ -377,8 +377,28 @@ public class CRUDTest extends AbstractTest {
 
         onView(withText(meeting)).check(doesNotExist());
 
-        openLog();
+        openInteractions();
 
         onView(withText(meeting)).check(doesNotExist());
+    }
+
+    /**
+     * Check if deletion of types doesn't cause NPE
+     */
+    @Test
+    public void noTypesTest(){
+        openTypes();
+
+        selectAllTypes();
+
+        onView(withId(R.id.msed_delete)).perform(click());
+
+        navigateUp();
+
+        openFriends();
+
+        openInteractions();
+
+        openAddInteraction();
     }
 }

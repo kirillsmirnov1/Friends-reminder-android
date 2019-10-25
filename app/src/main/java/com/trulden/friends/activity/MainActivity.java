@@ -3,10 +3,12 @@ package com.trulden.friends.activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -20,6 +22,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.michaelflisar.changelog.ChangelogBuilder;
+import com.michaelflisar.changelog.internal.ChangelogPreferenceUtil;
 import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
@@ -80,8 +84,8 @@ public class MainActivity
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
         }
 
-        BottomNavigationView mBottomNavigation = findViewById(R.id.am_bottom_navigation);
-        mBottomNavigation.setOnNavigationItemSelectedListener(this);
+        ((BottomNavigationView) findViewById(R.id.am_bottom_navigation))
+            .setOnNavigationItemSelectedListener(this);
 
         mFabMenu = findViewById(R.id.am_fab);
 
@@ -107,6 +111,22 @@ public class MainActivity
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
+
+        showChangelog();
+    }
+
+    private void showChangelog() {
+
+        // If changelog was never shown — show it
+        if(ChangelogPreferenceUtil.getAlreadyShownChangelogVersion(this) == -1){
+            new ChangelogBuilder()
+                    .buildAndShowDialog(this, false);
+        }
+
+        // Show changelog on version change
+        new ChangelogBuilder()
+                .withManagedShowOnStart(true)
+                .buildAndShowDialog(this, false);
     }
 
     @Override
@@ -418,5 +438,24 @@ public class MainActivity
         if(mFragment instanceof LastInteractionsFragment){
             ((LastInteractionsFragment)mFragment).saveSelectedTab();
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        // Hide fab if touch event outside of it
+        // (Other cases handled by gab itself)
+        // Based on https://github.com/futuresimple/android-floating-action-button/issues/204#issuecomment-158073034
+
+        if (mFabMenu.isExpanded()) {
+
+            Rect outRect = new Rect();
+            mFabMenu.getGlobalVisibleRect(outRect);
+
+            if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY()))
+                mFabMenu.collapse();
+        }
+
+        return super.dispatchTouchEvent(ev);
     }
 }

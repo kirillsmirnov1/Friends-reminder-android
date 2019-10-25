@@ -1,6 +1,5 @@
 package com.trulden.friends.activity;
 
-import com.trulden.friends.AbstractTest;
 import com.trulden.friends.DatabaseTestingHandler;
 import com.trulden.friends.R;
 
@@ -11,7 +10,7 @@ import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
-public class UniqueFriendTest extends AbstractTest {
+public class UniqueFriendTest extends AbstractMATest {
 
     @Test
     public void createNonUniqueFriendTest(){

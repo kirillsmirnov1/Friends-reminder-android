@@ -1,17 +1,7 @@
 package com.trulden.friends.activity;
 
-import android.view.View;
-import android.widget.CheckBox;
-
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewInteraction;
-
-import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
 
-import junit.framework.AssertionFailedError;
-
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +13,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
-public class HideLITest extends AbstractTest {
+public class HideLITest extends AbstractMATest {
 
     @Before
     public void before(){
@@ -99,7 +89,7 @@ public class HideLITest extends AbstractTest {
 
         onView(withText("Caleb")).check(matches(hasSibling(allOf(withId(R.id.eli_hidden_icon), isDisplayed()))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("Caleb")).perform(longClick());
 
@@ -125,7 +115,7 @@ public class HideLITest extends AbstractTest {
         onView(withText("Caleb")).check(matches(hasSibling(allOf(withId(R.id.eli_hidden_icon), isDisplayed()))));
         onView(withText("Aaron")).check(matches(hasSibling(allOf(withId(R.id.eli_hidden_icon), isDisplayed()))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("Aaron, Caleb")).perform(longClick());
         onView(withId(R.id.msed_delete)).perform(click());
@@ -154,24 +144,5 @@ public class HideLITest extends AbstractTest {
         navigateUp();
 
         onView(withText("Caleb")).check(doesNotExist());
-    }
-
-    private void guaranteeCheckShowHiddenLI(boolean checked){
-        try {
-            // The checkbox of menu item is hidden pretty deep
-            ViewInteraction v = onView(allOf(Matchers.<View>instanceOf(CheckBox.class), hasSibling(withChild(withText(R.string.show_hidden_li_entries)))));
-
-            if(checked) {
-                v.check(matches(isChecked()));
-            }
-            else {
-                v.check(matches(not(isChecked())));
-            }
-
-            Espresso.pressBack();
-
-        } catch (AssertionFailedError e){
-            onView(withText(R.string.show_hidden_li_entries)).perform(click());
-        }
     }
 }

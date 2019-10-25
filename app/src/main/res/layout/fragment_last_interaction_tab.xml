@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/flit_recycler_view"
+        style="@style/recycler_view"
+        tools:listitem="@layout/entry_last_interaction"
+        />
+
+    <TextView
+        android:id="@+id/flit_no_data"
+        android:text="@string/flit_no_data"
+        style="@style/notice_no_data"
+        />
+
+</RelativeLayout>

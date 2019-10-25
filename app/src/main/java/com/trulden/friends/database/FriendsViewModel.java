@@ -34,6 +34,8 @@ public class FriendsViewModel extends AndroidViewModel {
 
     private HashMap<String, HashSet<Integer>> mLITFSelections;
 
+    private int mSelectedLITabPos = 1;
+
     public FriendsViewModel(@NonNull Application application) {
         super(application);
 
@@ -111,5 +113,13 @@ public class FriendsViewModel extends AndroidViewModel {
 
     public void setShowHiddenLI(boolean showHiddenLI) {
         mShowHiddenLI.setValue(showHiddenLI);
+    }
+
+    public int getSelectedLITabPos() {
+        return mSelectedLITabPos;
+    }
+
+    public void setSelectedLITabPos(int mSelectedLITabPos) {
+        this.mSelectedLITabPos = mSelectedLITabPos;
     }
 }

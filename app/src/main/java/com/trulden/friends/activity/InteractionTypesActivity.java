@@ -23,6 +23,8 @@ import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.InteractionType;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,14 +37,14 @@ public class InteractionTypesActivity
         EditAndDeleteSelection,
             EditInteractionType {
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
 
     private InteractionTypeAdapter mInteractionTypeAdapter;
 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
-    private HashSet<Integer> selectedPositions = new HashSet<>();
+    private HashSet<Integer> mSelectedPositions = new HashSet<>();
     public static final String SELECTED_TYPES_POSITIONS = "SELECTED_TYPES_POSITIONS";
 
     @Override
@@ -50,20 +52,28 @@ public class InteractionTypesActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interaction_types);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_TYPES_POSITIONS)){
-            selectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_TYPES_POSITIONS);
+            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_TYPES_POSITIONS);
         }
 
         RecyclerView recyclerView = findViewById(R.id.ait_recycler_view);
-        mInteractionTypeAdapter = new InteractionTypeAdapter(this, selectedPositions);
+        mInteractionTypeAdapter = new InteractionTypeAdapter(this, mSelectedPositions);
         recyclerView.setAdapter(mInteractionTypeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
+        mViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
+
+                findViewById(R.id.ait_no_data)
+                    .setVisibility(
+                        interactionTypes == null || interactionTypes.size() < 1
+                        ? View.VISIBLE
+                        : View.GONE
+                    );
+
                 mInteractionTypeAdapter.setEntries(interactionTypes);
                 mInteractionTypeAdapter.notifyDataSetChanged();
             }
@@ -85,14 +95,15 @@ public class InteractionTypesActivity
 
         mSelectionCallback = new SelectionCallback(this, mInteractionTypeAdapter);
 
-        if(selectedPositions.size() > 0)
+        if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_TYPES_POSITIONS, selectedPositions);
+
+        outState.putSerializable(SELECTED_TYPES_POSITIONS, mSelectedPositions);
     }
 
     @Override
@@ -167,14 +178,6 @@ public class InteractionTypesActivity
     }
 
     @Override
-    protected void onDestroy() {
-        if(mActionMode != null){
-            mActionMode.finish();
-        }
-        super.onDestroy();
-    }
-
-    @Override
     public void editSelection() {
         InteractionType interactionType = mInteractionTypeAdapter.getSelectedItems().get(0);
 
@@ -184,7 +187,7 @@ public class InteractionTypesActivity
     @Override
     public void deleteSelection() {
         for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedItems()){
-            mFriendsViewModel.delete(interactionType);
+            mViewModel.delete(interactionType);
         }
     }
 
@@ -201,9 +204,9 @@ public class InteractionTypesActivity
     @Override
     public void saveType(InteractionType interactionType) {
         if(interactionType.getId() == 0){
-            mFriendsViewModel.add(interactionType);
+            mViewModel.add(interactionType);
         } else {
-            mFriendsViewModel.update(interactionType);
+            mViewModel.update(interactionType);
         }
     }
 }

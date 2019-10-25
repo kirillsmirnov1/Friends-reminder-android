@@ -1,6 +1,5 @@
 package com.trulden.friends.activity;
 
-import com.trulden.friends.AbstractTest;
 import com.trulden.friends.R;
 
 import org.junit.Before;
@@ -13,7 +12,7 @@ import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
-public class LastInteractionTest extends AbstractTest {
+public class LastInteractionTest extends AbstractMATest {
 
     @Before
     public void openLITab(){
@@ -68,7 +67,7 @@ public class LastInteractionTest extends AbstractTest {
         onView(withText("Aaron")).check(matches(hasSibling(withText("29 d. ago"))));
         onView(withText("Balaam")).check(matches(hasSibling(withText("29 d. ago"))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("A + B")).perform(longClick());
         onView(withId(R.id.msed_delete)).perform(click());
@@ -79,7 +78,7 @@ public class LastInteractionTest extends AbstractTest {
         onView(withText("Caleb")).check(matches(hasSibling(withText("30 d. ago"))));
         onView(withText("Balaam")).check(matches(hasSibling(withText("30 d. ago"))));
 
-        openLog();
+        openInteractions();
 
         onView(withText("B + C")).perform(longClick());
         onView(withId(R.id.msed_delete)).perform(click());

@@ -49,4 +49,13 @@
         <item name="fastScrollVerticalTrackDrawable">@drawable/line_drawable</item>
     </style>
 
+    <style name="notice_no_data">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
 </resources>
