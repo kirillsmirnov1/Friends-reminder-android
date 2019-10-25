@@ -1,5 +1,20 @@
 <changelog>
 
+    <release versionCode="14" versionName="Version 1.1.1">
+        <info>[b]New[\b]</info>
+        <new>Added changelog.</new>
+        <new>«No data» notices.[br]</new>
+
+        <info>[b]Style[\b]</info>
+        <info>• White Last Interactions counter hides if it is «0».</info>
+        <info>• Interaction comment hides if it's empty.</info>
+        <info>• «Add..» options closes by itself.[br]</info>
+
+        <info>[b]Bugfixes[\b]</info>
+        <bugfix>Sustain LI tab on screen rotation. Now — correctly.</bugfix>
+        <bugfix>Fixed crash on no types.</bugfix>
+    </release>
+
     <release versionCode="13" versionName="Version 1.1.0.1" >
         <bugfix>Fixed that open of «Interaction Types» activity caused «Show hidden entries» to change state</bugfix>
     </release>
