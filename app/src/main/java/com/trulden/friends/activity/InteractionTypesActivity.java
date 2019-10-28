@@ -1,11 +1,11 @@
 package com.trulden.friends.activity;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.lifecycle.Observer;
@@ -25,6 +25,7 @@ import com.trulden.friends.database.entity.InteractionType;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -186,7 +187,27 @@ public class InteractionTypesActivity
 
     @Override
     public void deleteSelection() {
-        for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedItems()){
+
+        // TODO don't drop selection
+
+        List<InteractionType> selection = new ArrayList<>(mInteractionTypeAdapter.getSelectedItems());
+        StringBuilder stringBuilder = new StringBuilder("Types to be deleted:");
+
+        for(InteractionType type : selection){
+            stringBuilder.append("\n• " + type.getInteractionTypeName());
+        }
+
+        new AlertDialog.Builder(this)
+            .setTitle("This will delete all interactions of selected types")
+            .setMessage(stringBuilder.toString())
+            .setPositiveButton("Ok", (dialog, which) -> actuallyDeleteSelection(selection))
+            .setNegativeButton("Cancel", null)
+            .create()
+            .show();
+    }
+
+    private void actuallyDeleteSelection(List<InteractionType> selection) {
+        for(InteractionType interactionType : selection){
             mViewModel.delete(interactionType);
         }
     }
