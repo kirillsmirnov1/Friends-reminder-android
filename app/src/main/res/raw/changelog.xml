@@ -1,5 +1,10 @@
 <changelog>
 
+    <release versionCode="15" versionName="Version 1.1.1.1">
+        <bugfix>Fixed crash at Last Interactions</bugfix>
+        <info>• Changed import/export database strings</info>
+    </release>
+
     <release versionCode="14" versionName="Version 1.1.1">
         <info>[b]New[\b]</info>
         <new>Added changelog.</new>
