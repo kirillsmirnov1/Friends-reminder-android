@@ -205,7 +205,10 @@ public class InteractionTypesActivity
     }
 
     private void actuallyDeleteSelection(List<InteractionType> selection) {
-        mActionMode.finish();
+        if(mActionMode != null) {
+            mActionMode.finish();
+        }
+
         for(InteractionType interactionType : selection){
             mViewModel.delete(interactionType);
         }
