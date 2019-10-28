@@ -190,14 +190,20 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
     public void deleteSelection() {
 
         List<Friend> selection = new ArrayList<>(mFriendsAdapter.getSelectedItems());
-        StringBuilder stringBuilder = new StringBuilder("Friends to be deleted:");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder
+            .append("This will change multi-person interactions and delete solo interactions of selected friends")
+            .append("\n\nFriends to be deleted:\n");
 
         for(Friend friend : selection){
-            stringBuilder.append("\n• " + friend.getName());
+            stringBuilder
+                .append("\n• ")
+                .append(friend.getName());
         }
 
         new AlertDialog.Builder(getActivity())
-            .setTitle("This will change multi-person interactions and delete solo interactions of selected friends")
+            .setTitle("Are you sure?")
             .setMessage(stringBuilder.toString())
             .setPositiveButton("Ok", (dialog, which) -> actuallyDeleteSelection(selection))
             .setNegativeButton("Cancel", null)

@@ -189,14 +189,20 @@ public class InteractionTypesActivity
     public void deleteSelection() {
 
         List<InteractionType> selection = new ArrayList<>(mInteractionTypeAdapter.getSelectedItems());
-        StringBuilder stringBuilder = new StringBuilder("Types to be deleted:");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder
+            .append("This will delete all interactions of selected types")
+            .append("\n\nTypes to be deleted:\n");
 
         for(InteractionType type : selection){
-            stringBuilder.append("\n• " + type.getInteractionTypeName());
+            stringBuilder
+                .append("\n• ")
+                .append(type.getInteractionTypeName());
         }
 
         new AlertDialog.Builder(this)
-            .setTitle("This will delete all interactions of selected types")
+            .setTitle("Are you sure?")
             .setMessage(stringBuilder.toString())
             .setPositiveButton("Ok", (dialog, which) -> actuallyDeleteSelection(selection))
             .setNegativeButton("Cancel", null)
