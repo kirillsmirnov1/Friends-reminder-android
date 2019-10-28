@@ -148,7 +148,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.fli_view_pager);
-        mPagerAdapter = new LastInteractionsPagerAdapter(getFragmentManager(), mTypes, mLastInteractionsMap);
+        mPagerAdapter = new LastInteractionsPagerAdapter(getChildFragmentManager(), mTypes, mLastInteractionsMap);
 
         viewPager.setAdapter(mPagerAdapter);
 

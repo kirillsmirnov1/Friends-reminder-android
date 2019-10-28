@@ -1,5 +1,10 @@
 <changelog>
 
+    <release versionCode="15" versionName="Версия 1.1.1.1">
+        <bugfix>Исправил вылетание в Последних взаимодействиях</bugfix>
+        <info>• Изменил текст, связанный с импортом/экспортом данных</info>
+    </release>
+
     <release versionCode="14" versionName="Версия 1.1.1">
         <info>[b]Новое[\b]</info>
         <new>Добавил информацию об обновлении.</new>

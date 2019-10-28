@@ -208,6 +208,8 @@ public class CRUDTest extends AbstractMATest {
 
         onView(withId(R.id.mbn_last_interactions)).perform(click());
 
+        onView(withText("Meeting")).perform(click());
+
         onView(withText(newFriend.getName())).check(matches(isDisplayed()));
 
         onView(withSubstring(oldFriend.getName())).check(doesNotExist());
@@ -256,6 +258,8 @@ public class CRUDTest extends AbstractMATest {
         )));
 
         openLastInteractions();
+
+        onView(withText("Meeting")).perform(click());
 
         onView(allOf(withText("Caleb"), isDisplayed()))
                 .check(matches(hasSibling(withText("30 d. ago"))));

@@ -17,8 +17,8 @@
     <string name="add_friend">Add friend</string>
     <string name="action_bar_title_edit_friend">Edit friend</string>
     <string name="icon_title_save">Save</string>
-    <string name="import_database">Import database</string>
-    <string name="export_database">Export database</string>
+    <string name="import_database">Import data</string>
+    <string name="export_database">Export data</string>
     <string name="add_new_interaction_type">Add new...</string>
     <string name="type_of_interaction">Type of interaction</string>
     <string name="frequency_of_interaction">Frequency of interaction in days</string>

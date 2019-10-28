@@ -109,6 +109,8 @@ public class NoDataTest extends AbstractMATest {
 
         guaranteeCheckShowHiddenLI(false);
 
+        onView(withText("Meeting")).perform(click());
+
         for(Friend f : DatabaseTestingHandler.friends){
             onView(withText(f.getName())).perform(longClick());
         }
