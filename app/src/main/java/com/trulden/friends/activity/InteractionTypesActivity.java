@@ -188,8 +188,6 @@ public class InteractionTypesActivity
     @Override
     public void deleteSelection() {
 
-        // TODO don't drop selection
-
         List<InteractionType> selection = new ArrayList<>(mInteractionTypeAdapter.getSelectedItems());
         StringBuilder stringBuilder = new StringBuilder("Types to be deleted:");
 
@@ -207,6 +205,7 @@ public class InteractionTypesActivity
     }
 
     private void actuallyDeleteSelection(List<InteractionType> selection) {
+        mActionMode.finish();
         for(InteractionType interactionType : selection){
             mViewModel.delete(interactionType);
         }
