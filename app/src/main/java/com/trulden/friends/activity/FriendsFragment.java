@@ -193,8 +193,8 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder
-            .append("This will change multi-person interactions and delete solo interactions of selected friends")
-            .append("\n\nFriends to be deleted:\n");
+            .append(getResources().getString(R.string.alert_dialog_delete_all_friends_notice))
+            .append(getResources().getString(R.string.alert_dialog_friends_to_be_deleted));
 
         for(Friend friend : selection){
             stringBuilder
@@ -203,10 +203,10 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
         }
 
         new AlertDialog.Builder(getActivity())
-            .setTitle("Are you sure?")
+            .setTitle(getResources().getString(R.string.are_you_sure))
             .setMessage(stringBuilder.toString())
-            .setPositiveButton("Ok", (dialog, which) -> actuallyDeleteSelection(selection))
-            .setNegativeButton("Cancel", null)
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> actuallyDeleteSelection(selection))
+            .setNegativeButton(android.R.string.cancel, null)
             .create()
             .show();
     }

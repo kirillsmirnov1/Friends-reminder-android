@@ -192,8 +192,8 @@ public class InteractionTypesActivity
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder
-            .append("This will delete all interactions of selected types")
-            .append("\n\nTypes to be deleted:\n");
+            .append(getResources().getString(R.string.alert_dialog_delete_all_types_notice))
+            .append(getResources().getString(R.string.alert_dialog_types_to_be_deleted));
 
         for(InteractionType type : selection){
             stringBuilder
@@ -202,10 +202,10 @@ public class InteractionTypesActivity
         }
 
         new AlertDialog.Builder(this)
-            .setTitle("Are you sure?")
+            .setTitle(getResources().getString(R.string.are_you_sure))
             .setMessage(stringBuilder.toString())
-            .setPositiveButton("Ok", (dialog, which) -> actuallyDeleteSelection(selection))
-            .setNegativeButton("Cancel", null)
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> actuallyDeleteSelection(selection))
+            .setNegativeButton(android.R.string.cancel, null)
             .create()
             .show();
     }
