@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
@@ -23,7 +24,9 @@ import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.InteractionType;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -185,13 +188,36 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
 
     @Override
     public void deleteSelection() {
-        int countOfSelectedFriends = mFriendsAdapter.getSelectedItemCount();
+
+        List<Friend> selection = new ArrayList<>(mFriendsAdapter.getSelectedItems());
+        StringBuilder stringBuilder = new StringBuilder("Friends to be deleted:");
+
+        for(Friend friend : selection){
+            stringBuilder.append("\n• " + friend.getName());
+        }
+
+        new AlertDialog.Builder(getActivity())
+            .setTitle("This will change multi-person interactions and delete solo interactions of selected friends")
+            .setMessage(stringBuilder.toString())
+            .setPositiveButton("Ok", (dialog, which) -> actuallyDeleteSelection(selection))
+            .setNegativeButton("Cancel", null)
+            .create()
+            .show();
+    }
+
+    private void actuallyDeleteSelection(List<Friend> selection){
+
+        if(mActionMode != null) {
+            mActionMode.finish();
+        }
+
+        int countOfSelectedFriends = selection.size();
         if(countOfSelectedFriends == 1){
-            makeToast(getActivity(), "«" + mFriendsAdapter.getSelectedItems().get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
+            makeToast(getActivity(), "«" + selection.get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
         } else {
             makeToast(getActivity(), getString(R.string.friends_deleted));
         }
-        for (Friend friend : mFriendsAdapter.getSelectedItems()){
+        for (Friend friend : selection){
             mFriendsViewModel.delete(friend);
         }
     }

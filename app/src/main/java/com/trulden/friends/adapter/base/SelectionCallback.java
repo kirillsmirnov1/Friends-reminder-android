@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import androidx.appcompat.view.ActionMode;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.FriendsFragment;
 import com.trulden.friends.activity.InteractionTypesActivity;
 import com.trulden.friends.activity.interfaces.BasicSelection;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
@@ -50,7 +51,12 @@ public class SelectionCallback implements ActionMode.Callback {
         switch (item.getItemId()) {
             case R.id.msed_delete: {
                 ((EditAndDeleteSelection) mActivity).deleteSelection();
-                if(!(mActivity instanceof InteractionTypesActivity)) {
+
+                // ITA and FF use dialog
+                if(!(
+                        (mActivity instanceof InteractionTypesActivity) ||
+                        (mActivity instanceof FriendsFragment))
+                ) {
                     mode.finish();
                 }
                 return true;
