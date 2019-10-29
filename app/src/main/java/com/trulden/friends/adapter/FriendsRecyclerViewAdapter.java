@@ -21,15 +21,15 @@ import java.util.HashSet;
  * Used in {@link com.trulden.friends.activity.FriendsFragment FriendsFragment}.
  *
  */
-public class FriendsAdapter extends CustomRVAdapter<FriendsAdapter.ViewHolder, Friend> {
+public class FriendsRecyclerViewAdapter extends CustomRVAdapter<FriendsRecyclerViewAdapter.ViewHolder, Friend> {
 
-    public FriendsAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
+    public FriendsRecyclerViewAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
         super(context, selectedPositions);
     }
 
     @NonNull
     @Override
-    public FriendsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FriendsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext)
                 .inflate(R.layout.entry_friend, parent, false));
     }

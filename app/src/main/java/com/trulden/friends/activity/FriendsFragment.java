@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
-import com.trulden.friends.adapter.FriendsAdapter;
+import com.trulden.friends.adapter.FriendsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
@@ -50,7 +50,7 @@ public class FriendsFragment
     private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
 
     private FriendsViewModel mViewModel;
-    private FriendsAdapter mFriendsAdapter;
+    private FriendsRecyclerViewAdapter mRecyclerViewAdapter;
 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
@@ -80,8 +80,8 @@ public class FriendsFragment
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.ff_recycler_view);
-        mFriendsAdapter = new FriendsAdapter(getActivity(), mSelectedPositions);
-        recyclerView.setAdapter(mFriendsAdapter);
+        mRecyclerViewAdapter = new FriendsRecyclerViewAdapter(getActivity(), mSelectedPositions);
+        recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
@@ -97,16 +97,16 @@ public class FriendsFragment
                         : View.GONE
                     );
 
-                mFriendsAdapter.setItems(friends);
+                mRecyclerViewAdapter.setItems(friends);
                 // We need to tell adapter to refresh view, otherwise it might not happen
-                mFriendsAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        mFriendsAdapter.setOnClickListener(new OnClickListener<Friend>() {
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener<Friend>() {
             @Override
             public void onItemClick(View view, Friend friend, int pos) {
-                if(mFriendsAdapter.getSelectedItemCount() > 0){
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 } else {
                     Intent intent = new Intent(getActivity(), FriendPageActivity.class);
@@ -123,7 +123,7 @@ public class FriendsFragment
             }
         });
 
-        mSelectionCallback = new SelectionCallback(this, mFriendsAdapter);
+        mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
 
         if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
@@ -147,10 +147,10 @@ public class FriendsFragment
     @Override
     public void toggleSelection(int pos) {
         if(pos != -1) {
-            mFriendsAdapter.toggleSelection(pos);
+            mRecyclerViewAdapter.toggleSelection(pos);
         }
 
-        int count = mFriendsAdapter.getSelectedItemCount();
+        int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
             mActionMode.finish();
@@ -180,7 +180,7 @@ public class FriendsFragment
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditFriendActivity.class);
-        Friend friend = mFriendsAdapter.getSelectedItems().get(0);
+        Friend friend = mRecyclerViewAdapter.getSelectedItems().get(0);
 
         intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
         intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
@@ -193,7 +193,7 @@ public class FriendsFragment
     @Override
     public void deleteSelection() {
 
-        List<Friend> selection = new ArrayList<>(mFriendsAdapter.getSelectedItems());
+        List<Friend> selection = new ArrayList<>(mRecyclerViewAdapter.getSelectedItems());
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder
