@@ -161,6 +161,7 @@ public interface FriendsDao {
             "AND   friendId = :friendId;")
     List<LastInteraction> getLastInteraction(long typeId, long friendId);
 
+    @Transaction
     @Query("SELECT * FROM last_interaction_table " +
             "WHERE friendId = :friendId;")
     LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId);
