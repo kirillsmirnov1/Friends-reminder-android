@@ -1,11 +1,11 @@
 package com.trulden.friends.activity;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.lifecycle.Observer;
@@ -17,6 +17,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
+import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
 import com.trulden.friends.adapter.InteractionTypeAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -25,6 +26,7 @@ import com.trulden.friends.database.entity.InteractionType;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -34,8 +36,9 @@ import java.util.List;
 public class InteractionTypesActivity
         extends AppCompatActivity
         implements
-        EditAndDeleteSelection,
-            EditInteractionType {
+            EditAndDeleteSelection,
+            EditInteractionType,
+            SelectionWithOnDeleteAlert<InteractionType> {
 
     private FriendsViewModel mViewModel;
 
@@ -186,7 +189,36 @@ public class InteractionTypesActivity
 
     @Override
     public void deleteSelection() {
-        for(InteractionType interactionType : mInteractionTypeAdapter.getSelectedItems()){
+
+        List<InteractionType> selection = new ArrayList<>(mInteractionTypeAdapter.getSelectedItems());
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder
+            .append(getResources().getString(R.string.alert_dialog_delete_all_types_notice))
+            .append(getResources().getString(R.string.alert_dialog_types_to_be_deleted));
+
+        for(InteractionType type : selection){
+            stringBuilder
+                .append("\n• ")
+                .append(type.getInteractionTypeName());
+        }
+
+        new AlertDialog.Builder(this)
+            .setTitle(getResources().getString(R.string.are_you_sure))
+            .setMessage(stringBuilder.toString())
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> actuallyDeleteSelection(selection))
+            .setNegativeButton(android.R.string.cancel, null)
+            .create()
+            .show();
+    }
+
+    @Override
+    public void actuallyDeleteSelection(List<InteractionType> selection) {
+        if(mActionMode != null) {
+            mActionMode.finish();
+        }
+
+        for(InteractionType interactionType : selection){
             mViewModel.delete(interactionType);
         }
     }

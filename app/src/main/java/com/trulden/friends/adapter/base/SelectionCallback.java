@@ -9,6 +9,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.BasicSelection;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
+import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
 
 /**
  * Handles choose of selection options
@@ -49,7 +50,11 @@ public class SelectionCallback implements ActionMode.Callback {
         switch (item.getItemId()) {
             case R.id.msed_delete: {
                 ((EditAndDeleteSelection) mActivity).deleteSelection();
-                mode.finish();
+
+                // Those should handle finish by themselves
+                if(!(mActivity instanceof SelectionWithOnDeleteAlert)) {
+                    mode.finish();
+                }
                 return true;
             }
             case R.id.msed_edit: {

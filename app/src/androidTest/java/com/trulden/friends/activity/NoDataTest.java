@@ -28,6 +28,7 @@ public class NoDataTest extends AbstractMATest {
         onView(withText("Caleb")).perform(click());
 
         onView(withId(R.id.msed_delete)).perform(click());
+        onView(withText(android.R.string.ok)).perform(click());
 
         onView(withId(R.id.ff_no_data)).check(matches(isDisplayed()));
 
@@ -79,6 +80,7 @@ public class NoDataTest extends AbstractMATest {
         selectAllTypes();
 
         onView(withId(R.id.msed_delete)).perform(click());
+        onView(withText(android.R.string.ok)).perform(click());
 
         onView(withId(R.id.ait_no_data)).check(matches(isDisplayed()));
 

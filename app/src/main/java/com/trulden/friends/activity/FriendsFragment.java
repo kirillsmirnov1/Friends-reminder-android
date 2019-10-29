@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
@@ -18,12 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
+import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
 import com.trulden.friends.adapter.FriendsAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.InteractionType;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +41,11 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Shows list of selectable friends.
  */
-public class FriendsFragment extends Fragment implements EditAndDeleteSelection {
+public class FriendsFragment
+        extends Fragment
+        implements
+            EditAndDeleteSelection,
+            SelectionWithOnDeleteAlert<Friend> {
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
     private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
@@ -185,13 +193,43 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
 
     @Override
     public void deleteSelection() {
-        int countOfSelectedFriends = mFriendsAdapter.getSelectedItemCount();
+
+        List<Friend> selection = new ArrayList<>(mFriendsAdapter.getSelectedItems());
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder
+            .append(getResources().getString(R.string.alert_dialog_delete_all_friends_notice))
+            .append(getResources().getString(R.string.alert_dialog_friends_to_be_deleted));
+
+        for(Friend friend : selection){
+            stringBuilder
+                .append("\n• ")
+                .append(friend.getName());
+        }
+
+        new AlertDialog.Builder(getActivity())
+            .setTitle(getResources().getString(R.string.are_you_sure))
+            .setMessage(stringBuilder.toString())
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> actuallyDeleteSelection(selection))
+            .setNegativeButton(android.R.string.cancel, null)
+            .create()
+            .show();
+    }
+
+    @Override
+    public void actuallyDeleteSelection(List<Friend> selection){
+
+        if(mActionMode != null) {
+            mActionMode.finish();
+        }
+
+        int countOfSelectedFriends = selection.size();
         if(countOfSelectedFriends == 1){
-            makeToast(getActivity(), "«" + mFriendsAdapter.getSelectedItems().get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
+            makeToast(getActivity(), "«" + selection.get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
         } else {
             makeToast(getActivity(), getString(R.string.friends_deleted));
         }
-        for (Friend friend : mFriendsAdapter.getSelectedItems()){
+        for (Friend friend : selection){
             mFriendsViewModel.delete(friend);
         }
     }
