@@ -49,7 +49,7 @@ public class FriendsFragment
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
     private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
     private FriendsAdapter mFriendsAdapter;
 
     private SelectionCallback mSelectionCallback;
@@ -73,7 +73,7 @@ public class FriendsFragment
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_FRIENDS_POSITIONS)){
             mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
@@ -84,9 +84,9 @@ public class FriendsFragment
         recyclerView.setAdapter(mFriendsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
+        //mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllFriends().observe(getViewLifecycleOwner(), new Observer<List<Friend>>() {
+        mViewModel.getAllFriends().observe(getViewLifecycleOwner(), new Observer<List<Friend>>() {
             @Override
             public void onChanged(List<Friend> friends) {
 
@@ -229,7 +229,7 @@ public class FriendsFragment
             makeToast(getActivity(), getString(R.string.friends_deleted));
         }
         for (Friend friend : selection){
-            mFriendsViewModel.delete(friend);
+            mViewModel.delete(friend);
         }
     }
 
