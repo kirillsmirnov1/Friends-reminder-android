@@ -17,6 +17,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
+import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
 import com.trulden.friends.adapter.InteractionTypeAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -35,8 +36,9 @@ import java.util.List;
 public class InteractionTypesActivity
         extends AppCompatActivity
         implements
-        EditAndDeleteSelection,
-            EditInteractionType {
+            EditAndDeleteSelection,
+            EditInteractionType,
+            SelectionWithOnDeleteAlert<InteractionType> {
 
     private FriendsViewModel mViewModel;
 
@@ -210,7 +212,8 @@ public class InteractionTypesActivity
             .show();
     }
 
-    private void actuallyDeleteSelection(List<InteractionType> selection) {
+    @Override
+    public void actuallyDeleteSelection(List<InteractionType> selection) {
         if(mActionMode != null) {
             mActionMode.finish();
         }
