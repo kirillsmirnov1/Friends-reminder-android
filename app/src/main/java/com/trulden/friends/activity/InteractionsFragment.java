@@ -46,7 +46,7 @@ import static com.trulden.friends.util.Util.makeToast;
 public class InteractionsFragment extends Fragment implements EditAndDeleteSelection {
     private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
     private InteractionsAdapter mInteractionsAdapter;
 
     private SelectionCallback mSelectionCallback;
@@ -70,7 +70,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_INTERACTIONS_POSITIONS)){
             selectedInteractionsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
@@ -83,9 +83,9 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
 
         recyclerView.setAdapter(mInteractionsAdapter);
 
-        //mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        //mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getFriendNames().observe(getViewLifecycleOwner(), new Observer<List<FriendName>>() {
+        mViewModel.getFriendNames().observe(getViewLifecycleOwner(), new Observer<List<FriendName>>() {
             @Override
             public void onChanged(List<FriendName> friendNamesList) {
                 LongSparseArray<String> friendNamesLSA = new LongSparseArray<>();
@@ -99,7 +99,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
             }
         });
 
-        mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
+        mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 mTypes = new LongSparseArray<>();
@@ -112,7 +112,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
             }
         });
 
-        mFriendsViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), new Observer<List<InteractionWithFriendIDs>>() {
+        mViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), new Observer<List<InteractionWithFriendIDs>>() {
             @Override
             public void onChanged(List<InteractionWithFriendIDs> interactionWithFriendIDs) {
 
@@ -205,7 +205,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
         for(InteractionWithFriendIDs interactionWithFriendIDs : mInteractionsAdapter.getSelectedItems()) {
             HashSet ids = new HashSet();
             ids.addAll(interactionWithFriendIDs.friendIDs);
-            mFriendsViewModel.delete(interactionWithFriendIDs.interaction, ids);
+            mViewModel.delete(interactionWithFriendIDs.interaction, ids);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
     }
