@@ -25,9 +25,9 @@ import static com.trulden.friends.util.Util.daysPassed;
  * RecyclerView adapter for LastInteraction objects.
  * Used in {@link com.trulden.friends.activity.LastInteractionsTabFragment LastInteractionsTabFragment}
  */
-public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteractionWrapper> {
+public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInteractionsRecyclerViewAdapter.ViewHolder, LastInteractionWrapper> {
 
-    public LastInteractionsAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
+    public LastInteractionsRecyclerViewAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
         super(context, selectedPositions);
         mContext = context;
     }
