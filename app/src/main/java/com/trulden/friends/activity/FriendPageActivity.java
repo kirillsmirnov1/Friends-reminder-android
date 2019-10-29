@@ -22,6 +22,7 @@ import com.trulden.friends.database.entity.Friend;
 import java.util.HashSet;
 import java.util.Objects;
 
+import static com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter.TrackerMode.SHOW_TYPE_NAME;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
@@ -63,7 +64,7 @@ public class FriendPageActivity extends AppCompatActivity {
         setFriendInfo(mFriend);
 
         RecyclerView recyclerView = findViewById(R.id.afp_LI_recycler_view);
-        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, new HashSet<>());
+        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, new HashSet<>(), SHOW_TYPE_NAME);
         recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

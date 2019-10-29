@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
+import static com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter.TrackerMode.SHOW_FRIEND_NAME;
+
 
 /**
  * Holds {@link LastInteractionWrapper} entries of specific type
@@ -103,7 +105,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 
-        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(getContext(), mSelectedPositions);
+        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(getContext(), mSelectedPositions, SHOW_FRIEND_NAME);
         mRecyclerViewAdapter.setItems(mLastInteractions);
         recyclerView.setAdapter(mRecyclerViewAdapter);
 
