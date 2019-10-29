@@ -435,6 +435,32 @@ public class DeselectionTest extends AbstractMATest {
         LISelectionTemplateTest(withId(R.id.mbn_friends), withId(R.id.mbn_last_interactions));
     }
 
+    @Test
+    public void typesNoDeleteNoDeselectionTest(){
+        openTypes();
+
+        onView(withText("Meeting")).perform(longClick());
+
+        onView(withId(R.id.msed_delete)).perform(click());
+
+        onView(withText(android.R.string.cancel)).perform(click());
+
+        onView(withText("1")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void friendsNoDeleteNoDeselectionTest(){
+        openFriends();
+
+        onView(withText("Caleb")).perform(longClick());
+
+        onView(withId(R.id.msed_delete)).perform(click());
+
+        onView(withText(android.R.string.cancel)).perform(click());
+
+        onView(withText("1")).check(matches(isDisplayed()));
+    }
+
     private void LISelectionTemplateTest(Matcher goTo, Matcher comebackTo){
         openLastInteractions();
 
