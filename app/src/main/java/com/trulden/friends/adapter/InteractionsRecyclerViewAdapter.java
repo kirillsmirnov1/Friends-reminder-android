@@ -29,12 +29,12 @@ import static com.trulden.friends.util.Util.formatDate;
  * RecyclerView adapter for Interaction objects.
  * Used in {@link InteractionsFragment InteractionsFragment}
  */
-public class InteractionsAdapter extends CustomRVAdapter<InteractionsAdapter.ViewHolder, InteractionWithFriendIDs> {
+public class InteractionsRecyclerViewAdapter extends CustomRVAdapter<InteractionsRecyclerViewAdapter.ViewHolder, InteractionWithFriendIDs> {
 
     private LongSparseArray<String> mInteractionTypes = new LongSparseArray<>();
     private LongSparseArray<String> mFriendNames = new LongSparseArray<>();
 
-    public InteractionsAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
+    public InteractionsRecyclerViewAdapter(Context context, @NonNull HashSet<Integer> selectedInteractionsPositions){
         super(context, selectedInteractionsPositions);
     }
 

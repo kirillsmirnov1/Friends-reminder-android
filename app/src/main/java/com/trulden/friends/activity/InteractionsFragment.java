@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
-import com.trulden.friends.adapter.InteractionsAdapter;
+import com.trulden.friends.adapter.InteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
@@ -47,7 +47,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mViewModel;
-    private InteractionsAdapter mInteractionsAdapter;
+    private InteractionsRecyclerViewAdapter mRecyclerViewAdapter;
 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
@@ -79,9 +79,9 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
         RecyclerView recyclerView = view.findViewById(R.id.fi_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mInteractionsAdapter = new InteractionsAdapter(getActivity(), selectedInteractionsPositions);
+        mRecyclerViewAdapter = new InteractionsRecyclerViewAdapter(getActivity(), selectedInteractionsPositions);
 
-        recyclerView.setAdapter(mInteractionsAdapter);
+        recyclerView.setAdapter(mRecyclerViewAdapter);
 
         //mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
@@ -94,8 +94,8 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
                     friendNamesLSA.put(friendName.id, friendName.name);
                 }
 
-                mInteractionsAdapter.setFriends(friendNamesLSA);
-                mInteractionsAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.setFriends(friendNamesLSA);
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
@@ -107,8 +107,8 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
                 for(InteractionType type : interactionTypes){
                     mTypes.put(type.getId(), type.getInteractionTypeName());
                 }
-                mInteractionsAdapter.setInteractionTypes(mTypes);
-                mInteractionsAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.setInteractionTypes(mTypes);
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
@@ -123,15 +123,15 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
                         : View.GONE
                 );
 
-                mInteractionsAdapter.setItems(interactionWithFriendIDs);
-                mInteractionsAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.setItems(interactionWithFriendIDs);
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        mInteractionsAdapter.setOnClickListener(new OnClickListener<InteractionWithFriendIDs>() {
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener<InteractionWithFriendIDs>() {
             @Override
             public void onItemClick(View view, InteractionWithFriendIDs obj, int pos) {
-                if(mInteractionsAdapter.getSelectedItemCount() > 0){
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 }
             }
@@ -142,7 +142,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
             }
         });
 
-        mSelectionCallback = new SelectionCallback(this, mInteractionsAdapter);
+        mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
 
         if(selectedInteractionsPositions.size() > 0)
             enableActionMode(-1);
@@ -159,10 +159,10 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     @Override
     public void toggleSelection(int pos) {
         if(pos != -1) {
-            mInteractionsAdapter.toggleSelection(pos);
+            mRecyclerViewAdapter.toggleSelection(pos);
         }
 
-        int count = mInteractionsAdapter.getSelectedItemCount();
+        int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
             mActionMode.finish();
@@ -188,21 +188,21 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditInteractionActivity.class);
-        InteractionWithFriendIDs iwfids = mInteractionsAdapter.getSelectedItems().get(0);
+        InteractionWithFriendIDs iwfids = mRecyclerViewAdapter.getSelectedItems().get(0);
         Interaction interaction = iwfids.interaction;
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
         intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypes.get(interaction.getInteractionTypeId()));
         intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
         intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
-        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mInteractionsAdapter.generateNameString(iwfids.friendIDs));
+        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mRecyclerViewAdapter.generateNameString(iwfids.friendIDs));
 
         getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
     }
 
     @Override
     public void deleteSelection() {
-        for(InteractionWithFriendIDs interactionWithFriendIDs : mInteractionsAdapter.getSelectedItems()) {
+        for(InteractionWithFriendIDs interactionWithFriendIDs : mRecyclerViewAdapter.getSelectedItems()) {
             HashSet ids = new HashSet();
             ids.addAll(interactionWithFriendIDs.friendIDs);
             mViewModel.delete(interactionWithFriendIDs.interaction, ids);
