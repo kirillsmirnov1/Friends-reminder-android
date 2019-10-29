@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * CustomRVAdapter holds fields and methods of all RecyclerViews used in app
  * @param <T_VH> class for ViewHolder
- * @param <T_E>  entities of data
+ * @param <T_E>  entity of data to be used as items
  * */
 public abstract class CustomRVAdapter
         <T_VH extends RecyclerView.ViewHolder & BindableViewHolder,
@@ -25,7 +25,7 @@ public abstract class CustomRVAdapter
     protected OnClickListener mOnClickListener = null;
     protected HashSet<Integer> mSelectedPositions;
 
-    private List<T_E> mEntries = new ArrayList<>();
+    private List<T_E> mItems = new ArrayList<>();
 
     public CustomRVAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
         mContext = context;
@@ -38,16 +38,16 @@ public abstract class CustomRVAdapter
 
     @Override
     public int getItemCount() {
-        return mEntries.size();
+        return mItems.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull T_VH holder, int position) {
-        holder.bindTo(mEntries.get(position), position);
+        holder.bindTo(mItems.get(position), position);
     }
 
-    public void setEntries(List<T_E> entries){
-        mEntries = entries;
+    public void setItems(List<T_E> items){
+        mItems = items;
     }
 
     /**
@@ -80,19 +80,19 @@ public abstract class CustomRVAdapter
      * @return list of selected objects
      */
     public List<T_E> getSelectedItems() {
-        List <T_E> selectedTypes = new ArrayList<>(mSelectedPositions.size());
+        List <T_E> selectedItems = new ArrayList<>(mSelectedPositions.size());
         for(Integer position : mSelectedPositions){
-            selectedTypes.add(mEntries.get(position));
+            selectedItems.add(mItems.get(position));
         }
-        return selectedTypes;
+        return selectedItems;
     }
 
     /**
      * Get data stored in RV
      * @return list of objects
      */
-    public List<T_E> getEntries() {
-        return mEntries;
+    public List<T_E> getItems() {
+        return mItems;
     }
 
 }

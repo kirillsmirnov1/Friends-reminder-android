@@ -104,7 +104,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
         recyclerView.setLayoutManager(mLayout);
 
         mAdapter = new LastInteractionsAdapter(getContext(), mSelectedPositions);
-        mAdapter.setEntries(mLastInteractions);
+        mAdapter.setItems(mLastInteractions);
         recyclerView.setAdapter(mAdapter);
 
         // Might be unnecessary, might fix issue with empty LI tab

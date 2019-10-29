@@ -77,7 +77,7 @@ public class InteractionTypesActivity
                         : View.GONE
                     );
 
-                mInteractionTypeAdapter.setEntries(interactionTypes);
+                mInteractionTypeAdapter.setItems(interactionTypes);
                 mInteractionTypeAdapter.notifyDataSetChanged();
             }
         });
@@ -226,7 +226,7 @@ public class InteractionTypesActivity
     @Override
     public boolean typeExists(String typeName) {
 
-        for(InteractionType interactionType : mInteractionTypeAdapter.getEntries()){
+        for(InteractionType interactionType : mInteractionTypeAdapter.getItems()){
             if(interactionType.getInteractionTypeName().equals(typeName))
                 return true;
         }

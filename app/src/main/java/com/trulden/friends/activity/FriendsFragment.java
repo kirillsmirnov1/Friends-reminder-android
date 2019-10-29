@@ -25,7 +25,6 @@ import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
-import com.trulden.friends.database.entity.InteractionType;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -98,7 +97,7 @@ public class FriendsFragment
                         : View.GONE
                     );
 
-                mFriendsAdapter.setEntries(friends);
+                mFriendsAdapter.setItems(friends);
                 // We need to tell adapter to refresh view, otherwise it might not happen
                 mFriendsAdapter.notifyDataSetChanged();
             }

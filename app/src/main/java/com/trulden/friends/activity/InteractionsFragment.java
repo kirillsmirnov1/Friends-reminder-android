@@ -123,7 +123,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
                         : View.GONE
                 );
 
-                mInteractionsAdapter.setEntries(interactionWithFriendIDs);
+                mInteractionsAdapter.setItems(interactionWithFriendIDs);
                 mInteractionsAdapter.notifyDataSetChanged();
             }
         });
