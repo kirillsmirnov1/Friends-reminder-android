@@ -122,4 +122,8 @@ public class FriendsViewModel extends AndroidViewModel {
     public void setSelectedLITabPos(int mSelectedLITabPos) {
         this.mSelectedLITabPos = mSelectedLITabPos;
     }
+
+    public LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId) {
+        return mRepository.getLastInteractionsOfAFriend(friendId);
+    }
 }

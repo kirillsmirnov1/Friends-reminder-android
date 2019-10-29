@@ -27,9 +27,14 @@ import static com.trulden.friends.util.Util.daysPassed;
  */
 public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInteractionsRecyclerViewAdapter.ViewHolder, LastInteractionWrapper> {
 
-    public LastInteractionsRecyclerViewAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
+    TrackerMode mTrackerMode;
+
+    public LastInteractionsRecyclerViewAdapter(Context context,
+                                               @NonNull HashSet<Integer> selectedPositions,
+                                               TrackerMode trackerMode){
         super(context, selectedPositions);
         mContext = context;
+        mTrackerMode = trackerMode;
     }
 
     @NonNull
@@ -67,7 +72,14 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
                 mHiddenIcon.setVisibility(View.INVISIBLE);
             }
 
-            mName.setText(interaction.getFriendName());
+            switch (mTrackerMode) {
+                case SHOW_FRIEND_NAME:
+                    mName.setText(interaction.getFriendName());
+                    break;
+                case SHOW_TYPE_NAME:
+                    mName.setText(interaction.getType().getInteractionTypeName());
+                    break;
+            }
 
             int daysPassed = daysPassed(interaction.getLastInteraction());
 
@@ -75,7 +87,7 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
 
             mTime.setText(dateString);
 
-            mFrequency.setText("раз в " + interaction.getType().getFrequency() + " д.");
+            mFrequency.setText(String.format(mContext.getString(R.string.LI_every_x_days), interaction.getType().getFrequency())); //TODO translate
 
             // Grey out LI for which time have not yet come
             if(!interaction.itsTime()) {
@@ -109,5 +121,10 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
                 }
             });
         }
+    }
+
+    public enum TrackerMode{
+        SHOW_FRIEND_NAME,
+        SHOW_TYPE_NAME
     }
 }

@@ -59,6 +59,10 @@ class FriendsRepository {
         return mFriendsDao.getFriendNames();
     }
 
+    public LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId) {
+        return mFriendsDao.getLastInteractionsOfAFriend(friendId);
+    }
+
     FriendsDao getDao() {
         return mFriendsDao;
     }

@@ -7,27 +7,53 @@
     tools:context=".activity.FriendPageActivity"
     >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-            <TextView
-                android:id="@+id/afp_notes"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Friend's notes"
-                style="@style/TextAppearance.AppCompat.Subhead"
-                android:padding="8dp"
-                />
+                android:orientation="vertical"
+                >
 
+                <TextView
+                    android:id="@+id/afp_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Friend's notes"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:padding="8dp"
+                    />
+
+                <View
+                    android:id="@+id/afp_notes_tracker_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    />
+
+                <TextView
+                    android:id="@+id/afp_LI_subhead"
+                    android:text="@string/last_interactions"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/afp_LI_recycler_view"
+                    style="@style/recycler_view"
+                    tools:listitem="@layout/entry_last_interaction"
+                    />
+
+            </LinearLayout>
         </ScrollView>
-
-    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

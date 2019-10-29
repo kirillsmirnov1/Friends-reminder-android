@@ -162,6 +162,11 @@ public interface FriendsDao {
     List<LastInteraction> getLastInteraction(long typeId, long friendId);
 
     @Transaction
+    @Query("SELECT * FROM last_interaction_table " +
+            "WHERE friendId = :friendId;")
+    LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId);
+
+    @Transaction
     @Query(
         "INSERT OR IGNORE INTO \n" +
         "  last_interaction_table(friendId, typeId, interactionId, date, status)\n" +

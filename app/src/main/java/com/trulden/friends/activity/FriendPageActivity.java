@@ -4,19 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 
+import java.util.HashSet;
 import java.util.Objects;
 
+import static com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter.TrackerMode.SHOW_TYPE_NAME;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
@@ -29,17 +35,24 @@ import static com.trulden.friends.util.Util.makeToast;
 public class FriendPageActivity extends AppCompatActivity {
 
     private TextView mPersonNotes;
+    private View mNotesTrackersDivider;
+    private TextView mLISubhead;
 
     private Friend mFriend;
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
+    private LastInteractionsRecyclerViewAdapter mRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_page);
 
+        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+
         mPersonNotes = findViewById(R.id.afp_notes);
+        mNotesTrackersDivider = findViewById(R.id.afp_notes_tracker_divider);
+        mLISubhead = findViewById(R.id.afp_LI_subhead);
 
         Intent intent = getIntent();
 
@@ -50,13 +63,41 @@ public class FriendPageActivity extends AppCompatActivity {
 
         setFriendInfo(mFriend);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        RecyclerView recyclerView = findViewById(R.id.afp_LI_recycler_view);
+        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, new HashSet<>(), SHOW_TYPE_NAME);
+        recyclerView.setAdapter(mRecyclerViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mViewModel.getLastInteractionsOfAFriend(mFriend.getId()).observe(this, lastInteractionWrappers -> {
+
+            if(lastInteractionWrappers.size() == 0){
+                mLISubhead.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
+            } else {
+                mLISubhead.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+
+                if(!mFriend.getInfo().isEmpty()){
+                    mNotesTrackersDivider.setVisibility(View.VISIBLE);
+                }
+            }
+
+            mRecyclerViewAdapter.setItems(lastInteractionWrappers);
+            mRecyclerViewAdapter.notifyDataSetChanged();
+        });
     }
 
     private void setFriendInfo(Friend friend){
         mFriend = friend;
         Objects.requireNonNull(getSupportActionBar()).setTitle(friend.getName());
         mPersonNotes.setText(friend.getInfo());
+
+        if(friend.getInfo().isEmpty()){
+            mPersonNotes.setVisibility(View.GONE);
+            mNotesTrackersDivider.setVisibility(View.GONE);
+        } else {
+            mPersonNotes.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -82,7 +123,7 @@ public class FriendPageActivity extends AppCompatActivity {
             }
 
             case R.id.msed_delete: {
-                mFriendsViewModel.delete(mFriend);
+                mViewModel.delete(mFriend);
                 makeToast(this, "«" + mFriend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
                 finish();
                 break;
@@ -106,7 +147,7 @@ public class FriendPageActivity extends AppCompatActivity {
                     assert name != null;
                     Friend friend = new Friend(id, name, info);
                     setFriendInfo(friend);
-                    mFriendsViewModel.update(friend);
+                    mViewModel.update(friend);
                 }
             }
         }
