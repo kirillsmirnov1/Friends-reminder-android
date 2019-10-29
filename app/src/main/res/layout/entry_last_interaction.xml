@@ -49,6 +49,16 @@
             android:paddingEnd="8dp"
             />
 
+        <TextView
+            android:id="@+id/eli_frequency"
+            tools:text="per 30 d."
+            android:layout_below="@id/eli_friend_name"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
