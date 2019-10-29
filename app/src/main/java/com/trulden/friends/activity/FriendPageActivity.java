@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,8 @@ import static com.trulden.friends.util.Util.makeToast;
 public class FriendPageActivity extends AppCompatActivity {
 
     private TextView mPersonNotes;
+    private View mNotesTrackersDivider;
+    private TextView mLISubhead;
 
     private Friend mFriend;
 
@@ -47,6 +50,8 @@ public class FriendPageActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         mPersonNotes = findViewById(R.id.afp_notes);
+        mNotesTrackersDivider = findViewById(R.id.afp_notes_tracker_divider);
+        mLISubhead = findViewById(R.id.afp_LI_subhead);
 
         Intent intent = getIntent();
 
@@ -63,6 +68,19 @@ public class FriendPageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mViewModel.getLastInteractionsOfAFriend(mFriend.getId()).observe(this, lastInteractionWrappers -> {
+
+            if(lastInteractionWrappers.size() == 0){
+                mLISubhead.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
+            } else {
+                mLISubhead.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+
+                if(!mFriend.getInfo().isEmpty()){
+                    mNotesTrackersDivider.setVisibility(View.VISIBLE);
+                }
+            }
+
             mRecyclerViewAdapter.setItems(lastInteractionWrappers);
             mRecyclerViewAdapter.notifyDataSetChanged();
         });
@@ -72,6 +90,13 @@ public class FriendPageActivity extends AppCompatActivity {
         mFriend = friend;
         Objects.requireNonNull(getSupportActionBar()).setTitle(friend.getName());
         mPersonNotes.setText(friend.getInfo());
+
+        if(friend.getInfo().isEmpty()){
+            mPersonNotes.setVisibility(View.GONE);
+            mNotesTrackersDivider.setVisibility(View.GONE);
+        } else {
+            mPersonNotes.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
