@@ -32,7 +32,7 @@ public class FriendPageActivity extends AppCompatActivity {
 
     private Friend mFriend;
 
-    private FriendsViewModel mFriendsViewModel;
+    private FriendsViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class FriendPageActivity extends AppCompatActivity {
 
         setFriendInfo(mFriend);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
     }
 
     private void setFriendInfo(Friend friend){
@@ -82,7 +82,7 @@ public class FriendPageActivity extends AppCompatActivity {
             }
 
             case R.id.msed_delete: {
-                mFriendsViewModel.delete(mFriend);
+                mViewModel.delete(mFriend);
                 makeToast(this, "«" + mFriend.getName() + "»" + getString(R.string.toast_notice_friend_deleted));
                 finish();
                 break;
@@ -106,7 +106,7 @@ public class FriendPageActivity extends AppCompatActivity {
                     assert name != null;
                     Friend friend = new Friend(id, name, info);
                     setFriendInfo(friend);
-                    mFriendsViewModel.update(friend);
+                    mViewModel.update(friend);
                 }
             }
         }
