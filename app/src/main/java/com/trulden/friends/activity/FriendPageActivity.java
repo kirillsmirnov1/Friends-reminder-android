@@ -10,11 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
@@ -33,11 +37,14 @@ public class FriendPageActivity extends AppCompatActivity {
     private Friend mFriend;
 
     private FriendsViewModel mViewModel;
+    private LastInteractionsRecyclerViewAdapter mRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_page);
+
+        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         mPersonNotes = findViewById(R.id.afp_notes);
 
@@ -50,7 +57,15 @@ public class FriendPageActivity extends AppCompatActivity {
 
         setFriendInfo(mFriend);
 
-        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        RecyclerView recyclerView = findViewById(R.id.afp_LI_recycler_view);
+        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, new HashSet<>());
+        recyclerView.setAdapter(mRecyclerViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mViewModel.getLastInteractionsOfAFriend(mFriend.getId()).observe(this, lastInteractionWrappers -> {
+            mRecyclerViewAdapter.setItems(lastInteractionWrappers);
+            mRecyclerViewAdapter.notifyDataSetChanged();
+        });
     }
 
     private void setFriendInfo(Friend friend){
