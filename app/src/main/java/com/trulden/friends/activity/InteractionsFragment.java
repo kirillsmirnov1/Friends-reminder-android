@@ -52,7 +52,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
-    private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
+    private HashSet<Integer> mSelectedPositions = new HashSet<>();
     private LongSparseArray<String> mTypes;
 
     public InteractionsFragment() {
@@ -73,13 +73,13 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
         mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_INTERACTIONS_POSITIONS)){
-            selectedInteractionsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
+            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.fi_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mRecyclerViewAdapter = new InteractionsRecyclerViewAdapter(getActivity(), selectedInteractionsPositions);
+        mRecyclerViewAdapter = new InteractionsRecyclerViewAdapter(getActivity(), mSelectedPositions);
 
         recyclerView.setAdapter(mRecyclerViewAdapter);
 
@@ -144,7 +144,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
 
         mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
 
-        if(selectedInteractionsPositions.size() > 0)
+        if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
     }
 
@@ -182,7 +182,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_INTERACTIONS_POSITIONS, selectedInteractionsPositions);
+        outState.putSerializable(SELECTED_INTERACTIONS_POSITIONS, mSelectedPositions);
     }
 
     @Override
