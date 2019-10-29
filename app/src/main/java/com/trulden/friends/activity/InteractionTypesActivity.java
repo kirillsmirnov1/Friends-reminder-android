@@ -18,7 +18,7 @@ import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
 import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
-import com.trulden.friends.adapter.InteractionTypeAdapter;
+import com.trulden.friends.adapter.InteractionTypeRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
@@ -42,7 +42,7 @@ public class InteractionTypesActivity
 
     private FriendsViewModel mViewModel;
 
-    private InteractionTypeAdapter mInteractionTypeAdapter;
+    private InteractionTypeRecyclerViewAdapter mRecyclerViewAdapter;
 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
@@ -62,8 +62,8 @@ public class InteractionTypesActivity
         }
 
         RecyclerView recyclerView = findViewById(R.id.ait_recycler_view);
-        mInteractionTypeAdapter = new InteractionTypeAdapter(this, mSelectedPositions);
-        recyclerView.setAdapter(mInteractionTypeAdapter);
+        mRecyclerViewAdapter = new InteractionTypeRecyclerViewAdapter(this, mSelectedPositions);
+        recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
@@ -77,15 +77,15 @@ public class InteractionTypesActivity
                         : View.GONE
                     );
 
-                mInteractionTypeAdapter.setItems(interactionTypes);
-                mInteractionTypeAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.setItems(interactionTypes);
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        mInteractionTypeAdapter.setOnClickListener(new OnClickListener<InteractionType>() {
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener<InteractionType>() {
             @Override
             public void onItemClick(View view, InteractionType obj, int pos) {
-                if(mInteractionTypeAdapter.getSelectedItemCount() > 0){
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 }
             }
@@ -96,7 +96,7 @@ public class InteractionTypesActivity
             }
         });
 
-        mSelectionCallback = new SelectionCallback(this, mInteractionTypeAdapter);
+        mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
 
         if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
@@ -146,10 +146,10 @@ public class InteractionTypesActivity
     @Override
     public void toggleSelection(int pos) {
         if(pos != -1) {
-            mInteractionTypeAdapter.toggleSelection(pos);
+            mRecyclerViewAdapter.toggleSelection(pos);
         }
 
-        int count = mInteractionTypeAdapter.getSelectedItemCount();
+        int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
             mActionMode.finish();
@@ -182,7 +182,7 @@ public class InteractionTypesActivity
 
     @Override
     public void editSelection() {
-        InteractionType interactionType = mInteractionTypeAdapter.getSelectedItems().get(0);
+        InteractionType interactionType = mRecyclerViewAdapter.getSelectedItems().get(0);
 
         new EditInteractionTypeDialog(interactionType).show(getSupportFragmentManager(), "editInteractionType");
     }
@@ -190,7 +190,7 @@ public class InteractionTypesActivity
     @Override
     public void deleteSelection() {
 
-        List<InteractionType> selection = new ArrayList<>(mInteractionTypeAdapter.getSelectedItems());
+        List<InteractionType> selection = new ArrayList<>(mRecyclerViewAdapter.getSelectedItems());
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder
@@ -226,7 +226,7 @@ public class InteractionTypesActivity
     @Override
     public boolean typeExists(String typeName) {
 
-        for(InteractionType interactionType : mInteractionTypeAdapter.getItems()){
+        for(InteractionType interactionType : mRecyclerViewAdapter.getItems()){
             if(interactionType.getInteractionTypeName().equals(typeName))
                 return true;
         }
