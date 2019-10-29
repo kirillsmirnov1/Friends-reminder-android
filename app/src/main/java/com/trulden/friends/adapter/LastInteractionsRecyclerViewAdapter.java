@@ -87,7 +87,7 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
 
             mTime.setText(dateString);
 
-            mFrequency.setText("раз в " + interaction.getType().getFrequency() + " д."); //TODO translate
+            mFrequency.setText(String.format(mContext.getString(R.string.LI_every_x_days), interaction.getType().getFrequency())); //TODO translate
 
             // Grey out LI for which time have not yet come
             if(!interaction.itsTime()) {

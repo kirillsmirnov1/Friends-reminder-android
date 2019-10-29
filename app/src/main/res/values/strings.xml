@@ -86,5 +86,6 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="alert_dialog_delete_all_friends_notice">This will also change multi-person interactions and delete solo interactions of selected friends.</string>
     <string name="alert_dialog_friends_to_be_deleted">\n\nFriends to be deleted:\n</string>
+    <string name="LI_every_x_days">every %d d.</string>
 
 </resources>
