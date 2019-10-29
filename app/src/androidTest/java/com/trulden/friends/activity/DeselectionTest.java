@@ -216,7 +216,8 @@ public class DeselectionTest extends AbstractMATest {
 
         ViewInteraction textView = checkSelectionCounterValue("2");
 
-        deleteSelection();
+        onView(withId(R.id.msed_delete)).perform(click());
+        onView(withText(android.R.string.ok)).perform(click());
 
         sleep(250);
 
@@ -236,7 +237,8 @@ public class DeselectionTest extends AbstractMATest {
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        deleteSelection();
+        onView(withId(R.id.msed_delete)).perform(click());
+        onView(withText(android.R.string.ok)).perform(click());
 
         textView.check(matches(not(isDisplayed())));
 

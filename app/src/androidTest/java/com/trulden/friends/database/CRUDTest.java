@@ -310,6 +310,7 @@ public class CRUDTest extends AbstractMATest {
         onView(withText(balaam)).perform(click());
 
         onView(withId(R.id.msed_delete)).perform(click());
+        onView(withText(android.R.string.ok)).perform(click());
 
         onView(withText(aaron)).check(doesNotExist());
         onView(withText(balaam)).check(doesNotExist());
@@ -376,6 +377,7 @@ public class CRUDTest extends AbstractMATest {
         onView(withText(meeting)).perform(longClick());
 
         onView(withId(R.id.msed_delete)).perform(click());
+        onView(withText(android.R.string.ok)).perform(click());
 
         navigateUp();
 
@@ -396,6 +398,7 @@ public class CRUDTest extends AbstractMATest {
         selectAllTypes();
 
         onView(withId(R.id.msed_delete)).perform(click());
+        onView(withText(android.R.string.ok)).perform(click());
 
         navigateUp();
 
