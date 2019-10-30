@@ -126,4 +126,8 @@ public class FriendsViewModel extends AndroidViewModel {
     public LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId) {
         return mRepository.getLastInteractionsOfAFriend(friendId);
     }
+
+    public Interaction getInteraction(long interactionId) {
+        return mRepository.getInteraction(interactionId);
+    }
 }
