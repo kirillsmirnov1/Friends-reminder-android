@@ -115,11 +115,11 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
         mRecyclerViewAdapter.setOnClickListener(new OnClickListener<LastInteractionWrapper>() {
             @Override
-            public void onItemClick(View view, LastInteractionWrapper obj, int pos) {
+            public void onItemClick(View view, LastInteractionWrapper lastInteractionWrapper, int pos) {
                 if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
                 } else {
-                    makeToast(getContext(), "There should be tracker fragment popup");
+                    ((MainActivity) getActivity()).showTracker(lastInteractionWrapper);
                 }
             }
 
