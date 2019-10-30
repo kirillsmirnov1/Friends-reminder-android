@@ -86,6 +86,9 @@ public interface FriendsDao {
     @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
     List<Interaction> getInteraction(long interactionId);
 
+    @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
+    LiveData<List<Interaction>> getInteractionById(long interactionId);
+
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     @Transaction
     LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendIDs();

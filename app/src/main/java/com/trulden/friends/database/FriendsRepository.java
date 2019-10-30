@@ -78,8 +78,8 @@ class FriendsRepository {
         }.execute();
     }
 
-    public Interaction getInteraction(long interactionId) {
-        return mFriendsDao.getInteraction(interactionId).get(0);
+    public LiveData<List<Interaction>> getInteraction(long interactionId) {
+        return mFriendsDao.getInteractionById(interactionId);
     }
 
     /**

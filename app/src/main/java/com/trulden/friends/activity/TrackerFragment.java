@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -14,7 +15,10 @@ import android.widget.TextView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
+
+import java.util.List;
 
 import static com.trulden.friends.util.Util.daysPassed;
 
@@ -61,8 +65,12 @@ public class TrackerFragment extends Fragment {
 
         long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
 
-        ((TextView) view.findViewById(R.id.ft_comment))
-                .setText(viewModel.getInteraction(interactionId).getComment());
+        viewModel.getInteraction(interactionId)
+            .observe(
+                getViewLifecycleOwner(),
+                interactions ->
+                    ((TextView) view.findViewById(R.id.ft_comment))
+                        .setText(interactions.get(0).getComment()));
 
         //TODO
         //viewModel.getFriendNamesByInteractionId(interactionId);
