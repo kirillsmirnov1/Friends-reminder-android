@@ -32,6 +32,7 @@ import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
 
@@ -422,6 +423,15 @@ public class MainActivity
         }
 
         return false;
+    }
+
+    public void showTracker(LastInteractionWrapper lastInteractionWrapper) {
+        findViewById(R.id.am_over_layout).setVisibility(View.VISIBLE);
+
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.am_over_layout, TrackerFragment.newInstance(lastInteractionWrapper))
+            .commit();
     }
 
     public enum FragmentToLoad{
