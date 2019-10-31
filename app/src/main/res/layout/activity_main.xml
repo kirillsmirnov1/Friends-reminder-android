@@ -81,6 +81,7 @@
                 app:itemTextColor="@drawable/bottom_navigation_colors"
                 app:labelVisibilityMode="unlabeled"
                 app:menu="@menu/menu_bottom_navigation"
+                android:elevation="0dp"
                 />
 
             <include layout="@layout/toolbar" />
@@ -102,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:elevation="10dp"
                 />
 
         </RelativeLayout>
