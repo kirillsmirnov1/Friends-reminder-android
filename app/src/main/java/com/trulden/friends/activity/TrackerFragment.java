@@ -116,7 +116,12 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         });
 
         mStatusIcon.setOnClickListener(v -> {
-            makeToast(getContext(), "Status icon clicked"); // TODO
+            mLastInteractionWrapper.getLastInteraction().setStatus(
+                mLastInteractionWrapper.getLastInteraction().getStatus() == 0
+                ? 1
+                : 0);
+            setStatusIcon();
+            viewModel.update(mLastInteractionWrapper.getLastInteraction());
         });
 
         updateIcon.setOnClickListener(v -> {
