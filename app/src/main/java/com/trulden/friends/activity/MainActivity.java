@@ -472,9 +472,11 @@ public class MainActivity
             mTrackerOverLayout.getGlobalVisibleRect(outRect);
             if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY())){
                 closeTrackerOver();
+                return true;
+            } else {
+                return super.dispatchTouchEvent(ev);
             }
 
-            return true;
         }
 
         // Hide fab if touch event outside of it
