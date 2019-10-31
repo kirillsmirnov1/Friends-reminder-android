@@ -445,7 +445,6 @@ public class MainActivity
             .commit();
 
         findViewById(R.id.am_fade_background).setVisibility(View.VISIBLE);
-        findViewById(R.id.am_bottom_navigation).setAlpha(0.5f);
     }
 
     public enum FragmentToLoad{
@@ -509,7 +508,6 @@ public class MainActivity
     private void closeTrackerOver() {
         mTrackerOverLayout.setVisibility(View.GONE);
         findViewById(R.id.am_fade_background).setVisibility(View.GONE);
-        findViewById(R.id.am_bottom_navigation).setAlpha(1f);
         mTrackerOverShown = false;
         getSupportFragmentManager()
                 .beginTransaction()
