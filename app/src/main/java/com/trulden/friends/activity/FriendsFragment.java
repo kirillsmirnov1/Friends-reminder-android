@@ -36,6 +36,7 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
+import static com.trulden.friends.util.Util.openFriendsPage;
 
 /**
  * Shows list of selectable friends.
@@ -109,11 +110,7 @@ public class FriendsFragment
                 if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 } else {
-                    Intent intent = new Intent(getActivity(), FriendPageActivity.class);
-                    intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
-                    intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-                    intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
-                    Objects.requireNonNull(getActivity()).startActivity(intent);
+                    openFriendsPage(getActivity(), friend);
                 }
             }
 
