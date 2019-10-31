@@ -85,7 +85,7 @@ public class MainActivity
         setSupportActionBar(mToolbar);
         setToolbarTitle();
 
-        mTrackerOverLayout = findViewById(R.id.am_over_layout);
+        mTrackerOverLayout = findViewById(R.id.am_tracker_over_layout);
 
         if(getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD) != null){
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
@@ -441,7 +441,7 @@ public class MainActivity
 
         getSupportFragmentManager()
             .beginTransaction()
-            .replace(R.id.am_over_layout, mTrackerOverFragment)
+            .replace(R.id.am_tracker_over_layout, mTrackerOverFragment)
             .commit();
     }
 

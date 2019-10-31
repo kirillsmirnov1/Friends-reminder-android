@@ -88,7 +88,7 @@
             <include layout="@layout/toolbar" />
 
             <FrameLayout
-                android:id="@+id/am_over_layout"
+                android:id="@+id/am_tracker_over_layout"
                 android:visibility="gone"
                 android:layout_margin="40dp"
                 android:layout_width="match_parent"
