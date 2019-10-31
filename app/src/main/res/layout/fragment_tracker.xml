@@ -45,6 +45,7 @@
                 />
 
             <ImageView
+                android:id="@+id/ft_status_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_visibility_off_24dp"
