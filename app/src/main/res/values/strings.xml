@@ -88,5 +88,6 @@
     <string name="alert_dialog_friends_to_be_deleted">\n\nFriends to be deleted:\n</string>
     <string name="LI_every_x_days">every %d d.</string>
     <string name="no_description">No notes</string>
+    <string name="with">With\u0020</string>
 
 </resources>

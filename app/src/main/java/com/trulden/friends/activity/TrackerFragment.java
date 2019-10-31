@@ -87,7 +87,7 @@ public class TrackerFragment extends Fragment {
                 if(namesList.size() == 0){
                     mWithWhom.setVisibility(View.GONE);
                 } else {
-                    String names = "With " + TextUtils.join(", ", namesList);
+                    String names = getString(R.string.with) + TextUtils.join(", ", namesList);
                     mWithWhom.setVisibility(View.VISIBLE);
                     mWithWhom.setText(names);
                 }

@@ -79,4 +79,5 @@
     <string name="are_you_sure">Вы уверены?</string>
     <string name="LI_every_x_days">раз в %d д.</string>
     <string name="no_description">Без заметок</string>
+    <string name="with">Вместе с\u0020</string>
 </resources>
