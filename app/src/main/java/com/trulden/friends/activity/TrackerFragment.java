@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -11,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trulden.friends.R;
@@ -27,6 +29,8 @@ public class TrackerFragment extends Fragment {
 
     private TextView mComment;
     private TextView mWithWhom;
+
+    private ImageView mStatusIcon;
 
     public TrackerFragment() {
         // Required empty public constructor
@@ -51,6 +55,7 @@ public class TrackerFragment extends Fragment {
 
         mComment = view.findViewById(R.id.ft_comment);
         mWithWhom = view.findViewById(R.id.ft_with_whom);
+        mStatusIcon = view.findViewById(R.id.ft_status_icon);
 
         long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
         String friendsName = mLastInteractionWrapper.getFriendName();
@@ -69,6 +74,7 @@ public class TrackerFragment extends Fragment {
         ((TextView) view.findViewById(R.id.ft_frequency))
                 .setText(String.format(getString(R.string.LI_every_x_days), mLastInteractionWrapper.getType().getFrequency()));
 
+        setStatusIcon();
 
         viewModel.getInteraction(interactionId)
             .observe(
@@ -93,8 +99,16 @@ public class TrackerFragment extends Fragment {
                 }
             });
 
-        //TODO set visible icon status
-
         //TODO consider using refresh or other icon instead of plus
+    }
+
+    private void setStatusIcon() {
+        int drawableId;
+        if(mLastInteractionWrapper.getLastInteraction().getStatus() == 0){
+            drawableId = R.drawable.ic_visibility_24dp;
+        } else {
+            drawableId = R.drawable.ic_visibility_off_24dp;
+        }
+        mStatusIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), drawableId));
     }
 }
