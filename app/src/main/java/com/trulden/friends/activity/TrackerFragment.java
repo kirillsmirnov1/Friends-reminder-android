@@ -1,5 +1,6 @@
 package com.trulden.friends.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,11 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
+import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.daysPassed;
 import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.openFriendsPage;
@@ -114,10 +120,16 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         });
 
         updateIcon.setOnClickListener(v -> {
-            makeToast(getContext(), "Plus icon clicked"); // TODO
-        });
+             // TODO
+            Intent intent = new Intent(getContext(), EditInteractionActivity.class);
+            intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
+            intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getType().getInteractionTypeName());
+            intent.putExtra(EXTRA_INTERACTION_TYPE_ID, mLastInteractionWrapper.getType().getId());
 
-        //TODO consider using refresh or other icon instead of plus
+            ((MainActivity) getActivity()).closeTrackerOver();
+
+            getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
+        });
     }
 
     private void setStatusIcon() {
