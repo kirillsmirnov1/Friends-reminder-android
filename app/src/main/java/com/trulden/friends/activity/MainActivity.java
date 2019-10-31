@@ -505,7 +505,7 @@ public class MainActivity
         super.onBackPressed();
     }
 
-    private void closeTrackerOver() {
+    public void closeTrackerOver() {
         mTrackerOverLayout.setVisibility(View.GONE);
         findViewById(R.id.am_fade_background).setVisibility(View.GONE);
         mTrackerOverShown = false;
