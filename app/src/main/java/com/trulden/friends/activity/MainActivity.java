@@ -241,7 +241,7 @@ public class MainActivity
         mFabMenu.collapse();
     }
 
-    public void addInteraction(View view) {
+    public void onAddInteractionClick(View view) {
 
         saveSelectedLastInteractionTab();
 

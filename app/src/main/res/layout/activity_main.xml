@@ -47,7 +47,7 @@
                     android:id="@+id/am_fab_add_interaction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="addInteraction"
+                    android:onClick="onAddInteractionClick"
                     app:fab_colorNormal="@color/white"
                     app:fab_colorPressed="@color/white_pressed"
                     app:fab_icon="@drawable/ic_watch_later_"
