@@ -130,4 +130,8 @@ public class FriendsViewModel extends AndroidViewModel {
     public LiveData<List<Interaction>> getInteraction(long interactionId) {
         return mRepository.getInteraction(interactionId);
     }
+
+    public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
+        return mRepository.getCoParticipantNames(interactionId, friendsName);
+    }
 }

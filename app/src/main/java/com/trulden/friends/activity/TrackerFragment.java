@@ -5,9 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +15,7 @@ import android.widget.TextView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.database.FriendsViewModel;
-import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
-
-import java.util.List;
 
 import static com.trulden.friends.util.Util.daysPassed;
 
@@ -49,10 +46,13 @@ public class TrackerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
+        String friendsName = mLastInteractionWrapper.getFriendName();
+
         FriendsViewModel viewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         ((TextView) view.findViewById(R.id.ft_friends_name))
-                .setText(mLastInteractionWrapper.getFriendName());
+                .setText(friendsName);
 
         ((TextView) view.findViewById(R.id.ft_type))
                 .setText(mLastInteractionWrapper.getType().getInteractionTypeName());
@@ -63,7 +63,6 @@ public class TrackerFragment extends Fragment {
         ((TextView) view.findViewById(R.id.ft_frequency))
                 .setText(String.format(getString(R.string.LI_every_x_days), mLastInteractionWrapper.getType().getFrequency()));
 
-        long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
 
         viewModel.getInteraction(interactionId)
             .observe(
@@ -72,8 +71,11 @@ public class TrackerFragment extends Fragment {
                     ((TextView) view.findViewById(R.id.ft_comment))
                         .setText(interactions.get(0).getComment()));
 
-        //TODO
-        //viewModel.getFriendNamesByInteractionId(interactionId);
+        viewModel.getCoParticipantNames(interactionId, friendsName).observe(getViewLifecycleOwner(),
+            namesList -> {
+                String names = "With " + TextUtils.join(", ", namesList);
+                ((TextView) view.findViewById(R.id.ft_with_whom)).setText(names);
+            });
 
         //TODO set visible icon status
 
