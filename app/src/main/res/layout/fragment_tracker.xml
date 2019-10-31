@@ -86,27 +86,25 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/ft_divider"
+            android:layout_below="@id/ft_type_and_time"
+            style="@style/horizontal_divider"
+            />
+
         <TextView
             android:id="@+id/ft_with_whom"
             tools:text="With Anton, Max"
-            android:layout_below="@id/ft_type_and_time"
+            android:layout_below="@id/ft_divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            />
-
-        <View
-            android:id="@+id/ft_divider"
-            android:layout_below="@id/ft_with_whom"
-            style="@style/horizontal_divider"
             />
 
         <TextView
             android:id="@+id/ft_comment"
             tools:text="He'd never been to my hometown of Memphis and was really looking forward to meeting my parents, but also indulging in as much BBQ as possible. My mother, being the Southern hostess with the mostest, happily obliged his craving with a full pork shoulder—probably about ten pounds worth. When it was served, Dan filled his plate to the rim and drowned his meat in the sauce. He scarfed down the meat, and of course, my mother was there with a second helping as soon as he was done. This happened again... and again... and after the fourth helping, my whole family looked over at Dan who had broken out in the full-on meat sweats. He was literally dripping! You could smell the BBQ pouring out of him and honestly, it's something that I had never seen before."
             style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_below="@id/ft_divider"
-            android:paddingTop="8dp"
+            android:layout_below="@id/ft_with_whom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
