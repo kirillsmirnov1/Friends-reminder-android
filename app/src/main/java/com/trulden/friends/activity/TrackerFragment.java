@@ -120,7 +120,6 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         });
 
         updateIcon.setOnClickListener(v -> {
-             // TODO
             Intent intent = new Intent(getContext(), EditInteractionActivity.class);
             intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
             intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getType().getInteractionTypeName());
