@@ -25,6 +25,9 @@ public class TrackerFragment extends Fragment {
 
     private LastInteractionWrapper mLastInteractionWrapper;
 
+    private TextView mComment;
+    private TextView mWithWhom;
+
     public TrackerFragment() {
         // Required empty public constructor
     }
@@ -45,6 +48,9 @@ public class TrackerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mComment = view.findViewById(R.id.ft_comment);
+        mWithWhom = view.findViewById(R.id.ft_with_whom);
 
         long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
         String friendsName = mLastInteractionWrapper.getFriendName();
@@ -67,14 +73,24 @@ public class TrackerFragment extends Fragment {
         viewModel.getInteraction(interactionId)
             .observe(
                 getViewLifecycleOwner(),
-                interactions ->
-                    ((TextView) view.findViewById(R.id.ft_comment))
-                        .setText(interactions.get(0).getComment()));
+                interactions ->{
+                    String comment = interactions.get(0).getComment();
+                    if(comment.isEmpty()){
+                        mComment.setHint(R.string.no_description);
+                    } else {
+                        mComment.setText(comment);
+                    }
+                });
 
         viewModel.getCoParticipantNames(interactionId, friendsName).observe(getViewLifecycleOwner(),
             namesList -> {
-                String names = "With " + TextUtils.join(", ", namesList);
-                ((TextView) view.findViewById(R.id.ft_with_whom)).setText(names);
+                if(namesList.size() == 0){
+                    mWithWhom.setVisibility(View.GONE);
+                } else {
+                    String names = "With " + TextUtils.join(", ", namesList);
+                    mWithWhom.setVisibility(View.VISIBLE);
+                    mWithWhom.setText(names);
+                }
             });
 
         //TODO set visible icon status
