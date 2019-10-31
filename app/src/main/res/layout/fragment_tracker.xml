@@ -101,6 +101,8 @@
             android:id="@+id/ft_divider"
             android:layout_below="@id/ft_type_and_time"
             style="@style/horizontal_divider"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             />
 
         <TextView
