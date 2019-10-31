@@ -105,8 +105,8 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             });
 
         friendsNameView.setOnClickListener(v -> {
-            openFriendsPage(getActivity(), mLastInteractionWrapper.getFriend());
             ((MainActivity) getActivity()).closeTrackerOver();
+            openFriendsPage(getActivity(), mLastInteractionWrapper.getFriend());
         });
 
         mStatusIcon.setOnClickListener(v -> {

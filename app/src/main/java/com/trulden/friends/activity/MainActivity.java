@@ -506,6 +506,7 @@ public class MainActivity
     }
 
     public void closeTrackerOver() {
+        saveSelectedLastInteractionTab();
         mTrackerOverLayout.setVisibility(View.GONE);
         findViewById(R.id.am_fade_background).setVisibility(View.GONE);
         mTrackerOverShown = false;
