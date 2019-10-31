@@ -30,6 +30,8 @@ import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.openFriendsPage;
 
 /**
+ * Shows {@link com.trulden.friends.database.entity.LastInteraction LastInteraction} entry.
+ * Shows comment from interaction.
  */
 public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
