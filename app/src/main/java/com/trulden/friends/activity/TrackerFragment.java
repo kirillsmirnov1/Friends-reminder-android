@@ -59,7 +59,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         TextView friendsNameView = view.findViewById(R.id.ft_friends_name);
         mStatusIcon = view.findViewById(R.id.ft_status_icon);
-        ImageView plusIcon = view.findViewById(R.id.ft_plus_icon);
+        ImageView updateIcon = view.findViewById(R.id.ft_update_icon);
         mWithWhom = view.findViewById(R.id.ft_with_whom);
         mComment = view.findViewById(R.id.ft_comment);
 
@@ -113,7 +113,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             makeToast(getContext(), "Status icon clicked"); // TODO
         });
 
-        plusIcon.setOnClickListener(v -> {
+        updateIcon.setOnClickListener(v -> {
             makeToast(getContext(), "Plus icon clicked"); // TODO
         });
 
