@@ -28,8 +28,8 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
     private LastInteractionWrapper mLastInteractionWrapper;
 
-    private TextView mComment;
     private TextView mWithWhom;
+    private TextView mComment;
 
     private ImageView mStatusIcon;
 
@@ -56,17 +56,18 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         view.setOnClickListener(this);
 
-        mComment = view.findViewById(R.id.ft_comment);
-        mWithWhom = view.findViewById(R.id.ft_with_whom);
+        TextView friendsNameView = view.findViewById(R.id.ft_friends_name);
         mStatusIcon = view.findViewById(R.id.ft_status_icon);
+        ImageView plusIcon = view.findViewById(R.id.ft_plus_icon);
+        mWithWhom = view.findViewById(R.id.ft_with_whom);
+        mComment = view.findViewById(R.id.ft_comment);
 
         long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
         String friendsName = mLastInteractionWrapper.getFriendName();
 
         FriendsViewModel viewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        ((TextView) view.findViewById(R.id.ft_friends_name))
-                .setText(friendsName);
+        friendsNameView.setText(friendsName);
 
         ((TextView) view.findViewById(R.id.ft_type))
                 .setText(mLastInteractionWrapper.getType().getInteractionTypeName());
@@ -102,6 +103,18 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
                 }
             });
 
+        friendsNameView.setOnClickListener(v -> {
+            makeToast(getContext(), "Friend's name clicked"); // TODO
+        });
+
+        mStatusIcon.setOnClickListener(v -> {
+            makeToast(getContext(), "Status icon clicked"); // TODO
+        });
+
+        plusIcon.setOnClickListener(v -> {
+            makeToast(getContext(), "Plus icon clicked"); // TODO
+        });
+
         //TODO consider using refresh or other icon instead of plus
     }
 
@@ -115,9 +128,8 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         mStatusIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), drawableId));
     }
 
-
     @Override
     public void onClick(View v) {
-        // TODO
+
     }
 }
