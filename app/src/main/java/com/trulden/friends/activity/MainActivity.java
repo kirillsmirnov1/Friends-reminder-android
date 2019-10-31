@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,11 +53,13 @@ public class MainActivity
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
+    private boolean mTrackerOverShown = false;
 
     private static final String SHOW_HIDDEN_LAST_INTERACTION_ENTRIES = "SHOW_HIDDEN_LAST_INTERACTION_ENTRIES";
 
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
+    private FrameLayout mTrackerOverLayout;
 
     private SharedPreferences mPreferences;
 
@@ -64,6 +67,7 @@ public class MainActivity
 
     private CustomBroadcastReceiver mReceiver;
     private Fragment mFragment;
+    private TrackerFragment mTrackerOverFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,8 @@ public class MainActivity
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setToolbarTitle();
+
+        mTrackerOverLayout = findViewById(R.id.am_over_layout);
 
         if(getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD) != null){
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
@@ -426,11 +432,16 @@ public class MainActivity
     }
 
     public void showTracker(LastInteractionWrapper lastInteractionWrapper) {
-        findViewById(R.id.am_over_layout).setVisibility(View.VISIBLE);
+
+        mTrackerOverShown = true;
+
+        mTrackerOverLayout.setVisibility(View.VISIBLE);
+
+        mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
 
         getSupportFragmentManager()
             .beginTransaction()
-            .replace(R.id.am_over_layout, TrackerFragment.newInstance(lastInteractionWrapper))
+            .replace(R.id.am_over_layout, mTrackerOverFragment)
             .commit();
     }
 
@@ -452,6 +463,21 @@ public class MainActivity
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        if(mTrackerOverShown){
+            Rect outRect = new Rect();
+            mTrackerOverLayout.getGlobalVisibleRect(outRect);
+            if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY())){
+                mTrackerOverLayout.setVisibility(View.GONE);
+                mTrackerOverShown = false;
+                getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(mTrackerOverFragment)
+                    .commit();
+            }
+
+            return true;
+        }
 
         // Hide fab if touch event outside of it
         // (Other cases handled by gab itself)
