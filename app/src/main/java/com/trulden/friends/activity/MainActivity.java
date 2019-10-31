@@ -471,14 +471,7 @@ public class MainActivity
             Rect outRect = new Rect();
             mTrackerOverLayout.getGlobalVisibleRect(outRect);
             if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY())){
-                mTrackerOverLayout.setVisibility(View.GONE);
-                findViewById(R.id.am_fade_background).setVisibility(View.GONE);
-                findViewById(R.id.am_bottom_navigation).setAlpha(1f);
-                mTrackerOverShown = false;
-                getSupportFragmentManager()
-                    .beginTransaction()
-                    .remove(mTrackerOverFragment)
-                    .commit();
+                closeTrackerOver();
             }
 
             return true;
@@ -498,5 +491,27 @@ public class MainActivity
         }
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mTrackerOverShown){
+
+            closeTrackerOver();
+
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    private void closeTrackerOver() {
+        mTrackerOverLayout.setVisibility(View.GONE);
+        findViewById(R.id.am_fade_background).setVisibility(View.GONE);
+        findViewById(R.id.am_bottom_navigation).setAlpha(1f);
+        mTrackerOverShown = false;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(mTrackerOverFragment)
+                .commit();
     }
 }
