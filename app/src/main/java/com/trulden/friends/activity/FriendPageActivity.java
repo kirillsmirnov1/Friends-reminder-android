@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
 import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
+import com.trulden.friends.adapter.base.OnClickListener;
+import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 
@@ -32,7 +35,9 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Shows Friend data
  */
-public class FriendPageActivity extends AppCompatActivity {
+public class FriendPageActivity
+    extends AppCompatActivity
+    implements LastInteractionsSelection {
 
     private TextView mPersonNotes;
     private View mNotesTrackersDivider;
@@ -42,6 +47,8 @@ public class FriendPageActivity extends AppCompatActivity {
 
     private FriendsViewModel mViewModel;
     private LastInteractionsRecyclerViewAdapter mRecyclerViewAdapter;
+    private HashSet<Integer> mSelectedPositions;
+    private SelectionCallback mSelectionCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +70,10 @@ public class FriendPageActivity extends AppCompatActivity {
 
         setFriendInfo(mFriend);
 
+        mSelectedPositions = mViewModel.getLITFSelections(FriendPageActivity.class.getName());
+
         RecyclerView recyclerView = findViewById(R.id.afp_LI_recycler_view);
-        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, new HashSet<>(), SHOW_TYPE_NAME);
+        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, mSelectedPositions, SHOW_TYPE_NAME);
         recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -85,6 +94,33 @@ public class FriendPageActivity extends AppCompatActivity {
             mRecyclerViewAdapter.setItems(lastInteractionWrappers);
             mRecyclerViewAdapter.notifyDataSetChanged();
         });
+
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onItemClick(View view, Object obj, int pos) {
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
+                    toggleSelection(pos);
+                } else {
+                    //TODO
+                    //((MainActivity) getActivity()).showTracker(lastInteractionWrapper);
+                }
+            }
+
+            @Override
+            public void onItemLongClick(View view, Object obj, int pos) {
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
+                    toggleSelection(pos);
+                } else {
+                    enableActionMode(pos);
+                }
+            }
+        });
+
+        mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
+
+        if(mSelectedPositions.size() > 0){
+            enableActionMode(-1);
+        }
     }
 
     private void setFriendInfo(Friend friend){
@@ -151,5 +187,37 @@ public class FriendPageActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    // TODO
+
+    @Override
+    public void hideSelection() {
+
+    }
+
+    @Override
+    public void unhideSelection() {
+
+    }
+
+    @Override
+    public void enableActionMode(int pos) {
+
+    }
+
+    @Override
+    public void toggleSelection(int pos) {
+
+    }
+
+    @Override
+    public void finishActionMode() {
+
+    }
+
+    @Override
+    public void nullifyActionMode() {
+
     }
 }
