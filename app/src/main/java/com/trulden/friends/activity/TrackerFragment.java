@@ -21,6 +21,7 @@ import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import static com.trulden.friends.util.Util.daysPassed;
 import static com.trulden.friends.util.Util.makeToast;
+import static com.trulden.friends.util.Util.openFriendsPage;
 
 /**
  */
@@ -104,7 +105,8 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             });
 
         friendsNameView.setOnClickListener(v -> {
-            makeToast(getContext(), "Friend's name clicked"); // TODO
+            openFriendsPage(getActivity(), mLastInteractionWrapper.getFriend());
+            ((MainActivity) getActivity()).closeTrackerOver();
         });
 
         mStatusIcon.setOnClickListener(v -> {
