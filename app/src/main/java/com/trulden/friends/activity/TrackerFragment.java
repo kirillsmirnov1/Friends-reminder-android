@@ -20,10 +20,11 @@ import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import static com.trulden.friends.util.Util.daysPassed;
+import static com.trulden.friends.util.Util.makeToast;
 
 /**
  */
-public class TrackerFragment extends Fragment {
+public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
     private LastInteractionWrapper mLastInteractionWrapper;
 
@@ -52,6 +53,8 @@ public class TrackerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        view.setOnClickListener(this);
 
         mComment = view.findViewById(R.id.ft_comment);
         mWithWhom = view.findViewById(R.id.ft_with_whom);
@@ -110,5 +113,11 @@ public class TrackerFragment extends Fragment {
             drawableId = R.drawable.ic_visibility_off_24dp;
         }
         mStatusIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), drawableId));
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        // TODO
     }
 }
