@@ -23,25 +23,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_toStartOf="@id/ft_icons"
+            android:layout_alignParentStart="true"
             />
 
-        <ImageView
-            android:id="@+id/ft_plus_icon"
+        <LinearLayout
+            android:id="@+id/ft_icons"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            app:srcCompat="@drawable/ic_add_24dp"
-            android:tint="@color/black_semi_transparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            />
+            android:dividerPadding="8dp"
+            >
 
-        <ImageView
-            android:layout_toLeftOf="@id/ft_plus_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_visibility_off_24dp"
-            android:tint="@color/black_semi_transparent"
-            />
+            <ImageView
+                android:id="@+id/ft_plus_icon"
+                app:srcCompat="@drawable/ic_add_24dp"
+                android:tint="@color/black_semi_transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_visibility_off_24dp"
+                android:tint="@color/black_semi_transparent"
+                />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ft_type_and_time"
