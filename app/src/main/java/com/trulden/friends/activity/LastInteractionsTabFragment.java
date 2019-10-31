@@ -42,8 +42,6 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     private ArrayList<LastInteractionWrapper> mLastInteractions = new ArrayList<>();
     private String mTypeName;
 
-    private String SELECTED_LAST_INTERACTIONS_POSITIONS = "SELECTED_LAST_INTERACTIONS_POSITIONS";
-
     private HashSet<Integer> mSelectedPositions = new HashSet<>();
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
@@ -64,7 +62,6 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
     private void setTypeName(String typeName) {
         mTypeName = typeName;
-        SELECTED_LAST_INTERACTIONS_POSITIONS += mTypeName;
     }
 
     @Override
