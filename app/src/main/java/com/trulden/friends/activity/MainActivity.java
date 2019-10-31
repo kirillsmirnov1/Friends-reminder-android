@@ -443,6 +443,9 @@ public class MainActivity
             .beginTransaction()
             .replace(R.id.am_tracker_over_layout, mTrackerOverFragment)
             .commit();
+
+        findViewById(R.id.am_fade_background).setVisibility(View.VISIBLE);
+        findViewById(R.id.am_bottom_navigation).setAlpha(0.5f);
     }
 
     public enum FragmentToLoad{
@@ -469,6 +472,8 @@ public class MainActivity
             mTrackerOverLayout.getGlobalVisibleRect(outRect);
             if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY())){
                 mTrackerOverLayout.setVisibility(View.GONE);
+                findViewById(R.id.am_fade_background).setVisibility(View.GONE);
+                findViewById(R.id.am_bottom_navigation).setAlpha(1f);
                 mTrackerOverShown = false;
                 getSupportFragmentManager()
                     .beginTransaction()

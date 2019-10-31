@@ -87,6 +87,16 @@
 
             <include layout="@layout/toolbar" />
 
+            <View
+                android:id="@+id/am_fade_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:visibility="gone"
+                android:background="@android:color/black"
+                android:layerType="hardware"
+                />
+
             <FrameLayout
                 android:id="@+id/am_tracker_over_layout"
                 android:visibility="gone"
