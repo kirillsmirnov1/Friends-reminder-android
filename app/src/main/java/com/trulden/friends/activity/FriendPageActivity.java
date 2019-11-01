@@ -116,8 +116,6 @@ public class FriendPageActivity
                 if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
                 } else {
-                    // TODO
-                    // TODO handle clicks on name and update
                    showTrackerOverActivity(obj);
                 }
             }

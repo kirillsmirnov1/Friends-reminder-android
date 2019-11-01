@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
@@ -111,8 +112,10 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             });
 
         friendsNameView.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).closeTrackerOverActivity();
-            openFriendsPage(getActivity(), mLastInteractionWrapper.getFriend());
+            ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
+            if(getActivity() instanceof MainActivity){
+                openFriendsPage(getActivity(), mLastInteractionWrapper.getFriend());
+            }
         });
 
         mStatusIcon.setOnClickListener(v -> {
@@ -130,7 +133,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getType().getInteractionTypeName());
             intent.putExtra(EXTRA_INTERACTION_TYPE_ID, mLastInteractionWrapper.getType().getId());
 
-            ((MainActivity) getActivity()).closeTrackerOverActivity();
+            ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
 
             getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         });
