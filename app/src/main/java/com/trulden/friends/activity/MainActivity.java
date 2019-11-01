@@ -431,7 +431,7 @@ public class MainActivity
         return false;
     }
 
-    public void showTracker(LastInteractionWrapper lastInteractionWrapper) {
+    public void showTrackerOverActivity(LastInteractionWrapper lastInteractionWrapper) {
 
         mTrackerOverShown = true;
 
@@ -470,7 +470,7 @@ public class MainActivity
             Rect outRect = new Rect();
             mTrackerOverLayout.getGlobalVisibleRect(outRect);
             if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY())){
-                closeTrackerOver();
+                closeTrackerOverActivity();
                 return true;
             } else {
                 return super.dispatchTouchEvent(ev);
@@ -498,14 +498,14 @@ public class MainActivity
     public void onBackPressed() {
         if(mTrackerOverShown){
 
-            closeTrackerOver();
+            closeTrackerOverActivity();
 
             return;
         }
         super.onBackPressed();
     }
 
-    public void closeTrackerOver() {
+    public void closeTrackerOverActivity() {
         saveSelectedLastInteractionTab();
         mTrackerOverLayout.setVisibility(View.GONE);
         findViewById(R.id.am_fade_background).setVisibility(View.GONE);

@@ -29,7 +29,6 @@ import java.util.HashSet;
 import java.util.Objects;
 
 import static com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter.TrackerMode.SHOW_FRIEND_NAME;
-import static com.trulden.friends.util.Util.makeToast;
 
 
 /**
@@ -116,7 +115,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
                 if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
                 } else {
-                    ((MainActivity) getActivity()).showTracker(lastInteractionWrapper);
+                    ((MainActivity) getActivity()).showTrackerOverActivity(lastInteractionWrapper);
                 }
             }
 

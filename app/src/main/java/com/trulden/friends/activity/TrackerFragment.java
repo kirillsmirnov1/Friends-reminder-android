@@ -20,13 +20,11 @@ import com.trulden.friends.R;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
 import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.daysPassed;
-import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.openFriendsPage;
 
 /**
@@ -113,7 +111,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             });
 
         friendsNameView.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).closeTrackerOver();
+            ((MainActivity) getActivity()).closeTrackerOverActivity();
             openFriendsPage(getActivity(), mLastInteractionWrapper.getFriend());
         });
 
@@ -132,7 +130,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getType().getInteractionTypeName());
             intent.putExtra(EXTRA_INTERACTION_TYPE_ID, mLastInteractionWrapper.getType().getId());
 
-            ((MainActivity) getActivity()).closeTrackerOver();
+            ((MainActivity) getActivity()).closeTrackerOverActivity();
 
             getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         });
