@@ -1,10 +1,13 @@
 package com.trulden.friends.activity;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
+import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -40,11 +44,14 @@ import static com.trulden.friends.util.Util.makeToast;
  */
 public class FriendPageActivity
     extends AppCompatActivity
-    implements LastInteractionsSelection {
+    implements
+        LastInteractionsSelection,
+        TrackerOverActivity {
 
     private TextView mPersonNotes;
     private View mNotesTrackersDivider;
     private TextView mLISubhead;
+    private FrameLayout mTrackerOverLayout;
 
     private Friend mFriend;
 
@@ -53,6 +60,9 @@ public class FriendPageActivity
     private HashSet<Integer> mSelectedPositions;
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
+
+    private boolean mTrackerOverShown;
+    private TrackerFragment mTrackerOverFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +74,7 @@ public class FriendPageActivity
         mPersonNotes = findViewById(R.id.afp_notes);
         mNotesTrackersDivider = findViewById(R.id.afp_notes_tracker_divider);
         mLISubhead = findViewById(R.id.afp_LI_subhead);
+        mTrackerOverLayout = findViewById(R.id.afp_tracker_over_layout);
 
         Intent intent = getIntent();
 
@@ -99,22 +110,20 @@ public class FriendPageActivity
             mRecyclerViewAdapter.notifyDataSetChanged();
         });
 
-        mRecyclerViewAdapter.setOnClickListener(new OnClickListener() {
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener<LastInteractionWrapper>() {
             @Override
-            public void onItemClick(View view, Object obj, int pos) {
+            public void onItemClick(View view, LastInteractionWrapper obj, int pos) {
                 if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
                 } else {
                     // TODO
-                    // TODO interface with show/close Tracker methods
-                    // TODO extract styles with fade and over-activity-tracker
-                    // TODO add those views to afp
-                    //((MainActivity) getActivity()).showTracker(lastInteractionWrapper);
+                    // TODO handle clicks on name and update
+                   showTrackerOverActivity(obj);
                 }
             }
 
             @Override
-            public void onItemLongClick(View view, Object obj, int pos) {
+            public void onItemLongClick(View view, LastInteractionWrapper obj, int pos) {
                 if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
                 } else {
@@ -266,5 +275,60 @@ public class FriendPageActivity
             mActionMode = null;
         }
 
+    }
+
+    @Override
+    public void showTrackerOverActivity(LastInteractionWrapper lastInteractionWrapper) {
+        mTrackerOverShown = true;
+
+        mTrackerOverLayout.setVisibility(View.VISIBLE);
+
+        mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.afp_tracker_over_layout, mTrackerOverFragment)
+                .commit();
+
+        findViewById(R.id.afp_fade_background).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void closeTrackerOverActivity() {
+        mTrackerOverLayout.setVisibility(View.GONE);
+        findViewById(R.id.afp_fade_background).setVisibility(View.GONE);
+        mTrackerOverShown = false;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(mTrackerOverFragment)
+                .commit();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        if(mTrackerOverShown){
+            Rect outRect = new Rect();
+            mTrackerOverLayout.getGlobalVisibleRect(outRect);
+            if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY())){
+                closeTrackerOverActivity();
+                return true;
+            } else {
+                return super.dispatchTouchEvent(ev);
+            }
+        }
+
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mTrackerOverShown){
+
+            closeTrackerOverActivity();
+
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FriendPageActivity"
-    >
+    tools:context=".activity.FriendPageActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -51,5 +49,16 @@
 
             </LinearLayout>
         </ScrollView>
+
+    <View
+        android:id="@+id/afp_fade_background"
+        style="@style/fade_background"
+        />
+
+    <FrameLayout
+        android:id="@+id/afp_tracker_over_layout"
+        android:layout_gravity="center"
+        style="@style/tracker_over_layout"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
