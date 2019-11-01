@@ -105,7 +105,10 @@ public class FriendPageActivity
                 if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
                 } else {
-                    //TODO
+                    // TODO
+                    // TODO interface with show/close Tracker methods
+                    // TODO extract styles with fade and over-activity-tracker
+                    // TODO add those views to afp
                     //((MainActivity) getActivity()).showTracker(lastInteractionWrapper);
                 }
             }
