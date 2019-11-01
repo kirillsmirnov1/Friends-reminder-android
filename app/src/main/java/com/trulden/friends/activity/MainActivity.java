@@ -28,6 +28,7 @@ import com.michaelflisar.changelog.internal.ChangelogPreferenceUtil;
 import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
+import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.FriendsViewModel;
@@ -48,7 +49,9 @@ import static com.trulden.friends.util.Util.*;
  */
 public class MainActivity
         extends AppCompatActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
+        implements
+            BottomNavigationView.OnNavigationItemSelectedListener,
+            TrackerOverActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -431,6 +434,7 @@ public class MainActivity
         return false;
     }
 
+    @Override
     public void showTrackerOverActivity(LastInteractionWrapper lastInteractionWrapper) {
 
         mTrackerOverShown = true;
@@ -445,6 +449,18 @@ public class MainActivity
             .commit();
 
         findViewById(R.id.am_fade_background).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void closeTrackerOverActivity() {
+        saveSelectedLastInteractionTab();
+        mTrackerOverLayout.setVisibility(View.GONE);
+        findViewById(R.id.am_fade_background).setVisibility(View.GONE);
+        mTrackerOverShown = false;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(mTrackerOverFragment)
+                .commit();
     }
 
     public enum FragmentToLoad{
@@ -503,16 +519,5 @@ public class MainActivity
             return;
         }
         super.onBackPressed();
-    }
-
-    public void closeTrackerOverActivity() {
-        saveSelectedLastInteractionTab();
-        mTrackerOverLayout.setVisibility(View.GONE);
-        findViewById(R.id.am_fade_background).setVisibility(View.GONE);
-        mTrackerOverShown = false;
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(mTrackerOverFragment)
-                .commit();
     }
 }
