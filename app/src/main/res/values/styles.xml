@@ -66,4 +66,21 @@
         <item name="android:layout_marginEnd">8dp</item>
     </style>
 
+    <style name="fade_background">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:alpha">0.5</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:background">@android:color/black</item>
+        <item name="android:layerType">hardware</item>
+    </style>
+
+    <style name="tracker_over_layout">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
 </resources>

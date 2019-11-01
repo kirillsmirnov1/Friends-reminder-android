@@ -88,23 +88,14 @@
 
             <View
                 android:id="@+id/am_fade_background"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0.5"
-                android:visibility="gone"
-                android:background="@android:color/black"
-                android:layerType="hardware"
                 app:elevation="5dp"
+                style="@style/fade_background"
                 />
 
             <FrameLayout
                 android:id="@+id/am_tracker_over_layout"
-                android:visibility="gone"
-                android:layout_margin="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 app:elevation="10dp"
+                style="@style/tracker_over_layout"
                 />
 
         </RelativeLayout>
