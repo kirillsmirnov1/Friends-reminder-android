@@ -64,6 +64,7 @@ public class FriendsViewModel extends AndroidViewModel {
         mLITFSelections.clear();
     }
 
+    // FIXME maybe turn to «setSelectedPositions()» and use it everywhere?
     public void setLITF_selections(String type, HashSet<Integer> selection){
         mLITFSelections.put(type, selection);
     }
