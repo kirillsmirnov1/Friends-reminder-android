@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,8 @@ import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -49,6 +52,7 @@ public class FriendPageActivity
     private LastInteractionsRecyclerViewAdapter mRecyclerViewAdapter;
     private HashSet<Integer> mSelectedPositions;
     private SelectionCallback mSelectionCallback;
+    private ActionMode mActionMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,35 +193,75 @@ public class FriendPageActivity
         }
     }
 
-    // TODO
+    @Override
+    protected void onDestroy() {
+        mViewModel.setLITF_selections(FriendPageActivity.class.getName(), mSelectedPositions);
+        super.onDestroy();
+    }
 
     @Override
     public void hideSelection() {
+        for(LastInteractionWrapper interactionWrapper : mRecyclerViewAdapter.getSelectedItems()){
+
+            LastInteraction interaction = interactionWrapper.getLastInteraction();
+
+            interaction.setStatus(LastInteractionWrapper.LastInteractionStatus.HIDDEN.ordinal());
+
+            mViewModel.update(interaction);
+        }
 
     }
 
     @Override
     public void unhideSelection() {
+        for(LastInteractionWrapper interactionWrapper : mRecyclerViewAdapter.getSelectedItems()){
+            LastInteraction interaction = interactionWrapper.getLastInteraction();
 
+            interaction.setStatus(LastInteractionWrapper.LastInteractionStatus.DEFAULT.ordinal());
+
+            mViewModel.update(interaction);
+        }
     }
 
     @Override
     public void enableActionMode(int pos) {
+        if(mActionMode == null){
+            mActionMode = startSupportActionMode(mSelectionCallback);
+        }
 
+        toggleSelection(pos);
     }
 
     @Override
     public void toggleSelection(int pos) {
+        if(pos != -1){
+            mRecyclerViewAdapter.toggleSelection(pos);
+        }
+
+        int count = mRecyclerViewAdapter.getSelectedItemCount();
+
+        if(count == 0){
+            mActionMode.finish();
+        } else {
+            mActionMode.setTitle(String.valueOf(count));
+        }
 
     }
 
     @Override
     public void finishActionMode() {
+        if(mActionMode != null){
+            mActionMode.finish();
+        }
 
     }
 
     @Override
     public void nullifyActionMode() {
+        mViewModel.clearLITFSelections();
+        if(mActionMode != null){
+            mActionMode = null;
+        }
 
     }
 }
