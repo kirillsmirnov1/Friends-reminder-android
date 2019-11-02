@@ -34,7 +34,7 @@ public class FriendsViewModel extends AndroidViewModel {
 
     private HashMap<String, HashSet<Integer>> mLITFSelections;
 
-    private int mSelectedLITabPos = 1;
+    private int mSelectedLITabPos = 0;
 
     public FriendsViewModel(@NonNull Application application) {
         super(application);
