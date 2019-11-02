@@ -1,23 +1,33 @@
 package com.trulden.friends.activity;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
+import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
+import com.trulden.friends.adapter.base.OnClickListener;
+import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
+import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,16 +42,27 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Shows Friend data
  */
-public class FriendPageActivity extends AppCompatActivity {
+public class FriendPageActivity
+    extends AppCompatActivity
+    implements
+        LastInteractionsSelection,
+        TrackerOverActivity {
 
     private TextView mPersonNotes;
     private View mNotesTrackersDivider;
     private TextView mLISubhead;
+    private FrameLayout mTrackerOverLayout;
 
     private Friend mFriend;
 
     private FriendsViewModel mViewModel;
     private LastInteractionsRecyclerViewAdapter mRecyclerViewAdapter;
+    private HashSet<Integer> mSelectedPositions;
+    private SelectionCallback mSelectionCallback;
+    private ActionMode mActionMode;
+
+    private boolean mTrackerOverShown;
+    private TrackerFragment mTrackerOverFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +74,7 @@ public class FriendPageActivity extends AppCompatActivity {
         mPersonNotes = findViewById(R.id.afp_notes);
         mNotesTrackersDivider = findViewById(R.id.afp_notes_tracker_divider);
         mLISubhead = findViewById(R.id.afp_LI_subhead);
+        mTrackerOverLayout = findViewById(R.id.afp_tracker_over_layout);
 
         Intent intent = getIntent();
 
@@ -63,8 +85,10 @@ public class FriendPageActivity extends AppCompatActivity {
 
         setFriendInfo(mFriend);
 
+        mSelectedPositions = mViewModel.getLITFSelections(FriendPageActivity.class.getName());
+
         RecyclerView recyclerView = findViewById(R.id.afp_LI_recycler_view);
-        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, new HashSet<>(), SHOW_TYPE_NAME);
+        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, mSelectedPositions, SHOW_TYPE_NAME);
         recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -85,6 +109,32 @@ public class FriendPageActivity extends AppCompatActivity {
             mRecyclerViewAdapter.setItems(lastInteractionWrappers);
             mRecyclerViewAdapter.notifyDataSetChanged();
         });
+
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener<LastInteractionWrapper>() {
+            @Override
+            public void onItemClick(View view, LastInteractionWrapper obj, int pos) {
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
+                    toggleSelection(pos);
+                } else {
+                   showTrackerOverActivity(obj);
+                }
+            }
+
+            @Override
+            public void onItemLongClick(View view, LastInteractionWrapper obj, int pos) {
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
+                    toggleSelection(pos);
+                } else {
+                    enableActionMode(pos);
+                }
+            }
+        });
+
+        mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
+
+        if(mSelectedPositions.size() > 0){
+            enableActionMode(-1);
+        }
     }
 
     private void setFriendInfo(Friend friend){
@@ -151,5 +201,132 @@ public class FriendPageActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        mViewModel.setLITF_selections(FriendPageActivity.class.getName(), mSelectedPositions);
+        super.onDestroy();
+    }
+
+    @Override
+    public void hideSelection() {
+        for(LastInteractionWrapper interactionWrapper : mRecyclerViewAdapter.getSelectedItems()){
+
+            LastInteraction interaction = interactionWrapper.getLastInteraction();
+
+            interaction.setStatus(LastInteractionWrapper.LastInteractionStatus.HIDDEN.ordinal());
+
+            mViewModel.update(interaction);
+        }
+
+    }
+
+    @Override
+    public void unhideSelection() {
+        for(LastInteractionWrapper interactionWrapper : mRecyclerViewAdapter.getSelectedItems()){
+            LastInteraction interaction = interactionWrapper.getLastInteraction();
+
+            interaction.setStatus(LastInteractionWrapper.LastInteractionStatus.DEFAULT.ordinal());
+
+            mViewModel.update(interaction);
+        }
+    }
+
+    @Override
+    public void enableActionMode(int pos) {
+        if(mActionMode == null){
+            mActionMode = startSupportActionMode(mSelectionCallback);
+        }
+
+        toggleSelection(pos);
+    }
+
+    @Override
+    public void toggleSelection(int pos) {
+        if(pos != -1){
+            mRecyclerViewAdapter.toggleSelection(pos);
+        }
+
+        int count = mRecyclerViewAdapter.getSelectedItemCount();
+
+        if(count == 0){
+            mActionMode.finish();
+        } else {
+            mActionMode.setTitle(String.valueOf(count));
+        }
+
+    }
+
+    @Override
+    public void finishActionMode() {
+        if(mActionMode != null){
+            mActionMode.finish();
+        }
+
+    }
+
+    @Override
+    public void nullifyActionMode() {
+        mViewModel.clearLITFSelections();
+        if(mActionMode != null){
+            mActionMode = null;
+        }
+
+    }
+
+    @Override
+    public void showTrackerOverActivity(LastInteractionWrapper lastInteractionWrapper) {
+        mTrackerOverShown = true;
+
+        mTrackerOverLayout.setVisibility(View.VISIBLE);
+
+        mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.afp_tracker_over_layout, mTrackerOverFragment)
+                .commit();
+
+        findViewById(R.id.afp_fade_background).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void closeTrackerOverActivity() {
+        mTrackerOverLayout.setVisibility(View.GONE);
+        findViewById(R.id.afp_fade_background).setVisibility(View.GONE);
+        mTrackerOverShown = false;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(mTrackerOverFragment)
+                .commit();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        if(mTrackerOverShown){
+            Rect outRect = new Rect();
+            mTrackerOverLayout.getGlobalVisibleRect(outRect);
+            if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY())){
+                closeTrackerOverActivity();
+                return true;
+            } else {
+                return super.dispatchTouchEvent(ev);
+            }
+        }
+
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mTrackerOverShown){
+
+            closeTrackerOverActivity();
+
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -33,9 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@id/am_bottom_navigation"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 app:fab_addButtonColorNormal="@color/white"
                 app:fab_addButtonColorPressed="@color/white_pressed"
@@ -49,7 +47,7 @@
                     android:id="@+id/am_fab_add_interaction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="addInteraction"
+                    android:onClick="onAddInteractionClick"
                     app:fab_colorNormal="@color/white"
                     app:fab_colorPressed="@color/white_pressed"
                     app:fab_icon="@drawable/ic_watch_later_"
@@ -83,9 +81,22 @@
                 app:itemTextColor="@drawable/bottom_navigation_colors"
                 app:labelVisibilityMode="unlabeled"
                 app:menu="@menu/menu_bottom_navigation"
+                app:elevation="0dp"
                 />
 
             <include layout="@layout/toolbar" />
+
+            <View
+                android:id="@+id/am_fade_background"
+                app:elevation="5dp"
+                style="@style/fade_background"
+                />
+
+            <FrameLayout
+                android:id="@+id/am_tracker_over_layout"
+                app:elevation="10dp"
+                style="@style/tracker_over_layout"
+                />
 
         </RelativeLayout>
 

@@ -41,8 +41,6 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     private ArrayList<LastInteractionWrapper> mLastInteractions = new ArrayList<>();
     private String mTypeName;
 
-    private String SELECTED_LAST_INTERACTIONS_POSITIONS = "SELECTED_LAST_INTERACTIONS_POSITIONS";
-
     private HashSet<Integer> mSelectedPositions = new HashSet<>();
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
@@ -63,7 +61,6 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
     private void setTypeName(String typeName) {
         mTypeName = typeName;
-        SELECTED_LAST_INTERACTIONS_POSITIONS += mTypeName;
     }
 
     @Override
@@ -114,9 +111,11 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
         mRecyclerViewAdapter.setOnClickListener(new OnClickListener<LastInteractionWrapper>() {
             @Override
-            public void onItemClick(View view, LastInteractionWrapper obj, int pos) {
+            public void onItemClick(View view, LastInteractionWrapper lastInteractionWrapper, int pos) {
                 if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
+                } else {
+                    ((MainActivity) getActivity()).showTrackerOverActivity(lastInteractionWrapper);
                 }
             }
 

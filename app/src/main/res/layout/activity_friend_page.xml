@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FriendPageActivity"
-    >
+    tools:context=".activity.FriendPageActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -29,20 +27,16 @@
 
                 <View
                     android:id="@+id/afp_notes_tracker_divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/light_grey"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    style="@style/horizontal_divider"
                     />
 
                 <TextView
                     android:id="@+id/afp_LI_subhead"
                     android:text="@string/last_interactions"
                     style="@style/TextAppearance.AppCompat.Subhead"
+                    android:paddingTop="8dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:paddingTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -55,5 +49,16 @@
 
             </LinearLayout>
         </ScrollView>
+
+    <View
+        android:id="@+id/afp_fade_background"
+        style="@style/fade_background"
+        />
+
+    <FrameLayout
+        android:id="@+id/afp_tracker_over_layout"
+        android:layout_gravity="center"
+        style="@style/tracker_over_layout"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -34,7 +34,7 @@ public class FriendsViewModel extends AndroidViewModel {
 
     private HashMap<String, HashSet<Integer>> mLITFSelections;
 
-    private int mSelectedLITabPos = 1;
+    private int mSelectedLITabPos = 0;
 
     public FriendsViewModel(@NonNull Application application) {
         super(application);
@@ -64,6 +64,7 @@ public class FriendsViewModel extends AndroidViewModel {
         mLITFSelections.clear();
     }
 
+    // FIXME maybe turn to «setSelectedPositions()» and use it everywhere?
     public void setLITF_selections(String type, HashSet<Integer> selection){
         mLITFSelections.put(type, selection);
     }
@@ -125,5 +126,13 @@ public class FriendsViewModel extends AndroidViewModel {
 
     public LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId) {
         return mRepository.getLastInteractionsOfAFriend(friendId);
+    }
+
+    public LiveData<List<Interaction>> getInteraction(long interactionId) {
+        return mRepository.getInteraction(interactionId);
+    }
+
+    public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
+        return mRepository.getCoParticipantNames(interactionId, friendsName);
     }
 }

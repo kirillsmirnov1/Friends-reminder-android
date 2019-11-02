@@ -78,6 +78,14 @@ class FriendsRepository {
         }.execute();
     }
 
+    public LiveData<List<Interaction>> getInteraction(long interactionId) {
+        return mFriendsDao.getInteractionById(interactionId);
+    }
+
+    public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
+        return mFriendsDao.getCoParticipantNames(interactionId, friendsName);
+    }
+
     /**
      * Available tasks
      */
