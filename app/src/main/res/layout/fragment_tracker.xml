@@ -47,7 +47,7 @@
 
             <ImageView
                 android:id="@+id/ft_update_icon"
-                app:srcCompat="@drawable/ic_update_24dp"
+                app:srcCompat="@drawable/ic_add_24dp"
                 android:tint="@color/black_semi_transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
