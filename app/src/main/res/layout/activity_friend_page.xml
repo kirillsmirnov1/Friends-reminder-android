@@ -1,33 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FriendPageActivity"
-    >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+    tools:context=".activity.FriendPageActivity">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-            <TextView
-                android:id="@+id/afp_notes"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Friend's notes"
-                style="@style/TextAppearance.AppCompat.Subhead"
-                android:padding="8dp"
-                />
+                android:orientation="vertical"
+                >
 
+                <TextView
+                    android:id="@+id/afp_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Friend's notes"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:padding="8dp"
+                    />
+
+                <View
+                    android:id="@+id/afp_notes_tracker_divider"
+                    style="@style/horizontal_divider"
+                    />
+
+                <TextView
+                    android:id="@+id/afp_LI_subhead"
+                    android:text="@string/last_interactions"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:paddingTop="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/afp_LI_recycler_view"
+                    style="@style/recycler_view"
+                    tools:listitem="@layout/entry_last_interaction"
+                    />
+
+            </LinearLayout>
         </ScrollView>
 
-    </RelativeLayout>
+    <View
+        android:id="@+id/afp_fade_background"
+        style="@style/fade_background"
+        />
+
+    <FrameLayout
+        android:id="@+id/afp_tracker_over_layout"
+        android:layout_gravity="center"
+        style="@style/tracker_over_layout"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

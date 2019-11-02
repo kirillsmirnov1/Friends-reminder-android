@@ -2,12 +2,17 @@ package com.trulden.friends.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.trulden.friends.BuildConfig;
+import com.trulden.friends.activity.FriendPageActivity;
+import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.LastInteraction;
 
 import java.io.File;
@@ -15,6 +20,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 
@@ -69,6 +75,19 @@ public abstract class Util {
             BuildConfig.APPLICATION_ID + ".ACTION_DATABASE_IMPORT_FINISHED";
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Start {@link FriendPageActivity} with given friend
+     * @param activity will start an intent
+     * @param friend will be shown
+     */
+    public static void openFriendsPage(FragmentActivity activity, Friend friend){
+        Intent intent = new Intent(activity, FriendPageActivity.class);
+        intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
+        intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
+        intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
+        Objects.requireNonNull(activity).startActivity(intent);
+    }
 
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();

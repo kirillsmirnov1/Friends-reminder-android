@@ -4,7 +4,7 @@
     <string name="action_bar_title_edit_friend">Изменить друга</string>
     <string name="add">Добавить</string>
     <string name="add_interaction">Добавить взаимодействие</string>
-    <string name="comment_input_invitation">Комментарий:</string>
+    <string name="comment_input_invitation">Заметки:</string>
     <string name="date_input_invitation">Дата:</string>
     <string name="hint_enter_date">Введи дату</string>
     <string name="hint_enter_friends">Введи имена друзей</string>
@@ -72,4 +72,12 @@
     <string name="ff_no_data">У вас ещё нет друзей</string>
     <string name="ait_no_data">У вас нет типов взаимодействий</string>
     <string name="changelog_dialog_title">Обновление %1$s</string>
+    <string name="alert_dialog_delete_all_friends_notice">Это также изменит взаимодействия с этими людьми и удалит взаимодействия в которых были только они.</string>
+    <string name="alert_dialog_delete_all_types_notice">Это также удалит все взаимодействия выбранных типов.</string>
+    <string name="alert_dialog_friends_to_be_deleted">\n\nДрузья на удаление:\n</string>
+    <string name="alert_dialog_types_to_be_deleted">\n\nТипы на удаление:\n</string>
+    <string name="are_you_sure">Вы уверены?</string>
+    <string name="LI_every_x_days">раз в %d д.</string>
+    <string name="no_description">Без заметок</string>
+    <string name="with">Вместе с\u0020</string>
 </resources>

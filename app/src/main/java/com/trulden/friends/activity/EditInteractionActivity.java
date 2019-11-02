@@ -172,14 +172,13 @@ public class EditInteractionActivity
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.edit_interaction));
 
             mCommentText.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
-
-            mPickedDate = Calendar.getInstance();
-            mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, -1));
-
-            mDateText.setText(formatDate(mPickedDate.getTime()));
-
-            mFriendsText.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
         }
+
+        mPickedDate = Calendar.getInstance();
+        mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis()));
+        mDateText.setText(formatDate(mPickedDate.getTime()));
+
+        mFriendsText.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
     }
 
     private void initInteractionTypeSpinner() {

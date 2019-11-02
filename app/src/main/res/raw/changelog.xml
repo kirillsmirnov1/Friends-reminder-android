@@ -1,5 +1,13 @@
 <changelog>
 
+    <release versionCode="16" versionName="Version 1.1.2">
+        <new>Tap on last interaction tracker shows info of that interaction.</new>
+        <new>Friend's page contains last interaction trackers.</new>
+        <new>Added warning on friends and types deletion.</new>
+        <new>Trackers show desired frequency of interactions.</new>
+        <info>• Little layout fixes.</info>
+    </release>
+
     <release versionCode="15" versionName="Version 1.1.1.1">
         <bugfix>Fixed crash at Last Interactions</bugfix>
         <info>• Changed import/export database strings</info>

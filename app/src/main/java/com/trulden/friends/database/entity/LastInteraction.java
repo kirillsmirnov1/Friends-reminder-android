@@ -7,6 +7,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 /**
  * Shows how much time passed since interaction of some type with some friend.
+ * Objects of this class are called «Last Interaction trackers» or just «trackers» for brevity.
  */
 @androidx.room.Entity(
         tableName = "last_interaction_table",

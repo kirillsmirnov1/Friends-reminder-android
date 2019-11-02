@@ -20,9 +20,9 @@ import java.util.HashSet;
  * RecyclerView for InteractionType objects.
  * Used in {@link com.trulden.friends.activity.InteractionTypesActivity InteractionTypesActivity}
  */
-public class InteractionTypeAdapter extends CustomRVAdapter<InteractionTypeAdapter.ViewHolder, InteractionType> {
+public class InteractionTypeRecyclerViewAdapter extends CustomRVAdapter<InteractionTypeRecyclerViewAdapter.ViewHolder, InteractionType> {
 
-    public InteractionTypeAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
+    public InteractionTypeRecyclerViewAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
         super(context, selectedPositions);
     }
 

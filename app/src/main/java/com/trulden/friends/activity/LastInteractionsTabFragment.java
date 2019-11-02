@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
-import com.trulden.friends.adapter.LastInteractionsAdapter;
+import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
@@ -27,6 +27,8 @@ import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
+
+import static com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter.TrackerMode.SHOW_FRIEND_NAME;
 
 
 /**
@@ -39,12 +41,10 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     private ArrayList<LastInteractionWrapper> mLastInteractions = new ArrayList<>();
     private String mTypeName;
 
-    private String SELECTED_LAST_INTERACTIONS_POSITIONS = "SELECTED_LAST_INTERACTIONS_POSITIONS";
-
     private HashSet<Integer> mSelectedPositions = new HashSet<>();
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
-    private LastInteractionsAdapter mAdapter;
+    private LastInteractionsRecyclerViewAdapter mRecyclerViewAdapter;
 
     public LastInteractionsTabFragment() {
         // Required empty public constructor
@@ -61,7 +61,6 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
     private void setTypeName(String typeName) {
         mTypeName = typeName;
-        SELECTED_LAST_INTERACTIONS_POSITIONS += mTypeName;
     }
 
     @Override
@@ -103,24 +102,26 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayout);
 
-        mAdapter = new LastInteractionsAdapter(getContext(), mSelectedPositions);
-        mAdapter.setEntries(mLastInteractions);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(getContext(), mSelectedPositions, SHOW_FRIEND_NAME);
+        mRecyclerViewAdapter.setItems(mLastInteractions);
+        recyclerView.setAdapter(mRecyclerViewAdapter);
 
         // Might be unnecessary, might fix issue with empty LI tab
-        mAdapter.notifyDataSetChanged();
+        mRecyclerViewAdapter.notifyDataSetChanged();
 
-        mAdapter.setOnClickListener(new OnClickListener<LastInteractionWrapper>() {
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener<LastInteractionWrapper>() {
             @Override
-            public void onItemClick(View view, LastInteractionWrapper obj, int pos) {
-                if(mAdapter.getSelectedItemCount() > 0){
+            public void onItemClick(View view, LastInteractionWrapper lastInteractionWrapper, int pos) {
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
+                } else {
+                    ((MainActivity) getActivity()).showTrackerOverActivity(lastInteractionWrapper);
                 }
             }
 
             @Override
             public void onItemLongClick(View view, LastInteractionWrapper obj, int pos) {
-                if(mAdapter.getSelectedItemCount() > 0){
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     toggleSelection(pos);
                 } else {
                     enableActionMode(pos);
@@ -128,7 +129,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
             }
         });
 
-        mSelectionCallback = new SelectionCallback(this, mAdapter);
+        mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
 
         if(mSelectedPositions.size() > 0){
             enableActionMode(-1);
@@ -184,10 +185,10 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     @Override
     public void toggleSelection(int pos) {
         if(pos != -1){
-            mAdapter.toggleSelection(pos);
+            mRecyclerViewAdapter.toggleSelection(pos);
         }
 
-        int count = mAdapter.getSelectedItemCount();
+        int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
             mActionMode.finish();
@@ -198,7 +199,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
     @Override
     public void hideSelection() {
-        for(LastInteractionWrapper interactionWrapper : mAdapter.getSelectedItems()){
+        for(LastInteractionWrapper interactionWrapper : mRecyclerViewAdapter.getSelectedItems()){
 
             LastInteraction interaction = interactionWrapper.getLastInteraction();
 
@@ -210,7 +211,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
     @Override
     public void unhideSelection() {
-        for(LastInteractionWrapper interactionWrapper : mAdapter.getSelectedItems()){
+        for(LastInteractionWrapper interactionWrapper : mRecyclerViewAdapter.getSelectedItems()){
             LastInteraction interaction = interactionWrapper.getLastInteraction();
 
             interaction.setStatus(LastInteractionWrapper.LastInteractionStatus.DEFAULT.ordinal());

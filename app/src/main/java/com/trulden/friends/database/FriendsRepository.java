@@ -59,6 +59,10 @@ class FriendsRepository {
         return mFriendsDao.getFriendNames();
     }
 
+    public LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId) {
+        return mFriendsDao.getLastInteractionsOfAFriend(friendId);
+    }
+
     FriendsDao getDao() {
         return mFriendsDao;
     }
@@ -72,6 +76,14 @@ class FriendsRepository {
                 return null;
             }
         }.execute();
+    }
+
+    public LiveData<List<Interaction>> getInteraction(long interactionId) {
+        return mFriendsDao.getInteractionById(interactionId);
+    }
+
+    public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
+        return mFriendsDao.getCoParticipantNames(interactionId, friendsName);
     }
 
     /**

@@ -73,6 +73,10 @@ public class LastInteractionWrapper implements Entity {
         this.types = types;
     }
 
+    public Friend getFriend() {
+        return friends.get(0);
+    }
+
     public enum LastInteractionStatus{
         DEFAULT, // Always should be first because 0 is default value for status column
         HIDDEN

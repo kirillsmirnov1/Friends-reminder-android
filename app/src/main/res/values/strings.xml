@@ -9,7 +9,7 @@
     <string name="hint_enter_date">Enter date</string>
     <string name="friends_input_invitation">Friends:</string>
     <string name="hint_enter_friends">Enter friend names</string>
-    <string name="comment_input_invitation">Comment:</string>
+    <string name="comment_input_invitation">Notes:</string>
     <string name="hint_interaction_comment">Describe interaction</string>
     <string name="last_interactions">Last Interactions</string>
     <string name="edit_selection">Edit selection</string>
@@ -81,5 +81,13 @@
     <string name="changelog_dialog_title">Update %1$s</string>
     <string name="changelog_bug_prefix" translatable="false">[font color="#FF0000"][b]! [/b][/font]</string>
     <string name="changelog_bug_improvement" translatable="false">[font color="#009933"][b]+ [/b][/font]</string>
+    <string name="alert_dialog_delete_all_types_notice">This will also delete all interactions of selected types.</string>
+    <string name="alert_dialog_types_to_be_deleted">\n\nTypes to be deleted:\n</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="alert_dialog_delete_all_friends_notice">This will also change multi-person interactions and delete solo interactions of selected friends.</string>
+    <string name="alert_dialog_friends_to_be_deleted">\n\nFriends to be deleted:\n</string>
+    <string name="LI_every_x_days">every %d d.</string>
+    <string name="no_description">No notes</string>
+    <string name="with">With\u0020</string>
 
 </resources>

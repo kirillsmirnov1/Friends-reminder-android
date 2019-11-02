@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,11 +28,13 @@ import com.michaelflisar.changelog.internal.ChangelogPreferenceUtil;
 import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
+import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
 import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
 
@@ -46,16 +49,20 @@ import static com.trulden.friends.util.Util.*;
  */
 public class MainActivity
         extends AppCompatActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
+        implements
+            BottomNavigationView.OnNavigationItemSelectedListener,
+            TrackerOverActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
+    private boolean mTrackerOverShown = false;
 
     private static final String SHOW_HIDDEN_LAST_INTERACTION_ENTRIES = "SHOW_HIDDEN_LAST_INTERACTION_ENTRIES";
 
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
+    private FrameLayout mTrackerOverLayout;
 
     private SharedPreferences mPreferences;
 
@@ -63,6 +70,7 @@ public class MainActivity
 
     private CustomBroadcastReceiver mReceiver;
     private Fragment mFragment;
+    private TrackerFragment mTrackerOverFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +87,8 @@ public class MainActivity
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setToolbarTitle();
+
+        mTrackerOverLayout = findViewById(R.id.am_tracker_over_layout);
 
         if(getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD) != null){
             mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
@@ -234,7 +244,7 @@ public class MainActivity
         mFabMenu.collapse();
     }
 
-    public void addInteraction(View view) {
+    public void onAddInteractionClick(View view) {
 
         saveSelectedLastInteractionTab();
 
@@ -424,6 +434,35 @@ public class MainActivity
         return false;
     }
 
+    @Override
+    public void showTrackerOverActivity(LastInteractionWrapper lastInteractionWrapper) {
+
+        mTrackerOverShown = true;
+
+        mTrackerOverLayout.setVisibility(View.VISIBLE);
+
+        mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
+
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.am_tracker_over_layout, mTrackerOverFragment)
+            .commit();
+
+        findViewById(R.id.am_fade_background).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void closeTrackerOverActivity() {
+        saveSelectedLastInteractionTab();
+        mTrackerOverLayout.setVisibility(View.GONE);
+        findViewById(R.id.am_fade_background).setVisibility(View.GONE);
+        mTrackerOverShown = false;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(mTrackerOverFragment)
+                .commit();
+    }
+
     public enum FragmentToLoad{
         INTERACTIONS_FRAGMENT,
         LAST_INTERACTIONS_FRAGMENT,
@@ -443,6 +482,18 @@ public class MainActivity
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
+        if(mTrackerOverShown){
+            Rect outRect = new Rect();
+            mTrackerOverLayout.getGlobalVisibleRect(outRect);
+            if(!outRect.contains((int)ev.getRawX(), (int)ev.getRawY())){
+                closeTrackerOverActivity();
+                return true;
+            } else {
+                return super.dispatchTouchEvent(ev);
+            }
+
+        }
+
         // Hide fab if touch event outside of it
         // (Other cases handled by gab itself)
         // Based on https://github.com/futuresimple/android-floating-action-button/issues/204#issuecomment-158073034
@@ -457,5 +508,16 @@ public class MainActivity
         }
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mTrackerOverShown){
+
+            closeTrackerOverActivity();
+
+            return;
+        }
+        super.onBackPressed();
     }
 }

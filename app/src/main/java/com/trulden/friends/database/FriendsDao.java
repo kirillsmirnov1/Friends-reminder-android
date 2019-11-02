@@ -47,6 +47,13 @@ public interface FriendsDao {
     @Query("DELETE FROM friend_table;")
     void wipeFriends();
 
+    @Transaction
+    @Query( "SELECT name FROM" +
+            "((SELECT friendId FROM bind_friend_interaction_table WHERE interactionId = :interactionId)" +
+            "INNER JOIN (SELECT * FROM friend_table WHERE name != :friendsName) " +
+            "ON friendId=id)")
+    LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName);
+
     // -----------------------------------------
     // InteractionType
     // -----------------------------------------
@@ -85,6 +92,9 @@ public interface FriendsDao {
 
     @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
     List<Interaction> getInteraction(long interactionId);
+
+    @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
+    LiveData<List<Interaction>> getInteractionById(long interactionId);
 
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     @Transaction
@@ -160,6 +170,11 @@ public interface FriendsDao {
             "WHERE typeId = :typeId " +
             "AND   friendId = :friendId;")
     List<LastInteraction> getLastInteraction(long typeId, long friendId);
+
+    @Transaction
+    @Query("SELECT * FROM last_interaction_table " +
+            "WHERE friendId = :friendId;")
+    LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId);
 
     @Transaction
     @Query(

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
@@ -18,12 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
-import com.trulden.friends.adapter.FriendsAdapter;
+import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
+import com.trulden.friends.adapter.FriendsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -33,17 +36,22 @@ import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
 import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
+import static com.trulden.friends.util.Util.openFriendsPage;
 
 /**
  * Shows list of selectable friends.
  */
-public class FriendsFragment extends Fragment implements EditAndDeleteSelection {
+public class FriendsFragment
+        extends Fragment
+        implements
+            EditAndDeleteSelection,
+            SelectionWithOnDeleteAlert<Friend> {
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
     private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
 
-    private FriendsViewModel mFriendsViewModel;
-    private FriendsAdapter mFriendsAdapter;
+    private FriendsViewModel mViewModel;
+    private FriendsRecyclerViewAdapter mRecyclerViewAdapter;
 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
@@ -66,20 +74,20 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_FRIENDS_POSITIONS)){
             mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.ff_recycler_view);
-        mFriendsAdapter = new FriendsAdapter(getActivity(), mSelectedPositions);
-        recyclerView.setAdapter(mFriendsAdapter);
+        mRecyclerViewAdapter = new FriendsRecyclerViewAdapter(getActivity(), mSelectedPositions);
+        recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //mFriendsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
+        //mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getAllFriends().observe(getViewLifecycleOwner(), new Observer<List<Friend>>() {
+        mViewModel.getAllFriends().observe(getViewLifecycleOwner(), new Observer<List<Friend>>() {
             @Override
             public void onChanged(List<Friend> friends) {
 
@@ -90,23 +98,19 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
                         : View.GONE
                     );
 
-                mFriendsAdapter.setEntries(friends);
+                mRecyclerViewAdapter.setItems(friends);
                 // We need to tell adapter to refresh view, otherwise it might not happen
-                mFriendsAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        mFriendsAdapter.setOnClickListener(new OnClickListener<Friend>() {
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener<Friend>() {
             @Override
             public void onItemClick(View view, Friend friend, int pos) {
-                if(mFriendsAdapter.getSelectedItemCount() > 0){
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 } else {
-                    Intent intent = new Intent(getActivity(), FriendPageActivity.class);
-                    intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
-                    intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-                    intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
-                    Objects.requireNonNull(getActivity()).startActivity(intent);
+                    openFriendsPage(getActivity(), friend);
                 }
             }
 
@@ -116,7 +120,7 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
             }
         });
 
-        mSelectionCallback = new SelectionCallback(this, mFriendsAdapter);
+        mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
 
         if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
@@ -140,10 +144,10 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
     @Override
     public void toggleSelection(int pos) {
         if(pos != -1) {
-            mFriendsAdapter.toggleSelection(pos);
+            mRecyclerViewAdapter.toggleSelection(pos);
         }
 
-        int count = mFriendsAdapter.getSelectedItemCount();
+        int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
             mActionMode.finish();
@@ -173,7 +177,7 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditFriendActivity.class);
-        Friend friend = mFriendsAdapter.getSelectedItems().get(0);
+        Friend friend = mRecyclerViewAdapter.getSelectedItems().get(0);
 
         intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
         intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
@@ -185,14 +189,44 @@ public class FriendsFragment extends Fragment implements EditAndDeleteSelection 
 
     @Override
     public void deleteSelection() {
-        int countOfSelectedFriends = mFriendsAdapter.getSelectedItemCount();
+
+        List<Friend> selection = new ArrayList<>(mRecyclerViewAdapter.getSelectedItems());
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder
+            .append(getResources().getString(R.string.alert_dialog_delete_all_friends_notice))
+            .append(getResources().getString(R.string.alert_dialog_friends_to_be_deleted));
+
+        for(Friend friend : selection){
+            stringBuilder
+                .append("\n• ")
+                .append(friend.getName());
+        }
+
+        new AlertDialog.Builder(getActivity())
+            .setTitle(getResources().getString(R.string.are_you_sure))
+            .setMessage(stringBuilder.toString())
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> actuallyDeleteSelection(selection))
+            .setNegativeButton(android.R.string.cancel, null)
+            .create()
+            .show();
+    }
+
+    @Override
+    public void actuallyDeleteSelection(List<Friend> selection){
+
+        if(mActionMode != null) {
+            mActionMode.finish();
+        }
+
+        int countOfSelectedFriends = selection.size();
         if(countOfSelectedFriends == 1){
-            makeToast(getActivity(), "«" + mFriendsAdapter.getSelectedItems().get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
+            makeToast(getActivity(), "«" + selection.get(0).getName() + "»" + getString(R.string.toast_notice_friend_deleted));
         } else {
             makeToast(getActivity(), getString(R.string.friends_deleted));
         }
-        for (Friend friend : mFriendsAdapter.getSelectedItems()){
-            mFriendsViewModel.delete(friend);
+        for (Friend friend : selection){
+            mViewModel.delete(friend);
         }
     }
 

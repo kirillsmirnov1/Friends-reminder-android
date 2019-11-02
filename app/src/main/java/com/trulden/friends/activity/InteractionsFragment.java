@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
-import com.trulden.friends.adapter.InteractionsAdapter;
+import com.trulden.friends.adapter.InteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
 import com.trulden.friends.database.FriendsViewModel;
@@ -46,13 +46,13 @@ import static com.trulden.friends.util.Util.makeToast;
 public class InteractionsFragment extends Fragment implements EditAndDeleteSelection {
     private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
-    private FriendsViewModel mFriendsViewModel;
-    private InteractionsAdapter mInteractionsAdapter;
+    private FriendsViewModel mViewModel;
+    private InteractionsRecyclerViewAdapter mRecyclerViewAdapter;
 
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
 
-    private HashSet<Integer> selectedInteractionsPositions = new HashSet<>();
+    private HashSet<Integer> mSelectedPositions = new HashSet<>();
     private LongSparseArray<String> mTypes;
 
     public InteractionsFragment() {
@@ -70,22 +70,22 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_INTERACTIONS_POSITIONS)){
-            selectedInteractionsPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
+            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.fi_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mInteractionsAdapter = new InteractionsAdapter(getActivity(), selectedInteractionsPositions);
+        mRecyclerViewAdapter = new InteractionsRecyclerViewAdapter(getActivity(), mSelectedPositions);
 
-        recyclerView.setAdapter(mInteractionsAdapter);
+        recyclerView.setAdapter(mRecyclerViewAdapter);
 
-        //mFriendsViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        //mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        mFriendsViewModel.getFriendNames().observe(getViewLifecycleOwner(), new Observer<List<FriendName>>() {
+        mViewModel.getFriendNames().observe(getViewLifecycleOwner(), new Observer<List<FriendName>>() {
             @Override
             public void onChanged(List<FriendName> friendNamesList) {
                 LongSparseArray<String> friendNamesLSA = new LongSparseArray<>();
@@ -94,12 +94,12 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
                     friendNamesLSA.put(friendName.id, friendName.name);
                 }
 
-                mInteractionsAdapter.setFriends(friendNamesLSA);
-                mInteractionsAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.setFriends(friendNamesLSA);
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        mFriendsViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
+        mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
             @Override
             public void onChanged(List<InteractionType> interactionTypes) {
                 mTypes = new LongSparseArray<>();
@@ -107,12 +107,12 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
                 for(InteractionType type : interactionTypes){
                     mTypes.put(type.getId(), type.getInteractionTypeName());
                 }
-                mInteractionsAdapter.setInteractionTypes(mTypes);
-                mInteractionsAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.setInteractionTypes(mTypes);
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        mFriendsViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), new Observer<List<InteractionWithFriendIDs>>() {
+        mViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), new Observer<List<InteractionWithFriendIDs>>() {
             @Override
             public void onChanged(List<InteractionWithFriendIDs> interactionWithFriendIDs) {
 
@@ -123,15 +123,15 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
                         : View.GONE
                 );
 
-                mInteractionsAdapter.setEntries(interactionWithFriendIDs);
-                mInteractionsAdapter.notifyDataSetChanged();
+                mRecyclerViewAdapter.setItems(interactionWithFriendIDs);
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        mInteractionsAdapter.setOnClickListener(new OnClickListener<InteractionWithFriendIDs>() {
+        mRecyclerViewAdapter.setOnClickListener(new OnClickListener<InteractionWithFriendIDs>() {
             @Override
             public void onItemClick(View view, InteractionWithFriendIDs obj, int pos) {
-                if(mInteractionsAdapter.getSelectedItemCount() > 0){
+                if(mRecyclerViewAdapter.getSelectedItemCount() > 0){
                     enableActionMode(pos);
                 }
             }
@@ -142,9 +142,9 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
             }
         });
 
-        mSelectionCallback = new SelectionCallback(this, mInteractionsAdapter);
+        mSelectionCallback = new SelectionCallback(this, mRecyclerViewAdapter);
 
-        if(selectedInteractionsPositions.size() > 0)
+        if(mSelectedPositions.size() > 0)
             enableActionMode(-1);
     }
 
@@ -159,10 +159,10 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     @Override
     public void toggleSelection(int pos) {
         if(pos != -1) {
-            mInteractionsAdapter.toggleSelection(pos);
+            mRecyclerViewAdapter.toggleSelection(pos);
         }
 
-        int count = mInteractionsAdapter.getSelectedItemCount();
+        int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
             mActionMode.finish();
@@ -182,30 +182,30 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_INTERACTIONS_POSITIONS, selectedInteractionsPositions);
+        outState.putSerializable(SELECTED_INTERACTIONS_POSITIONS, mSelectedPositions);
     }
 
     @Override
     public void editSelection() {
         Intent intent = new Intent(getActivity(), EditInteractionActivity.class);
-        InteractionWithFriendIDs iwfids = mInteractionsAdapter.getSelectedItems().get(0);
+        InteractionWithFriendIDs iwfids = mRecyclerViewAdapter.getSelectedItems().get(0);
         Interaction interaction = iwfids.interaction;
 
         intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
         intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mTypes.get(interaction.getInteractionTypeId()));
         intent.putExtra(EXTRA_INTERACTION_COMMENT, interaction.getComment());
         intent.putExtra(EXTRA_INTERACTION_DATE, interaction.getDate());
-        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mInteractionsAdapter.generateNameString(iwfids.friendIDs));
+        intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mRecyclerViewAdapter.generateNameString(iwfids.friendIDs));
 
         getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
     }
 
     @Override
     public void deleteSelection() {
-        for(InteractionWithFriendIDs interactionWithFriendIDs : mInteractionsAdapter.getSelectedItems()) {
+        for(InteractionWithFriendIDs interactionWithFriendIDs : mRecyclerViewAdapter.getSelectedItems()) {
             HashSet ids = new HashSet();
             ids.addAll(interactionWithFriendIDs.friendIDs);
-            mFriendsViewModel.delete(interactionWithFriendIDs.interaction, ids);
+            mViewModel.delete(interactionWithFriendIDs.interaction, ids);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
     }

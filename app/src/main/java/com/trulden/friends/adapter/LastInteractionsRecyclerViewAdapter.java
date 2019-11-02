@@ -25,11 +25,16 @@ import static com.trulden.friends.util.Util.daysPassed;
  * RecyclerView adapter for LastInteraction objects.
  * Used in {@link com.trulden.friends.activity.LastInteractionsTabFragment LastInteractionsTabFragment}
  */
-public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAdapter.ViewHolder, LastInteractionWrapper> {
+public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInteractionsRecyclerViewAdapter.ViewHolder, LastInteractionWrapper> {
 
-    public LastInteractionsAdapter(Context context, @NonNull HashSet<Integer> selectedPositions){
+    TrackerMode mTrackerMode;
+
+    public LastInteractionsRecyclerViewAdapter(Context context,
+                                               @NonNull HashSet<Integer> selectedPositions,
+                                               TrackerMode trackerMode){
         super(context, selectedPositions);
         mContext = context;
+        mTrackerMode = trackerMode;
     }
 
     @NonNull
@@ -42,10 +47,10 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
             extends RecyclerView.ViewHolder
             implements BindableViewHolder<LastInteractionWrapper> {
 
-        private TextView mName;
-        private TextView mTime;
+        private TextView  mName;
+        private TextView  mTime;
         private ImageView mHiddenIcon;
-
+        private TextView  mFrequency;
         private RelativeLayout mLayout;
 
         ViewHolder(@NonNull View itemView) {
@@ -54,6 +59,7 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
             mName = itemView.findViewById(R.id.eli_friend_name);
             mTime = itemView.findViewById(R.id.eli_time_passed);
             mHiddenIcon = itemView.findViewById(R.id.eli_hidden_icon);
+            mFrequency = itemView.findViewById(R.id.eli_frequency);
 
             mLayout = itemView.findViewById(R.id.eli_layout);
         }
@@ -66,13 +72,22 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
                 mHiddenIcon.setVisibility(View.INVISIBLE);
             }
 
-            mName.setText(interaction.getFriendName());
+            switch (mTrackerMode) {
+                case SHOW_FRIEND_NAME:
+                    mName.setText(interaction.getFriendName());
+                    break;
+                case SHOW_TYPE_NAME:
+                    mName.setText(interaction.getType().getInteractionTypeName());
+                    break;
+            }
 
             int daysPassed = daysPassed(interaction.getLastInteraction());
 
             String dateString = daysPassed + mContext.getString(R.string.days_ago);
 
             mTime.setText(dateString);
+
+            mFrequency.setText(String.format(mContext.getString(R.string.LI_every_x_days), interaction.getType().getFrequency()));
 
             // Grey out LI for which time have not yet come
             if(!interaction.itsTime()) {
@@ -106,5 +121,10 @@ public class LastInteractionsAdapter extends CustomRVAdapter<LastInteractionsAda
                 }
             });
         }
+    }
+
+    public enum TrackerMode{
+        SHOW_FRIEND_NAME,
+        SHOW_TYPE_NAME
     }
 }
