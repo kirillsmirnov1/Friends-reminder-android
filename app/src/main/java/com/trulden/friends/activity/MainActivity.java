@@ -405,7 +405,7 @@ public class MainActivity
     public void setToolbarTitle(){
         switch (mFragmentToLoad){
             case INTERACTIONS_FRAGMENT:
-                mToolbar.setTitle(getString(R.string.log));
+                mToolbar.setTitle(getString(R.string.interactions_journal));
                 break;
             case LAST_INTERACTIONS_FRAGMENT:
                 mToolbar.setTitle(getString(R.string.last_interactions));

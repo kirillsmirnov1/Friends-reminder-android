@@ -109,7 +109,7 @@ public class OpenActivitiesTest extends AbstractMATest {
         openInteractions();
 
         onView(childAtPosition(withId(R.id.toolbar), 0))
-                .check(matches(withText(R.string.log)));
+                .check(matches(withText(R.string.interactions_journal)));
 
         openLastInteractions();
 
