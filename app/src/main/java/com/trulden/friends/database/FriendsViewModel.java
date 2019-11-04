@@ -36,6 +36,8 @@ public class FriendsViewModel extends AndroidViewModel {
 
     private int mSelectedLITabPos = 0;
 
+    private LastInteractionWrapper mTrackerInFragment;
+
     public FriendsViewModel(@NonNull Application application) {
         super(application);
 
@@ -134,5 +136,13 @@ public class FriendsViewModel extends AndroidViewModel {
 
     public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
         return mRepository.getCoParticipantNames(interactionId, friendsName);
+    }
+
+    public LastInteractionWrapper getTrackerInFragment() {
+        return mTrackerInFragment;
+    }
+
+    public void setTrackerInFragment(LastInteractionWrapper trackerInFragment) {
+        this.mTrackerInFragment = trackerInFragment;
     }
 }
