@@ -34,6 +34,8 @@ import static com.trulden.friends.util.Util.openFriendsPage;
  */
 public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
+    private FriendsViewModel mViewModel;
+
     private LastInteractionWrapper mLastInteractionWrapper;
 
     private TextView mWithWhom;
@@ -70,10 +72,14 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         mWithWhom = view.findViewById(R.id.ft_with_whom);
         mComment = view.findViewById(R.id.ft_comment);
 
+        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+
+        if(mLastInteractionWrapper == null){
+            mLastInteractionWrapper = mViewModel.getTrackerInFragment();
+        }
+
         long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
         String friendsName = mLastInteractionWrapper.getFriendName();
-
-        FriendsViewModel viewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         friendsNameView.setText(friendsName);
 
@@ -88,7 +94,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         setStatusIcon();
 
-        viewModel.getInteraction(interactionId)
+        mViewModel.getInteraction(interactionId)
             .observe(
                 getViewLifecycleOwner(),
                 interactions ->{
@@ -100,7 +106,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
                     }
                 });
 
-        viewModel.getCoParticipantNames(interactionId, friendsName).observe(getViewLifecycleOwner(),
+        mViewModel.getCoParticipantNames(interactionId, friendsName).observe(getViewLifecycleOwner(),
             namesList -> {
                 if(namesList.size() == 0){
                     mWithWhom.setVisibility(View.GONE);
@@ -124,7 +130,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
                 ? 1
                 : 0);
             setStatusIcon();
-            viewModel.update(mLastInteractionWrapper.getLastInteraction());
+            mViewModel.update(mLastInteractionWrapper.getLastInteraction());
         });
 
         updateIcon.setOnClickListener(v -> {
@@ -152,5 +158,12 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        mViewModel.setTrackerInFragment(mLastInteractionWrapper);
     }
 }
