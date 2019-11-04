@@ -122,7 +122,20 @@ public class MainActivity
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
 
+        checkIfTrackerFragmentNeedsToBeShown();
+
         showChangelog();
+    }
+
+    @Override
+    public void checkIfTrackerFragmentNeedsToBeShown(){
+        int fragmentsId = R.id.am_tracker_over_layout;
+
+        if(getSupportFragmentManager().findFragmentById(fragmentsId) != null){
+            mTrackerOverShown = true;
+            setTrackerOverActivityVisibility(View.VISIBLE);
+            mTrackerOverFragment = (TrackerFragment) getSupportFragmentManager().findFragmentById(fragmentsId);
+        }
     }
 
     private void showChangelog() {
@@ -439,8 +452,6 @@ public class MainActivity
 
         mTrackerOverShown = true;
 
-        mTrackerOverLayout.setVisibility(View.VISIBLE);
-
         mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
 
         getSupportFragmentManager()
@@ -448,19 +459,26 @@ public class MainActivity
             .replace(R.id.am_tracker_over_layout, mTrackerOverFragment)
             .commit();
 
-        findViewById(R.id.am_fade_background).setVisibility(View.VISIBLE);
+        setTrackerOverActivityVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setTrackerOverActivityVisibility(int visibility){
+        findViewById(R.id.am_fade_background).setVisibility(visibility);
+        mTrackerOverLayout.setVisibility(visibility);
     }
 
     @Override
     public void closeTrackerOverActivity() {
         saveSelectedLastInteractionTab();
-        mTrackerOverLayout.setVisibility(View.GONE);
-        findViewById(R.id.am_fade_background).setVisibility(View.GONE);
+        setTrackerOverActivityVisibility(View.GONE);
         mTrackerOverShown = false;
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(mTrackerOverFragment)
                 .commit();
+
+        mViewModel.setTrackerInFragment(null);
     }
 
     public enum FragmentToLoad{

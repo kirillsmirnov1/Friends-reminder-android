@@ -16,4 +16,15 @@ public interface TrackerOverActivity {
      * Destroy fragment and hide views.
      */
     void closeTrackerOverActivity();
+
+    /**
+     * Used in onCreate() to check if fragment in fact exists and needs to be shown
+     */
+    void checkIfTrackerFragmentNeedsToBeShown();
+
+    /**
+     * Sets visibility of am_fade_background and am_tracker_over_layout
+     * @param visibility View.VISIBLE or View.GONE
+     */
+    void setTrackerOverActivityVisibility(int visibility);
 }

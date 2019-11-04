@@ -135,6 +135,8 @@ public class FriendPageActivity
         if(mSelectedPositions.size() > 0){
             enableActionMode(-1);
         }
+
+        checkIfTrackerFragmentNeedsToBeShown();
     }
 
     private void setFriendInfo(Friend friend){
@@ -279,8 +281,6 @@ public class FriendPageActivity
     public void showTrackerOverActivity(LastInteractionWrapper lastInteractionWrapper) {
         mTrackerOverShown = true;
 
-        mTrackerOverLayout.setVisibility(View.VISIBLE);
-
         mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
 
         getSupportFragmentManager()
@@ -288,18 +288,19 @@ public class FriendPageActivity
                 .replace(R.id.afp_tracker_over_layout, mTrackerOverFragment)
                 .commit();
 
-        findViewById(R.id.afp_fade_background).setVisibility(View.VISIBLE);
+        setTrackerOverActivityVisibility(View.VISIBLE);
     }
 
     @Override
     public void closeTrackerOverActivity() {
-        mTrackerOverLayout.setVisibility(View.GONE);
-        findViewById(R.id.afp_fade_background).setVisibility(View.GONE);
+        setTrackerOverActivityVisibility(View.GONE);
         mTrackerOverShown = false;
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(mTrackerOverFragment)
                 .commit();
+
+        mViewModel.setTrackerInFragment(null);
     }
 
     @Override
@@ -328,5 +329,22 @@ public class FriendPageActivity
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public void checkIfTrackerFragmentNeedsToBeShown(){
+        int fragmentsId = R.id.afp_tracker_over_layout;
+
+        if(getSupportFragmentManager().findFragmentById(fragmentsId) != null){
+            mTrackerOverShown = true;
+            setTrackerOverActivityVisibility(View.VISIBLE);
+            mTrackerOverFragment = (TrackerFragment) getSupportFragmentManager().findFragmentById(fragmentsId);
+        }
+    }
+
+    @Override
+    public void setTrackerOverActivityVisibility(int visibility){
+        findViewById(R.id.afp_fade_background).setVisibility(visibility);
+        mTrackerOverLayout.setVisibility(visibility);
     }
 }
