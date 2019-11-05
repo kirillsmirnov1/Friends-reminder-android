@@ -8,12 +8,13 @@ Friends is a mobile app that helps to remember about your friends.
 
 ## Screenshots
 
-![Log](https://github.com/kirillsmirnov1/Friends-reminder-android/blob/dev/Screenshots/log.png) ![Last interactions](https://github.com/kirillsmirnov1/Friends-reminder-android/blob/dev/Screenshots/last_interactions.png)
+![Log](https://github.com/kirillsmirnov1/Friends-reminder-android/blob/dev/Screenshots/log.png) ![Last interactions](https://github.com/kirillsmirnov1/Friends-reminder-android/blob/dev/Screenshots/last_interactions.png) ![Friend](https://github.com/kirillsmirnov1/Friends-reminder-android/blob/dev/Screenshots/friend.png)
 
 ## Features
 
 * Keep a diary of meetings, calls and texting with friends
 * See how long you haven't meet your friends
+* Set how often you want to meet, text or call 
 * Take a notes about your friends
 
 ## Credits
