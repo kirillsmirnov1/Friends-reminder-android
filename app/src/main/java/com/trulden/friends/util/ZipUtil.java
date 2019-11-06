@@ -30,23 +30,24 @@ public abstract class ZipUtil {
         try {
             BufferedInputStream origin;
             FileOutputStream dest = new FileOutputStream(zipFileName, false);
-            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(
-                    dest));
+            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
             byte[] data = new byte[BUFFER];
 
             for (String file : _files) {
-                Log.v("Compress", "Adding: " + file);
-                FileInputStream fi = new FileInputStream(file);
-                origin = new BufferedInputStream(fi, BUFFER);
+                if(new File(file).exists()) {
+                    Log.v("Compress", "Adding: " + file);
+                    FileInputStream fi = new FileInputStream(file);
+                    origin = new BufferedInputStream(fi, BUFFER);
 
-                ZipEntry entry = new ZipEntry(file.substring(file.lastIndexOf("/") + 1));
-                out.putNextEntry(entry);
-                int count;
+                    ZipEntry entry = new ZipEntry(file.substring(file.lastIndexOf("/") + 1));
+                    out.putNextEntry(entry);
+                    int count;
 
-                while ((count = origin.read(data, 0, BUFFER)) != -1) {
-                    out.write(data, 0, count);
+                    while ((count = origin.read(data, 0, BUFFER)) != -1) {
+                        out.write(data, 0, count);
+                    }
+                    origin.close();
                 }
-                origin.close();
             }
 
             out.close();

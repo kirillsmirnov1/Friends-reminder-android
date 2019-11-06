@@ -48,6 +48,11 @@ public abstract class FriendsDatabase extends RoomDatabase {
         }
     };
 
+    public static void closeDatabase(){
+        INSTANCE.close();
+        wipeDatabaseReference();
+    }
+
     /**
      * Set database instance reference to null. Used when reloading database.
      */
