@@ -49,6 +49,13 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     // Make window touchable again
                     mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
+                    Intent restartIntent = new Intent(context, MainActivity.class);
+                    restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
+
+                    // Easiest way to ensure correct update of data — restart an app
+                    mMainActivity.get().finish();
+                    mMainActivity.get().startActivity(restartIntent);
+
                     break;
 
                 case ACTION_DATABASE_IMPORT_FINISHED:
@@ -57,13 +64,6 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     } else {
                         makeToast(context, context.getString(R.string.toast_notice_import_failed));
                     }
-
-                    Intent restartIntent = new Intent(context, MainActivity.class);
-                    restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
-
-                    // Easiest way to ensure correct update of data — restart an app
-                    mMainActivity.get().finish();
-                    mMainActivity.get().startActivity(restartIntent);
 
                     break;
 
