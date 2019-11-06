@@ -1,6 +1,10 @@
 <changelog>
 
-    <release versionCode="17" versionName="Version 1.1.2.1">
+    <release versionCode="21" versionName="Версия 1.1.2.2">
+        <info>Оптимизация выгрузки данных</info>
+    </release>
+
+    <release versionCode="17" versionName="Версия 1.1.2.1">
         <bugfix>Исправил падение приложения при повороте экрана с открытым трекером</bugfix>
         <info>• Переименовал Лог → Журнал взаимодействий</info>
     </release>

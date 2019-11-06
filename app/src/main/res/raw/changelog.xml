@@ -1,5 +1,9 @@
 <changelog>
 
+    <release versionCode="21" versionName="Version 1.1.2.2">
+        <info>Data export fixes</info>
+    </release>
+
     <release versionCode="17" versionName="Version 1.1.2.1">
         <bugfix>Fixed crash on rotation with tracker shown over window</bugfix>
         <info>• Renamed Log → Interactions journal</info>
