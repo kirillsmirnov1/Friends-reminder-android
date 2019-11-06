@@ -50,6 +50,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
     public static void closeDatabase(){
         INSTANCE.close();
+        wipeDatabaseReference();
     }
 
     /**
