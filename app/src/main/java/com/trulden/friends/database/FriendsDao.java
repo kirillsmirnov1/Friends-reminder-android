@@ -218,4 +218,17 @@ public interface FriendsDao {
                     " ORDER BY interactionTypeId, date ASC)"
     )
     void refreshLastInteractions();
+
+    @Query(
+        "UPDATE last_interaction_table " +
+        "SET " +
+            "frequency = :newFrequency " +
+        "WHERE " +
+            "EXISTS ( " +
+                "SELECT * " +
+                "FROM last_interaction_table " +
+                "WHERE typeId = :typeId AND frequency = :oldFrequency " +
+            ")"
+    )
+    void updateLastInteractionFrequencyOnTypeUpdate(long typeId, long oldFrequency, long newFrequency);
 }
