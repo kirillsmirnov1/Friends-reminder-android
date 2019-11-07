@@ -215,7 +215,14 @@ class FriendsRepository {
                     break;
 
                 case UPDATE_INTERACTION_TYPE:
-                    mFriendsDao.update(interactionTypes[0]);
+                    InteractionType newType = interactionTypes[0];
+                    InteractionType oldType = mFriendsDao.getTypeById(newType.getId());
+
+                    mFriendsDao.update(newType);
+
+                    if(newType.getFrequency() != oldType.getFrequency()) {
+                        mFriendsDao.updateLastInteractionFrequencyOnTypeUpdate(newType.getId(), oldType.getFrequency(), newType.getFrequency());
+                    }
                     break;
 
                 case REMOVE_INTERACTION_TYPE:
