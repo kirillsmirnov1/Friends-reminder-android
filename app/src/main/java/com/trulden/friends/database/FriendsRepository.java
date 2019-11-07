@@ -338,9 +338,13 @@ class FriendsRepository {
 
                     long typeId = interaction.getInteractionTypeId();
                     HashMap<Long, Long> statuses = new HashMap<>();
+                    HashMap<Long, Long> frequencies = new HashMap<>();
 
                     for(Long friendId : friendIds){
-                        statuses.put(friendId, mFriendsDao.getLIstatus(typeId, friendId).get(0));
+                        LastInteraction lastInteraction = mFriendsDao.getLastInteraction(typeId, friendId).get(0);
+
+                        statuses.put(friendId, lastInteraction.getStatus());
+                        frequencies.put(friendId, lastInteraction.getFrequency());
                     }
 
                     mFriendsDao.delete(interaction);
@@ -351,7 +355,7 @@ class FriendsRepository {
 
                         // If LI connected to Interaction is deleted, need to calculate new one
                         if(lastInteraction.size() == 0){
-                            calculateLastInteraction(typeId, friendId, statuses.get(friendId));
+                            calculateLastInteraction(typeId, friendId, statuses.get(friendId), frequencies.get(friendId));
                         }
                     }
 
@@ -371,6 +375,8 @@ class FriendsRepository {
          */
         private void calculateLastInteraction(long typeId, long friendId){
             LastInteraction oldLastInteraction;
+            long status;
+            long frequency;
 
             try {
                 oldLastInteraction = mFriendsDao.getLastInteraction(typeId, friendId).get(0);
@@ -379,24 +385,25 @@ class FriendsRepository {
                 oldLastInteraction = null;
             }
 
-            long status;
 
             if(oldLastInteraction == null){
                 status = 0;
+                frequency = mFriendsDao.getTypeById(typeId).getFrequency();
             } else {
                 status =  oldLastInteraction.getStatus();
+                frequency = oldLastInteraction.getFrequency();
                 mFriendsDao.delete(oldLastInteraction);
             }
 
-            calculateLastInteraction(typeId, friendId, status);
+            calculateLastInteraction(typeId, friendId, status, frequency);
         }
 
         /**
          * Calculates and integrates fresh {@link LastInteraction} entry.
          * Call if old entry is deleted
          */
-        private void calculateLastInteraction(long typeId, long friendId, long status){
-            mFriendsDao.calculateLastInteraction(typeId, friendId, status);
+        private void calculateLastInteraction(long typeId, long friendId, long status, long frequency){
+            mFriendsDao.calculateLastInteraction(typeId, friendId, status, frequency);
         }
     }
 

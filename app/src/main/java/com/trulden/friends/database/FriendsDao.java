@@ -182,9 +182,9 @@ public interface FriendsDao {
     @Transaction
     @Query(
         "INSERT OR IGNORE INTO \n" +
-        "  last_interaction_table(friendId, typeId, interactionId, date, status)\n" +
+        "  last_interaction_table(friendId, typeId, interactionId, date, status, frequency)\n" +
         "SELECT \n" +
-        "  friendId, typeId, interactionId, MAX(date), :status\n" +
+        "  friendId, typeId, interactionId, MAX(date), :status, :frequency\n" +
         "FROM \n" +
         "    (SELECT id AS interId, interactionTypeId as typeId, date \n" +
         "    FROM interaction_table WHERE typeId = :typeId) \n" +
@@ -195,7 +195,7 @@ public interface FriendsDao {
         "  t2\n" +
         "  ON (t1.interId = t2.interactionId); "
     )
-    void calculateLastInteraction(long typeId, long friendId, long status);
+    void calculateLastInteraction(long typeId, long friendId, long status, long frequency);
 
     @Query("SELECT status FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
