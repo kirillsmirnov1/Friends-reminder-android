@@ -38,7 +38,7 @@ public abstract class Util {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /** Version of database used in app */
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 8;
 
     // Use when need to get onActivityResult() call, but don't need any actual data
     public static final int NO_REQUEST                 = 0;
