@@ -282,7 +282,8 @@ class FriendsRepository {
                                 .getLastInteraction(typeId, friendId);
 
                         if(lastInteraction.size() == 0){
-                            mFriendsDao.add(new LastInteraction(friendId, typeId, interactionId, interaction.getDate(), 0));
+                            long frequency = mFriendsDao.getTypeById(typeId).getFrequency();
+                            mFriendsDao.add(new LastInteraction(friendId, typeId, interactionId, interaction.getDate(), 0, frequency));
                         } else {
 
                             LastInteraction oldLastInteractionInteraction = lastInteraction.get(0);

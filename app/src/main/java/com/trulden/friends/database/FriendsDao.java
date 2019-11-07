@@ -77,6 +77,9 @@ public interface FriendsDao {
     @Query("SELECT * from interaction_type_table LIMIT 1")
     InteractionType[] getAnyInteractionType();
 
+    @Query("SELECT * from interaction_type_table where id = :typeId LIMIT 1")
+    InteractionType getTypeById(long typeId);
+
     @Query("DELETE FROM interaction_type_table;")
     void wipeTypes();
 
