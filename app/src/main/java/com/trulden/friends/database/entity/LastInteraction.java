@@ -47,7 +47,7 @@ public class LastInteraction implements Entity {
     private long date;
 
     /**
-     * Will be used to set visibility and other params of that LI
+     * Used to set visibility
      */
     private long status;
 
