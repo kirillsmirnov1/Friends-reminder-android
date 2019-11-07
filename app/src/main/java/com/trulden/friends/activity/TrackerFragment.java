@@ -90,7 +90,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
                 .setText(daysPassed(mLastInteractionWrapper.getLastInteraction()) + getString(R.string.days_ago));
 
         ((TextView) view.findViewById(R.id.ft_frequency))
-                .setText(String.format(getString(R.string.LI_every_x_days), mLastInteractionWrapper.getType().getFrequency()));
+                .setText(String.format(getString(R.string.LI_every_x_days), mLastInteractionWrapper.getLastInteraction().getFrequency()));
 
         setStatusIcon();
 
