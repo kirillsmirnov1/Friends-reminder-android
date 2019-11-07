@@ -51,17 +51,21 @@ public class LastInteraction implements Entity {
      */
     private long status;
 
+    private long frequency;
+
     /**
      * Constructor for LI entry. Must be used only by database classes
      * @param typeId type of Interaction
      * @param date Unix epoch time of interaction
      */
-    public LastInteraction(long friendId, long typeId, long interactionId, long date, long status){
+    public LastInteraction(long friendId, long typeId, long interactionId, long date, long status,
+                           long frequency){
         this.friendId = friendId;
         this.typeId = typeId;
         this.interactionId = interactionId;
         this.date = date;
         this.status = status;
+        this.frequency = frequency;
     }
 
     // -----------------------------------------
@@ -106,5 +110,13 @@ public class LastInteraction implements Entity {
 
     public void setStatus(long status) {
         this.status = status;
+    }
+
+    public long getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(long frequency) {
+        this.frequency = frequency;
     }
 }
