@@ -68,7 +68,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         TextView friendsNameView = view.findViewById(R.id.ft_friends_name);
         mStatusIcon = view.findViewById(R.id.ft_status_icon);
-        ImageView updateIcon = view.findViewById(R.id.ft_update_icon);
+        ImageView createInteractionIcon = view.findViewById(R.id.ft_create_interaction_icon);
         mWithWhom = view.findViewById(R.id.ft_with_whom);
         mComment = view.findViewById(R.id.ft_comment);
 
@@ -133,7 +133,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             mViewModel.update(mLastInteractionWrapper.getLastInteraction());
         });
 
-        updateIcon.setOnClickListener(v -> {
+        createInteractionIcon.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), EditInteractionActivity.class);
             intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
             intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getType().getInteractionTypeName());
