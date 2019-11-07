@@ -157,7 +157,9 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        // Class has to extend onClickListener so clicks won't fall through
+        // But clicks on the view itself are useless, so this method is empty
+        // Clicks on elements are handled in «setOnClickListener» methods in onViewCreated
     }
 
     @Override
