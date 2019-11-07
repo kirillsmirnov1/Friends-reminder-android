@@ -1,5 +1,9 @@
 <changelog>
 
+    <release versionCode="22" versionName="Версия 1.1.2.3">
+        <bugfix>Починил перезагрузку приложения при восстановлении данных</bugfix>
+    </release>
+
     <release versionCode="21" versionName="Версия 1.1.2.2">
         <info>Оптимизация выгрузки данных</info>
     </release>
