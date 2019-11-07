@@ -1,5 +1,9 @@
 <changelog>
 
+    <release versionCode="22" versionName="Version 1.1.2.3">
+        <bugfix>Fixed app reload on data export</bugfix>
+    </release>
+
     <release versionCode="21" versionName="Version 1.1.2.2">
         <info>Data export fixes</info>
     </release>
