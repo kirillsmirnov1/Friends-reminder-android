@@ -347,4 +347,9 @@ public class FriendPageActivity
         findViewById(R.id.afp_fade_background).setVisibility(visibility);
         mTrackerOverLayout.setVisibility(visibility);
     }
+
+    @Override
+    public void updateLastInteraction(LastInteraction lastInteraction) {
+        mViewModel.update(lastInteraction);
+    }
 }
