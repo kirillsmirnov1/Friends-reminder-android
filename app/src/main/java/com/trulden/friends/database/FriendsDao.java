@@ -161,7 +161,7 @@ public interface FriendsDao {
      * @return {@link LastInteractionWrapper} list.
      */
     @Transaction
-    @Query("SELECT * FROM last_interaction_table ORDER BY date ASC")
+    @Query("SELECT * FROM last_interaction_table ORDER BY ready DESC, date;")
     LiveData<List<LastInteractionWrapper>> getLiveAllLastInteractionWrappers();
 
     @Transaction
