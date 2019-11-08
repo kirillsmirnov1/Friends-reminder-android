@@ -151,7 +151,7 @@ public abstract class Util {
         return calendarDaysBetween(day, Calendar.getInstance());
     }
 
-    private static int calendarDaysBetween(Calendar day1, Calendar day2){
+    public static int calendarDaysBetween(Calendar day1, Calendar day2){
         // Taken from here https://stackoverflow.com/a/28865648/11845909
 
         Calendar dayOne = (Calendar) day1.clone(),
@@ -178,12 +178,5 @@ public abstract class Util {
 
             return extraDays - dayTwo.get(Calendar.DAY_OF_YEAR) + dayOneOriginalYearDays ;
         }
-    }
-
-    public static boolean enoughDaysPassed(long frequency, long date){
-        Calendar dateCalendar = Calendar.getInstance();
-        dateCalendar.setTimeInMillis(date);
-
-        return calendarDaysBetween(Calendar.getInstance(), dateCalendar) >= frequency;
     }
 }

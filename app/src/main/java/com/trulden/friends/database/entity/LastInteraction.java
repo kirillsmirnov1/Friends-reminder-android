@@ -3,7 +3,10 @@ package com.trulden.friends.database.entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 
+import java.util.Calendar;
+
 import static androidx.room.ForeignKey.CASCADE;
+import static com.trulden.friends.util.Util.calendarDaysBetween;
 
 /**
  * Shows how much time passed since interaction of some type with some friend.
@@ -59,7 +62,7 @@ public class LastInteraction implements Entity {
      * Constructor for LI entry. Must be used only by database classes
      * @param typeId type of Interaction
      * @param date Unix epoch time of interaction
-     * @param ready
+     * @param ready shows if it's time to interact again
      */
     public LastInteraction(long friendId, long typeId, long interactionId, long date, long status,
                            long frequency, boolean ready){
@@ -70,6 +73,13 @@ public class LastInteraction implements Entity {
         this.status = status;
         this.frequency = frequency;
         this.ready = ready;
+    }
+
+    public void calculateReadiness(){
+        Calendar dateCalendar = Calendar.getInstance();
+        dateCalendar.setTimeInMillis(date);
+
+        ready = calendarDaysBetween(Calendar.getInstance(), dateCalendar) >= frequency;
     }
 
     // -----------------------------------------
