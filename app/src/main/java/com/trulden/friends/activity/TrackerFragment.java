@@ -80,10 +80,11 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        // FIXME need to save typeId and friendId to viewModel?
-//        if(mLastInteractionWrapper == null){
-//            mLastInteractionWrapper = mViewModel.getTrackerInFragment();
-//        }
+        if(mTypeId == 0 || mFriendId == 0){
+            mLastInteractionWrapper = mViewModel.getTrackerInFragment();
+            mTypeId = mLastInteractionWrapper.getType().getId();
+            mFriendId = mLastInteractionWrapper.getFriend().getId();
+        }
 
         mViewModel.getLiveLastInteraction(mTypeId, mFriendId).observe(getViewLifecycleOwner(), lastInteractionWrapper -> {
             mLastInteractionWrapper = lastInteractionWrapper;
