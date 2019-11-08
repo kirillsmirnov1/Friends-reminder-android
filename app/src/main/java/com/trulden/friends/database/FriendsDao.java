@@ -75,7 +75,7 @@ public interface FriendsDao {
      * @return array with one or none of types
      */
     @Query("SELECT * from interaction_type_table LIMIT 1")
-    InteractionType[] getAnyInteractionType();
+    InteractionType[] getAnyInteractionType(); // FIXME
 
     @Query("SELECT * from interaction_type_table where id = :typeId LIMIT 1")
     InteractionType getTypeById(long typeId);
@@ -94,10 +94,10 @@ public interface FriendsDao {
     LiveData<List<Interaction>> getAllInteractions();
 
     @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
-    List<Interaction> getInteraction(long interactionId);
+    List<Interaction> getInteraction(long interactionId); // FIXME
 
     @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
-    LiveData<List<Interaction>> getInteractionById(long interactionId);
+    LiveData<List<Interaction>> getInteractionById(long interactionId); // FIXME
 
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     @Transaction
@@ -170,7 +170,7 @@ public interface FriendsDao {
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table WHERE status = 0 ORDER BY ready DESC, date")
-    LiveData<List<LastInteractionWrapper>> getVisibleLastInteractions();
+    LiveData<List<LastInteractionWrapper>> getLiveVisibleLastInteractionWrappers();
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
@@ -188,7 +188,7 @@ public interface FriendsDao {
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
             "WHERE friendId = :friendId;")
-    LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId);
+    LiveData<List<LastInteractionWrapper>> getLiveLastInteractionWrappersOfAFriend(long friendId);
 
     @Transaction
     @Query(
