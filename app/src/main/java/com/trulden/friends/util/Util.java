@@ -141,11 +141,14 @@ public abstract class Util {
      * @return number of days
      */
     public static int daysPassed(LastInteraction interaction){
+        return daysPassed(interaction.getDate());
+    }
 
-        Calendar dateOfLastInteraction = Calendar.getInstance();
-        dateOfLastInteraction.setTimeInMillis(interaction.getDate());
+    public static int daysPassed(long date){
+        Calendar day = Calendar.getInstance();
+        day.setTimeInMillis(date);
 
-        return calendarDaysBetween(dateOfLastInteraction, Calendar.getInstance());
+        return calendarDaysBetween(day, Calendar.getInstance());
     }
 
     private static int calendarDaysBetween(Calendar day1, Calendar day2){

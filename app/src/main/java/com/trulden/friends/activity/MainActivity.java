@@ -40,6 +40,7 @@ import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
 
+import java.util.Calendar;
 import java.util.HashSet;
 
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
@@ -82,6 +83,8 @@ public class MainActivity
         mPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE);
 
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+
+        checkLastInteractionsReadiness();
 
         mViewModel.setShowHiddenLI(
                 mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
@@ -127,6 +130,19 @@ public class MainActivity
         checkIfTrackerFragmentNeedsToBeShown();
 
         showChangelog();
+    }
+
+    private void checkLastInteractionsReadiness() {
+
+        // Used only here, so there is no need to move it to Util
+        String key = "LAST_TIME_LAST_INTERACTIONS_CHECKED_FOR_READINESS";
+
+        long lastTime = mPreferences.getLong(key, -1);
+
+        if(lastTime == -1 || Util.daysPassed(lastTime) > 0){
+            mViewModel.checkLastInteractionsReadiness();
+        }
+        mPreferences.edit().putLong(key, Calendar.getInstance().getTimeInMillis()).apply();
     }
 
     @Override

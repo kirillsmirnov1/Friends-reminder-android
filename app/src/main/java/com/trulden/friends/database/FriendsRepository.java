@@ -45,7 +45,7 @@ class FriendsRepository {
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
 
     LiveData<List<LastInteractionWrapper>> getAllLastInteractions() {
-        return mFriendsDao.getAllLastInteractions();
+        return mFriendsDao.getLiveAllLastInteractionWrappers();
     }
 
     LiveData<List<LastInteractionWrapper>> getVisibleLastInteractions(){
@@ -89,6 +89,20 @@ class FriendsRepository {
 
     public LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId) {
         return mFriendsDao.getLiveLastInteractionWrapper(typeId, friendId);
+    }
+
+    public void checkLastInteractionsReadiness() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                for(LastInteraction li : mFriendsDao.getAllLastInteractions()){
+                    li.setReady(Util.enoughDaysPassed(li.getFrequency(), li.getDate()));
+                    mFriendsDao.update(li);
+                }
+
+                return null;
+            }
+        }.execute();
     }
 
     /**
