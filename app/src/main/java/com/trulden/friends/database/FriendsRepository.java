@@ -13,6 +13,7 @@ import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
+import com.trulden.friends.util.Util;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -87,7 +88,7 @@ class FriendsRepository {
     }
 
     public LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId) {
-        return mFriendsDao.getLiveLastInteraction(typeId, friendId);
+        return mFriendsDao.getLiveLastInteractionWrapper(typeId, friendId);
     }
 
     /**
@@ -289,21 +290,22 @@ class FriendsRepository {
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
 
-                        List<LastInteraction> lastInteraction = mFriendsDao
+                        LastInteraction lastInteraction = mFriendsDao
                                 .getLastInteraction(typeId, friendId);
 
-                        if(lastInteraction.size() == 0){
+                        if(lastInteraction == null){
                             long frequency = mFriendsDao.getTypeById(typeId).getFrequency();
-                            mFriendsDao.add(new LastInteraction(friendId, typeId, interactionId, interaction.getDate(), 0, frequency));
+                            mFriendsDao.add(
+                                new LastInteraction(friendId, typeId, interactionId,
+                                        interaction.getDate(), 0, frequency,
+                                        Util.enoughDaysPassed(frequency, interaction.getDate())));
                         } else {
 
-                            LastInteraction oldLastInteractionInteraction = lastInteraction.get(0);
+                            if(interaction.getDate() > lastInteraction.getDate()){
+                                lastInteraction.setDate(interaction.getDate());
+                                lastInteraction.setInteractionId(interactionId);
 
-                            if(interaction.getDate() > oldLastInteractionInteraction.getDate()){
-                                oldLastInteractionInteraction.setDate(interaction.getDate());
-                                oldLastInteractionInteraction.setInteractionId(interactionId);
-
-                                mFriendsDao.update(oldLastInteractionInteraction);
+                                mFriendsDao.update(lastInteraction);
                             }
                         }
                     }
@@ -352,7 +354,7 @@ class FriendsRepository {
                     HashMap<Long, Long> frequencies = new HashMap<>();
 
                     for(Long friendId : friendIds){
-                        LastInteraction lastInteraction = mFriendsDao.getLastInteraction(typeId, friendId).get(0);
+                        LastInteraction lastInteraction = mFriendsDao.getLastInteraction(typeId, friendId);
 
                         statuses.put(friendId, lastInteraction.getStatus());
                         frequencies.put(friendId, lastInteraction.getFrequency());
@@ -361,11 +363,11 @@ class FriendsRepository {
                     mFriendsDao.delete(interaction);
 
                     for(Long friendId : friendIds){
-                        List<LastInteraction> lastInteraction = mFriendsDao
+                        LastInteraction lastInteraction = mFriendsDao
                                 .getLastInteraction(typeId, friendId);
 
                         // If LI connected to Interaction is deleted, need to calculate new one
-                        if(lastInteraction.size() == 0){
+                        if(lastInteraction == null){
                             calculateLastInteraction(typeId, friendId, statuses.get(friendId), frequencies.get(friendId));
                         }
                     }
@@ -390,7 +392,7 @@ class FriendsRepository {
             long frequency;
 
             try {
-                oldLastInteraction = mFriendsDao.getLastInteraction(typeId, friendId).get(0);
+                oldLastInteraction = mFriendsDao.getLastInteraction(typeId, friendId);
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
                 oldLastInteraction = null;
@@ -415,6 +417,14 @@ class FriendsRepository {
          */
         private void calculateLastInteraction(long typeId, long friendId, long status, long frequency){
             mFriendsDao.calculateLastInteraction(typeId, friendId, status, frequency);
+
+            try {
+                LastInteraction lastInteraction = mFriendsDao.getLastInteraction(typeId, friendId);
+                lastInteraction.setReady(Util.enoughDaysPassed(frequency, lastInteraction.getDate()));
+                mFriendsDao.update(lastInteraction);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

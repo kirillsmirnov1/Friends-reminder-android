@@ -172,14 +172,14 @@ public interface FriendsDao {
     @Query("SELECT * FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
             "AND   friendId = :friendId;")
-    List<LastInteraction> getLastInteraction(long typeId, long friendId);
+    LastInteraction getLastInteraction(long typeId, long friendId);
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
             "AND   friendId = :friendId " +
             "LIMIT 1;")
-    LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId);
+    LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId);
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
@@ -189,9 +189,9 @@ public interface FriendsDao {
     @Transaction
     @Query(
         "INSERT OR IGNORE INTO \n" +
-        "  last_interaction_table(friendId, typeId, interactionId, date, status, frequency)\n" +
+        "  last_interaction_table(friendId, typeId, interactionId, date, status, frequency, ready)\n" +
         "SELECT \n" +
-        "  friendId, typeId, interactionId, MAX(date), :status, :frequency\n" +
+        "  friendId, typeId, interactionId, MAX(date), :status, :frequency, 0\n" +
         "FROM \n" +
         "    (SELECT id AS interId, interactionTypeId as typeId, date \n" +
         "    FROM interaction_table WHERE typeId = :typeId) \n" +
@@ -224,7 +224,7 @@ public interface FriendsDao {
                     " GROUP BY friendId, interactionTypeId\n" +
                     " ORDER BY interactionTypeId, date ASC)"
     )
-    void refreshLastInteractions();
+    void refreshLastInteractions(); // FIXME not used, outdated
 
     @Query(
         "UPDATE last_interaction_table " +

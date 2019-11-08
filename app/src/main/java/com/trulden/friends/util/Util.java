@@ -38,7 +38,7 @@ public abstract class Util {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /** Version of database used in app */
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 9;
 
     // Use when need to get onActivityResult() call, but don't need any actual data
     public static final int NO_REQUEST                 = 0;
@@ -175,5 +175,12 @@ public abstract class Util {
 
             return extraDays - dayTwo.get(Calendar.DAY_OF_YEAR) + dayOneOriginalYearDays ;
         }
+    }
+
+    public static boolean enoughDaysPassed(long frequency, long date){
+        Calendar dateCalendar = Calendar.getInstance();
+        dateCalendar.setTimeInMillis(date);
+
+        return calendarDaysBetween(Calendar.getInstance(), dateCalendar) >= frequency;
     }
 }

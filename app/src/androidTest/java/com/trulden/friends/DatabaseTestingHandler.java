@@ -64,9 +64,9 @@ public class DatabaseTestingHandler {
         };
 
         lastInteractions = new LastInteraction[]{
-                new LastInteraction(1, 1, 1, dates[0].getTimeInMillis(), 0, 30),
-                new LastInteraction(2, 1, 1, dates[0].getTimeInMillis(), 0, 30),
-                new LastInteraction(3, 1, 2, dates[1].getTimeInMillis(), 0, 30)
+                new LastInteraction(1, 1, 1, dates[0].getTimeInMillis(), 0, 30, false),
+                new LastInteraction(2, 1, 1, dates[0].getTimeInMillis(), 0, 30, false),
+                new LastInteraction(3, 1, 2, dates[1].getTimeInMillis(), 0, 30, false)
         };
 
         for(InteractionType type : types) { dao.add(type); }

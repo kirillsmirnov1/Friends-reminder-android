@@ -37,7 +37,7 @@ public class LastInteractionWrapper implements Entity {
      * Check if it's time to interact again
      * @return true if enough days have passed
      */
-    public boolean itsTime(){
+    public boolean itsTime(){ // TODO use ready field
         return (daysPassed(lastInteraction) >= lastInteraction.getFrequency());
     }
 

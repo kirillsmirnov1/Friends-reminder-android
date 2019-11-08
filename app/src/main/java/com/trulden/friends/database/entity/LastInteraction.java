@@ -53,19 +53,23 @@ public class LastInteraction implements Entity {
 
     private long frequency;
 
+    private boolean ready;
+
     /**
      * Constructor for LI entry. Must be used only by database classes
      * @param typeId type of Interaction
      * @param date Unix epoch time of interaction
+     * @param ready
      */
     public LastInteraction(long friendId, long typeId, long interactionId, long date, long status,
-                           long frequency){
+                           long frequency, boolean ready){
         this.friendId = friendId;
         this.typeId = typeId;
         this.interactionId = interactionId;
         this.date = date;
         this.status = status;
         this.frequency = frequency;
+        this.ready = ready;
     }
 
     // -----------------------------------------
@@ -118,5 +122,13 @@ public class LastInteraction implements Entity {
 
     public void setFrequency(long frequency) {
         this.frequency = frequency;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
     }
 }
