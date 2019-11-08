@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.dialogs.EditLastInteractionFrequencyDialog;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
@@ -69,6 +70,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         TextView friendsNameView = view.findViewById(R.id.ft_friends_name);
         mStatusIcon = view.findViewById(R.id.ft_status_icon);
         ImageView createInteractionIcon = view.findViewById(R.id.ft_create_interaction_icon);
+        ImageView changeFrequencyIcon = view.findViewById(R.id.ft_change_frequency_icon);
         mWithWhom = view.findViewById(R.id.ft_with_whom);
         mComment = view.findViewById(R.id.ft_comment);
 
@@ -142,6 +144,11 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
 
             getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
+        });
+
+        changeFrequencyIcon.setOnClickListener(v ->{
+            new EditLastInteractionFrequencyDialog(mLastInteractionWrapper)
+                .show(getActivity().getSupportFragmentManager(), "editLIFrequency");
         });
     }
 
