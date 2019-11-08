@@ -100,10 +100,6 @@ public class FriendsViewModel extends AndroidViewModel {
     public void update(Interaction interaction, HashSet<Long> friendsIds) { mRepository.update(interaction, friendsIds); }
     public void delete(Interaction interaction, HashSet<Long> friendIDs)  { mRepository.delete(interaction, friendIDs);  }
 
-    public void refreshLastInteractions() {
-        mRepository.refreshLastInteractions();
-    }
-
     public void update(LastInteraction lastInteraction) { mRepository.update(lastInteraction); }
 
     public LiveData<Boolean> getShowHiddenLI() {

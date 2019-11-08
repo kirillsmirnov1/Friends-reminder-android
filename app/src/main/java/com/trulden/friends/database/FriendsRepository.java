@@ -68,17 +68,6 @@ class FriendsRepository {
         return mFriendsDao;
     }
 
-    public void refreshLastInteractions() {
-
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                mFriendsDao.refreshLastInteractions();
-                return null;
-            }
-        }.execute();
-    }
-
     public LiveData<List<Interaction>> getInteraction(long interactionId) {
         return mFriendsDao.getInteractionById(interactionId);
     }
