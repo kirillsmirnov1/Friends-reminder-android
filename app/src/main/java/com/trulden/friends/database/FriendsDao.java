@@ -230,12 +230,7 @@ public interface FriendsDao {
         "UPDATE last_interaction_table " +
         "SET " +
             "frequency = :newFrequency " +
-        "WHERE " +
-            "EXISTS ( " +
-                "SELECT * " +
-                "FROM last_interaction_table " +
-                "WHERE typeId = :typeId AND frequency = :oldFrequency " +
-            ")"
+        "WHERE typeId = :typeId AND frequency = :oldFrequency;"
     )
     void updateLastInteractionFrequencyOnTypeUpdate(long typeId, long oldFrequency, long newFrequency);
 }
