@@ -76,50 +76,45 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                 );
 
                 for(InteractionType type : mTypes){
-                    mLastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<LastInteractionWrapper>());
+                    mLastInteractionsMap.put(type.getInteractionTypeName(), new ArrayList<>());
                 }
 
                 initTabsAndPageViewer(view);
 
-                mViewModel.getShowHiddenLI().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(Boolean showHiddenLI) {
-                        LiveData<List<LastInteractionWrapper>> lastInteractions =
-                            showHiddenLI
-                            ? mViewModel.getAllLastInteractions()
-                            : mViewModel.getVisibleLastInteractions();
+                mViewModel.getShowHiddenLI().observe(getViewLifecycleOwner(), showHiddenLI -> {
+                    LiveData<List<LastInteractionWrapper>> lastInteractionsLiveData =
+                        showHiddenLI
+                        ? mViewModel.getAllLastInteractions()
+                        : mViewModel.getVisibleLastInteractions();
 
-                        lastInteractions.observe(getViewLifecycleOwner(), new Observer<List<LastInteractionWrapper>>() {
-                                    @Override
-                                    public void onChanged(List<LastInteractionWrapper> lastInteractions) {
-                            for(InteractionType type : mTypes){
-                                Objects.requireNonNull(
-                                        mLastInteractionsMap.get(type.getInteractionTypeName())).clear();
-                                mCounterMap.put(type.getInteractionTypeName(), 0);
-                            }
+                    lastInteractionsLiveData.observe(getViewLifecycleOwner(), lastInteractions -> {
 
-                            for(LastInteractionWrapper interaction : lastInteractions){
-                                String currentType = interaction.getType().getInteractionTypeName();
-
-                                Objects.requireNonNull(
-                                        mLastInteractionsMap.get(currentType)).add(interaction);
-
-                                if(interaction.itsTime()){
-                                    mCounterMap.put(currentType, mCounterMap.get(currentType) + 1);
-                                }
-                            }
-
-                            for(int i = 0; i < mTypes.size(); ++i){
-                                ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
-                                        .setCounter(mCounterMap.get(mTypes.get(i).getInteractionTypeName()));
-                            }
-
-                            mPagerAdapter.setLastInteractionsMap(mLastInteractionsMap);
-                            mPagerAdapter.notifyDataSetChanged();
+                        for(InteractionType type : mTypes){
+                            Objects.requireNonNull(
+                                    mLastInteractionsMap.get(type.getInteractionTypeName())).clear();
+                            mCounterMap.put(type.getInteractionTypeName(), 0);
                         }
+
+                        for(LastInteractionWrapper interaction : lastInteractions){
+                            String currentType = interaction.getType().getInteractionTypeName();
+
+                            Objects.requireNonNull(
+                                    mLastInteractionsMap.get(currentType)).add(interaction);
+
+                            if(interaction.itsTime()){
+                                mCounterMap.put(currentType, mCounterMap.get(currentType) + 1);
+                            }
+                        }
+
+                        for(int i = 0; i < mTypes.size(); ++i){
+                            ((TabLabelWithCounterView)mTabLayout.getTabAt(i).getCustomView())
+                                    .setCounter(mCounterMap.get(mTypes.get(i).getInteractionTypeName()));
+                        }
+
+                        mPagerAdapter.setLastInteractionsMap(mLastInteractionsMap);
+                        mPagerAdapter.notifyDataSetChanged();
                     });
 
-                    }
                 });
             }
         });
