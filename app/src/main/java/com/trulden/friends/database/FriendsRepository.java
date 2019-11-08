@@ -318,6 +318,7 @@ class FriendsRepository {
                             if(interaction.getDate() > lastInteraction.getDate()){
                                 lastInteraction.setDate(interaction.getDate());
                                 lastInteraction.setInteractionId(interactionId);
+                                lastInteraction.setReady(Util.enoughDaysPassed(lastInteraction.getFrequency(), lastInteraction.getDate()));
 
                                 mFriendsDao.update(lastInteraction);
                             }
@@ -466,6 +467,7 @@ class FriendsRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             if(mTaskSelector == UPDATE_LAST_INTERACTION) {
+                mLastInteraction.setReady(Util.enoughDaysPassed(mLastInteraction.getFrequency(), mLastInteraction.getDate()));
                 mFriendsDao.update(mLastInteraction);
             }
             return null;
