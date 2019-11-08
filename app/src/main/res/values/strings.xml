@@ -89,5 +89,8 @@
     <string name="LI_every_x_days">every %d d.</string>
     <string name="no_description">No notes</string>
     <string name="with">With\u0020</string>
+    <string name="new_frequency">New Frequency</string>
+    <string name="edit_frequency">Edit frequency</string>
+    <string name="current_frequency_type_friend">Current frequency of %s with %s is %d d.</string>
 
 </resources>

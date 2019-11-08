@@ -80,4 +80,7 @@
     <string name="LI_every_x_days">раз в %d д.</string>
     <string name="no_description">Без заметок</string>
     <string name="with">Вместе с\u0020</string>
+    <string name="new_frequency">Новая частота</string>
+    <string name="current_frequency_type_friend">Текущая частота %s с %s — %d д.</string>
+    <string name="edit_frequency">Изменить частоту</string>
 </resources>
