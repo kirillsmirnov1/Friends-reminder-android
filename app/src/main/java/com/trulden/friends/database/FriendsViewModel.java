@@ -145,4 +145,8 @@ public class FriendsViewModel extends AndroidViewModel {
     public void setTrackerInFragment(LastInteractionWrapper trackerInFragment) {
         this.mTrackerInFragment = trackerInFragment;
     }
+
+    public LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId) {
+        return mRepository.getLiveLastInteraction(typeId, friendId);
+    }
 }

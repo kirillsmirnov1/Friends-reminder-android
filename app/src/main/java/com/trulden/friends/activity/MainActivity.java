@@ -35,6 +35,7 @@ import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 import com.trulden.friends.util.CustomBroadcastReceiver;
 import com.trulden.friends.util.Util;
@@ -455,7 +456,10 @@ public class MainActivity
 
         mTrackerOverShown = true;
 
-        mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
+        mTrackerOverFragment = TrackerFragment
+            .newInstance(
+                lastInteractionWrapper.getType().getId(),
+                lastInteractionWrapper.getFriend().getId());
 
         getSupportFragmentManager()
             .beginTransaction()
@@ -469,6 +473,11 @@ public class MainActivity
     public void setTrackerOverActivityVisibility(int visibility){
         findViewById(R.id.am_fade_background).setVisibility(visibility);
         mTrackerOverLayout.setVisibility(visibility);
+    }
+
+    @Override
+    public void updateLastInteraction(LastInteraction lastInteraction) {
+        mViewModel.update(lastInteraction);
     }
 
     @Override

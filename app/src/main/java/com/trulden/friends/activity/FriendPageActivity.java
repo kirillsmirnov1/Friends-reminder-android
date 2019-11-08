@@ -281,7 +281,10 @@ public class FriendPageActivity
     public void showTrackerOverActivity(LastInteractionWrapper lastInteractionWrapper) {
         mTrackerOverShown = true;
 
-        mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
+        mTrackerOverFragment = TrackerFragment
+            .newInstance(
+                lastInteractionWrapper.getType().getId(),
+                lastInteractionWrapper.getFriend().getId());
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -346,5 +349,10 @@ public class FriendPageActivity
     public void setTrackerOverActivityVisibility(int visibility){
         findViewById(R.id.afp_fade_background).setVisibility(visibility);
         mTrackerOverLayout.setVisibility(visibility);
+    }
+
+    @Override
+    public void updateLastInteraction(LastInteraction lastInteraction) {
+        mViewModel.update(lastInteraction);
     }
 }

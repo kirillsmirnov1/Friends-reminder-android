@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trulden.friends.R;
+import com.trulden.friends.activity.dialogs.EditLastInteractionFrequencyDialog;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
@@ -36,6 +37,9 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
     private FriendsViewModel mViewModel;
 
+    private long mTypeId;
+    private long mFriendId;
+
     private LastInteractionWrapper mLastInteractionWrapper;
 
     private TextView mWithWhom;
@@ -47,9 +51,10 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    public static TrackerFragment newInstance(LastInteractionWrapper lastInteractionWrapper) {
+    public static TrackerFragment newInstance(long typeId, long friendId) {
         TrackerFragment fragment = new TrackerFragment();
-        fragment.mLastInteractionWrapper = lastInteractionWrapper;
+        fragment.mTypeId = typeId;
+        fragment.mFriendId = friendId;
         return fragment;
     }
 
@@ -68,54 +73,61 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         TextView friendsNameView = view.findViewById(R.id.ft_friends_name);
         mStatusIcon = view.findViewById(R.id.ft_status_icon);
-        ImageView updateIcon = view.findViewById(R.id.ft_update_icon);
+        ImageView createInteractionIcon = view.findViewById(R.id.ft_create_interaction_icon);
+        ImageView changeFrequencyIcon = view.findViewById(R.id.ft_change_frequency_icon);
         mWithWhom = view.findViewById(R.id.ft_with_whom);
         mComment = view.findViewById(R.id.ft_comment);
 
         mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        if(mLastInteractionWrapper == null){
+        if(mTypeId == 0 || mFriendId == 0){
             mLastInteractionWrapper = mViewModel.getTrackerInFragment();
+            mTypeId = mLastInteractionWrapper.getType().getId();
+            mFriendId = mLastInteractionWrapper.getFriend().getId();
         }
 
-        long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
-        String friendsName = mLastInteractionWrapper.getFriendName();
+        mViewModel.getLiveLastInteraction(mTypeId, mFriendId).observe(getViewLifecycleOwner(), lastInteractionWrapper -> {
+            mLastInteractionWrapper = lastInteractionWrapper;
 
-        friendsNameView.setText(friendsName);
+            long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
+            String friendsName = mLastInteractionWrapper.getFriendName();
 
-        ((TextView) view.findViewById(R.id.ft_type))
-                .setText(mLastInteractionWrapper.getType().getInteractionTypeName());
+            friendsNameView.setText(friendsName);
 
-        ((TextView) view.findViewById(R.id.ft_time_passed))
-                .setText(daysPassed(mLastInteractionWrapper.getLastInteraction()) + getString(R.string.days_ago));
+            ((TextView) view.findViewById(R.id.ft_type))
+                    .setText(mLastInteractionWrapper.getType().getInteractionTypeName());
 
-        ((TextView) view.findViewById(R.id.ft_frequency))
-                .setText(String.format(getString(R.string.LI_every_x_days), mLastInteractionWrapper.getType().getFrequency()));
+            ((TextView) view.findViewById(R.id.ft_time_passed))
+                    .setText(daysPassed(mLastInteractionWrapper.getLastInteraction()) + getString(R.string.days_ago));
 
-        setStatusIcon();
+            ((TextView) view.findViewById(R.id.ft_frequency))
+                    .setText(String.format(getString(R.string.LI_every_x_days), mLastInteractionWrapper.getLastInteraction().getFrequency()));
 
-        mViewModel.getInteraction(interactionId)
-            .observe(
-                getViewLifecycleOwner(),
-                interactions ->{
-                    String comment = interactions.get(0).getComment();
-                    if(comment.isEmpty()){
-                        mComment.setHint(R.string.no_description);
-                    } else {
-                        mComment.setText(comment);
-                    }
-                });
+            setStatusIcon();
 
-        mViewModel.getCoParticipantNames(interactionId, friendsName).observe(getViewLifecycleOwner(),
-            namesList -> {
-                if(namesList.size() == 0){
-                    mWithWhom.setVisibility(View.GONE);
-                } else {
-                    String names = getString(R.string.with) + TextUtils.join(", ", namesList);
-                    mWithWhom.setVisibility(View.VISIBLE);
-                    mWithWhom.setText(names);
-                }
-            });
+            mViewModel.getInteraction(interactionId)
+                    .observe(
+                            getViewLifecycleOwner(),
+                            interactions ->{
+                                String comment = interactions.get(0).getComment();
+                                if(comment.isEmpty()){
+                                    mComment.setHint(R.string.no_description);
+                                } else {
+                                    mComment.setText(comment);
+                                }
+                            });
+
+            mViewModel.getCoParticipantNames(interactionId, friendsName).observe(getViewLifecycleOwner(),
+                    namesList -> {
+                        if(namesList.size() == 0){
+                            mWithWhom.setVisibility(View.GONE);
+                        } else {
+                            String names = getString(R.string.with) + TextUtils.join(", ", namesList);
+                            mWithWhom.setVisibility(View.VISIBLE);
+                            mWithWhom.setText(names);
+                        }
+                    });
+        });
 
         friendsNameView.setOnClickListener(v -> {
             ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
@@ -133,7 +145,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             mViewModel.update(mLastInteractionWrapper.getLastInteraction());
         });
 
-        updateIcon.setOnClickListener(v -> {
+        createInteractionIcon.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), EditInteractionActivity.class);
             intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
             intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getType().getInteractionTypeName());
@@ -142,6 +154,11 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
 
             getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
+        });
+
+        changeFrequencyIcon.setOnClickListener(v ->{
+            new EditLastInteractionFrequencyDialog(mLastInteractionWrapper)
+                .show(getActivity().getSupportFragmentManager(), "editLIFrequency");
         });
     }
 
@@ -157,7 +174,9 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        // Class has to extend onClickListener so clicks won't fall through
+        // But clicks on the view itself are useless, so this method is empty
+        // Clicks on elements are handled in «setOnClickListener» methods in onViewCreated
     }
 
     @Override

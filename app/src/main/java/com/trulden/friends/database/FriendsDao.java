@@ -77,6 +77,9 @@ public interface FriendsDao {
     @Query("SELECT * from interaction_type_table LIMIT 1")
     InteractionType[] getAnyInteractionType();
 
+    @Query("SELECT * from interaction_type_table where id = :typeId LIMIT 1")
+    InteractionType getTypeById(long typeId);
+
     @Query("DELETE FROM interaction_type_table;")
     void wipeTypes();
 
@@ -173,15 +176,22 @@ public interface FriendsDao {
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
+            "WHERE typeId = :typeId " +
+            "AND   friendId = :friendId " +
+            "LIMIT 1;")
+    LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId);
+
+    @Transaction
+    @Query("SELECT * FROM last_interaction_table " +
             "WHERE friendId = :friendId;")
     LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId);
 
     @Transaction
     @Query(
         "INSERT OR IGNORE INTO \n" +
-        "  last_interaction_table(friendId, typeId, interactionId, date, status)\n" +
+        "  last_interaction_table(friendId, typeId, interactionId, date, status, frequency)\n" +
         "SELECT \n" +
-        "  friendId, typeId, interactionId, MAX(date), :status\n" +
+        "  friendId, typeId, interactionId, MAX(date), :status, :frequency\n" +
         "FROM \n" +
         "    (SELECT id AS interId, interactionTypeId as typeId, date \n" +
         "    FROM interaction_table WHERE typeId = :typeId) \n" +
@@ -192,7 +202,7 @@ public interface FriendsDao {
         "  t2\n" +
         "  ON (t1.interId = t2.interactionId); "
     )
-    void calculateLastInteraction(long typeId, long friendId, long status);
+    void calculateLastInteraction(long typeId, long friendId, long status, long frequency);
 
     @Query("SELECT status FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
@@ -215,4 +225,12 @@ public interface FriendsDao {
                     " ORDER BY interactionTypeId, date ASC)"
     )
     void refreshLastInteractions();
+
+    @Query(
+        "UPDATE last_interaction_table " +
+        "SET " +
+            "frequency = :newFrequency " +
+        "WHERE typeId = :typeId AND frequency = :oldFrequency;"
+    )
+    void updateLastInteractionFrequencyOnTypeUpdate(long typeId, long oldFrequency, long newFrequency);
 }

@@ -76,7 +76,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
                             FriendsDatabase.class, DATABASE_NAME)
                             .addMigrations(
                                     MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
-                                    MIGRATION_5_6, MIGRATION_6_7)
+                                    MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8)
                             .addCallback(sRoomDataBaseCallback)
                             .build();
                 }
@@ -230,6 +230,28 @@ public abstract class FriendsDatabase extends RoomDatabase {
 
             database.execSQL("CREATE INDEX index_LastInteraction_typeId ON last_interaction_table(typeId)");
             database.execSQL("CREATE INDEX index_LastInteraction_interactionId ON last_interaction_table(interactionId)");
+        }
+    };
+
+    private static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+            database.execSQL("ALTER TABLE last_interaction_table ADD frequency INTEGER NOT NULL DEFAULT 0");
+
+            database.execSQL(
+                "UPDATE last_interaction_table " +
+                "SET " +
+                    "frequency = (SELECT interaction_type_table.frequency " +
+                                  "FROM interaction_type_table " +
+                                  "WHERE interaction_type_table.id = last_interaction_table.typeId) " +
+                "WHERE " +
+                    "EXISTS ( " +
+                        "SELECT * " +
+                        "FROM interaction_type_table " +
+                        "WHERE interaction_type_table.id = last_interaction_table.typeId " +
+                    ")"
+            );
         }
     };
 }

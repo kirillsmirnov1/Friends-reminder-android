@@ -1,5 +1,6 @@
 package com.trulden.friends.activity.interfaces;
 
+import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 /**
@@ -27,4 +28,10 @@ public interface TrackerOverActivity {
      * @param visibility View.VISIBLE or View.GONE
      */
     void setTrackerOverActivityVisibility(int visibility);
+
+    /**
+     * Update lastInteraction in database.
+     * Used to change frequency.
+     */
+    void updateLastInteraction(LastInteraction lastInteraction);
 }
