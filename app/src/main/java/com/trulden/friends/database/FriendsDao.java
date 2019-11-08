@@ -176,6 +176,13 @@ public interface FriendsDao {
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
+            "WHERE typeId = :typeId " +
+            "AND   friendId = :friendId " +
+            "LIMIT 1;")
+    LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId);
+
+    @Transaction
+    @Query("SELECT * FROM last_interaction_table " +
             "WHERE friendId = :friendId;")
     LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId);
 
