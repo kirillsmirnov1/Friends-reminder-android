@@ -83,8 +83,8 @@ public class FriendsViewModel extends AndroidViewModel {
         return mAllInteractions;
     }
 
-    public LiveData<List<LastInteractionWrapper>> getAllLastInteractions() { return mRepository.getAllLastInteractions(); }
-    public LiveData<List<LastInteractionWrapper>> getVisibleLastInteractions() { return mRepository.getVisibleLastInteractions(); }
+    public LiveData<List<LastInteractionWrapper>> getLiveAllLastInteractionWrappers() { return mRepository.getLiveAllLastInteractionWrappers(); }
+    public LiveData<List<LastInteractionWrapper>> getLiveVisibleLastInteractionWrappers() { return mRepository.getLiveVisibleLastInteractionWrappers(); }
     public LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendIDs() {return mRepository.getInteractionsWithFriendsIDs();}
     public LiveData<List<FriendName>> getFriendNames() { return mRepository.getFriendNames(); }
 
@@ -99,10 +99,6 @@ public class FriendsViewModel extends AndroidViewModel {
     public void add(Interaction interaction, HashSet<Long> friendsIds)    { mRepository.add(interaction, friendsIds);    }
     public void update(Interaction interaction, HashSet<Long> friendsIds) { mRepository.update(interaction, friendsIds); }
     public void delete(Interaction interaction, HashSet<Long> friendIDs)  { mRepository.delete(interaction, friendIDs);  }
-
-    public void refreshLastInteractions() {
-        mRepository.refreshLastInteractions();
-    }
 
     public void update(LastInteraction lastInteraction) { mRepository.update(lastInteraction); }
 
@@ -126,8 +122,8 @@ public class FriendsViewModel extends AndroidViewModel {
         this.mSelectedLITabPos = mSelectedLITabPos;
     }
 
-    public LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId) {
-        return mRepository.getLastInteractionsOfAFriend(friendId);
+    public LiveData<List<LastInteractionWrapper>> getLiveLastInteractionWrappersOfAFriend(long friendId) {
+        return mRepository.getLiveLastInteractionWrappersOfAFriend(friendId);
     }
 
     public LiveData<List<Interaction>> getInteraction(long interactionId) {
@@ -146,7 +142,11 @@ public class FriendsViewModel extends AndroidViewModel {
         this.mTrackerInFragment = trackerInFragment;
     }
 
-    public LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId) {
-        return mRepository.getLiveLastInteraction(typeId, friendId);
+    public LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId) {
+        return mRepository.getLiveLastInteractionWrapper(typeId, friendId);
+    }
+
+    public void checkLastInteractionsReadiness() {
+        mRepository.checkLastInteractionsReadiness();
     }
 }

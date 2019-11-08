@@ -38,7 +38,7 @@ public abstract class Util {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /** Version of database used in app */
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 9;
 
     // Use when need to get onActivityResult() call, but don't need any actual data
     public static final int NO_REQUEST                 = 0;
@@ -141,14 +141,17 @@ public abstract class Util {
      * @return number of days
      */
     public static int daysPassed(LastInteraction interaction){
-
-        Calendar dateOfLastInteraction = Calendar.getInstance();
-        dateOfLastInteraction.setTimeInMillis(interaction.getDate());
-
-        return calendarDaysBetween(dateOfLastInteraction, Calendar.getInstance());
+        return daysPassed(interaction.getDate());
     }
 
-    private static int calendarDaysBetween(Calendar day1, Calendar day2){
+    public static int daysPassed(long date){
+        Calendar day = Calendar.getInstance();
+        day.setTimeInMillis(date);
+
+        return calendarDaysBetween(day, Calendar.getInstance());
+    }
+
+    public static int calendarDaysBetween(Calendar day1, Calendar day2){
         // Taken from here https://stackoverflow.com/a/28865648/11845909
 
         Calendar dayOne = (Calendar) day1.clone(),

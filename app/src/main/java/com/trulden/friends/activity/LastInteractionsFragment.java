@@ -84,8 +84,8 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                 mViewModel.getShowHiddenLI().observe(getViewLifecycleOwner(), showHiddenLI -> {
                     LiveData<List<LastInteractionWrapper>> lastInteractionsLiveData =
                         showHiddenLI
-                        ? mViewModel.getAllLastInteractions()
-                        : mViewModel.getVisibleLastInteractions();
+                        ? mViewModel.getLiveAllLastInteractionWrappers()
+                        : mViewModel.getLiveVisibleLastInteractionWrappers();
 
                     lastInteractionsLiveData.observe(getViewLifecycleOwner(), lastInteractions -> {
 

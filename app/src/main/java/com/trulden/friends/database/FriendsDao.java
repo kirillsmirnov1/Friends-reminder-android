@@ -75,7 +75,7 @@ public interface FriendsDao {
      * @return array with one or none of types
      */
     @Query("SELECT * from interaction_type_table LIMIT 1")
-    InteractionType[] getAnyInteractionType();
+    InteractionType[] getAnyInteractionType(); // FIXME
 
     @Query("SELECT * from interaction_type_table where id = :typeId LIMIT 1")
     InteractionType getTypeById(long typeId);
@@ -94,10 +94,10 @@ public interface FriendsDao {
     LiveData<List<Interaction>> getAllInteractions();
 
     @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
-    List<Interaction> getInteraction(long interactionId);
+    List<Interaction> getInteraction(long interactionId); // FIXME
 
     @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
-    LiveData<List<Interaction>> getInteractionById(long interactionId);
+    LiveData<List<Interaction>> getInteractionById(long interactionId); // FIXME
 
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     @Transaction
@@ -161,37 +161,41 @@ public interface FriendsDao {
      * @return {@link LastInteractionWrapper} list.
      */
     @Transaction
-    @Query("SELECT * FROM last_interaction_table ORDER BY date ASC")
-    LiveData<List<LastInteractionWrapper>> getAllLastInteractions();
+    @Query("SELECT * FROM last_interaction_table ORDER BY ready DESC, date;")
+    LiveData<List<LastInteractionWrapper>> getLiveAllLastInteractionWrappers();
 
     @Transaction
-    @Query("SELECT * FROM last_interaction_table WHERE status = 0 ORDER BY date ASC")
-    LiveData<List<LastInteractionWrapper>> getVisibleLastInteractions();
+    @Query("SELECT * FROM last_interaction_table ORDER BY date ASC")
+    List<LastInteraction> getAllLastInteractions();
+
+    @Transaction
+    @Query("SELECT * FROM last_interaction_table WHERE status = 0 ORDER BY ready DESC, date")
+    LiveData<List<LastInteractionWrapper>> getLiveVisibleLastInteractionWrappers();
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
             "AND   friendId = :friendId;")
-    List<LastInteraction> getLastInteraction(long typeId, long friendId);
+    LastInteraction getLastInteraction(long typeId, long friendId);
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
             "AND   friendId = :friendId " +
             "LIMIT 1;")
-    LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId);
+    LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId);
 
     @Transaction
     @Query("SELECT * FROM last_interaction_table " +
             "WHERE friendId = :friendId;")
-    LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId);
+    LiveData<List<LastInteractionWrapper>> getLiveLastInteractionWrappersOfAFriend(long friendId);
 
     @Transaction
     @Query(
         "INSERT OR IGNORE INTO \n" +
-        "  last_interaction_table(friendId, typeId, interactionId, date, status, frequency)\n" +
+        "  last_interaction_table(friendId, typeId, interactionId, date, status, frequency, ready)\n" +
         "SELECT \n" +
-        "  friendId, typeId, interactionId, MAX(date), :status, :frequency\n" +
+        "  friendId, typeId, interactionId, MAX(date), :status, :frequency, 0\n" +
         "FROM \n" +
         "    (SELECT id AS interId, interactionTypeId as typeId, date \n" +
         "    FROM interaction_table WHERE typeId = :typeId) \n" +
@@ -204,33 +208,8 @@ public interface FriendsDao {
     )
     void calculateLastInteraction(long typeId, long friendId, long status, long frequency);
 
-    @Query("SELECT status FROM last_interaction_table " +
+    @Query("SELECT * FROM last_interaction_table " +
             "WHERE typeId = :typeId " +
-            "AND   friendId = :friendId;")
-    List<Long> getLIstatus(long typeId, long friendId);
-
-    @Transaction
-    @Query(
-            "INSERT OR REPLACE INTO last_interaction_table(friendId, typeId, interactionId, date)" +
-                    "SELECT friendId, typeId, interactionId, date FROM\n" +
-                    "(SELECT friend_table.id AS friendId, interaction_type_table.id AS typeId, interaction_table.id AS interactionId, MAX(interaction_table.date) AS date\n" +
-                    " FROM \n" +
-                    " (((interaction_table INNER JOIN bind_friend_interaction_table \n" +
-                    "  ON interaction_table.id = bind_friend_interaction_table.interactionId) \n" +
-                    "  INNER JOIN interaction_type_table\n" +
-                    "  ON interaction_table.interactionTypeId = interaction_type_table.id)\n" +
-                    "  INNER JOIN friend_table\n" +
-                    "  ON bind_friend_interaction_table.friendId = friend_table.id)\n" +
-                    " GROUP BY friendId, interactionTypeId\n" +
-                    " ORDER BY interactionTypeId, date ASC)"
-    )
-    void refreshLastInteractions();
-
-    @Query(
-        "UPDATE last_interaction_table " +
-        "SET " +
-            "frequency = :newFrequency " +
-        "WHERE typeId = :typeId AND frequency = :oldFrequency;"
-    )
-    void updateLastInteractionFrequencyOnTypeUpdate(long typeId, long oldFrequency, long newFrequency);
+                "AND frequency = :frequency")
+    List<LastInteraction> getLastInteractionsByTypeAndFrequency(long typeId, long frequency);
 }

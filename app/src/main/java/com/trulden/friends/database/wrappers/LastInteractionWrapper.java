@@ -38,7 +38,7 @@ public class LastInteractionWrapper implements Entity {
      * @return true if enough days have passed
      */
     public boolean itsTime(){
-        return (daysPassed(lastInteraction) >= lastInteraction.getFrequency());
+        return lastInteraction.isReady();
     }
 
     public InteractionType getType(){

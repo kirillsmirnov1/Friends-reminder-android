@@ -92,7 +92,7 @@ public class FriendPageActivity
         recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mViewModel.getLastInteractionsOfAFriend(mFriend.getId()).observe(this, lastInteractionWrappers -> {
+        mViewModel.getLiveLastInteractionWrappersOfAFriend(mFriend.getId()).observe(this, lastInteractionWrappers -> {
 
             if(lastInteractionWrappers.size() == 0){
                 mLISubhead.setVisibility(View.GONE);

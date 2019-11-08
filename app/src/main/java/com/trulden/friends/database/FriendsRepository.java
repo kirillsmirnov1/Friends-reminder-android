@@ -43,12 +43,12 @@ class FriendsRepository {
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
 
-    LiveData<List<LastInteractionWrapper>> getAllLastInteractions() {
-        return mFriendsDao.getAllLastInteractions();
+    LiveData<List<LastInteractionWrapper>> getLiveAllLastInteractionWrappers() {
+        return mFriendsDao.getLiveAllLastInteractionWrappers();
     }
 
-    LiveData<List<LastInteractionWrapper>> getVisibleLastInteractions(){
-        return mFriendsDao.getVisibleLastInteractions();
+    LiveData<List<LastInteractionWrapper>> getLiveVisibleLastInteractionWrappers(){
+        return mFriendsDao.getLiveVisibleLastInteractionWrappers();
     }
 
     LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendsIDs(){
@@ -59,23 +59,12 @@ class FriendsRepository {
         return mFriendsDao.getFriendNames();
     }
 
-    public LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId) {
-        return mFriendsDao.getLastInteractionsOfAFriend(friendId);
+    public LiveData<List<LastInteractionWrapper>> getLiveLastInteractionWrappersOfAFriend(long friendId) {
+        return mFriendsDao.getLiveLastInteractionWrappersOfAFriend(friendId);
     }
 
     FriendsDao getDao() {
         return mFriendsDao;
-    }
-
-    public void refreshLastInteractions() {
-
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                mFriendsDao.refreshLastInteractions();
-                return null;
-            }
-        }.execute();
     }
 
     public LiveData<List<Interaction>> getInteraction(long interactionId) {
@@ -86,8 +75,22 @@ class FriendsRepository {
         return mFriendsDao.getCoParticipantNames(interactionId, friendsName);
     }
 
-    public LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId) {
-        return mFriendsDao.getLiveLastInteraction(typeId, friendId);
+    public LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId) {
+        return mFriendsDao.getLiveLastInteractionWrapper(typeId, friendId);
+    }
+
+    public void checkLastInteractionsReadiness() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                for(LastInteraction li : mFriendsDao.getAllLastInteractions()){
+                    li.calculateReadiness();
+                    mFriendsDao.update(li);
+                }
+
+                return null;
+            }
+        }.execute();
     }
 
     /**
@@ -225,7 +228,15 @@ class FriendsRepository {
                     mFriendsDao.update(newType);
 
                     if(newType.getFrequency() != oldType.getFrequency()) {
-                        mFriendsDao.updateLastInteractionFrequencyOnTypeUpdate(newType.getId(), oldType.getFrequency(), newType.getFrequency());
+
+                        List<LastInteraction> lastInteractions = mFriendsDao
+                            .getLastInteractionsByTypeAndFrequency(oldType.getId(), oldType.getFrequency());
+
+                        for(LastInteraction lastInteraction : lastInteractions){
+                            lastInteraction.setFrequency(newType.getFrequency());
+                            lastInteraction.calculateReadiness();
+                            mFriendsDao.update(lastInteraction);
+                        }
                     }
                     break;
 
@@ -289,21 +300,23 @@ class FriendsRepository {
                     for (Long friendId : friendIds) {
                         mFriendsDao.add(new BindFriendInteraction(friendId, interactionId));
 
-                        List<LastInteraction> lastInteraction = mFriendsDao
+                        LastInteraction lastInteraction = mFriendsDao
                                 .getLastInteraction(typeId, friendId);
 
-                        if(lastInteraction.size() == 0){
+                        if(lastInteraction == null){
                             long frequency = mFriendsDao.getTypeById(typeId).getFrequency();
-                            mFriendsDao.add(new LastInteraction(friendId, typeId, interactionId, interaction.getDate(), 0, frequency));
+                            LastInteraction li = new LastInteraction(friendId, typeId, interactionId,
+                                            interaction.getDate(), 0, frequency,false);
+                            li.calculateReadiness();
+                            mFriendsDao.add(li);
                         } else {
 
-                            LastInteraction oldLastInteractionInteraction = lastInteraction.get(0);
+                            if(interaction.getDate() > lastInteraction.getDate()){
+                                lastInteraction.setDate(interaction.getDate());
+                                lastInteraction.setInteractionId(interactionId);
+                                lastInteraction.calculateReadiness();
 
-                            if(interaction.getDate() > oldLastInteractionInteraction.getDate()){
-                                oldLastInteractionInteraction.setDate(interaction.getDate());
-                                oldLastInteractionInteraction.setInteractionId(interactionId);
-
-                                mFriendsDao.update(oldLastInteractionInteraction);
+                                mFriendsDao.update(lastInteraction);
                             }
                         }
                     }
@@ -352,7 +365,7 @@ class FriendsRepository {
                     HashMap<Long, Long> frequencies = new HashMap<>();
 
                     for(Long friendId : friendIds){
-                        LastInteraction lastInteraction = mFriendsDao.getLastInteraction(typeId, friendId).get(0);
+                        LastInteraction lastInteraction = mFriendsDao.getLastInteraction(typeId, friendId);
 
                         statuses.put(friendId, lastInteraction.getStatus());
                         frequencies.put(friendId, lastInteraction.getFrequency());
@@ -361,11 +374,11 @@ class FriendsRepository {
                     mFriendsDao.delete(interaction);
 
                     for(Long friendId : friendIds){
-                        List<LastInteraction> lastInteraction = mFriendsDao
+                        LastInteraction lastInteraction = mFriendsDao
                                 .getLastInteraction(typeId, friendId);
 
                         // If LI connected to Interaction is deleted, need to calculate new one
-                        if(lastInteraction.size() == 0){
+                        if(lastInteraction == null){
                             calculateLastInteraction(typeId, friendId, statuses.get(friendId), frequencies.get(friendId));
                         }
                     }
@@ -390,7 +403,7 @@ class FriendsRepository {
             long frequency;
 
             try {
-                oldLastInteraction = mFriendsDao.getLastInteraction(typeId, friendId).get(0);
+                oldLastInteraction = mFriendsDao.getLastInteraction(typeId, friendId);
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
                 oldLastInteraction = null;
@@ -415,6 +428,14 @@ class FriendsRepository {
          */
         private void calculateLastInteraction(long typeId, long friendId, long status, long frequency){
             mFriendsDao.calculateLastInteraction(typeId, friendId, status, frequency);
+
+            try {
+                LastInteraction lastInteraction = mFriendsDao.getLastInteraction(typeId, friendId);
+                lastInteraction.calculateReadiness();
+                mFriendsDao.update(lastInteraction);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -442,6 +463,7 @@ class FriendsRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             if(mTaskSelector == UPDATE_LAST_INTERACTION) {
+                mLastInteraction.calculateReadiness();
                 mFriendsDao.update(mLastInteraction);
             }
             return null;
