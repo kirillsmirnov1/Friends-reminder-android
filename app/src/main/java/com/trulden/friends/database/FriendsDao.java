@@ -169,7 +169,7 @@ public interface FriendsDao {
     List<LastInteraction> getAllLastInteractions();
 
     @Transaction
-    @Query("SELECT * FROM last_interaction_table WHERE status = 0 ORDER BY date ASC")
+    @Query("SELECT * FROM last_interaction_table WHERE status = 0 ORDER BY ready DESC, date")
     LiveData<List<LastInteractionWrapper>> getVisibleLastInteractions();
 
     @Transaction
