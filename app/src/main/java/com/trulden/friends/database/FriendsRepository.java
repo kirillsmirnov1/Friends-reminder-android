@@ -13,7 +13,6 @@ import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
-import com.trulden.friends.util.Util;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -48,8 +47,8 @@ class FriendsRepository {
         return mFriendsDao.getLiveAllLastInteractionWrappers();
     }
 
-    LiveData<List<LastInteractionWrapper>> getVisibleLastInteractions(){
-        return mFriendsDao.getVisibleLastInteractions();
+    LiveData<List<LastInteractionWrapper>> getLiveVisibleLastInteractionWrappers(){
+        return mFriendsDao.getLiveVisibleLastInteractionWrappers();
     }
 
     LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendsIDs(){
@@ -60,8 +59,8 @@ class FriendsRepository {
         return mFriendsDao.getFriendNames();
     }
 
-    public LiveData<List<LastInteractionWrapper>> getLastInteractionsOfAFriend(long friendId) {
-        return mFriendsDao.getLastInteractionsOfAFriend(friendId);
+    public LiveData<List<LastInteractionWrapper>> getLiveLastInteractionWrappersOfAFriend(long friendId) {
+        return mFriendsDao.getLiveLastInteractionWrappersOfAFriend(friendId);
     }
 
     FriendsDao getDao() {
@@ -76,7 +75,7 @@ class FriendsRepository {
         return mFriendsDao.getCoParticipantNames(interactionId, friendsName);
     }
 
-    public LiveData<LastInteractionWrapper> getLiveLastInteraction(long typeId, long friendId) {
+    public LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId) {
         return mFriendsDao.getLiveLastInteractionWrapper(typeId, friendId);
     }
 
