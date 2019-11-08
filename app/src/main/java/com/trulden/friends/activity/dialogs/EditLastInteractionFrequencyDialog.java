@@ -1,0 +1,93 @@
+package com.trulden.friends.activity.dialogs;
+
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
+import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.TrackerOverActivity;
+import com.trulden.friends.database.entity.LastInteraction;
+import com.trulden.friends.database.wrappers.LastInteractionWrapper;
+
+import java.util.Objects;
+
+import static com.trulden.friends.util.Util.makeToast;
+
+public class EditLastInteractionFrequencyDialog extends DialogFragment {
+
+    private LastInteractionWrapper mLastInteractionWrapper;
+
+    public EditLastInteractionFrequencyDialog(LastInteractionWrapper lastInteractionWrapper){
+        mLastInteractionWrapper = lastInteractionWrapper;
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+
+        @SuppressLint("InflateParams")
+        View dialogView = inflater.inflate(R.layout.dialog_edit_last_interaction_frequency, null);
+
+        builder
+            .setTitle(getString(R.string.edit_frequency))
+            .setView(dialogView)
+            .setPositiveButton(R.string.save, null)
+            .setNegativeButton(R.string.discard, null);
+
+        final AlertDialog dialog = builder.create();
+
+        TextView hintView = dialogView.findViewById(R.id.delif_hint);
+        EditText editFrequency = dialogView.findViewById(R.id.delif_frequency);
+
+        dialog.setOnShowListener(dialogInterface -> {
+
+            String type = mLastInteractionWrapper.getType().getInteractionTypeName();
+            String friend = mLastInteractionWrapper.getFriendName();
+            long oldFrequency = mLastInteractionWrapper.getLastInteraction().getFrequency();
+            //TODO завернуть getTypeName и getFrequency в wrapper, чтобы не нужно было образаться к внутренним объектам
+
+            String hintText = String.format(
+                    getString(R.string.current_frequency_type_friend), type, friend, oldFrequency);
+
+            hintView.setText(hintText);
+
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE)
+                .setOnClickListener(view -> {
+                    LastInteraction lastInteraction = mLastInteractionWrapper.getLastInteraction();
+                    int newFrequency = -1;
+
+                    try {
+                        newFrequency = Integer.parseInt(editFrequency.getText().toString());
+                    } catch (NumberFormatException e){
+                        e.printStackTrace();
+                    }
+
+                    if(newFrequency < 0){
+                        makeToast(getActivity(), getString(R.string.toast_warning_empty_frequency));
+                        return;
+                    }
+
+                    lastInteraction.setFrequency(newFrequency);
+
+                    ((TrackerOverActivity) getActivity()).updateLastInteraction(lastInteraction);
+                    dialog.dismiss();
+                });
+        });
+
+        return dialog;
+    }
+}
