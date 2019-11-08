@@ -44,7 +44,7 @@ class FriendsRepository {
     LiveData<List<InteractionType>> getAllInteractionTypes() { return mAllInteractionTypes; }
     LiveData<List<Interaction>> getAllInteractions() { return mAllInteractions; }
 
-    LiveData<List<LastInteractionWrapper>> getAllLastInteractions() {
+    LiveData<List<LastInteractionWrapper>> getLiveAllLastInteractionWrappers() {
         return mFriendsDao.getLiveAllLastInteractionWrappers();
     }
 
