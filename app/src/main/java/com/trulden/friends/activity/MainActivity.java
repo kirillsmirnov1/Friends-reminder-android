@@ -456,7 +456,10 @@ public class MainActivity
 
         mTrackerOverShown = true;
 
-        mTrackerOverFragment = TrackerFragment.newInstance(lastInteractionWrapper);
+        mTrackerOverFragment = TrackerFragment
+            .newInstance(
+                lastInteractionWrapper.getType().getId(),
+                lastInteractionWrapper.getFriend().getId());
 
         getSupportFragmentManager()
             .beginTransaction()
