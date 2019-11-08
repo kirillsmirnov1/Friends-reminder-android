@@ -230,11 +230,8 @@ public interface FriendsDao {
     )
     void refreshLastInteractions(); // FIXME not used, outdated
 
-    @Query(
-        "UPDATE last_interaction_table " +
-        "SET " +
-            "frequency = :newFrequency " +
-        "WHERE typeId = :typeId AND frequency = :oldFrequency;"
-    )
-    void updateLastInteractionFrequencyOnTypeUpdate(long typeId, long oldFrequency, long newFrequency);
+    @Query("SELECT * FROM last_interaction_table " +
+            "WHERE typeId = :typeId " +
+                "AND frequency = :frequency")
+    List<LastInteraction> getLastInteractionsByTypeAndFrequency(long typeId, long frequency);
 }

@@ -240,7 +240,15 @@ class FriendsRepository {
                     mFriendsDao.update(newType);
 
                     if(newType.getFrequency() != oldType.getFrequency()) {
-                        mFriendsDao.updateLastInteractionFrequencyOnTypeUpdate(newType.getId(), oldType.getFrequency(), newType.getFrequency());
+
+                        List<LastInteraction> lastInteractions = mFriendsDao
+                            .getLastInteractionsByTypeAndFrequency(oldType.getId(), oldType.getFrequency());
+
+                        for(LastInteraction lastInteraction : lastInteractions){
+                            lastInteraction.setFrequency(newType.getFrequency());
+                            lastInteraction.calculateReadiness();
+                            mFriendsDao.update(lastInteraction);
+                        }
                     }
                     break;
 
