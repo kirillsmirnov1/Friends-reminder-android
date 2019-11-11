@@ -1,5 +1,9 @@
 <changelog>
 
+    <release versionCode="23" versionName="Версия 1.2">
+        <new>Теперь вы можете изменить частоту взаимодействий нажав на иконку часов в развернутом трекере.</new>
+    </release>
+
     <release versionCode="22" versionName="Версия 1.1.2.3">
         <bugfix>Починил перезагрузку приложения при восстановлении данных</bugfix>
     </release>
