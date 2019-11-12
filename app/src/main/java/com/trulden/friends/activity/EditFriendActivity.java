@@ -43,12 +43,7 @@ public class EditFriendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_friend);
 
         FriendsViewModel friendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
-        friendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
-            @Override
-            public void onChanged(List<Friend> friends) {
-                mFriends = friends;
-            }
-        });
+        friendsViewModel.getAllFriends().observe(this, friends -> mFriends = friends);
 
         mName = findViewById(R.id.aef_edit_name);
         mInfo = findViewById(R.id.aef_edit_info);
