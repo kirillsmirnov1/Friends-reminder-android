@@ -83,4 +83,7 @@
     <string name="new_frequency">Новая частота</string>
     <string name="current_frequency_type_friend">Текущая частота %s с %s — %d д.</string>
     <string name="edit_frequency">Изменить частоту</string>
+    <string name="unknown_error_in_frequecny">Неизвестная ошибка в частоте</string>
+    <string name="frequency_cant_be_that_long">Частота не может быть длиннее 9 символов</string>
+    <string name="frequency_cant_be_zero">Частота не может быть нулём</string>
 </resources>
