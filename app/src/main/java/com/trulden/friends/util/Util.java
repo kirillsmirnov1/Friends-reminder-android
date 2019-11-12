@@ -65,6 +65,7 @@ public abstract class Util {
     public static final String EXTRA_FRIEND_NOTES = "EXTRA_FRIEND_NOTES";
 
     public static final String EXTRA_FRAGMENT_TO_LOAD = "EXTRA_FRAGMENT_TO_LOAD";
+    public static final String EXTRA_CHECK_READINESS_AFTER_IMPORT = "EXTRA_CHECK_READINESS_AFTER_IMPORT";
 
     public static final String EXTRA_EXPORT_RESULT = "EXTRA_EXPORT_RESULT";
     public static final String EXTRA_IMPORT_RESULT = "EXTRA_IMPORT_RESULT";
