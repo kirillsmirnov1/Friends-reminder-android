@@ -72,15 +72,11 @@ public class EditInteractionTypeDialog extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         String name = mName.getText().toString();
-                        int frequency = -1;
+
+                        int newFrequency = -1;
+                        String enteredFrequencyString = mFrequency.getText().toString();
 
                         EditInteractionType parentActivity = (EditInteractionType) getActivity();
-
-                        try { // It should be ok since I set type in layout, but who knows
-                            frequency = Integer.parseInt(mFrequency.getText().toString());
-                        } catch (NumberFormatException e){
-                            e.printStackTrace();
-                        }
 
                         if(name.isEmpty()){
                             makeToast(getActivity(), getString(R.string.toast_warning_empty_name));
@@ -93,18 +89,39 @@ public class EditInteractionTypeDialog extends DialogFragment {
                             return;
                         }
 
-                        if(frequency < 0){
+                        if(enteredFrequencyString.isEmpty()){
                             makeToast(getActivity(), getString(R.string.toast_warning_empty_frequency));
                             return;
                         }
 
+                        if(enteredFrequencyString.length() > 9){
+                            makeToast(getActivity(), getString(R.string.frequency_cant_be_that_long));
+                            return;
+                        }
+
+                        try {
+                            newFrequency = Integer.parseInt(enteredFrequencyString);
+                        } catch (NumberFormatException e){
+                            e.printStackTrace();
+                        }
+
+                        if(newFrequency < 0){
+                            makeToast(getActivity(), getString(R.string.unknown_error_in_frequecny));
+                            return;
+                        }
+
+                        if(newFrequency == 0){
+                            makeToast(getActivity(), getString(R.string.frequency_cant_be_zero));
+                            return;
+                        }
+
                         if(mType == null){
-                            mType = new InteractionType(name, frequency);
+                            mType = new InteractionType(name, newFrequency);
 
                             makeToast(getActivity(), getString(R.string.toast_notice_type_created));
                         } else {
                             mType.setInteractionTypeName(name);
-                            mType.setFrequency(frequency);
+                            mType.setFrequency(newFrequency);
 
                             makeToast(getActivity(), getString(R.string.type_updated));
                         }

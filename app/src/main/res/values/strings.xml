@@ -92,5 +92,8 @@
     <string name="new_frequency">New Frequency</string>
     <string name="edit_frequency">Edit frequency</string>
     <string name="current_frequency_type_friend">Current frequency of %s with %s is %d d.</string>
+    <string name="frequency_cant_be_zero">Frequency can\'t be zero</string>
+    <string name="unknown_error_in_frequecny">Unknown error in frequency</string>
+    <string name="frequency_cant_be_that_long">Frequency can\'t be longer nine symbols</string>
 
 </resources>
