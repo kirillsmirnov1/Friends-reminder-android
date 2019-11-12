@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 /**
  * Type of Interaction.
  * Consists of unique name and proposed frequency of interactions
  */
 @androidx.room.Entity(tableName = "interaction_type_table")
-public class InteractionType implements Entity {
+public class InteractionType implements Entity, Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
