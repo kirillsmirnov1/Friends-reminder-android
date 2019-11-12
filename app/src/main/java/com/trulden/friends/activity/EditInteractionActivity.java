@@ -59,8 +59,6 @@ public class EditInteractionActivity
             AdapterView.OnItemSelectedListener,
             EditInteractionType {
 
-    private static final String LOG_TAG = EditInteractionActivity.class.getSimpleName();
-
     FriendsViewModel mFriendsViewModel;
 
     private Spinner  mType;
