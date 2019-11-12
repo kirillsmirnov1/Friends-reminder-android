@@ -27,6 +27,11 @@ public class DatePickerFragment extends DialogFragment{
 
     private final Calendar calendarInstance;
 
+    public DatePickerFragment(){
+        // Required constructor
+        calendarInstance = Calendar.getInstance();
+    }
+
     public DatePickerFragment(Calendar calendarInstance){
         if(calendarInstance != null){
             this.calendarInstance = calendarInstance;
