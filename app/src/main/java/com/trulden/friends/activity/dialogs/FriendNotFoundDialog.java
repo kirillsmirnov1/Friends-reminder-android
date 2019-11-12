@@ -19,7 +19,12 @@ import java.util.Objects;
  */
 public class FriendNotFoundDialog extends DialogFragment {
 
+    private static final String NAME_KEY = "NAME_KEY";
     private String name;
+
+    public FriendNotFoundDialog(){
+        // Required constructor
+    }
 
     public FriendNotFoundDialog(String name){
         this.name = name;
@@ -32,6 +37,10 @@ public class FriendNotFoundDialog extends DialogFragment {
         // Activity from which dialog have been created
         final EditInteractionActivity activity =
                 Objects.requireNonNull((EditInteractionActivity)getActivity());
+
+        if(name == null && savedInstanceState.containsKey(NAME_KEY)){
+            name = savedInstanceState.getString(NAME_KEY);
+        }
 
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
@@ -58,5 +67,11 @@ public class FriendNotFoundDialog extends DialogFragment {
                });
 
         return builder.create();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(NAME_KEY, name);
     }
 }

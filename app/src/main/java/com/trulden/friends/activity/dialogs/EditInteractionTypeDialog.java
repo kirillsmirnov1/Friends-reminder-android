@@ -26,10 +26,16 @@ import static com.trulden.friends.util.Util.makeToast;
  */
 public class EditInteractionTypeDialog extends DialogFragment {
 
+    private static final String KEY_INTERACTION_TYPE = "Interaction type";
+
     private EditText mName;
     private EditText mFrequency;
 
     private InteractionType mType;
+
+    public EditInteractionTypeDialog(){
+        // Required constructor
+    }
 
     public EditInteractionTypeDialog(InteractionType type){
         mType = type;
@@ -45,6 +51,10 @@ public class EditInteractionTypeDialog extends DialogFragment {
 
         @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.dialog_edit_interaction_type, null);
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(KEY_INTERACTION_TYPE)){
+            mType = (InteractionType) savedInstanceState.getSerializable(KEY_INTERACTION_TYPE);
+        }
 
         builder     // If there is no mType, it means we are creating new one
             .setTitle(mType == null ? getString(R.string.new_interaction_type) : getString(R.string.edit_interaction_type))
@@ -136,5 +146,11 @@ public class EditInteractionTypeDialog extends DialogFragment {
         });
 
         return dialog;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(KEY_INTERACTION_TYPE, mType);
     }
 }
