@@ -13,6 +13,7 @@ import java.lang.ref.WeakReference;
 
 import static com.trulden.friends.util.Util.ACTION_DATABASE_EXPORT_FINISHED;
 import static com.trulden.friends.util.Util.ACTION_DATABASE_IMPORT_FINISHED;
+import static com.trulden.friends.util.Util.EXTRA_CHECK_READINESS_AFTER_IMPORT;
 import static com.trulden.friends.util.Util.EXTRA_EXPORT_RESULT;
 import static com.trulden.friends.util.Util.EXTRA_FRAGMENT_TO_LOAD;
 import static com.trulden.friends.util.Util.EXTRA_IMPORT_RESULT;
@@ -68,6 +69,7 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
 
                     restartIntent = new Intent(context, MainActivity.class);
                     restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
+                    restartIntent.putExtra(EXTRA_CHECK_READINESS_AFTER_IMPORT, true);
 
                     // Easiest way to ensure correct update of data — restart an app
                     mMainActivity.get().finish();

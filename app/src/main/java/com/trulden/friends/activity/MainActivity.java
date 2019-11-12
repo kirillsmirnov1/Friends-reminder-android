@@ -84,7 +84,7 @@ public class MainActivity
 
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
-        checkLastInteractionsReadiness();
+        checkLastInteractionsReadiness(getIntent());
 
         mViewModel.setShowHiddenLI(
                 mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
@@ -132,14 +132,14 @@ public class MainActivity
         showChangelog();
     }
 
-    private void checkLastInteractionsReadiness() {
+    private void checkLastInteractionsReadiness(Intent intent) {
 
         // Used only here, so there is no need to move it to Util
         String key = "LAST_TIME_LAST_INTERACTIONS_CHECKED_FOR_READINESS";
 
         long lastTime = mPreferences.getLong(key, -1);
 
-        if(lastTime == -1 || Util.daysPassed(lastTime) > 0){
+        if(lastTime == -1 || Util.daysPassed(lastTime) > 0 || intent.hasExtra(EXTRA_CHECK_READINESS_AFTER_IMPORT)){
             mViewModel.checkLastInteractionsReadiness();
         }
         mPreferences.edit().putLong(key, Calendar.getInstance().getTimeInMillis()).apply();
