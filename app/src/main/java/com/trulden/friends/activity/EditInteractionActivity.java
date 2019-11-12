@@ -82,6 +82,8 @@ public class EditInteractionActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_interaction);
 
+        mSaveHandler.restoreState(savedInstanceState);
+
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         // Set friend names from database to corresponding dropdown list
@@ -177,6 +179,13 @@ public class EditInteractionActivity
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mSaveHandler.saveState(outState);
+    }
+
     /**
      * Set the date
      */
@@ -268,6 +277,11 @@ public class EditInteractionActivity
      */
     private class SaveInteractionHandler{
 
+        private static final String KEY_CHECK_FRIENDS_LIST = "Check friend's list";
+        private static final String KEY_CHECK_ITERATOR_POS = "Iterator pos";
+        private static final String KEY_NEWBIES = "Newbies";
+        private static final String KEY_TIME_TO_SAVE_INTERACTION = "Time to save interaction";
+
         private ArrayList<String> checkFriendsList = null;
         private ListIterator<String> checkFriendsIter = null;
 
@@ -282,6 +296,22 @@ public class EditInteractionActivity
         private boolean timeToSaveInteraction = false;
 
         private Context context = EditInteractionActivity.this;
+
+        void saveState(Bundle outState) {
+            outState.putStringArrayList(KEY_CHECK_FRIENDS_LIST, checkFriendsList);
+            outState.putInt(KEY_CHECK_ITERATOR_POS, checkFriendsIter.previousIndex()+1);
+            outState.putSerializable(KEY_NEWBIES, newbies);
+            outState.putBoolean(KEY_TIME_TO_SAVE_INTERACTION, timeToSaveInteraction);
+        }
+
+        void restoreState(Bundle savedInstanceState) {
+            if(savedInstanceState != null && savedInstanceState.containsKey(KEY_CHECK_FRIENDS_LIST)) {
+                checkFriendsList = savedInstanceState.getStringArrayList(KEY_CHECK_FRIENDS_LIST);
+                checkFriendsIter = checkFriendsList.listIterator(savedInstanceState.getInt(KEY_CHECK_ITERATOR_POS));
+                newbies = (HashSet<String>) savedInstanceState.getSerializable(KEY_NEWBIES);
+                timeToSaveInteraction = savedInstanceState.getBoolean(KEY_TIME_TO_SAVE_INTERACTION);
+            }
+        }
 
         private void startCheckingFriends() {
 
@@ -315,7 +345,7 @@ public class EditInteractionActivity
          * If all friends are checked, starts saving.
          */
         private void checkNextFriend() {
-            if(checkFriendsIter.hasNext()){
+            if(checkFriendsIter.hasNext()){ // TODO save CFI so it wouldn't crash on rotation
                 String friendName = checkFriendsIter.next();
                 checkFriend(friendName);
             } else {
