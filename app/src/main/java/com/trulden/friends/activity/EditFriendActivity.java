@@ -54,8 +54,8 @@ public class EditFriendActivity extends AppCompatActivity {
         if(mFriendId == -1){
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_friend));
         } else {
-            Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.action_bar_title_edit_friend));
             mOldName = intent.getStringExtra(EXTRA_FRIEND_NAME);
+            Objects.requireNonNull(getSupportActionBar()).setTitle(mOldName);
         }
 
         mName.setText(mOldName);
