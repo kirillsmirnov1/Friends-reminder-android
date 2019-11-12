@@ -298,16 +298,19 @@ public class EditInteractionActivity
         private Context context = EditInteractionActivity.this;
 
         void saveState(Bundle outState) {
-            outState.putStringArrayList(KEY_CHECK_FRIENDS_LIST, checkFriendsList);
-            outState.putInt(KEY_CHECK_ITERATOR_POS, checkFriendsIter.previousIndex()+1);
-            outState.putSerializable(KEY_NEWBIES, newbies);
-            outState.putBoolean(KEY_TIME_TO_SAVE_INTERACTION, timeToSaveInteraction);
+            if(checkFriendsList != null) {
+                outState.putStringArrayList(KEY_CHECK_FRIENDS_LIST, checkFriendsList);
+                outState.putInt(KEY_CHECK_ITERATOR_POS, checkFriendsIter.previousIndex());
+                outState.putSerializable(KEY_NEWBIES, newbies);
+                outState.putBoolean(KEY_TIME_TO_SAVE_INTERACTION, timeToSaveInteraction);
+            }
         }
 
         void restoreState(Bundle savedInstanceState) {
             if(savedInstanceState != null && savedInstanceState.containsKey(KEY_CHECK_FRIENDS_LIST)) {
                 checkFriendsList = savedInstanceState.getStringArrayList(KEY_CHECK_FRIENDS_LIST);
                 checkFriendsIter = checkFriendsList.listIterator(savedInstanceState.getInt(KEY_CHECK_ITERATOR_POS));
+                checkFriendsIter.next();
                 newbies = (HashSet<String>) savedInstanceState.getSerializable(KEY_NEWBIES);
                 timeToSaveInteraction = savedInstanceState.getBoolean(KEY_TIME_TO_SAVE_INTERACTION);
             }
