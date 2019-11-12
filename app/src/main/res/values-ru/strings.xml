@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Друзья</string>
-    <string name="action_bar_title_edit_friend">Изменить друга</string>
+    <string name="action_bar_title_edit_friend">"Изменить "</string>
     <string name="add">Добавить</string>
     <string name="add_interaction">Добавить взаимодействие</string>
     <string name="comment_input_invitation">Заметки:</string>
@@ -48,7 +48,7 @@
     <string name="type_input_invitation">Тип:</string>
     <string name="type_of_interaction">Название</string>
     <string name="add_new_interaction_type">Добавить новый...</string>
-    <string name="add_friend">Добавить друга</string>
+    <string name="add_friend">Новый друг</string>
     <string name="edit_interaction">Изменить взаимодействие</string>
     <string name="days_ago">\u0020д. назад</string>
     <string name="per_days">раз в %d д.</string>
