@@ -26,6 +26,10 @@ public class EditFriendNameDialog extends DialogFragment {
     private String name;
     private EditText editName;
 
+    public EditFriendNameDialog(){
+        // Required constructor
+    }
+
     EditFriendNameDialog(String name){
         this.name = name;
     }
