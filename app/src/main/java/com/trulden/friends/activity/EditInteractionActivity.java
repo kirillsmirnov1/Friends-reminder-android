@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.R;
@@ -36,7 +35,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
 
@@ -87,59 +85,53 @@ public class EditInteractionActivity
         mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         // Set friend names from database to corresponding dropdown list
-        mFriendsViewModel.getAllFriends().observe(this, new Observer<List<Friend>>() {
-            @Override
-            public void onChanged(List<Friend> friends) {
-                for(Friend friend : friends){
-                    if(!mFriendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
-                        mFriendsMap.put(friend.getName(), friend.getId());
+        mFriendsViewModel.getAllFriends().observe(this, friends -> {
+            for(Friend friend : friends){
+                if(!mFriendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
+                    mFriendsMap.put(friend.getName(), friend.getId());
 
-                        mSaveHandler.newbies.remove(friend.getName());
-                    }
+                    mSaveHandler.newbies.remove(friend.getName());
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
-                        android.R.layout.simple_dropdown_item_1line, mFriendsMap.keySet().toArray(new String[0]));
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),
+                    android.R.layout.simple_dropdown_item_1line, mFriendsMap.keySet().toArray(new String[0]));
 
-                mFriendsText.setAdapter(adapter);
+            mFriendsText.setAdapter(adapter);
 
-                // Saving interaction after all friends are checked and added [postponed_save]
-                if(mSaveHandler.canSaveNow()){
-                    mSaveHandler.saveInteraction();
-                }
+            // Saving interaction after all friends are checked and added [postponed_save]
+            if(mSaveHandler.canSaveNow()){
+                mSaveHandler.saveInteraction();
             }
         });
 
         // Set interaction types from db
-        mFriendsViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
-            @Override
-            public void onChanged(List<InteractionType> interactionTypes) {
-                for(InteractionType interactionType : interactionTypes){
-                    if(!mTypesMap.containsKey(interactionType.getInteractionTypeName())) { // putIfAbsent requires API 24
-                        mTypesMap.put(interactionType.getInteractionTypeName(), interactionType.getId());
-                    }
+        mFriendsViewModel.getAllInteractionTypes().observe(this, interactionTypes -> {
+            for(InteractionType interactionType : interactionTypes){
+                if(!mTypesMap.containsKey(interactionType.getInteractionTypeName())) { // putIfAbsent requires API 24
+                    mTypesMap.put(interactionType.getInteractionTypeName(), interactionType.getId());
                 }
+            }
 
-                String[] spinnerOptions = new String[mTypesMap.size() + 1];
+            String[] spinnerOptions = new String[mTypesMap.size() + 1];
 
-                String[] typeNames = mTypesMap.keySet().toArray(new String[0]);
-                Arrays.sort(typeNames);
+            String[] typeNames = mTypesMap.keySet().toArray(new String[0]);
+            Arrays.sort(typeNames);
 
-                System.arraycopy(typeNames, 0, spinnerOptions, 0, mTypesMap.size());
+            System.arraycopy(typeNames, 0, spinnerOptions, 0, mTypesMap.size());
 
-                spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
+            spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
-                mTypeSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
-                        android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
+            mTypeSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
+                    android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
 
-                if(mType != null) {
-                    mType.setAdapter(mTypeSpinnerAdapter);
+            if(mType != null) {
+                mType.setAdapter(mTypeSpinnerAdapter);
 
-                    mType.setSelection(mTypeSpinnerAdapter.getPosition(
-                            mTypeToSelect == null
-                                    ? getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)
-                                    : mTypeToSelect
-                    ));
-                }
+                mType.setSelection(mTypeSpinnerAdapter.getPosition(
+                        mTypeToSelect == null
+                                ? getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)
+                                : mTypeToSelect
+                ));
             }
         });
 
