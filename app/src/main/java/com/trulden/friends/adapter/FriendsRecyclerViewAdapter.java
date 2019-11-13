@@ -53,24 +53,20 @@ public class FriendsRecyclerViewAdapter extends CustomRVAdapter<FriendsRecyclerV
             mTextView.setText(friend.getName());
             mFriendEntryLayout.setActivated(mSelectedPositions.contains(position));
 
-            mFriendEntryLayout.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    if(mOnClickListener == null)
-                        return;
-                    mOnClickListener.onItemClick(v, friend, position);
+            mFriendEntryLayout.setOnClickListener(v -> {
+                if(mOnClickListener == null) {
+                    return;
                 }
+                mOnClickListener.onItemClick(v, friend, position);
             });
 
-            mFriendEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (mOnClickListener == null)
-                        return false;
-
-                    mOnClickListener.onItemLongClick(v, friend, position);
-                    return true;
+            mFriendEntryLayout.setOnLongClickListener(v -> {
+                if (mOnClickListener == null) {
+                    return false;
                 }
+
+                mOnClickListener.onItemLongClick(v, friend, position);
+                return true;
             });
         }
     }
