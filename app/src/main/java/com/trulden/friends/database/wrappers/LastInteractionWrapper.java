@@ -10,8 +10,6 @@ import com.trulden.friends.database.entity.LastInteraction;
 
 import java.util.List;
 
-import static com.trulden.friends.util.Util.daysPassed;
-
 /**
  * Wrapper for {@link LastInteraction}.
  * Contains LI object, and corresponding {@link Friend} and {@link InteractionType} objects in lists.

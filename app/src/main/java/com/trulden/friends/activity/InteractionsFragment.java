@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.collection.LongSparseArray;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +29,6 @@ import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
 
 import java.util.HashSet;
-import java.util.List;
 
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
