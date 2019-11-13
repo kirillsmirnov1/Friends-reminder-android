@@ -109,7 +109,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
                     .observe(
                             getViewLifecycleOwner(),
                             interactions ->{
-                                String comment = interactions.get(0).getComment();
+                                String comment = interactions.getComment();
                                 if(comment.isEmpty()){
                                     mComment.setHint(R.string.no_description);
                                 } else {

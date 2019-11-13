@@ -67,7 +67,7 @@ class FriendsRepository {
         return mFriendsDao;
     }
 
-    public LiveData<List<Interaction>> getInteraction(long interactionId) {
+    public LiveData<Interaction> getInteraction(long interactionId) {
         return mFriendsDao.getInteractionById(interactionId);
     }
 
@@ -328,7 +328,7 @@ class FriendsRepository {
 
                     long interactionId = interaction.getId();
 
-                    Interaction oldInteraction = mFriendsDao.getInteraction(interactionId).get(0);
+                    Interaction oldInteraction = mFriendsDao.getInteraction(interactionId);
                     List<BindFriendInteraction> oldBinds = mFriendsDao.getBindsOfInteraction(interactionId);
 
                     // It's easier to delete old binds and recalculate them, than to check every change

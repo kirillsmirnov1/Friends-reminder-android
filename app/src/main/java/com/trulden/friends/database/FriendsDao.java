@@ -75,7 +75,7 @@ public interface FriendsDao {
      * @return array with one or none of types
      */
     @Query("SELECT * from interaction_type_table LIMIT 1")
-    InteractionType[] getAnyInteractionType(); // FIXME
+    InteractionType getAnyInteractionType();
 
     @Query("SELECT * from interaction_type_table where id = :typeId LIMIT 1")
     InteractionType getTypeById(long typeId);
@@ -93,11 +93,11 @@ public interface FriendsDao {
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     LiveData<List<Interaction>> getAllInteractions();
 
-    @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
-    List<Interaction> getInteraction(long interactionId); // FIXME
+    @Query("SELECT * FROM interaction_table WHERE id = :interactionId LIMIT 1")
+    Interaction getInteraction(long interactionId);
 
-    @Query("SELECT * FROM interaction_table WHERE id = :interactionId")
-    LiveData<List<Interaction>> getInteractionById(long interactionId); // FIXME
+    @Query("SELECT * FROM interaction_table WHERE id = :interactionId LIMIT 1")
+    LiveData<Interaction> getInteractionById(long interactionId);
 
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     @Transaction
