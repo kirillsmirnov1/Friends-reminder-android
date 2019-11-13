@@ -81,6 +81,10 @@ public class LastInteractionWrapper implements Entity {
         return types.get(0).getInteractionTypeName();
     }
 
+    public long getFrequency(){
+        return lastInteraction.getFrequency();
+    }
+
     public enum LastInteractionStatus{
         DEFAULT, // Always should be first because 0 is default value for status column
         HIDDEN
