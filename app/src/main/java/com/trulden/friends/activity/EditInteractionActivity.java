@@ -348,7 +348,7 @@ public class EditInteractionActivity
          * If all friends are checked, starts saving.
          */
         private void checkNextFriend() {
-            if(checkFriendsIter.hasNext()){ // TODO save CFI so it wouldn't crash on rotation
+            if(checkFriendsIter.hasNext()){
                 String friendName = checkFriendsIter.next();
                 checkFriend(friendName);
             } else {
