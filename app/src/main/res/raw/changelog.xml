@@ -1,5 +1,12 @@
 <changelog>
 
+    <release versionCode="24" versionName="Version 1.2.1">
+        <info>• In Edit Friend window old name is displayed at top of the screen.</info>
+        <info>• Specified error messages on frequency edit.</info>
+        <bugfix>Check trackers readiness on import.</bugfix>
+        <bugfix>Fixed several crashes on screen rotation.</bugfix>
+    </release>
+
     <release versionCode="23" versionName="Version 1.2">
         <new>Now you can set custom frequency for interactions by clicking clock icon in opened tracker.</new>
     </release>
