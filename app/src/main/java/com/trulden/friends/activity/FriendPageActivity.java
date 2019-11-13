@@ -85,7 +85,7 @@ public class FriendPageActivity
 
         setFriendInfo(mFriend);
 
-        mSelectedPositions = mViewModel.getLITFSelections(FriendPageActivity.class.getName());
+        mSelectedPositions = mViewModel.getSelectedPositions(FriendPageActivity.class.getName());
 
         RecyclerView recyclerView = findViewById(R.id.afp_LI_recycler_view);
         mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(this, mSelectedPositions, SHOW_TYPE_NAME);
@@ -207,7 +207,7 @@ public class FriendPageActivity
 
     @Override
     protected void onDestroy() {
-        mViewModel.setLITF_selections(FriendPageActivity.class.getName(), mSelectedPositions);
+        mViewModel.setSelectedPositions(FriendPageActivity.class.getName(), mSelectedPositions);
         super.onDestroy();
     }
 
@@ -253,7 +253,7 @@ public class FriendPageActivity
         int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
-            mActionMode.finish();
+            finishActionMode();
         } else {
             mActionMode.setTitle(String.valueOf(count));
         }
@@ -262,6 +262,7 @@ public class FriendPageActivity
 
     @Override
     public void finishActionMode() {
+        mViewModel.clearSelectedPositions();
         if(mActionMode != null){
             mActionMode.finish();
         }
@@ -270,7 +271,7 @@ public class FriendPageActivity
 
     @Override
     public void nullifyActionMode() {
-        mViewModel.clearLITFSelections();
+        mViewModel.clearSelectedPositions();
         if(mActionMode != null){
             mActionMode = null;
         }
