@@ -43,7 +43,7 @@ public class UniqueFriendTest extends AbstractMATest {
 
         onView(withId(R.id.ms_save)).perform(click());
 
-        onView(withSubstring("Edit")).check(matches(isDisplayed()));
+        onView(withText(aaron)).check(matches(isDisplayed()));
 
         navigateUp();
     }
