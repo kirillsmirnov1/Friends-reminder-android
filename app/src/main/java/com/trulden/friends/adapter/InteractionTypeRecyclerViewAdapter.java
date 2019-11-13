@@ -58,24 +58,20 @@ public class InteractionTypeRecyclerViewAdapter extends CustomRVAdapter<Interact
 
             mInteractionTypeEntryLayout.setActivated(mSelectedPositions.contains(position));
 
-            mInteractionTypeEntryLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mOnClickListener == null)
-                        return;
-                    mOnClickListener.onItemClick(view, interactionType, position);
+            mInteractionTypeEntryLayout.setOnClickListener(view -> {
+                if(mOnClickListener == null) {
+                    return;
                 }
+                mOnClickListener.onItemClick(view, interactionType, position);
             });
 
-            mInteractionTypeEntryLayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if(mOnClickListener == null)
-                        return false;
-
-                    mOnClickListener.onItemLongClick(view, interactionType, position);
-                    return true;
+            mInteractionTypeEntryLayout.setOnLongClickListener(view -> {
+                if(mOnClickListener == null) {
+                    return false;
                 }
+
+                mOnClickListener.onItemLongClick(view, interactionType, position);
+                return true;
             });
         }
     }

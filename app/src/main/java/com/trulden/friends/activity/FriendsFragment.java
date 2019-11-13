@@ -82,23 +82,17 @@ public class FriendsFragment
         recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FriendsViewModel.class);
+        mViewModel.getAllFriends().observe(getViewLifecycleOwner(), friends -> {
+            view.findViewById(R.id.ff_no_data)
+                .setVisibility(
+                    friends == null || friends.size() < 1
+                    ? View.VISIBLE
+                    : View.GONE
+                );
 
-        mViewModel.getAllFriends().observe(getViewLifecycleOwner(), new Observer<List<Friend>>() {
-            @Override
-            public void onChanged(List<Friend> friends) {
-
-                view.findViewById(R.id.ff_no_data)
-                    .setVisibility(
-                        friends == null || friends.size() < 1
-                        ? View.VISIBLE
-                        : View.GONE
-                    );
-
-                mRecyclerViewAdapter.setItems(friends);
-                // We need to tell adapter to refresh view, otherwise it might not happen
-                mRecyclerViewAdapter.notifyDataSetChanged();
-            }
+            mRecyclerViewAdapter.setItems(friends);
+            // We need to tell adapter to refresh view, otherwise it might not happen
+            mRecyclerViewAdapter.notifyDataSetChanged();
         });
 
         mRecyclerViewAdapter.setOnClickListener(new OnClickListener<Friend>() {

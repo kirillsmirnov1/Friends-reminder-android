@@ -156,10 +156,9 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         });
 
-        changeFrequencyIcon.setOnClickListener(v ->{
+        changeFrequencyIcon.setOnClickListener(v ->
             new EditLastInteractionFrequencyDialog(mLastInteractionWrapper)
-                .show(getActivity().getSupportFragmentManager(), "editLIFrequency");
-        });
+                .show(getActivity().getSupportFragmentManager(), "editLIFrequency"));
     }
 
     private void setStatusIcon() {

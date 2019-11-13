@@ -63,20 +63,17 @@ public class InteractionTypesActivity
         recyclerView.setAdapter(mRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mViewModel.getAllInteractionTypes().observe(this, new Observer<List<InteractionType>>() {
-            @Override
-            public void onChanged(List<InteractionType> interactionTypes) {
+        mViewModel.getAllInteractionTypes().observe(this, interactionTypes -> {
 
-                findViewById(R.id.ait_no_data)
-                    .setVisibility(
-                        interactionTypes == null || interactionTypes.size() < 1
-                        ? View.VISIBLE
-                        : View.GONE
-                    );
+            findViewById(R.id.ait_no_data)
+                .setVisibility(
+                    interactionTypes == null || interactionTypes.size() < 1
+                    ? View.VISIBLE
+                    : View.GONE
+                );
 
-                mRecyclerViewAdapter.setItems(interactionTypes);
-                mRecyclerViewAdapter.notifyDataSetChanged();
-            }
+            mRecyclerViewAdapter.setItems(interactionTypes);
+            mRecyclerViewAdapter.notifyDataSetChanged();
         });
 
         mRecyclerViewAdapter.setOnClickListener(new OnClickListener<InteractionType>() {

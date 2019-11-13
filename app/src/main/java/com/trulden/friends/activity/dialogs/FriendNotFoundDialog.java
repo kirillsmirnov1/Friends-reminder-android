@@ -45,26 +45,17 @@ public class FriendNotFoundDialog extends DialogFragment {
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
-        builder.setMessage(String.format(getString(R.string.dont_have_such_friend), name ))
-               .setPositiveButton(getString(R.string.create), new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int i) {
-                       activity.createFriendByName(name);
-                   }
+        builder
+            .setMessage(String.format(getString(R.string.dont_have_such_friend), name ))
+
+            .setPositiveButton(getString(R.string.create),
+               (dialogInterface, i) -> activity.createFriendByName(name))
+
+            .setNeutralButton(getString(R.string.edit), (dialogInterface, i) -> {
+               EditFriendNameDialog dialog = new EditFriendNameDialog(name);
+               dialog.show(activity.getSupportFragmentManager(), "editFriendNameDialog");
                })
-               .setNeutralButton(getString(R.string.edit), new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int i) {
-                       EditFriendNameDialog dialog = new EditFriendNameDialog(name);
-                       dialog.show(activity.getSupportFragmentManager(), "editFriendNameDialog");
-                   }
-               })
-               .setNegativeButton(getString(R.string.forget), new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int i) {
-                       activity.removeFriendName(name);
-                   }
-               });
+            .setNegativeButton(getString(R.string.forget), (dialogInterface, i) -> activity.removeFriendName(name));
 
         return builder.create();
     }

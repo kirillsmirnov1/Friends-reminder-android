@@ -50,13 +50,9 @@ public class EditFriendNameDialog extends DialogFragment {
         builder
             .setTitle(getString(R.string.edit_name))
             .setView(dialogView)
-            .setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    ((EditInteractionActivity) Objects.requireNonNull(getActivity()))
-                            .updateAndCheckFriend(editName.getText().toString());
-                }
-            });
+            .setPositiveButton(getString(R.string.save),
+                (dialogInterface, i) -> ((EditInteractionActivity) Objects.requireNonNull(getActivity()))
+                    .updateAndCheckFriend(editName.getText().toString()));
 
         return builder.create();
     }

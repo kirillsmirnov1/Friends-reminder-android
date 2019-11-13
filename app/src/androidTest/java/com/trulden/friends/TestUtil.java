@@ -14,12 +14,12 @@ public class TestUtil {
     public static Activity getActivityInstance(){
         final Activity[] currentActivity = {null};
 
-        getInstrumentation().runOnMainSync(new Runnable(){
-            public void run(){
-                Collection<Activity> resumedActivity = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                Iterator<Activity> it = resumedActivity.iterator();
-                currentActivity[0] = it.next();
-            }
+        getInstrumentation().runOnMainSync(() -> {
+            Collection<Activity> resumedActivity =
+                ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+
+            Iterator<Activity> it = resumedActivity.iterator();
+            currentActivity[0] = it.next();
         });
 
         return currentActivity[0];

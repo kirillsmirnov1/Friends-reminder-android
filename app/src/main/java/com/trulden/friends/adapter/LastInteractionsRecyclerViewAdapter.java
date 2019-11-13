@@ -98,27 +98,21 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
 
             mLayout.setActivated(mSelectedPositions.contains(pos));
 
-            mLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mOnClickListener == null) {
-                        return;
-                    }
-
-                    mOnClickListener.onItemClick(view, interaction, pos);
+            mLayout.setOnClickListener(view -> {
+                if(mOnClickListener == null) {
+                    return;
                 }
+
+                mOnClickListener.onItemClick(view, interaction, pos);
             });
 
-            mLayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if(mOnClickListener == null) {
-                        return false;
-                    }
-
-                    mOnClickListener.onItemLongClick(view, interaction, pos);
-                    return true;
+            mLayout.setOnLongClickListener(view -> {
+                if(mOnClickListener == null) {
+                    return false;
                 }
+
+                mOnClickListener.onItemLongClick(view, interaction, pos);
+                return true;
             });
         }
     }

@@ -80,47 +80,38 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
 
         recyclerView.setAdapter(mRecyclerViewAdapter);
 
-        mViewModel.getFriendNames().observe(getViewLifecycleOwner(), new Observer<List<FriendName>>() {
-            @Override
-            public void onChanged(List<FriendName> friendNamesList) {
-                LongSparseArray<String> friendNamesLSA = new LongSparseArray<>();
+        mViewModel.getFriendNames().observe(getViewLifecycleOwner(), friendNamesList -> {
+            LongSparseArray<String> friendNamesLSA = new LongSparseArray<>();
 
-                for(FriendName friendName : friendNamesList){
-                    friendNamesLSA.put(friendName.id, friendName.name);
-                }
-
-                mRecyclerViewAdapter.setFriends(friendNamesLSA);
-                mRecyclerViewAdapter.notifyDataSetChanged();
+            for(FriendName friendName : friendNamesList){
+                friendNamesLSA.put(friendName.id, friendName.name);
             }
+
+            mRecyclerViewAdapter.setFriends(friendNamesLSA);
+            mRecyclerViewAdapter.notifyDataSetChanged();
         });
 
-        mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), new Observer<List<InteractionType>>() {
-            @Override
-            public void onChanged(List<InteractionType> interactionTypes) {
-                mTypes = new LongSparseArray<>();
+        mViewModel.getAllInteractionTypes().observe(getViewLifecycleOwner(), interactionTypes -> {
+            mTypes = new LongSparseArray<>();
 
-                for(InteractionType type : interactionTypes){
-                    mTypes.put(type.getId(), type.getInteractionTypeName());
-                }
-                mRecyclerViewAdapter.setInteractionTypes(mTypes);
-                mRecyclerViewAdapter.notifyDataSetChanged();
+            for(InteractionType type : interactionTypes){
+                mTypes.put(type.getId(), type.getInteractionTypeName());
             }
+            mRecyclerViewAdapter.setInteractionTypes(mTypes);
+            mRecyclerViewAdapter.notifyDataSetChanged();
         });
 
-        mViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), new Observer<List<InteractionWithFriendIDs>>() {
-            @Override
-            public void onChanged(List<InteractionWithFriendIDs> interactionWithFriendIDs) {
+        mViewModel.getInteractionsWithFriendIDs().observe(getViewLifecycleOwner(), interactionWithFriendIDs -> {
 
-                view.findViewById(R.id.fi_no_data)
-                    .setVisibility(
-                        interactionWithFriendIDs == null || interactionWithFriendIDs.size() < 1
-                        ? View.VISIBLE
-                        : View.GONE
-                );
+            view.findViewById(R.id.fi_no_data)
+                .setVisibility(
+                    interactionWithFriendIDs == null || interactionWithFriendIDs.size() < 1
+                    ? View.VISIBLE
+                    : View.GONE
+            );
 
-                mRecyclerViewAdapter.setItems(interactionWithFriendIDs);
-                mRecyclerViewAdapter.notifyDataSetChanged();
-            }
+            mRecyclerViewAdapter.setItems(interactionWithFriendIDs);
+            mRecyclerViewAdapter.notifyDataSetChanged();
         });
 
         mRecyclerViewAdapter.setOnClickListener(new OnClickListener<InteractionWithFriendIDs>() {
