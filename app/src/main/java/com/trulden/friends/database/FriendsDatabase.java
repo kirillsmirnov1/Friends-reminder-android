@@ -109,7 +109,7 @@ public abstract class FriendsDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            if(mDao.getAnyInteractionType().length<1){
+            if(mDao.getAnyInteractionType() == null){
                 for(int i = 0; i < defaultInteractionsNames.length; ++i){
                     mDao.add(new InteractionType(defaultInteractionsNames[i], defaultInteractionsFrequency[i]));
                 }
