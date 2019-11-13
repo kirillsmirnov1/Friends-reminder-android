@@ -16,6 +16,7 @@ import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 public class OpenActivitiesTest extends AbstractMATest {
@@ -31,9 +32,9 @@ public class OpenActivitiesTest extends AbstractMATest {
 
         editSelection();
 
-        onView(withText(R.string.action_bar_title_edit_friend)).check(matches(isDisplayed()));
+        onView(withId(R.id.ms_save)).check(matches(isDisplayed()));
 
-        onView(withText(friendsName)).check(matches(isDisplayed()));
+        onView(withId(R.id.aef_edit_name)).check(matches(allOf(isDisplayed(), withText(friendsName))));
         onView(withText(friendsNotes)).check(matches(isDisplayed()));
     }
 

@@ -184,9 +184,9 @@ public class CRUDTest extends AbstractMATest {
 
         onView(withId(R.id.msed_edit)).perform(click());
 
-        onView(withText(oldFriend.getName()))
+        onView(withId(R.id.aef_edit_name))
                 .perform(replaceText(newFriend.getName()));
-        onView(withText(oldFriend.getInfo()))
+        onView(withId(R.id.aef_edit_info))
                 .perform(replaceText(newFriend.getInfo()));
 
         onView(withId(R.id.ms_save)).perform(click());
