@@ -48,7 +48,6 @@ public class InteractionTypesActivity
     private ActionMode mActionMode;
 
     private HashSet<Integer> mSelectedPositions = new HashSet<>();
-    public static final String SELECTED_TYPES_POSITIONS = "SELECTED_TYPES_POSITIONS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +56,7 @@ public class InteractionTypesActivity
 
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
-        if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_TYPES_POSITIONS)){
-            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_TYPES_POSITIONS);
-        }
+        mSelectedPositions = mViewModel.getSelectedPositions(InteractionTypesActivity.class.getName());
 
         RecyclerView recyclerView = findViewById(R.id.ait_recycler_view);
         mRecyclerViewAdapter = new InteractionTypeRecyclerViewAdapter(this, mSelectedPositions);
@@ -106,7 +103,7 @@ public class InteractionTypesActivity
     protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable(SELECTED_TYPES_POSITIONS, mSelectedPositions);
+        mViewModel.setSelectedPositions(InteractionTypesActivity.class.getName(), mSelectedPositions);
     }
 
     @Override
@@ -152,7 +149,7 @@ public class InteractionTypesActivity
         int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
-            mActionMode.finish();
+            finishActionMode();
         } else {
             mActionMode.setTitle(String.valueOf(count));
             mActionMode.invalidate();
@@ -168,6 +165,7 @@ public class InteractionTypesActivity
 
     @Override
     public void finishActionMode() {
+        mViewModel.clearSelectedPositions();
         if(mActionMode != null) {
             mActionMode.finish();
         }
@@ -214,9 +212,7 @@ public class InteractionTypesActivity
 
     @Override
     public void actuallyDeleteSelection(List<InteractionType> selection) {
-        if(mActionMode != null) {
-            mActionMode.finish();
-        }
+        finishActionMode();
 
         for(InteractionType interactionType : selection){
             mViewModel.delete(interactionType);

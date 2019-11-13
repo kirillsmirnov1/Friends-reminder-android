@@ -48,7 +48,6 @@ public class FriendsFragment
             SelectionWithOnDeleteAlert<Friend> {
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
-    private static final String SELECTED_FRIENDS_POSITIONS = "SELECTED_FRIENDS_POSITIONS";
 
     private FriendsViewModel mViewModel;
     private FriendsRecyclerViewAdapter mRecyclerViewAdapter;
@@ -76,9 +75,7 @@ public class FriendsFragment
 
         mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        if(savedInstanceState!= null && savedInstanceState.containsKey(SELECTED_FRIENDS_POSITIONS)){
-            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_FRIENDS_POSITIONS);
-        }
+        mSelectedPositions = mViewModel.getSelectedPositions(FriendsFragment.class.getName());
 
         RecyclerView recyclerView = view.findViewById(R.id.ff_recycler_view);
         mRecyclerViewAdapter = new FriendsRecyclerViewAdapter(getActivity(), mSelectedPositions);
@@ -129,7 +126,7 @@ public class FriendsFragment
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_FRIENDS_POSITIONS, mSelectedPositions);
+        mViewModel.setSelectedPositions(FriendsFragment.class.getName(), mSelectedPositions);
     }
 
     @Override
@@ -150,7 +147,7 @@ public class FriendsFragment
         int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
-            mActionMode.finish();
+            finishActionMode();
         } else {
             mActionMode.setTitle(String.valueOf(count));
             mActionMode.invalidate();
@@ -167,9 +164,7 @@ public class FriendsFragment
     @Override
     public void onDetach() {
         if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.FRIENDS_FRAGMENT) {
-            if(mActionMode != null) {
-                mActionMode.finish();
-            }
+            finishActionMode();
         }
         super.onDetach();
     }
@@ -215,9 +210,7 @@ public class FriendsFragment
     @Override
     public void actuallyDeleteSelection(List<Friend> selection){
 
-        if(mActionMode != null) {
-            mActionMode.finish();
-        }
+        finishActionMode();
 
         int countOfSelectedFriends = selection.size();
         if(countOfSelectedFriends == 1){
@@ -232,6 +225,7 @@ public class FriendsFragment
 
     @Override
     public void finishActionMode() {
+        mViewModel.clearSelectedPositions();
         if(mActionMode != null) {
             mActionMode.finish();
         }

@@ -32,7 +32,16 @@ public class FriendsViewModel extends AndroidViewModel {
 
     private MutableLiveData<Boolean> mShowHiddenLI;
 
-    private HashMap<String, HashSet<Integer>> mLITFSelections;
+    /**
+     * Positions of selected elements.
+     * Used in
+     * {@link com.trulden.friends.activity.LastInteractionsTabFragment LastInteractionsTabFragment},
+     * {@link com.trulden.friends.activity.FriendsFragment FriendsFragment},
+     * {@link com.trulden.friends.activity.InteractionsFragment InteractionsFragment},
+     * {@link com.trulden.friends.activity.InteractionTypesActivity InteractionTypesActivity},
+     * {@link com.trulden.friends.activity.FriendPageActivity FriendPageActivity}.
+     */
+    private HashMap<String, HashSet<Integer>> mSelectedPositions;
 
     private int mSelectedLITabPos = 0;
 
@@ -49,11 +58,11 @@ public class FriendsViewModel extends AndroidViewModel {
 
         mShowHiddenLI = new MutableLiveData<>();
 
-        mLITFSelections = new HashMap<>();
+        mSelectedPositions = new HashMap<>();
     }
 
-    public HashSet<Integer> getLITFSelections(String type){
-        HashSet<Integer> selection = mLITFSelections.get(type);
+    public HashSet<Integer> getSelectedPositions(String type){
+        HashSet<Integer> selection = mSelectedPositions.get(type);
 
         if(selection == null){
             selection = new HashSet<>();
@@ -62,13 +71,12 @@ public class FriendsViewModel extends AndroidViewModel {
         return selection;
     }
 
-    public void clearLITFSelections() {
-        mLITFSelections.clear();
+    public void clearSelectedPositions() {
+        mSelectedPositions.clear();
     }
 
-    // FIXME maybe turn to «setSelectedPositions()» and use it everywhere?
-    public void setLITF_selections(String type, HashSet<Integer> selection){
-        mLITFSelections.put(type, selection);
+    public void setSelectedPositions(String type, HashSet<Integer> selection){
+        mSelectedPositions.put(type, selection);
     }
 
     public FriendsDao getDao(){return mRepository.getDao();}

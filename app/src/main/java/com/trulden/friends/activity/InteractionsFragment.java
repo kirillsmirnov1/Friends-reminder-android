@@ -44,7 +44,6 @@ import static com.trulden.friends.util.Util.makeToast;
  * Holds selectable {@link Interaction} entries.
  */
 public class InteractionsFragment extends Fragment implements EditAndDeleteSelection {
-    private static final String SELECTED_INTERACTIONS_POSITIONS = "SELECTED_INTERACTIONS_POSITIONS";
 
     private FriendsViewModel mViewModel;
     private InteractionsRecyclerViewAdapter mRecyclerViewAdapter;
@@ -72,9 +71,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
 
         mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_INTERACTIONS_POSITIONS)){
-            mSelectedPositions = (HashSet<Integer>) savedInstanceState.getSerializable(SELECTED_INTERACTIONS_POSITIONS);
-        }
+        mSelectedPositions = mViewModel.getSelectedPositions(InteractionsFragment.class.getName());
 
         RecyclerView recyclerView = view.findViewById(R.id.fi_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -82,8 +79,6 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
         mRecyclerViewAdapter = new InteractionsRecyclerViewAdapter(getActivity(), mSelectedPositions);
 
         recyclerView.setAdapter(mRecyclerViewAdapter);
-
-        //mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
 
         mViewModel.getFriendNames().observe(getViewLifecycleOwner(), new Observer<List<FriendName>>() {
             @Override
@@ -165,7 +160,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
         int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
-            mActionMode.finish();
+            finishActionMode();
         } else {
             mActionMode.setTitle(String.valueOf(count));
             mActionMode.invalidate();
@@ -182,7 +177,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_INTERACTIONS_POSITIONS, mSelectedPositions);
+        mViewModel.setSelectedPositions(InteractionsFragment.class.getName(), mSelectedPositions);
     }
 
     @Override
@@ -212,6 +207,7 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
 
     @Override
     public void finishActionMode() {
+        mViewModel.clearSelectedPositions();
         if(mActionMode != null) {
             mActionMode.finish();
         }
@@ -227,8 +223,8 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
     @Override
     public void onDetach() {
         super.onDetach();
-        if(mActionMode != null && MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.INTERACTIONS_FRAGMENT) {
-            mActionMode.finish();
+        if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.INTERACTIONS_FRAGMENT) {
+            finishActionMode();
         }
     }
 }
