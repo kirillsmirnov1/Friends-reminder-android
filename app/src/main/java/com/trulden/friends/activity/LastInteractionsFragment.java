@@ -96,7 +96,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
                         }
 
                         for(LastInteractionWrapper interaction : lastInteractions){
-                            String currentType = interaction.getType().getInteractionTypeName();
+                            String currentType = interaction.getTypeName();
 
                             Objects.requireNonNull(
                                     mLastInteractionsMap.get(currentType)).add(interaction);

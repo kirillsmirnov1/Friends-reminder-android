@@ -68,10 +68,10 @@ public class EditLastInteractionFrequencyDialog extends DialogFragment {
 
         dialog.setOnShowListener(dialogInterface -> {
 
-            String type = mLastInteractionWrapper.getType().getInteractionTypeName();
+            String type = mLastInteractionWrapper.getTypeName();
             String friend = mLastInteractionWrapper.getFriendName();
             long oldFrequency = mLastInteractionWrapper.getLastInteraction().getFrequency();
-            //TODO завернуть getTypeName и getFrequency в wrapper, чтобы не нужно было образаться к внутренним объектам
+            //TODO завернуть getFrequency в wrapper, чтобы не нужно было образаться к внутренним объектам
 
             String hintText = String.format(
                     getString(R.string.current_frequency_type_friend), type, friend, oldFrequency);

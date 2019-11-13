@@ -77,7 +77,7 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
                     mName.setText(interaction.getFriendName());
                     break;
                 case SHOW_TYPE_NAME:
-                    mName.setText(interaction.getType().getInteractionTypeName());
+                    mName.setText(interaction.getTypeName());
                     break;
             }
 

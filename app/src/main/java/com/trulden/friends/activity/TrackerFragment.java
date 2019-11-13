@@ -95,7 +95,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             friendsNameView.setText(friendsName);
 
             ((TextView) view.findViewById(R.id.ft_type))
-                    .setText(mLastInteractionWrapper.getType().getInteractionTypeName());
+                    .setText(mLastInteractionWrapper.getTypeName());
 
             ((TextView) view.findViewById(R.id.ft_time_passed))
                     .setText(daysPassed(mLastInteractionWrapper.getLastInteraction()) + getString(R.string.days_ago));
@@ -148,7 +148,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         createInteractionIcon.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), EditInteractionActivity.class);
             intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
-            intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getType().getInteractionTypeName());
+            intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getTypeName());
             intent.putExtra(EXTRA_INTERACTION_TYPE_ID, mLastInteractionWrapper.getType().getId());
 
             ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
