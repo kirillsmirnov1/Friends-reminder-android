@@ -10,6 +10,7 @@
         <item name="actionModeCloseDrawable">@drawable/ic_clear_24dp</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
