@@ -41,7 +41,7 @@
         <ImageView
             android:id="@+id/eli_hidden_icon"
             card_view:srcCompat="@drawable/ic_visibility_off_24dp"
-            android:tint="@color/black_semi_transparent"
+            android:tint="@color/iconColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

@@ -6,4 +6,6 @@
 
     <color name="textColor">#d9d9d9</color>
 
+    <color name="iconColor">#ffffff</color>
+
 </resources>
