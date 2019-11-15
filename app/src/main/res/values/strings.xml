@@ -95,5 +95,6 @@
     <string name="frequency_cant_be_zero">Frequency can\'t be zero</string>
     <string name="unknown_error_in_frequecny">Unknown error in frequency</string>
     <string name="frequency_cant_be_that_long">Frequency can\'t be longer nine symbols</string>
+    <string name="night_mode">Night mode</string>
 
 </resources>
