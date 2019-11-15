@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -43,6 +44,8 @@ import com.trulden.friends.util.Util;
 import java.util.Calendar;
 import java.util.HashSet;
 
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.*;
 
@@ -129,6 +132,11 @@ public class MainActivity
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
+
+        mViewModel.getNightMode().observe(this, nightMode ->
+                AppCompatDelegate.setDefaultNightMode(
+                        nightMode ? MODE_NIGHT_YES : MODE_NIGHT_NO
+                ));
 
         checkIfTrackerFragmentNeedsToBeShown();
 
