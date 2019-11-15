@@ -31,6 +31,7 @@ public class FriendsViewModel extends AndroidViewModel {
     private LiveData<List<Interaction>> mAllInteractions;
 
     private MutableLiveData<Boolean> mShowHiddenLI;
+    private MutableLiveData<Boolean> mNightMode;
 
     /**
      * Positions of selected elements.
@@ -57,6 +58,7 @@ public class FriendsViewModel extends AndroidViewModel {
         mAllInteractions = mRepository.getAllInteractions();
 
         mShowHiddenLI = new MutableLiveData<>();
+        mNightMode = new MutableLiveData<>();
 
         mSelectedPositions = new HashMap<>();
     }
@@ -156,5 +158,13 @@ public class FriendsViewModel extends AndroidViewModel {
 
     public void checkLastInteractionsReadiness() {
         mRepository.checkLastInteractionsReadiness();
+    }
+
+    public void setNightMode(boolean nightMode) {
+        mNightMode.setValue(nightMode);
+    }
+
+    public boolean getNightModeValue() {
+        return mNightMode.getValue();
     }
 }
