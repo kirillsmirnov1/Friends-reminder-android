@@ -167,4 +167,8 @@ public class FriendsViewModel extends AndroidViewModel {
     public boolean getNightModeValue() {
         return mNightMode.getValue();
     }
+
+    public LiveData<Boolean> getNightMode() {
+        return mNightMode;
+    }
 }
