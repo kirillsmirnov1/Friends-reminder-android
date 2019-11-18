@@ -15,6 +15,7 @@
     <color name="fabColor">#ffffff</color>
     <color name="fabColorPressed">#f1f1f1</color>
     <color name="fabTextColor">#ffffff</color>
+    <color name="fabIconColor">#000000</color>
 
     <color name="dividerColor">#CDCDCD</color>
 
