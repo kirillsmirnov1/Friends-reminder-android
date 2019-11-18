@@ -93,7 +93,7 @@ public class MainActivity
         mViewModel.setShowHiddenLI(
                 mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
 
-        mViewModel.setNightMode(mPreferences.getBoolean(NIGHT_MODE, false));
+        mViewModel.setNightMode(mPreferences.getBoolean(NIGHT_MODE, true));
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
