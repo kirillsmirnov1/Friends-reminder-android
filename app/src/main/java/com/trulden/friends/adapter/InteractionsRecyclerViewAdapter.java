@@ -88,7 +88,12 @@ public class InteractionsRecyclerViewAdapter extends CustomRVAdapter<Interaction
 
             mType.setText(interactionTypeName);
             mDate.setText(formatDate(interaction.getDate()));
-            mNames.setText(generateNameString(interactionWithFriendIDs.friendIDs));
+
+            if(interactionWithFriendIDs.friendNames == null){
+                interactionWithFriendIDs.friendNames = generateNameString(interactionWithFriendIDs.friendIDs);
+            }
+
+            mNames.setText(interactionWithFriendIDs.friendNames);
             mComment.setText(interaction.getComment());
 
             // If there is no comment, hide it's TextView
