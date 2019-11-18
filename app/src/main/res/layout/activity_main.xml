@@ -37,7 +37,7 @@
                 android:layout_marginBottom="8dp"
                 app:fab_addButtonColorNormal="@color/fabColor"
                 app:fab_addButtonColorPressed="@color/fabColorPressed"
-                app:fab_addButtonPlusIconColor="@color/iconActiveColor"
+                app:fab_addButtonPlusIconColor="@color/fabIconColor"
                 app:fab_addButtonSize="normal"
                 app:fab_expandDirection="up"
                 app:fab_labelStyle="@style/menu_labels_style"

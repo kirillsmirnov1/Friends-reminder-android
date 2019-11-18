@@ -12,9 +12,10 @@
     <color name="iconPassiveColor">#979797</color>
     <color name="iconActiveColor">#ffffff</color>
 
-    <color name="fabColor">#000000</color>
-    <color name="fabColorPressed">#434343</color>
+    <color name="fabColor">#ffffff</color>
+    <color name="fabColorPressed">#f1f1f1</color>
     <color name="fabTextColor">#000000</color>
+    <color name="fabIconColor">#000000</color>
 
     <color name="dividerColor">#CDCDCD</color>
 
