@@ -15,6 +15,5 @@
     <color name="dividerColor">#CDCDCD</color>
 
     <color name="cardBackground">#000000</color>
-    <color name="cardBackgroundNotReady">#000000</color>
 
 </resources>
