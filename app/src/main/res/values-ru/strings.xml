@@ -86,5 +86,6 @@
     <string name="unknown_error_in_frequecny">Неизвестная ошибка в частоте</string>
     <string name="frequency_cant_be_that_long">Частота не может быть длиннее 9 символов</string>
     <string name="frequency_cant_be_zero">Частота не может быть нулём</string>
+    <string name="share_interactions">Поделиться взаимодействиями</string>
     <string name="night_mode">Ночной режим</string>
 </resources>
