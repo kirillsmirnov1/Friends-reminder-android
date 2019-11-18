@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
+import com.trulden.friends.activity.interfaces.ShareSelection;
 import com.trulden.friends.adapter.InteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -41,7 +42,11 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Holds selectable {@link Interaction} entries.
  */
-public class InteractionsFragment extends Fragment implements EditAndDeleteSelection {
+public class InteractionsFragment
+    extends Fragment
+    implements
+        EditAndDeleteSelection,
+        ShareSelection {
 
     private FriendsViewModel mViewModel;
     private InteractionsRecyclerViewAdapter mRecyclerViewAdapter;
@@ -192,6 +197,11 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
             mViewModel.delete(interactionWithFriendIDs.interaction, ids);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
+    }
+
+    @Override
+    public void shareSelection() {
+        makeToast(getContext(), "Share!!");
     }
 
     @Override
