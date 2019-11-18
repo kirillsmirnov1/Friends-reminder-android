@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+<!--    All items must be set invisible by default-->
+
+    <item
+        android:id="@+id/ms_share"
+        android:title="Share"
+        android:icon="@drawable/ic_share"
+        android:orderInCategory="0"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
+    <item
+        android:id="@+id/ms_edit"
+        android:title="@string/edit_selection"
+        android:icon="@drawable/ic_edit_white_24dp"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
+    <item
+        android:id="@+id/ms_delete"
+        android:title="@string/delete_selection"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:orderInCategory="2"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
+    <item
+        android:id="@+id/ms_unhide"
+        android:title="Unhide"
+        android:icon="@drawable/ic_visibility_24dp"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
+    <item
+        android:id="@+id/ms_hide"
+        android:title="Hide"
+        android:icon="@drawable/ic_visibility_off_24dp"
+        android:orderInCategory="2"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
+</menu>

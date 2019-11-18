@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
+import com.trulden.friends.activity.interfaces.ShareSelection;
 import com.trulden.friends.adapter.InteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -27,6 +28,7 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
+import com.trulden.friends.util.Util;
 
 import java.util.HashSet;
 
@@ -41,7 +43,11 @@ import static com.trulden.friends.util.Util.makeToast;
 /**
  * Holds selectable {@link Interaction} entries.
  */
-public class InteractionsFragment extends Fragment implements EditAndDeleteSelection {
+public class InteractionsFragment
+    extends Fragment
+    implements
+        EditAndDeleteSelection,
+        ShareSelection {
 
     private FriendsViewModel mViewModel;
     private InteractionsRecyclerViewAdapter mRecyclerViewAdapter;
@@ -155,9 +161,9 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
             mActionMode.invalidate();
 
             if(count == 1){
-                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(true);
+                mActionMode.getMenu().findItem(R.id.ms_edit).setVisible(true);
             } else {
-                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(false);
+                mActionMode.getMenu().findItem(R.id.ms_edit).setVisible(false);
             }
 
         }
@@ -192,6 +198,35 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
             mViewModel.delete(interactionWithFriendIDs.interaction, ids);
         }
         makeToast(getContext(), getString(R.string.toast_notice_interactions_deleted));
+    }
+
+    @Override
+    public void shareSelection() {
+        StringBuilder builder = new StringBuilder();
+
+        for(InteractionWithFriendIDs interactionWithFriendIDs : mRecyclerViewAdapter.getSelectedItems()){
+            builder.append(interactionWithFriendIDs.friendNames).append("\n");
+
+            builder.append(mTypes.get(interactionWithFriendIDs.interaction.getInteractionTypeId()))
+                   .append(getString(R.string.horizontal_divider_dot))
+                   .append(Util.formatDate(interactionWithFriendIDs.interaction.getDate()));
+
+            if(!interactionWithFriendIDs.interaction.getComment().isEmpty()) {
+                builder.append("\n")
+                       .append(interactionWithFriendIDs.interaction.getComment());
+            }
+
+            builder.append("\n\n");
+        }
+
+        builder.delete(builder.lastIndexOf("\n") - 1, builder.lastIndexOf("\n"));
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, builder.toString());
+
+        startActivity(Intent.createChooser(intent, getString(R.string.share_interactions)));
+
     }
 
     @Override

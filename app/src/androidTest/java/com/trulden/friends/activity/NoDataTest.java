@@ -27,7 +27,7 @@ public class NoDataTest extends AbstractMATest {
         onView(withText("Balaam")).perform(click());
         onView(withText("Caleb")).perform(click());
 
-        onView(withId(R.id.msed_delete)).perform(click());
+        onView(withId(R.id.ms_delete)).perform(click());
         onView(withText(android.R.string.ok)).perform(click());
 
         onView(withId(R.id.ff_no_data)).check(matches(isDisplayed()));
@@ -51,7 +51,7 @@ public class NoDataTest extends AbstractMATest {
             onView(withText(i.getComment())).perform(longClick());
         }
 
-        onView(withId(R.id.msed_delete)).perform(click());
+        onView(withId(R.id.ms_delete)).perform(click());
 
         onView(withId(R.id.fi_no_data)).check(matches(isDisplayed()));
 
@@ -79,7 +79,7 @@ public class NoDataTest extends AbstractMATest {
 
         selectAllTypes();
 
-        onView(withId(R.id.msed_delete)).perform(click());
+        onView(withId(R.id.ms_delete)).perform(click());
         onView(withText(android.R.string.ok)).perform(click());
 
         onView(withId(R.id.ait_no_data)).check(matches(isDisplayed()));
@@ -117,7 +117,7 @@ public class NoDataTest extends AbstractMATest {
             onView(withText(f.getName())).perform(longClick());
         }
 
-        onView(withId(R.id.msli_hide)).perform(click());
+        onView(withId(R.id.ms_hide)).perform(click());
 
         sleep(250);
 
