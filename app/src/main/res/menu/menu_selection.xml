@@ -7,6 +7,15 @@
 <!--    All items must be set invisible by default-->
 
     <item
+        android:id="@+id/ms_share"
+        android:title="Share"
+        android:icon="@drawable/ic_share"
+        android:orderInCategory="0"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
+    <item
         android:id="@+id/ms_edit"
         android:title="@string/edit_selection"
         android:icon="@drawable/ic_edit_white_24dp"

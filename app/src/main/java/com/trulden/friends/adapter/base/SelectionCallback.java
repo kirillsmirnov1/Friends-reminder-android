@@ -10,6 +10,7 @@ import com.trulden.friends.activity.interfaces.BasicSelection;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
 import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
 import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
+import com.trulden.friends.activity.interfaces.ShareSelection;
 
 /**
  * Handles choose of selection options
@@ -34,6 +35,10 @@ public class SelectionCallback implements ActionMode.Callback {
         // By default, all options are invisible.
         // Need to set required ones visible
 
+        if(mActivity instanceof ShareSelection){
+            menu.findItem(R.id.ms_share).setVisible(true);
+        }
+
         if(mActivity instanceof EditAndDeleteSelection) {
             menu.findItem(R.id.ms_delete).setVisible(true);
             menu.findItem(R.id.ms_edit).setVisible(true);
@@ -56,6 +61,11 @@ public class SelectionCallback implements ActionMode.Callback {
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.ms_share: {
+                ((ShareSelection) mActivity).shareSelection();
+                mode.finish();
+                return true;
+            }
             case R.id.ms_delete: {
                 ((EditAndDeleteSelection) mActivity).deleteSelection();
 
