@@ -20,4 +20,10 @@ public class InteractionWithFriendIDs implements Entity {
         parentColumn = "id", entityColumn = "interactionId",
         entity = BindFriendInteraction.class, projection = {"friendId"})
     public List<Long> friendIDs;
+
+    /**
+     * Friend names separated by comma.
+     * Filled in {@link com.trulden.friends.adapter.InteractionsRecyclerViewAdapter InteractionsRecyclerViewAdapter}
+     */
+    public String friendNames = null;
 }
