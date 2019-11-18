@@ -102,7 +102,7 @@ public abstract class AbstractTest {
     }
 
     protected void editSelection() {
-        onView(withId(R.id.msed_edit)).perform(click());
+        onView(withId(R.id.ms_edit)).perform(click());
     }
 
     protected void clickSaveOnActionBar() {

@@ -28,12 +28,20 @@ public class SelectionCallback implements ActionMode.Callback {
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+        mode.getMenuInflater().inflate(R.menu.menu_selection, menu);
+
+        // By default, all options are invisible.
+        // Need to set required ones visible
+
         if(mActivity instanceof EditAndDeleteSelection) {
-            mode.getMenuInflater().inflate(R.menu.menu_selection_edit_delete, menu);
+            menu.findItem(R.id.ms_delete).setVisible(true);
+            menu.findItem(R.id.ms_edit).setVisible(true);
         }
 
         if(mActivity instanceof LastInteractionsSelection){
-            mode.getMenuInflater().inflate(R.menu.menu_selection_last_interactions, menu);
+            menu.findItem(R.id.ms_hide).setVisible(true);
+            menu.findItem(R.id.ms_unhide).setVisible(true);
         }
 
         return true;
@@ -48,7 +56,7 @@ public class SelectionCallback implements ActionMode.Callback {
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.msed_delete: {
+            case R.id.ms_delete: {
                 ((EditAndDeleteSelection) mActivity).deleteSelection();
 
                 // Those should handle finish by themselves
@@ -57,17 +65,17 @@ public class SelectionCallback implements ActionMode.Callback {
                 }
                 return true;
             }
-            case R.id.msed_edit: {
+            case R.id.ms_edit: {
                 ((EditAndDeleteSelection) mActivity).editSelection();
                 mode.finish();
                 return true;
             }
-            case R.id.msli_hide: {
+            case R.id.ms_hide: {
                 ((LastInteractionsSelection) mActivity).hideSelection();
                 mode.finish();
                 return true;
             }
-            case R.id.msli_unhide: {
+            case R.id.ms_unhide: {
                 ((LastInteractionsSelection) mActivity).unhideSelection();
                 mode.finish();
                 return true;
