@@ -51,7 +51,7 @@
 
     <style name="menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
-        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColor">@color/fabTextColor</item>
     </style>
 
     <style name="recycler_view">
