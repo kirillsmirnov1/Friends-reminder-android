@@ -219,13 +219,13 @@ public class InteractionsFragment
             builder.append("\n\n");
         }
 
-        builder.delete(builder.lastIndexOf("\n") - 2, builder.lastIndexOf("\n"));
+        builder.delete(builder.lastIndexOf("\n") - 1, builder.lastIndexOf("\n"));
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, builder.toString());
 
-        startActivity(Intent.createChooser(intent, "Share interactions"));
+        startActivity(Intent.createChooser(intent, getString(R.string.share_interactions)));
 
     }
 
