@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#434343</color>
+    <color name="primary">#000000</color>
+    <color name="primaryDark">#434343</color>
 
-    <color name="colorAccent">#F9DB22</color>
-    <color name="colorSelection">#f78100</color>
+    <color name="accent">#F9DB22</color>
+    <color name="selection">#f78100</color>
 
-    <color name="textColor">#d9d9d9</color>
-    <color name="titleTextColor">#ffffff</color>
+    <color name="text">#d9d9d9</color>
+    <color name="titleText">#ffffff</color>
 
-    <color name="iconPassiveColor">#979797</color>
-    <color name="iconActiveColor">#ffffff</color>
+    <color name="iconPassive">#979797</color>
+    <color name="iconActive">#ffffff</color>
 
-    <color name="fabColor">#ffffff</color>
-    <color name="fabColorPressed">#f1f1f1</color>
-    <color name="fabTextColor">#000000</color>
-    <color name="fabIconColor">#000000</color>
+    <color name="fabBackground">#ffffff</color>
+    <color name="fabBackgroundPressed">#f1f1f1</color>
+    <color name="fabText">#000000</color>
+    <color name="fabIcon">#000000</color>
 
-    <color name="dividerColor">#CDCDCD</color>
+    <color name="divider">#CDCDCD</color>
 
     <color name="cardBackground">#000000</color>
 

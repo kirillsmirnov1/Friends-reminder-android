@@ -4,14 +4,14 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:textColorSecondary">@color/titleTextColor</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="titleTextColor">@color/titleTextColor</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:textColorSecondary">@color/titleText</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="titleTextColor">@color/titleText</item>
 
-        <item name="actionModeBackground">@color/colorPrimaryDark</item>
+        <item name="actionModeBackground">@color/primaryDark</item>
         <item name="actionModeStyle">@style/AppTheme.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_clear_24dp</item>
         <item name="windowActionModeOverlay">true</item>
@@ -23,11 +23,11 @@
     </style>
 
     <style name="AppTheme.ActionMode.TextStyle" parent="TextAppearance.AppCompat.Widget.ActionMode.Title">
-        <item name="android:textColor">@color/titleTextColor</item>
+        <item name="android:textColor">@color/titleText</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
-        <item name="colorControlNormal">@color/titleTextColor</item>
+        <item name="colorControlNormal">@color/titleText</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -51,7 +51,7 @@
 
     <style name="menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
-        <item name="android:textColor">@color/fabTextColor</item>
+        <item name="android:textColor">@color/fabText</item>
     </style>
 
     <style name="recycler_view">
@@ -79,7 +79,7 @@
     <style name="horizontal_divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/dividerColor</item>
+        <item name="android:background">@color/divider</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
     </style>
