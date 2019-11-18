@@ -12,9 +12,18 @@
         <item name="titleTextColor">@color/titleTextColor</item>
 
         <item name="actionModeBackground">@color/colorPrimaryDark</item>
+        <item name="actionModeStyle">@style/AppTheme.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_clear_24dp</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>
+    </style>
+
+    <style name="AppTheme.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">@style/AppTheme.ActionMode.TextStyle</item>
+    </style>
+
+    <style name="AppTheme.ActionMode.TextStyle" parent="TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textColor">@color/titleTextColor</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
