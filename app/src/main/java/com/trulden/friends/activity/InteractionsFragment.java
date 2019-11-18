@@ -216,10 +216,10 @@ public class InteractionsFragment
                        .append(interactionWithFriendIDs.interaction.getComment());
             }
 
-            builder.append("\n");
+            builder.append("\n\n");
         }
 
-        builder.deleteCharAt(builder.lastIndexOf("\n"));
+        builder.delete(builder.lastIndexOf("\n") - 2, builder.lastIndexOf("\n"));
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
