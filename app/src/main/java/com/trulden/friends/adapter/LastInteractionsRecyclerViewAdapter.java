@@ -91,7 +91,7 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
 
             // Grey out LI for which time have not yet come
             if(!interaction.itsTime()) {
-                mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_grey));
+                mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background_not_ready));
             } else {
                 mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background));
             }
