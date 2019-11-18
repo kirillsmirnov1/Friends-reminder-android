@@ -28,6 +28,7 @@ import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.FriendName;
 import com.trulden.friends.database.wrappers.InteractionWithFriendIDs;
+import com.trulden.friends.util.Util;
 
 import java.util.HashSet;
 
@@ -201,7 +202,31 @@ public class InteractionsFragment
 
     @Override
     public void shareSelection() {
-        makeToast(getContext(), "Share!!");
+        StringBuilder builder = new StringBuilder();
+
+        for(InteractionWithFriendIDs interactionWithFriendIDs : mRecyclerViewAdapter.getSelectedItems()){
+            builder.append(interactionWithFriendIDs.friendNames).append("\n");
+
+            builder.append(mTypes.get(interactionWithFriendIDs.interaction.getInteractionTypeId()))
+                   .append(getString(R.string.horizontal_divider_dot))
+                   .append(Util.formatDate(interactionWithFriendIDs.interaction.getDate()));
+
+            if(!interactionWithFriendIDs.interaction.getComment().isEmpty()) {
+                builder.append("\n")
+                       .append(interactionWithFriendIDs.interaction.getComment());
+            }
+
+            builder.append("\n");
+        }
+
+        builder.deleteCharAt(builder.lastIndexOf("\n"));
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, builder.toString());
+
+        startActivity(Intent.createChooser(intent, "Share interactions"));
+
     }
 
     @Override
