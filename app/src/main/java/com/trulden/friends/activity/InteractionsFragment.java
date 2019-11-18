@@ -155,9 +155,9 @@ public class InteractionsFragment extends Fragment implements EditAndDeleteSelec
             mActionMode.invalidate();
 
             if(count == 1){
-                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(true);
+                mActionMode.getMenu().findItem(R.id.ms_edit).setVisible(true);
             } else {
-                mActionMode.getMenu().findItem(R.id.msed_edit).setVisible(false);
+                mActionMode.getMenu().findItem(R.id.ms_edit).setVisible(false);
             }
 
         }
