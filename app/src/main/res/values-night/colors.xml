@@ -4,7 +4,8 @@
     <color name="primaryDark">#434343</color>
 
     <color name="accent">#F9DB22</color>
-    <color name="selection">#f78100</color>
+
+    <color name="selection">#0000c6</color>
 
     <color name="text">#979797</color>
     <color name="titleText">#ffffff</color>
