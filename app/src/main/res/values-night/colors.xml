@@ -9,7 +9,7 @@
     <color name="textColor">#d9d9d9</color>
     <color name="titleTextColor">#ffffff</color>
 
-    <color name="iconColor">#ffffff</color>
+    <color name="iconPassiveColor">#ffffff</color>
 
     <color name="fabColor">#000000</color>
     <color name="fabColorPressed">#434343</color>
