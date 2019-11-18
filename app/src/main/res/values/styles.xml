@@ -16,6 +16,12 @@
         <item name="actionModeCloseDrawable">@drawable/ic_clear_24dp</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>
+
+        <item name="editTextStyle">@style/AppTheme.EditTextStyle</item>
+    </style>
+
+    <style name="AppTheme.EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint">@drawable/edit_text_colors</item>
     </style>
 
     <style name="AppTheme.ActionMode" parent="Widget.AppCompat.ActionMode">
