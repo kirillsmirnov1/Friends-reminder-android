@@ -12,5 +12,8 @@
     <color name="fabColor">#ffffff</color>
     <color name="fabColorPressed">#f1f1f1</color>
 
-    <color name="light_grey">#CDCDCD</color>
+    <color name="dividerColor">#CDCDCD</color>
+
+    <color name="cardBackground">#ffffff</color>
+    <color name="cardBackgroundNotReady">#CDCDCD</color>
 </resources>

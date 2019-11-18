@@ -12,4 +12,9 @@
     <color name="fabColor">#000000</color>
     <color name="fabColorPressed">#434343</color>
 
+    <color name="dividerColor">#CDCDCD</color>
+
+    <color name="cardBackground">#434343</color>
+    <color name="cardBackgroundNotReady">#000000</color>
+
 </resources>
