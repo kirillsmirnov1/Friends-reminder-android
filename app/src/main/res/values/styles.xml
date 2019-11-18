@@ -15,7 +15,7 @@
         <item name="actionModeStyle">@style/AppTheme.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_clear_24dp</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>
+        <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlowButton</item>
 
         <item name="editTextStyle">@style/AppTheme.EditTextStyle</item>
     </style>
@@ -41,7 +41,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.OverFlow">
+    <style name="AppTheme.OverFlowButton">
         <item name="android:src">@drawable/ic_more_vert_24dp</item>
         <item name="android:padding">10dp</item>
     </style>
