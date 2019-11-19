@@ -99,6 +99,8 @@ public class MainActivity
         setSupportActionBar(mToolbar);
         setToolbarTitle();
 
+        mToolbar.setPopupTheme(R.style.AppTheme_PopupMenu);
+
         mTrackerOverLayout = findViewById(R.id.am_tracker_over_layout);
 
         if(getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD) != null){

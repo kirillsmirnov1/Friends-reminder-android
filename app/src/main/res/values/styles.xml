@@ -20,6 +20,11 @@
         <item name="editTextStyle">@style/AppTheme.EditTextStyle</item>
     </style>
 
+    <style name="AppTheme.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/textContrast</item>
+        <item name="android:textColorSecondary">@color/text</item>
+    </style>
+
     <style name="AppTheme.EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="backgroundTint">@drawable/edit_text_colors</item>
     </style>
