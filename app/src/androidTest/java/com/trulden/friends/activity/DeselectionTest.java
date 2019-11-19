@@ -216,7 +216,7 @@ public class DeselectionTest extends AbstractMATest {
 
         ViewInteraction textView = checkSelectionCounterValue("2");
 
-        onView(withId(R.id.ms_delete)).perform(click());
+        onView(withId(R.id.mam_delete)).perform(click());
         onView(withText(android.R.string.ok)).perform(click());
 
         sleep(250);
@@ -237,7 +237,7 @@ public class DeselectionTest extends AbstractMATest {
 
         ViewInteraction textView = checkSelectionCounterValue("1");
 
-        onView(withId(R.id.ms_delete)).perform(click());
+        onView(withId(R.id.mam_delete)).perform(click());
         onView(withText(android.R.string.ok)).perform(click());
 
         textView.check(matches(not(isDisplayed())));
@@ -441,7 +441,7 @@ public class DeselectionTest extends AbstractMATest {
 
         onView(withText("Meeting")).perform(longClick());
 
-        onView(withId(R.id.ms_delete)).perform(click());
+        onView(withId(R.id.mam_delete)).perform(click());
 
         onView(withText(android.R.string.cancel)).perform(click());
 
@@ -454,7 +454,7 @@ public class DeselectionTest extends AbstractMATest {
 
         onView(withText("Caleb")).perform(longClick());
 
-        onView(withId(R.id.ms_delete)).perform(click());
+        onView(withId(R.id.mam_delete)).perform(click());
 
         onView(withText(android.R.string.cancel)).perform(click());
 
@@ -498,7 +498,7 @@ public class DeselectionTest extends AbstractMATest {
     }
 
     private void deleteSelection() {
-        onView(withId(R.id.ms_delete)).perform(click());
+        onView(withId(R.id.mam_delete)).perform(click());
     }
 
     private void clickSaveOnDialog() {

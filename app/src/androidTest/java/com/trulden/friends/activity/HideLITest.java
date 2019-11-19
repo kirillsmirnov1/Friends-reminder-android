@@ -37,7 +37,7 @@ public class HideLITest extends AbstractMATest {
 
         onView(withText("Caleb")).perform(longClick());
 
-        onView(withId(R.id.ms_hide)).perform(click());
+        onView(withId(R.id.mam_hide)).perform(click());
 
         sleep(250);
 
@@ -72,7 +72,7 @@ public class HideLITest extends AbstractMATest {
         onView(withText("Caleb")).perform(longClick());
         onView(withText("Aaron")).perform(click());
 
-        onView(withId(R.id.ms_hide)).perform(click());
+        onView(withId(R.id.mam_hide)).perform(click());
 
         sleep(250);
 
@@ -93,7 +93,7 @@ public class HideLITest extends AbstractMATest {
 
         onView(withText("Caleb")).perform(longClick());
 
-        onView(withId(R.id.ms_edit)).perform(click());
+        onView(withId(R.id.mam_edit)).perform(click());
 
         onView(withId(R.id.aei_edit_date)).perform(click());
 
@@ -118,7 +118,7 @@ public class HideLITest extends AbstractMATest {
         openInteractions();
 
         onView(withText("Aaron, Caleb")).perform(longClick());
-        onView(withId(R.id.ms_delete)).perform(click());
+        onView(withId(R.id.mam_delete)).perform(click());
 
         openLastInteractions();
 
@@ -135,7 +135,7 @@ public class HideLITest extends AbstractMATest {
 
         onView(withText("Caleb")).perform(longClick());
 
-        onView(withId(R.id.ms_hide)).perform(click());
+        onView(withId(R.id.mam_hide)).perform(click());
 
         sleep(250);
 
