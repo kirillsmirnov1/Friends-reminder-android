@@ -30,23 +30,23 @@ public class SelectionCallback implements ActionMode.Callback {
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 
-        mode.getMenuInflater().inflate(R.menu.menu_selection, menu);
+        mode.getMenuInflater().inflate(R.menu.menu_action_mode, menu);
 
         // By default, all options are invisible.
         // Need to set required ones visible
 
         if(mActivity instanceof ShareSelection){
-            menu.findItem(R.id.ms_share).setVisible(true);
+            menu.findItem(R.id.mam_share).setVisible(true);
         }
 
         if(mActivity instanceof EditAndDeleteSelection) {
-            menu.findItem(R.id.ms_delete).setVisible(true);
-            menu.findItem(R.id.ms_edit).setVisible(true);
+            menu.findItem(R.id.mam_delete).setVisible(true);
+            menu.findItem(R.id.mam_edit).setVisible(true);
         }
 
         if(mActivity instanceof LastInteractionsSelection){
-            menu.findItem(R.id.ms_hide).setVisible(true);
-            menu.findItem(R.id.ms_unhide).setVisible(true);
+            menu.findItem(R.id.mam_hide).setVisible(true);
+            menu.findItem(R.id.mam_unhide).setVisible(true);
         }
 
         return true;
@@ -61,12 +61,12 @@ public class SelectionCallback implements ActionMode.Callback {
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.ms_share: {
+            case R.id.mam_share: {
                 ((ShareSelection) mActivity).shareSelection();
                 mode.finish();
                 return true;
             }
-            case R.id.ms_delete: {
+            case R.id.mam_delete: {
                 ((EditAndDeleteSelection) mActivity).deleteSelection();
 
                 // Those should handle finish by themselves
@@ -75,17 +75,17 @@ public class SelectionCallback implements ActionMode.Callback {
                 }
                 return true;
             }
-            case R.id.ms_edit: {
+            case R.id.mam_edit: {
                 ((EditAndDeleteSelection) mActivity).editSelection();
                 mode.finish();
                 return true;
             }
-            case R.id.ms_hide: {
+            case R.id.mam_hide: {
                 ((LastInteractionsSelection) mActivity).hideSelection();
                 mode.finish();
                 return true;
             }
-            case R.id.ms_unhide: {
+            case R.id.mam_unhide: {
                 ((LastInteractionsSelection) mActivity).unhideSelection();
                 mode.finish();
                 return true;

@@ -70,7 +70,7 @@ public class LastInteractionTest extends AbstractMATest {
         openInteractions();
 
         onView(withText("A + B")).perform(longClick());
-        onView(withId(R.id.ms_delete)).perform(click());
+        onView(withId(R.id.mam_delete)).perform(click());
 
         openLastInteractions();
 
@@ -81,7 +81,7 @@ public class LastInteractionTest extends AbstractMATest {
         openInteractions();
 
         onView(withText("B + C")).perform(longClick());
-        onView(withId(R.id.ms_delete)).perform(click());
+        onView(withId(R.id.mam_delete)).perform(click());
 
         openLastInteractions();
 
