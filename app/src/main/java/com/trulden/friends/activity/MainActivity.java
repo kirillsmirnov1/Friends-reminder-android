@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -43,6 +44,8 @@ import com.trulden.friends.util.Util;
 import java.util.Calendar;
 import java.util.HashSet;
 
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.*;
 
@@ -62,6 +65,7 @@ public class MainActivity
     private boolean mTrackerOverShown = false;
 
     private static final String SHOW_HIDDEN_LAST_INTERACTION_ENTRIES = "SHOW_HIDDEN_LAST_INTERACTION_ENTRIES";
+    private static final String NIGHT_MODE = "Night mode";
 
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
@@ -89,9 +93,13 @@ public class MainActivity
         mViewModel.setShowHiddenLI(
                 mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
 
+        mViewModel.setNightMode(mPreferences.getBoolean(NIGHT_MODE, false));
+
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setToolbarTitle();
+
+        mToolbar.setPopupTheme(R.style.AppTheme_PopupMenu);
 
         mTrackerOverLayout = findViewById(R.id.am_tracker_over_layout);
 
@@ -126,6 +134,11 @@ public class MainActivity
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
+
+        mViewModel.getNightMode().observe(this, nightMode ->
+                AppCompatDelegate.setDefaultNightMode(
+                        nightMode ? MODE_NIGHT_YES : MODE_NIGHT_NO
+                ));
 
         checkIfTrackerFragmentNeedsToBeShown();
 
@@ -175,6 +188,7 @@ public class MainActivity
         mPreferences
             .edit()
             .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mViewModel.getShowHiddenLIValue())
+            .putBoolean(NIGHT_MODE, mViewModel.getNightModeValue())
             .apply();
 
         super.onPause();
@@ -201,6 +215,9 @@ public class MainActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.mm_show_hidden_li).setChecked(mViewModel.getShowHiddenLIValue());
         menu.findItem(R.id.mm_show_hidden_li).setVisible(mFragmentToLoad == FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
+
+        menu.findItem(R.id.mm_night_mode).setChecked(mViewModel.getNightModeValue());
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -231,9 +248,20 @@ public class MainActivity
             }
 
             case R.id.mm_show_hidden_li: {
-                mViewModel.setShowHiddenLI(!item.isChecked());
+                boolean checkedStatus = !item.isChecked();
 
-                item.setChecked(mViewModel.getShowHiddenLIValue());
+                mViewModel.setShowHiddenLI(checkedStatus);
+                item.setChecked(checkedStatus);
+
+                return true;
+            }
+
+            case R.id.mm_night_mode: {
+                boolean checkedStatus = !item.isChecked();
+
+                mViewModel.setNightMode(checkedStatus);
+                item.setChecked(checkedStatus);
+
                 return true;
             }
 

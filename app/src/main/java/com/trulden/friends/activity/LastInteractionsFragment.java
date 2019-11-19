@@ -184,7 +184,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
      * Save selected tab position so it can be reopened later
      */
     void saveSelectedTab(){
-        int tabPos = mTabLayout.getSelectedTabPosition();
+        int tabPos = mTabLayout == null ? 0 : mTabLayout.getSelectedTabPosition();
 
         mViewModel.setSelectedLITabPos(tabPos);
     }

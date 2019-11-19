@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#F9DB22</color>
+    <color name="primary">#008577</color>
+    <color name="primaryDark">#00574B</color>
 
-    <color name="black_semi_transparent">#B2000000</color>
-    <color name="half_black">#808080</color>
-    <color name="white">#fafafa</color>
-    <color name="white_pressed">#f1f1f1</color>
-    <color name="light_grey">#CDCDCD</color>
+    <color name="accent">#FFBC42</color>
+
+    <color name="selection">#00DDFF</color>
+
+    <color name="text">#757575</color>
+    <color name="textContrast">#000000</color>
+    <color name="titleText">#ffffff</color>
+
+    <color name="iconPassive">#757575</color>
+    <color name="iconActive">#000000</color>
+
+    <color name="fabBackground">#ffffff</color>
+    <color name="fabBackgroundPressed">#f1f1f1</color>
+    <color name="fabText">#ffffff</color>
+    <color name="fabIcon">#000000</color>
+
+    <color name="divider">#CDCDCD</color>
+
+    <color name="cardBackground">#ffffff</color>
 </resources>

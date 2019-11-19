@@ -12,6 +12,14 @@
 <!--    />-->
 
     <item
+        android:orderInCategory="7"
+        android:id="@+id/mm_night_mode"
+        android:title="@string/night_mode"
+        app:showAsAction="never"
+        android:checkable="true"
+        />
+
+    <item
         android:orderInCategory="8"
         android:id="@+id/mm_show_hidden_li"
         android:title="@string/show_hidden_li_entries"

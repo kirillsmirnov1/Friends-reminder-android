@@ -38,7 +38,7 @@
             <ImageView
                 android:id="@+id/ft_change_frequency_icon"
                 app:srcCompat="@drawable/ic_time_24dp"
-                android:tint="@color/black_semi_transparent"
+                android:tint="@color/iconActive"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_visibility_off_24dp"
-                android:tint="@color/black_semi_transparent"
+                android:tint="@color/iconActive"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
                 />
@@ -58,7 +58,7 @@
             <ImageView
                 android:id="@+id/ft_create_interaction_icon"
                 app:srcCompat="@drawable/ic_add_24dp"
-                android:tint="@color/black_semi_transparent"
+                android:tint="@color/iconActive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="4dp"

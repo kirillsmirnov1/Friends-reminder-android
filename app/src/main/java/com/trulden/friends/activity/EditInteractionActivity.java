@@ -81,6 +81,7 @@ public class EditInteractionActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_interaction);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         mSaveHandler.restoreState(savedInstanceState);
 
@@ -124,7 +125,7 @@ public class EditInteractionActivity
             spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
             mTypeSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
-                    android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
+                    R.layout.spinner_item, spinnerOptions);
 
             if(mType != null) {
                 mType.setAdapter(mTypeSpinnerAdapter);

@@ -35,6 +35,7 @@
 
             <Spinner
                 android:id="@+id/aei_type_spinner"
+                app:backgroundTint="@color/textContrast"
                 />
         </TableRow>
 
@@ -80,6 +81,7 @@
                 android:inputType="textPersonName|textCapWords|textMultiLine"
                 android:hint="@string/hint_enter_friends"
                 android:ems="10"
+                android:backgroundTint="@drawable/edit_text_colors"
                 />
         </TableRow>
 

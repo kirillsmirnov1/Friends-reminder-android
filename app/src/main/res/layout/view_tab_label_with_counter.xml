@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:background="@color/colorPrimary"
+    android:background="@color/primary"
     >
 
     <TextView
@@ -14,7 +14,7 @@
         tools:text="Inter. type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
+        android:textColor="@color/titleText"
         android:layout_margin="4dp"
         android:layout_gravity="center"
         />
@@ -25,7 +25,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:background="@drawable/circle"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/primary"
         android:layout_margin="4dp"
         android:gravity="center"
         />

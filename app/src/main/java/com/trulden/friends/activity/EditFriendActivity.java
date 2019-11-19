@@ -40,6 +40,7 @@ public class EditFriendActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_friend);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         FriendsViewModel friendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
         friendsViewModel.getAllFriends().observe(this, friends -> mFriends = friends);
