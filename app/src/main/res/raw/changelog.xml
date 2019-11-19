@@ -1,5 +1,12 @@
 <changelog>
 
+    <release versionCode="25" versionName="Version 1.2.2">
+        <new>Night mode</new>
+        <new>Sharing interactions</new>
+        <info>Long click on interaction in journal and press «share» icon</info>
+        <new>Yellow app icon</new>
+    </release>
+
     <release versionCode="24" versionName="Version 1.2.1">
         <info>• In Edit Friend window old name is displayed at top of the screen.</info>
         <info>• Specified error messages on frequency edit.</info>
