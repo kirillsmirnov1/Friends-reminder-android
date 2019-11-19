@@ -162,6 +162,9 @@ public class FriendPageActivity
 
         getMenuInflater().inflate(R.menu.menu_selection, menu);
 
+        menu.findItem(R.id.ms_edit).setVisible(true);
+        menu.findItem(R.id.ms_delete).setVisible(true);
+
         return super.onCreateOptionsMenu(menu);
     }
 
