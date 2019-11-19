@@ -217,6 +217,20 @@ public class CRUDTest extends AbstractMATest {
     }
 
     @Test
+    public void updateFriendFromFPATest(){
+        openFriends();
+        onView(withText("Aaron")).perform(click());
+
+        onView(withId(R.id.ms_edit)).perform(click());
+
+        onView(withId(R.id.aef_edit_name)).perform(replaceText("August"));
+        onView(withId(R.id.ms_save)).perform(click());
+
+        onView(withText("Aaron")).check(doesNotExist());
+        onView(withText("August")).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void updateInteractionTest(){
 
         Calendar yesterday = Calendar.getInstance();
@@ -335,6 +349,15 @@ public class CRUDTest extends AbstractMATest {
                 hasSibling(withText(caleb)),
                 not(hasSibling(withText(aaron)))
         )));
+    }
+
+    @Test
+    public void deleteFriendFromFPATest(){
+        openFriends();
+        onView(withText("Aaron")).perform(click());
+        onView(withId(R.id.ms_delete)).perform(click());
+
+        onView(withText("Aaron")).check(doesNotExist());
     }
 
     @Test
