@@ -99,7 +99,7 @@ public class OpenActivitiesTest extends AbstractMATest {
 
         sleep(250);
 
-        onView(childAtPosition(withId(R.id.action_bar),0))
+        onView(childAtPosition(withId(R.id.toolbar),0))
                 .check(matches(withText("Aaron")));
 
         onView(withId(R.id.afp_notes)).check(matches(withText(friend.getInfo())));
