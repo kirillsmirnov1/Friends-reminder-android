@@ -8,6 +8,7 @@
     <color name="selection">#0000c6</color>
 
     <color name="text">#979797</color>
+    <color name="textContrast">#ffffff</color>
     <color name="titleText">#ffffff</color>
 
     <color name="iconPassive">#979797</color>
