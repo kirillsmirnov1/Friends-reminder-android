@@ -22,7 +22,10 @@
                 android:value="com.trulden.friends.activity.MainActivity" />
         </activity>
 
-        <activity android:name=".activity.FriendPageActivity" />
+        <activity
+            android:name=".activity.FriendPageActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
 
         <activity
             android:name=".activity.EditFriendActivity"

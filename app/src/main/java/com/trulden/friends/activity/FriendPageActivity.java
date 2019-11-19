@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,11 +64,15 @@ public class FriendPageActivity
 
     private boolean mTrackerOverShown;
     private TrackerFragment mTrackerOverFragment;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_page);
+
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
@@ -141,7 +146,7 @@ public class FriendPageActivity
 
     private void setFriendInfo(Friend friend){
         mFriend = friend;
-        Objects.requireNonNull(getSupportActionBar()).setTitle(friend.getName());
+        mToolbar.setTitle(friend.getName());
         mPersonNotes.setText(friend.getInfo());
 
         if(friend.getInfo().isEmpty()){
