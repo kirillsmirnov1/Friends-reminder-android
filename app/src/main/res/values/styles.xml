@@ -18,6 +18,13 @@
         <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlowButton</item>
 
         <item name="editTextStyle">@style/AppTheme.EditTextStyle</item>
+
+        <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowTitleStyle">@style/TextAppearance.AppCompat.Title</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
     <style name="AppTheme.PopupMenu" parent="Widget.AppCompat.PopupMenu">
