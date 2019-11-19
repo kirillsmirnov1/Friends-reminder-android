@@ -97,5 +97,8 @@
     <string name="frequency_cant_be_that_long">Frequency can\'t be longer nine symbols</string>
     <string name="share_interactions">Share interactions</string>
     <string name="night_mode">Night mode</string>
+    <string name="share">Share</string>
+    <string name="hide">Hide</string>
+    <string name="unhide">Unhide</string>
 
 </resources>

@@ -88,4 +88,7 @@
     <string name="frequency_cant_be_zero">Частота не может быть нулём</string>
     <string name="share_interactions">Поделиться взаимодействиями</string>
     <string name="night_mode">Ночной режим</string>
+    <string name="share">Поделиться</string>
+    <string name="hide">Скрыть</string>
+    <string name="unhide">Сделать видимым</string>
 </resources>
