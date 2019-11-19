@@ -125,7 +125,7 @@ public class EditInteractionActivity
             spinnerOptions[spinnerOptions.length-1] = getString(R.string.add_new_interaction_type);
 
             mTypeSpinnerAdapter = new ArrayAdapter<>(getBaseContext(),
-                    android.R.layout.simple_spinner_dropdown_item, spinnerOptions);
+                    R.layout.spinner_item, spinnerOptions);
 
             if(mType != null) {
                 mType.setAdapter(mTypeSpinnerAdapter);
