@@ -24,6 +24,7 @@ import tools.fastlane.screengrab.locale.LocaleTestRule;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.wipeDatabaseFiles;
 
@@ -34,7 +35,9 @@ public class ScreenshotTest {
 
     @ClassRule
     public static final LocaleTestRule localTestRule = new LocaleTestRule();
+
     private String mLanguage;
+    private String mFriend;
 
     @Before
     public void setUp(){
@@ -49,12 +52,12 @@ public class ScreenshotTest {
         switch (mLanguage){
             case "ru":
                 uriString = "content://com.android.externalstorage.documents/document/131B-0B08%3ADownload%2Ffriends_db_%D0%BF%D0%BE%D1%8D%D1%82%D1%8B.zip";
+                mFriend = "Максим Горький";
                 break;
             case "en":
-                uriString = "content://com.android.externalstorage.documents/document/131B-0B08%3ADownload%2Ffriends_db_stoics.zip";
-                break;
             default:
                 uriString = "content://com.android.externalstorage.documents/document/131B-0B08%3ADownload%2Ffriends_db_stoics.zip";
+                mFriend = "Seneca";
         }
 
         Activity activity = TestUtil.getActivityInstance();
@@ -76,6 +79,13 @@ public class ScreenshotTest {
         sleep(500);
 
         Screengrab.screenshot(mLanguage + "_journal");
+
+        onView(withId(R.id.mbn_friends)).perform(click());
+
+        onView(withText(mFriend)).perform(click());
+        sleep(500);;
+
+        Screengrab.screenshot(mLanguage + "_friend");
     }
 
     private void sleep(int millis){
