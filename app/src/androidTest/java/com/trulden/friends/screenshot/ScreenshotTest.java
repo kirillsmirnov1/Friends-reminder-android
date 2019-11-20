@@ -15,6 +15,8 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Locale;
+
 import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
 import tools.fastlane.screengrab.locale.LocaleTestRule;
@@ -32,12 +34,28 @@ public class ScreenshotTest {
 
     @ClassRule
     public static final LocaleTestRule localTestRule = new LocaleTestRule();
+    private String mLanguage;
 
     @Before
     public void setUp(){
         Screengrab.setDefaultScreenshotStrategy(new UiAutomatorScreenshotStrategy());
 
-        String uriString = "content://com.android.externalstorage.documents/document/131B-0B08%3ADownload%2Ffriends_db_stoics.zip";
+        mLanguage = Locale.getDefault().getLanguage();
+
+        String uriString;
+
+        // Paths taken by debugging MainActivity.importDatabaseFromUri
+
+        switch (mLanguage){
+            case "ru":
+                uriString = "content://com.android.externalstorage.documents/document/131B-0B08%3ADownload%2Ffriends_db_%D0%BF%D0%BE%D1%8D%D1%82%D1%8B.zip";
+                break;
+            case "en":
+                uriString = "content://com.android.externalstorage.documents/document/131B-0B08%3ADownload%2Ffriends_db_stoics.zip";
+                break;
+            default:
+                uriString = "content://com.android.externalstorage.documents/document/131B-0B08%3ADownload%2Ffriends_db_stoics.zip";
+        }
 
         Activity activity = TestUtil.getActivityInstance();
 
@@ -52,12 +70,12 @@ public class ScreenshotTest {
     @Test
     public void captureScreen(){
         sleep(500);
-        Screengrab.screenshot("trackers");
+        Screengrab.screenshot(mLanguage + "_trackers");
 
         onView(withId(R.id.mbn_interactions)).perform(click());
         sleep(500);
 
-        Screengrab.screenshot("journal");
+        Screengrab.screenshot(mLanguage + "_journal");
     }
 
     private void sleep(int millis){
