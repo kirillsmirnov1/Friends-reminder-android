@@ -8,3 +8,7 @@ tests_apk_path('app/build/outputs/apk/androidTest/debug/friends-v' + version + '
 locales(['en-US', 'ru-RU'])
 
 test_instrumentation_runner 'androidx.test.runner.AndroidJUnitRunner'
+
+output_directory 'Screenshots'
+
+use_timestamp_suffix false
