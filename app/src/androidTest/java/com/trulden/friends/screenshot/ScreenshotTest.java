@@ -95,8 +95,12 @@ public class ScreenshotTest {
 
         onView(withId(R.id.mbn_friends)).perform(click());
 
-        onView(withText(mFriend)).perform(click());
-        sleep(500);;
+        try {
+            onView(withText(mFriend)).perform(click());
+        } catch (Exception e){
+
+        }
+        sleep(500);
 
         Screengrab.screenshot(mLanguage + "_friend");
     }
