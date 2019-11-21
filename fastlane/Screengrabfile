@@ -1,0 +1,10 @@
+version = '1.2.2'
+
+use_tests_in_packages(['com.trulden.friends.screenshot'])
+
+app_apk_path('app/build/outputs/apk/debug/friends-v' + version + '-debug.apk')
+tests_apk_path('app/build/outputs/apk/androidTest/debug/friends-v' + version + '-debug-androidTest.apk')
+
+locales(['en-US', 'ru-RU'])
+
+test_instrumentation_runner 'androidx.test.runner.AndroidJUnitRunner'
