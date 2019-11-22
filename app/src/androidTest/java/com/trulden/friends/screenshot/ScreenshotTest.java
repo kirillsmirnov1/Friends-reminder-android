@@ -88,6 +88,13 @@ public class ScreenshotTest {
         sleep(500);
         Screengrab.screenshot(mLanguage + "_trackers");
 
+        onView(allOf(withText(mFriend), isDisplayed())).perform(click());
+        sleep(500);
+        Screengrab.screenshot(mLanguage + "_tracker");
+
+        Espresso.pressBack();
+        sleep(500);
+
         onView(withId(R.id.mbn_interactions)).perform(click());
         sleep(500);
 
