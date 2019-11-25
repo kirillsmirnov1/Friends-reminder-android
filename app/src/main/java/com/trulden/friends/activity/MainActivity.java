@@ -332,6 +332,7 @@ public class MainActivity
 
                     // Getting data from intent
 
+                    @SuppressWarnings("unchecked")
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
@@ -342,6 +343,8 @@ public class MainActivity
 
             case UPDATE_INTERACTION_REQUEST: {
                 if (resultCode == RESULT_OK && resultingIntent != null) {
+
+                    @SuppressWarnings("unchecked")
                     HashSet<Long> friendsIds = (HashSet<Long>)
                             resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
 
