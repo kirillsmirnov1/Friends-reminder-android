@@ -150,6 +150,7 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                saveSelectedTab();
 
                 for(int i = 0; i < mTypes.size(); ++i){
                     getTabFragment(i).finishActionMode();
