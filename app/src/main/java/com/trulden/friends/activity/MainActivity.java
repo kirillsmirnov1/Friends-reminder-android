@@ -59,8 +59,6 @@ public class MainActivity
             BottomNavigationView.OnNavigationItemSelectedListener,
             TrackerOverActivity {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
-
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
     private boolean mTrackerOverShown = false;
 
