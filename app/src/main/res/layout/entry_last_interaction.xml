@@ -9,7 +9,7 @@
     style="@style/card"
     >
 
-    <RelativeLayout
+    <com.trulden.friends.view.FadebleRelativeLayout
         android:id="@+id/eli_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -61,6 +61,6 @@
             android:layout_height="wrap_content"
             />
 
-    </RelativeLayout>
+    </com.trulden.friends.view.FadebleRelativeLayout>
 
 </androidx.cardview.widget.CardView>
