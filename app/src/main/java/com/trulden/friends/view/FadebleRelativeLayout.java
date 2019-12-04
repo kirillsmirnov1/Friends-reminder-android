@@ -1,6 +1,7 @@
 package com.trulden.friends.view;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,14 @@ public class FadebleRelativeLayout extends RelativeLayout {
 
     public FadebleRelativeLayout(@NonNull Context context) {
         super(context);
+    }
+
+    public FadebleRelativeLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public FadebleRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override
