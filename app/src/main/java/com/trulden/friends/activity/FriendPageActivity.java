@@ -162,6 +162,8 @@ public class FriendPageActivity
 
         getMenuInflater().inflate(R.menu.menu_action_mode, menu);
 
+        menu.findItem(R.id.mam_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.findItem(R.id.mam_edit).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.findItem(R.id.mam_edit).setVisible(true);
         menu.findItem(R.id.mam_delete).setVisible(true);
 

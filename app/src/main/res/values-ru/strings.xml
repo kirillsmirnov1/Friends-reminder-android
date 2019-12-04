@@ -9,8 +9,8 @@
     <string name="hint_enter_date">Введи дату</string>
     <string name="hint_enter_friends">Введи имена друзей</string>
     <string name="hint_interaction_comment">Опиши взаимодействие</string>
-    <string name="delete_selection">Удалить выбранное</string>
-    <string name="edit_selection">Изменить выбранное</string>
+    <string name="delete_selection">Удалить</string>
+    <string name="edit_selection">Изменить</string>
     <string name="export_database">Выгрузить данные</string>
     <string name="frequency_of_interaction">Частота взаимодействия в днях</string>
     <string name="friend_name">Имя друга</string>
