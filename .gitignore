@@ -73,6 +73,7 @@ fabric.properties
 *.nar
 *.ear
 *.zip
+!databases/*.zip
 *.tar.gz
 *.rar
 
