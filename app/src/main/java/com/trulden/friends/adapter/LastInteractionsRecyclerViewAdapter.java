@@ -98,6 +98,10 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
 
             mLayout.setActivated(mSelectedPositions.contains(pos));
 
+            // Need to do that for state selector to work correctly
+            // Otherwise, it behaves strangely
+            mLayout.invalidate();
+
             mLayout.setOnClickListener(view -> {
                 if(mOnClickListener == null) {
                     return;
