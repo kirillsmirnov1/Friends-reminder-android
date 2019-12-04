@@ -24,10 +24,6 @@ public class FadebleRelativeLayout extends RelativeLayout {
         super(context, attrs);
     }
 
-    public FadebleRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
     @Override
     protected int[] onCreateDrawableState(int extraSpace) {
 
@@ -39,7 +35,9 @@ public class FadebleRelativeLayout extends RelativeLayout {
     }
 
     public void setFaded(boolean faded){
-        mFaded = faded;
-        refreshDrawableState();
+        if(mFaded!=faded) {
+            mFaded = faded;
+            refreshDrawableState();
+        }
     }
 }

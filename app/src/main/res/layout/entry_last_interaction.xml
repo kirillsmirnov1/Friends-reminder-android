@@ -12,7 +12,9 @@
     <com.trulden.friends.view.FadebleRelativeLayout
         android:id="@+id/eli_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_background"
+        >
 
         <TextView
             android:id="@+id/eli_friend_name"

@@ -90,7 +90,7 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
 
             mFrequency.setText(String.format(mContext.getString(R.string.LI_every_x_days), interaction.getFrequency()));
 
-            mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background));
+            //mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background));
 
             // Grey out LI for which time have not yet come
             //mLayout.setAlpha( interaction.itsTime() ? 1f : 0.5f );
