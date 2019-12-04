@@ -33,7 +33,7 @@
     </style>
 
     <style name="AppTheme.EditTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="backgroundTint">@drawable/edit_text_colors</item>
+        <item name="backgroundTint">@color/edit_text_colors</item>
     </style>
 
     <style name="AppTheme.ActionMode" parent="Widget.AppCompat.ActionMode">

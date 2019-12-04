@@ -92,7 +92,7 @@
                 android:inputType="textPersonName|textCapWords|textMultiLine"
                 android:hint="@string/hint_enter_friends"
                 android:ems="10"
-                android:backgroundTint="@drawable/edit_text_colors"
+                android:backgroundTint="@color/edit_text_colors"
                 />
         </TableRow>
 
