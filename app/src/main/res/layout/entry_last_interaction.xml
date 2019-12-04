@@ -27,7 +27,7 @@
             android:layout_toStartOf="@id/eli_hidden_icon"
             style="@style/TextAppearance.AppCompat.Subhead"
             tools:text="Friend's name"
-
+            android:textColor="@color/fadeble_contrast_text"
             android:duplicateParentState="true"
             />
 
