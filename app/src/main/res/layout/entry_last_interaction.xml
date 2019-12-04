@@ -25,6 +25,8 @@
             android:layout_toStartOf="@id/eli_hidden_icon"
             style="@style/TextAppearance.AppCompat.Subhead"
             tools:text="Friend's name"
+
+            android:duplicateParentState="true"
             />
 
         <TextView
@@ -36,6 +38,8 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             tools:text="5 days ago"
+
+            android:duplicateParentState="true"
             />
 
         <ImageView
@@ -49,6 +53,8 @@
             android:paddingBottom="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
+
+            android:duplicateParentState="true"
             />
 
         <TextView
@@ -59,6 +65,8 @@
             android:paddingEnd="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:duplicateParentState="true"
             />
 
     </com.trulden.friends.view.FadebleRelativeLayout>
