@@ -23,4 +23,12 @@
 
     <color name="cardBackground">#000000</color>
 
+    <!--    Faded-->
+
+    <color name="text_faded">#6C6C6C</color>
+    <color name="textContrast_faded">#A0A0A0</color>
+    <color name="cardBackground_faded">#212121</color>
+    <color name="selection_faded">#212184</color>
+    <color name="iconPassive_faded">#6C6C6C</color>
+
 </resources>

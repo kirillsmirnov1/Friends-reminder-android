@@ -22,4 +22,13 @@
     <color name="divider">#CDCDCD</color>
 
     <color name="cardBackground">#ffffff</color>
+
+    <!--    Faded-->
+
+    <color name="text_faded">#BABABA</color>
+    <color name="textContrast_faded">#909090</color>
+    <color name="cardBackground_faded">#FFFFFF</color>
+    <color name="selection_faded">#80EEFF</color>
+    <color name="iconPassive_faded">#BABABA</color>
+
 </resources>

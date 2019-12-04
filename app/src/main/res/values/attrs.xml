@@ -4,4 +4,8 @@
         <attr name="counter" format="string"/>
         <attr name="text" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="FadedState">
+        <attr name="state_faded" format="boolean"/>
+    </declare-styleable>
 </resources>

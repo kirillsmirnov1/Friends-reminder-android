@@ -16,6 +16,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.adapter.base.BindableViewHolder;
 import com.trulden.friends.adapter.base.CustomRVAdapter;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
+import com.trulden.friends.view.FadebleRelativeLayout;
 
 import java.util.HashSet;
 
@@ -51,7 +52,7 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
         private TextView  mTime;
         private ImageView mHiddenIcon;
         private TextView  mFrequency;
-        private RelativeLayout mLayout;
+        private FadebleRelativeLayout mLayout;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,12 +90,14 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
 
             mFrequency.setText(String.format(mContext.getString(R.string.LI_every_x_days), interaction.getFrequency()));
 
-            mLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.item_background));
-
             // Grey out LI for which time have not yet come
-            mLayout.setAlpha( interaction.itsTime() ? 1f : 0.5f );
+            mLayout.setFaded(!interaction.itsTime());
 
             mLayout.setActivated(mSelectedPositions.contains(pos));
+
+            // Need to do that for state selector to work correctly
+            // Otherwise, it behaves strangely
+            mLayout.invalidate();
 
             mLayout.setOnClickListener(view -> {
                 if(mOnClickListener == null) {

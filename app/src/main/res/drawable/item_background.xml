@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/selection" android:state_activated="true" />
-    <item android:drawable="@color/cardBackground" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:drawable="@color/selection_faded"
+        android:state_activated="true"
+        app:state_faded="true"
+        />
+    <item android:drawable="@color/cardBackground_faded"
+        app:state_faded="true"
+        />
+    <item android:drawable="@color/selection"
+        android:state_activated="true"
+        />
+    <item android:drawable="@color/cardBackground"
+        />
 </selector>

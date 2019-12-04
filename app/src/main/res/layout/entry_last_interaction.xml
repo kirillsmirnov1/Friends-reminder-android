@@ -9,10 +9,12 @@
     style="@style/card"
     >
 
-    <RelativeLayout
+    <com.trulden.friends.view.FadebleRelativeLayout
         android:id="@+id/eli_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_background"
+        >
 
         <TextView
             android:id="@+id/eli_friend_name"
@@ -25,6 +27,8 @@
             android:layout_toStartOf="@id/eli_hidden_icon"
             style="@style/TextAppearance.AppCompat.Subhead"
             tools:text="Friend's name"
+            android:textColor="@color/fadeble_contrast_text"
+            android:duplicateParentState="true"
             />
 
         <TextView
@@ -36,12 +40,14 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             tools:text="5 days ago"
+            android:textColor="@color/fadeble_text"
+            android:duplicateParentState="true"
             />
 
         <ImageView
             android:id="@+id/eli_hidden_icon"
             card_view:srcCompat="@drawable/ic_visibility_off_24dp"
-            android:tint="@color/iconPassive"
+            android:tint="@color/fadeble_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -49,6 +55,7 @@
             android:paddingBottom="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
+            android:duplicateParentState="true"
             />
 
         <TextView
@@ -59,8 +66,10 @@
             android:paddingEnd="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/fadeble_text"
+            android:duplicateParentState="true"
             />
 
-    </RelativeLayout>
+    </com.trulden.friends.view.FadebleRelativeLayout>
 
 </androidx.cardview.widget.CardView>
