@@ -45,6 +45,7 @@ import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_POS;
 import static com.trulden.friends.util.Util.formatDate;
 import static com.trulden.friends.util.Util.makeToast;
 
@@ -117,8 +118,10 @@ public class EditInteractionActivity
 
             String[] spinnerOptions = new String[mTypesMap.size() + 1];
 
-            String[] typeNames = mTypesMap.keySet().toArray(new String[0]);
-            Arrays.sort(typeNames);
+            String[] typeNames = new String[interactionTypes.size()];
+            for(int i = 0; i < interactionTypes.size(); ++i){
+                typeNames[i] = interactionTypes.get(i).getInteractionTypeName();
+            }
 
             System.arraycopy(typeNames, 0, spinnerOptions, 0, mTypesMap.size());
 
@@ -130,11 +133,19 @@ public class EditInteractionActivity
             if(mType != null) {
                 mType.setAdapter(mTypeSpinnerAdapter);
 
-                mType.setSelection(mTypeSpinnerAdapter.getPosition(
-                        mTypeToSelect == null
-                                ? getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME)
-                                : mTypeToSelect
-                ));
+                if(mTypeToSelect == null){
+
+                    if(getIntent().hasExtra(EXTRA_INTERACTION_TYPE_POS)) {
+                        mTypeToSelect = mTypeSpinnerAdapter.getItem(
+                            getIntent().getIntExtra(EXTRA_INTERACTION_TYPE_POS, 0));
+                    }
+
+                    if(getIntent().hasExtra(EXTRA_INTERACTION_TYPE_NAME)) {
+                        mTypeToSelect = getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME);
+                    }
+                }
+
+                mType.setSelection(mTypeSpinnerAdapter.getPosition(mTypeToSelect));
             }
         });
 

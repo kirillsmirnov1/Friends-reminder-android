@@ -303,13 +303,17 @@ public class MainActivity
 
     public void onAddInteractionClick(View view) {
 
-        saveSelectedLastInteractionTab();
+        //saveSelectedLastInteractionTab();
+        int tabPos= mViewModel.getSelectedLITabPos();
 
         if(mFragment instanceof SelectionHandler){
             ((SelectionHandler) mFragment ).finishActionMode();
         }
 
         Intent intent = new Intent(this, EditInteractionActivity.class);
+
+        intent.putExtra(EXTRA_INTERACTION_TYPE_POS, tabPos);
+
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         mFabMenu.collapse();
     }

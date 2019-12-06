@@ -57,6 +57,7 @@ public abstract class Util {
     public static final String EXTRA_INTERACTION_FRIEND_IDS = "EXTRA_INTERACTION_FRIEND_IDS";
     public static final String EXTRA_INTERACTION_TYPE_ID = "EXTRA_INTERACTION_TYPE_ID";
     public static final String EXTRA_INTERACTION_TYPE_NAME = "EXTRA_INTERACTION_TYPE_NAME";
+    public static final String EXTRA_INTERACTION_TYPE_POS = "EXTRA_INTERACTION_TYPE_POS";
     public static final String EXTRA_INTERACTION_DATE = "EXTRA_INTERACTION_DATE";
     public static final String EXTRA_INTERACTION_COMMENT = "EXTRA_INTERACTION_COMMENT";
 

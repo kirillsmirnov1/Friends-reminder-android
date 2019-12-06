@@ -226,4 +226,8 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
     private LastInteractionsTabFragment getTabFragment(){
         return getTabFragment(mTabLayout.getSelectedTabPosition());
     }
+
+    String getSelectedTabName(){
+        return mTypes.get(mTabLayout.getSelectedTabPosition()).getInteractionTypeName();
+    }
 }
