@@ -1,5 +1,14 @@
 <changelog>
 
+    <release versionCode="27" versionName="Version 1.2.2.2">
+        <bugfix>Last Interactions window now works faster</bugfix>
+        <info>• In expanded tracker replaced «With» → «+»</info>
+        <info>• Hid friend's page options in menu</info>
+        <info>Edit Interaction window:</info>
+        <info>• When creating new interaction type is filled from selected tab</info>
+        <bugfix>Date field doesn't show keyboard when it is not required</bugfix>
+    </release>
+
     <release versionCode="26" versionName="Version 1.2.2.1">
         <bugfix>Sometimes while editing an interaction keyboard hid part of text. Fixed that.</bugfix>
         <bugfix>The position of chosen last interaction tab was lost at screen lock. Fixed that.</bugfix>

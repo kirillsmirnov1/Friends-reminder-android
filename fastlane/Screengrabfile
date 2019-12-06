@@ -1,4 +1,4 @@
-version = '1.2.2'
+version = '1.2.2.2'
 
 use_tests_in_packages(['com.trulden.friends.screenshot'])
 
