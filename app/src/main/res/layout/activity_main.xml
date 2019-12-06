@@ -50,7 +50,7 @@
                     android:onClick="onAddInteractionClick"
                     app:fab_colorNormal="@color/fabBackground"
                     app:fab_colorPressed="@color/fabBackgroundPressed"
-                    app:fab_icon="@drawable/ic_watch_later_"
+                    app:fab_icon="@drawable/ic_watch_later"
                     app:fab_labelStyle="@style/menu_labels_style"
                     app:fab_size="mini"
                     app:fab_title="@string/add_interaction"
