@@ -221,7 +221,8 @@ public class CRUDTest extends AbstractMATest {
         openFriends();
         onView(withText("Aaron")).perform(click());
 
-        onView(withId(R.id.mam_edit)).perform(click());
+        openOverflow();
+        onView(withText(R.string.edit)).perform(click());
 
         onView(withId(R.id.aef_edit_name)).perform(replaceText("August"));
         onView(withId(R.id.ms_save)).perform(click());
@@ -355,7 +356,9 @@ public class CRUDTest extends AbstractMATest {
     public void deleteFriendFromFPATest(){
         openFriends();
         onView(withText("Aaron")).perform(click());
-        onView(withId(R.id.mam_delete)).perform(click());
+
+        openOverflow();
+        onView(withText(R.string.delete_selection)).perform(click());
 
         onView(withText("Aaron")).check(doesNotExist());
     }
