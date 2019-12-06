@@ -37,7 +37,9 @@ public class UniqueFriendTest extends AbstractMATest {
 
         onView(withText(balaam)).perform(click());
 
-        onView(withId(R.id.mam_edit)).perform(click());
+        openOverflow();
+
+        onView(withText(R.string.edit)).perform(click());
 
         onView(withId(R.id.aef_edit_name)).perform(replaceText(aaron));
 
