@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.LastInteractionsSelection;
+import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
@@ -34,7 +35,12 @@ import static com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter.Tr
 /**
  * Holds {@link LastInteractionWrapper} entries of specific type
  */
-public class LastInteractionsTabFragment extends Fragment implements LastInteractionsSelection {
+public class LastInteractionsTabFragment
+    extends
+        Fragment
+    implements
+        LastInteractionsSelection,
+        RecyclerViewContainer {
 
     private FriendsViewModel mViewModel;
 
@@ -45,6 +51,7 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
     private SelectionCallback mSelectionCallback;
     private ActionMode mActionMode;
     private LastInteractionsRecyclerViewAdapter mRecyclerViewAdapter;
+    private RecyclerView mRecyclerView;
 
     public LastInteractionsTabFragment() {
         // Required empty public constructor
@@ -98,13 +105,13 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
         }
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.flit_recycler_view);
+        mRecyclerView = view.findViewById(R.id.flit_recycler_view);
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(mLayout);
+        mRecyclerView.setLayoutManager(mLayout);
 
         mRecyclerViewAdapter = new LastInteractionsRecyclerViewAdapter(getContext(), mSelectedPositions, SHOW_FRIEND_NAME);
         mRecyclerViewAdapter.setItems(mLastInteractions);
-        recyclerView.setAdapter(mRecyclerViewAdapter);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         // Might be unnecessary, might fix issue with empty LI tab
         mRecyclerViewAdapter.notifyDataSetChanged();
@@ -218,5 +225,10 @@ public class LastInteractionsTabFragment extends Fragment implements LastInterac
 
             mViewModel.update(interaction);
         }
+    }
+
+    @Override
+    public void scrollUp() {
+        mRecyclerView.scrollToPosition(0);
     }
 }
