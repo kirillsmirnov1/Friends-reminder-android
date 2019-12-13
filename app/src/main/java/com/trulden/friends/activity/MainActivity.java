@@ -485,15 +485,31 @@ public class MainActivity
         switch (menuItem.getItemId()){
 
             case R.id.mbn_interactions: {
-                saveSelectedLastInteractionTab();
-                return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
+                if(mFragmentToLoad == FragmentToLoad.INTERACTIONS_FRAGMENT){
+                    // TODO scroll up
+                    return true;
+                } else {
+                    saveSelectedLastInteractionTab();
+                    return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
+                }
             }
             case R.id.mbn_last_interactions: {
-                return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
+                if(mFragmentToLoad == FragmentToLoad.LAST_INTERACTIONS_FRAGMENT
+                   && mFragment != null){ // On first load it is null
+                    // TODO scroll up
+                    return true;
+                } else {
+                    return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
+                }
             }
             case R.id.mbn_friends: {
-                saveSelectedLastInteractionTab();
-                return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
+                if(mFragmentToLoad == FragmentToLoad.FRIENDS_FRAGMENT) {
+                    // TODO scroll up
+                    return true;
+                } else {
+                    saveSelectedLastInteractionTab();
+                    return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
+                }
             }
         }
 
