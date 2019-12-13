@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
+import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.ShareSelection;
 import com.trulden.friends.adapter.InteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
@@ -47,7 +48,8 @@ public class InteractionsFragment
     extends Fragment
     implements
         EditAndDeleteSelection,
-        ShareSelection {
+        ShareSelection,
+        RecyclerViewContainer {
 
     private FriendsViewModel mViewModel;
     private InteractionsRecyclerViewAdapter mRecyclerViewAdapter;
@@ -57,6 +59,7 @@ public class InteractionsFragment
 
     private HashSet<Integer> mSelectedPositions = new HashSet<>();
     private LongSparseArray<String> mTypes;
+    private RecyclerView mRecyclerView;
 
     public InteractionsFragment() {
         // Fragments require public constructor with no args
@@ -77,12 +80,12 @@ public class InteractionsFragment
 
         mSelectedPositions = mViewModel.getSelectedPositions(InteractionsFragment.class.getName());
 
-        RecyclerView recyclerView = view.findViewById(R.id.fi_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView = view.findViewById(R.id.fi_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mRecyclerViewAdapter = new InteractionsRecyclerViewAdapter(getActivity(), mSelectedPositions);
 
-        recyclerView.setAdapter(mRecyclerViewAdapter);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mViewModel.getFriendNames().observe(getViewLifecycleOwner(), friendNamesList -> {
             LongSparseArray<String> friendNamesLSA = new LongSparseArray<>();
@@ -250,5 +253,10 @@ public class InteractionsFragment
         if(MainActivity.getFragmentToLoad() != MainActivity.FragmentToLoad.INTERACTIONS_FRAGMENT) {
             finishActionMode();
         }
+    }
+
+    @Override
+    public void scrollUp() {
+        mRecyclerView.scrollToPosition(0);
     }
 }
