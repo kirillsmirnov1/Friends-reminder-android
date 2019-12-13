@@ -28,6 +28,7 @@ import com.michaelflisar.changelog.ChangelogBuilder;
 import com.michaelflisar.changelog.internal.ChangelogPreferenceUtil;
 import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
@@ -486,7 +487,7 @@ public class MainActivity
 
             case R.id.mbn_interactions: {
                 if(mFragmentToLoad == FragmentToLoad.INTERACTIONS_FRAGMENT){
-                    // TODO scroll up
+                    ((RecyclerViewContainer)mFragment).scrollUp();
                     return true;
                 } else {
                     saveSelectedLastInteractionTab();
@@ -496,7 +497,7 @@ public class MainActivity
             case R.id.mbn_last_interactions: {
                 if(mFragmentToLoad == FragmentToLoad.LAST_INTERACTIONS_FRAGMENT
                    && mFragment != null){ // On first load it is null
-                    // TODO scroll up
+                    ((RecyclerViewContainer)mFragment).scrollUp();
                     return true;
                 } else {
                     return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
@@ -504,7 +505,7 @@ public class MainActivity
             }
             case R.id.mbn_friends: {
                 if(mFragmentToLoad == FragmentToLoad.FRIENDS_FRAGMENT) {
-                    // TODO scroll up
+                    ((RecyclerViewContainer)mFragment).scrollUp();
                     return true;
                 } else {
                     saveSelectedLastInteractionTab();
