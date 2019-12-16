@@ -486,7 +486,8 @@ public class MainActivity
         switch (menuItem.getItemId()){
 
             case R.id.mbn_interactions: {
-                if(mFragmentToLoad == FragmentToLoad.INTERACTIONS_FRAGMENT){
+                if(mFragmentToLoad == FragmentToLoad.INTERACTIONS_FRAGMENT
+                    && mFragment != null){
                     ((RecyclerViewContainer)mFragment).scrollUp();
                     return true;
                 } else {
@@ -504,7 +505,8 @@ public class MainActivity
                 }
             }
             case R.id.mbn_friends: {
-                if(mFragmentToLoad == FragmentToLoad.FRIENDS_FRAGMENT) {
+                if(mFragmentToLoad == FragmentToLoad.FRIENDS_FRAGMENT
+                    && mFragment != null) {
                     ((RecyclerViewContainer)mFragment).scrollUp();
                     return true;
                 } else {
