@@ -486,6 +486,8 @@ public class DeselectionTest extends AbstractMATest {
         onView(withText("Balaam")).perform(click());
 
         checkSelectionCounterValue("2");
+
+        deselectAll();
     }
 
     // UI interactions
