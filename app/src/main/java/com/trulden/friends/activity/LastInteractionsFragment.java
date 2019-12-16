@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
 import com.trulden.friends.database.FriendsViewModel;
@@ -29,7 +30,11 @@ import java.util.Objects;
 /**
  * Holds {@link LastInteractionsTabFragment}.
  */
-public class LastInteractionsFragment extends Fragment implements SelectionHandler {
+public class LastInteractionsFragment
+    extends Fragment
+    implements
+        SelectionHandler,
+        RecyclerViewContainer {
 
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
@@ -229,5 +234,10 @@ public class LastInteractionsFragment extends Fragment implements SelectionHandl
 
     String getSelectedTabName(){
         return mTypes.get(mTabLayout.getSelectedTabPosition()).getInteractionTypeName();
+    }
+
+    @Override
+    public void scrollUp() {
+        ((RecyclerViewContainer)getTabFragment()).scrollUp();
     }
 }

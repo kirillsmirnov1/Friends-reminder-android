@@ -74,6 +74,8 @@ public class CRUDTest extends AbstractMATest {
 
         onView(withText("Save")).perform(scrollTo(), click());
 
+        // Press save button manually, bc espresso fails to
+        // FIXME breakpoint must be there until fixed
         onView(withId(R.id.aei_edit_date)).perform(click());
 
         sleep(250);

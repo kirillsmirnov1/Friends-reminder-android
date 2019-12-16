@@ -28,6 +28,7 @@ import com.michaelflisar.changelog.ChangelogBuilder;
 import com.michaelflisar.changelog.internal.ChangelogPreferenceUtil;
 import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
+import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.async.ExportDatabaseAsyncTask;
@@ -485,15 +486,33 @@ public class MainActivity
         switch (menuItem.getItemId()){
 
             case R.id.mbn_interactions: {
-                saveSelectedLastInteractionTab();
-                return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
+                if(mFragmentToLoad == FragmentToLoad.INTERACTIONS_FRAGMENT
+                    && mFragment != null){
+                    ((RecyclerViewContainer)mFragment).scrollUp();
+                    return true;
+                } else {
+                    saveSelectedLastInteractionTab();
+                    return loadFragment(FragmentToLoad.INTERACTIONS_FRAGMENT);
+                }
             }
             case R.id.mbn_last_interactions: {
-                return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
+                if(mFragmentToLoad == FragmentToLoad.LAST_INTERACTIONS_FRAGMENT
+                   && mFragment != null){ // On first load it is null
+                    ((RecyclerViewContainer)mFragment).scrollUp();
+                    return true;
+                } else {
+                    return loadFragment(FragmentToLoad.LAST_INTERACTIONS_FRAGMENT);
+                }
             }
             case R.id.mbn_friends: {
-                saveSelectedLastInteractionTab();
-                return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
+                if(mFragmentToLoad == FragmentToLoad.FRIENDS_FRAGMENT
+                    && mFragment != null) {
+                    ((RecyclerViewContainer)mFragment).scrollUp();
+                    return true;
+                } else {
+                    saveSelectedLastInteractionTab();
+                    return loadFragment(FragmentToLoad.FRIENDS_FRAGMENT);
+                }
             }
         }
 

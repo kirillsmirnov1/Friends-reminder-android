@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.EditAndDeleteSelection;
+import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
 import com.trulden.friends.adapter.FriendsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
@@ -44,7 +45,8 @@ public class FriendsFragment
         extends Fragment
         implements
             EditAndDeleteSelection,
-            SelectionWithOnDeleteAlert<Friend> {
+            SelectionWithOnDeleteAlert<Friend>,
+            RecyclerViewContainer {
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
 
@@ -55,6 +57,7 @@ public class FriendsFragment
     private ActionMode mActionMode;
 
     private HashSet<Integer> mSelectedPositions = new HashSet<>();
+    private RecyclerView mRecyclerView;
 
     public FriendsFragment() {
         // Fragments require public constructor with no args
@@ -76,10 +79,10 @@ public class FriendsFragment
 
         mSelectedPositions = mViewModel.getSelectedPositions(FriendsFragment.class.getName());
 
-        RecyclerView recyclerView = view.findViewById(R.id.ff_recycler_view);
+        mRecyclerView = view.findViewById(R.id.ff_recycler_view);
         mRecyclerViewAdapter = new FriendsRecyclerViewAdapter(getActivity(), mSelectedPositions);
-        recyclerView.setAdapter(mRecyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mViewModel.getAllFriends().observe(getViewLifecycleOwner(), friends -> {
             view.findViewById(R.id.ff_no_data)
@@ -229,5 +232,10 @@ public class FriendsFragment
         if(mActionMode != null) {
             mActionMode = null;
         }
+    }
+
+    @Override
+    public void scrollUp() {
+        mRecyclerView.scrollToPosition(0);
     }
 }
