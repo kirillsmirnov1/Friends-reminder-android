@@ -1,6 +1,6 @@
 <changelog>
 
-    <release versionCode="28" versionName="">
+    <release versionCode="28" versionName="Версия 1.2.3">
         <new>Если нажать на кнопку режима который уже выбран, окошко перемотается вверх</new>
         <bugfix>А раньше окно перезагружалось, из-за чего могло показываться предупреждение об отсутствии данных</bugfix>
     </release>
