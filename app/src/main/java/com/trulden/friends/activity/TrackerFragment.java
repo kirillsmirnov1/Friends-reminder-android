@@ -23,9 +23,11 @@ import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
+import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
 import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
+import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.daysPassed;
 import static com.trulden.friends.util.Util.openFriendsPage;
 
@@ -159,6 +161,16 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         changeFrequencyIcon.setOnClickListener(v ->
             new EditLastInteractionFrequencyDialog(mLastInteractionWrapper)
                 .show(getActivity().getSupportFragmentManager(), "editLIFrequency"));
+
+        mComment.setOnLongClickListener(v -> {
+            Intent intent = new Intent(getContext(), EditInteractionActivity.class);
+
+            intent.putExtra(EXTRA_INTERACTION_ID, mLastInteractionWrapper.getLastInteraction().getInteractionId());
+
+            getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
+
+            return true;
+        });
     }
 
     private void setStatusIcon() {
