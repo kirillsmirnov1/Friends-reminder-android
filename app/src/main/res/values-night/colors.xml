@@ -14,10 +14,11 @@
     <color name="iconPassive">#979797</color>
     <color name="iconActive">#ffffff</color>
 
-    <color name="fabBackground">#ffffff</color>
-    <color name="fabBackgroundPressed">#f1f1f1</color>
+    <color name="fabBackground">#FFBC42</color>
+    <color name="fabBackgroundPressed">#c88c00</color>
     <color name="fabText">#000000</color>
     <color name="fabIcon">#000000</color>
+    <color name="fabPlus">#434343</color>
 
     <color name="divider">#CDCDCD</color>
 
