@@ -164,6 +164,8 @@ public class EditInteractionActivity
 
         initInteractionTypeSpinner();
 
+        mPickedDate = Calendar.getInstance();
+
         // Get info from intent and set it to views
 
         Intent intent = getIntent();
@@ -172,17 +174,30 @@ public class EditInteractionActivity
 
         if(mInteractionId == -1){
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_interaction));
+
+            mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis()));
+            mDateText.setText(formatDate(mPickedDate.getTime()));
+            mFriendsText.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
+
         } else {
+
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.edit_interaction));
 
-            mCommentText.setText(intent.getStringExtra(EXTRA_INTERACTION_COMMENT));
+            mFriendsViewModel.getInteraction(mInteractionId).observe(this, interaction -> {
+
+                mFriendsViewModel.getType(interaction.getInteractionTypeId()).observe(this, type ->
+                        mType.setSelection(mTypeSpinnerAdapter.getPosition(type.getInteractionTypeName())));
+
+                mPickedDate.setTimeInMillis(interaction.getDate());
+                mDateText.setText(formatDate(mPickedDate.getTime()));
+
+                mFriendsViewModel.getFriendNamesOfInteraction(mInteractionId).observe(this, names -> {
+                    mFriendsText.setText(TextUtils.join(", ", names));
+                });
+
+                mCommentText.setText(interaction.getComment());
+            });
         }
-
-        mPickedDate = Calendar.getInstance();
-        mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis()));
-        mDateText.setText(formatDate(mPickedDate.getTime()));
-
-        mFriendsText.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
     }
 
     private void initInteractionTypeSpinner() {
