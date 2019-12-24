@@ -169,11 +169,10 @@ public class LastInteractionsTabFragment
     }
 
     @Override
-    public void nullifyActionMode() {
+    public void onActionModeFinished() {
+        mViewModel.setSelectionModeActivated(false);
         mViewModel.clearSelectedPositions();
-        if(mActionMode != null){
-            mActionMode = null;
-        }
+        mActionMode = null;
     }
 
     @Override
@@ -181,6 +180,8 @@ public class LastInteractionsTabFragment
         if(mActionMode == null){
             mActionMode = ((AppCompatActivity) Objects.requireNonNull(getActivity()))
                     .startSupportActionMode(mSelectionCallback);
+
+            mViewModel.setSelectionModeActivated(true);
         }
 
         mActionMode.getMenu().findItem(R.id.mam_unhide)
@@ -198,7 +199,7 @@ public class LastInteractionsTabFragment
         int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
-            mActionMode.finish();
+            finishActionMode();
         } else {
             mActionMode.setTitle(String.valueOf(count));
         }

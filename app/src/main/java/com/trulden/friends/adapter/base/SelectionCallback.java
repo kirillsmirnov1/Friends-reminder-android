@@ -97,7 +97,8 @@ public class SelectionCallback implements ActionMode.Callback {
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
+        mActivity.onActionModeFinished();
+
         mAdapter.clearSelections();
-        mActivity.nullifyActionMode();
     }
 }

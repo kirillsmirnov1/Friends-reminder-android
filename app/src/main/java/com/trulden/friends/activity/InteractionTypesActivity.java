@@ -162,17 +162,15 @@ public class InteractionTypesActivity
 
     @Override
     public void finishActionMode() {
-        mViewModel.clearSelectedPositions();
         if(mActionMode != null) {
             mActionMode.finish();
         }
     }
 
     @Override
-    public void nullifyActionMode() {
-        if(mActionMode != null) {
-            mActionMode = null;
-        }
+    public void onActionModeFinished() {
+        mViewModel.clearSelectedPositions();
+        mActionMode = null;
     }
 
     @Override
