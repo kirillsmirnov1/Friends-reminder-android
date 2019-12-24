@@ -10,7 +10,7 @@ public interface SelectionHandler {
     void finishActionMode();
 
     /**
-     * Set actionMode = null
+     * Should handle finish of actionMode — clear selections, set mSelectionModeActivated
      */
-    void nullifyActionMode();
+    void onActionModeFinished();
 }

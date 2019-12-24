@@ -272,7 +272,6 @@ public class FriendPageActivity
 
     @Override
     public void finishActionMode() {
-        mViewModel.clearSelectedPositions();
         if(mActionMode != null){
             mActionMode.finish();
         }
@@ -280,12 +279,9 @@ public class FriendPageActivity
     }
 
     @Override
-    public void nullifyActionMode() {
+    public void onActionModeFinished() {
         mViewModel.clearSelectedPositions();
-        if(mActionMode != null){
-            mActionMode = null;
-        }
-
+        mActionMode = null;
     }
 
     @Override

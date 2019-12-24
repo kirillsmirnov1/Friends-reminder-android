@@ -216,8 +216,12 @@ public class LastInteractionsFragment
     }
 
     @Override
-    public void nullifyActionMode() {
-        getTabFragment().nullifyActionMode();
+    public void onActionModeFinished() {
+        LastInteractionsTabFragment fragment = getTabFragment();
+
+        if(fragment != null) {
+            fragment.onActionModeFinished();
+        }
     }
 
     private LastInteractionsTabFragment getTabFragment(int pos){

@@ -169,12 +169,10 @@ public class LastInteractionsTabFragment
     }
 
     @Override
-    public void nullifyActionMode() {
-        mViewModel.clearSelectedPositions();
+    public void onActionModeFinished() {
         mViewModel.setSelectionModeActivated(false);
-        if(mActionMode != null){
-            mActionMode = null;
-        }
+        mViewModel.clearSelectedPositions();
+        mActionMode = null;
     }
 
     @Override
@@ -201,7 +199,7 @@ public class LastInteractionsTabFragment
         int count = mRecyclerViewAdapter.getSelectedItemCount();
 
         if(count == 0){
-            mActionMode.finish();
+            finishActionMode();
         } else {
             mActionMode.setTitle(String.valueOf(count));
         }

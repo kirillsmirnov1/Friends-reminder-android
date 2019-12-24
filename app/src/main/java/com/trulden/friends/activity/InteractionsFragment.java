@@ -235,18 +235,16 @@ public class InteractionsFragment
 
     @Override
     public void finishActionMode() {
-        mViewModel.clearSelectedPositions();
-        mViewModel.setSelectionModeActivated(false);
         if(mActionMode != null) {
             mActionMode.finish();
         }
     }
 
     @Override
-    public void nullifyActionMode() {
-        if(mActionMode != null) {
-            mActionMode = null;
-        }
+    public void onActionModeFinished() {
+        mViewModel.clearSelectedPositions();
+        mViewModel.setSelectionModeActivated(false);
+        mActionMode = null;
     }
 
     @Override
