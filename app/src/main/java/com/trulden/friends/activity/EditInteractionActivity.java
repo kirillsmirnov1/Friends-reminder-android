@@ -58,7 +58,7 @@ public class EditInteractionActivity
             AdapterView.OnItemSelectedListener,
             EditInteractionType {
 
-    FriendsViewModel mFriendsViewModel;
+    FriendsViewModel mViewModel;
 
     private Spinner  mType;
     private ArrayAdapter<String> mTypeSpinnerAdapter;
@@ -86,10 +86,10 @@ public class EditInteractionActivity
 
         mSaveHandler.restoreState(savedInstanceState);
 
-        mFriendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         // Set friend names from database to corresponding dropdown list
-        mFriendsViewModel.getAllFriends().observe(this, friends -> {
+        mViewModel.getAllFriends().observe(this, friends -> {
             for(Friend friend : friends){
                 if(!mFriendsMap.containsKey(friend.getName())) { // putIfAbsent requires API 24
                     mFriendsMap.put(friend.getName(), friend.getId());
@@ -109,7 +109,7 @@ public class EditInteractionActivity
         });
 
         // Set interaction types from db
-        mFriendsViewModel.getAllInteractionTypes().observe(this, interactionTypes -> {
+        mViewModel.getAllInteractionTypes().observe(this, interactionTypes -> {
             for(InteractionType interactionType : interactionTypes){
                 if(!mTypesMap.containsKey(interactionType.getInteractionTypeName())) { // putIfAbsent requires API 24
                     mTypesMap.put(interactionType.getInteractionTypeName(), interactionType.getId());
@@ -183,15 +183,15 @@ public class EditInteractionActivity
 
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.edit_interaction));
 
-            mFriendsViewModel.getInteraction(mInteractionId).observe(this, interaction -> {
+            mViewModel.getInteraction(mInteractionId).observe(this, interaction -> {
 
-                mFriendsViewModel.getType(interaction.getInteractionTypeId()).observe(this, type ->
+                mViewModel.getType(interaction.getInteractionTypeId()).observe(this, type ->
                         mType.setSelection(mTypeSpinnerAdapter.getPosition(type.getInteractionTypeName())));
 
                 mPickedDate.setTimeInMillis(interaction.getDate());
                 mDateText.setText(formatDate(mPickedDate.getTime()));
 
-                mFriendsViewModel.getFriendNamesOfInteraction(mInteractionId).observe(this, names -> {
+                mViewModel.getFriendNamesOfInteraction(mInteractionId).observe(this, names -> {
                     mFriendsText.setText(TextUtils.join(", ", names));
                 });
 
@@ -276,7 +276,7 @@ public class EditInteractionActivity
 
     @Override
     public void saveType(InteractionType interactionType) {
-        mFriendsViewModel.add(interactionType);
+        mViewModel.add(interactionType);
         mTypeToSelect = interactionType.getInteractionTypeName();
     }
 
@@ -410,7 +410,7 @@ public class EditInteractionActivity
         }
 
         void createFriendByName(String name){
-            mFriendsViewModel.add(new Friend(name, ""));
+            mViewModel.add(new Friend(name, ""));
 
             newbies.add(name);
 
