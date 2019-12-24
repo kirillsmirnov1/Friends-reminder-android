@@ -181,4 +181,12 @@ public class FriendsViewModel extends AndroidViewModel {
     public void setSelectionModeActivated(boolean mode) {
         mSelectionModeActivated.setValue(mode);
     }
+
+    public LiveData<InteractionType> getType(long interactionTypeId) {
+        return mRepository.getType(interactionTypeId);
+    }
+
+    public LiveData<List<String>> getFriendNamesOfInteraction(long interactionId) {
+        return mRepository.getFriendNamesOfInteraction(interactionId);
+    }
 }

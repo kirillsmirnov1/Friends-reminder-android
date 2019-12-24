@@ -79,6 +79,14 @@ class FriendsRepository {
         return mFriendsDao.getLiveLastInteractionWrapper(typeId, friendId);
     }
 
+    public LiveData<InteractionType> getType(long interactionTypeId) {
+        return mFriendsDao.getType(interactionTypeId);
+    }
+
+    public LiveData<List<String>> getFriendNamesOfInteraction(long interactionId) {
+        return mFriendsDao.getFriendNamesOfInteraction(interactionId);
+    }
+
     public void checkLastInteractionsReadiness() {
         new AsyncTask<Void, Void, Void>() {
             @Override
