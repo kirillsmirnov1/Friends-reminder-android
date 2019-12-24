@@ -139,6 +139,12 @@ public class MainActivity
                         nightMode ? MODE_NIGHT_YES : MODE_NIGHT_NO
                 ));
 
+        mViewModel.getSelectionModeActivated().observe(this, selectionMode ->
+                mFabMenu.setVisibility(
+                        selectionMode
+                        ? View.GONE
+                        : View.VISIBLE));
+
         checkIfTrackerFragmentNeedsToBeShown();
 
         showChangelog();
