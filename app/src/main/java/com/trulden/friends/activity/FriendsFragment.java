@@ -130,6 +130,8 @@ public class FriendsFragment
         if(mActionMode == null){
             mActionMode = ((AppCompatActivity) Objects.requireNonNull(getActivity()))
                     .startSupportActionMode(mSelectionCallback);
+
+            mViewModel.setSelectionModeActivated(true);
         }
         toggleSelection(pos);
     }
@@ -222,6 +224,7 @@ public class FriendsFragment
     @Override
     public void finishActionMode() {
         mViewModel.clearSelectedPositions();
+        mViewModel.setSelectionModeActivated(false);
         if(mActionMode != null) {
             mActionMode.finish();
         }

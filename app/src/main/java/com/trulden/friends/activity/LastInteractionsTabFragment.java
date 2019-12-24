@@ -171,6 +171,7 @@ public class LastInteractionsTabFragment
     @Override
     public void nullifyActionMode() {
         mViewModel.clearSelectedPositions();
+        mViewModel.setSelectionModeActivated(false);
         if(mActionMode != null){
             mActionMode = null;
         }
@@ -181,6 +182,8 @@ public class LastInteractionsTabFragment
         if(mActionMode == null){
             mActionMode = ((AppCompatActivity) Objects.requireNonNull(getActivity()))
                     .startSupportActionMode(mSelectionCallback);
+
+            mViewModel.setSelectionModeActivated(true);
         }
 
         mActionMode.getMenu().findItem(R.id.mam_unhide)

@@ -145,6 +145,7 @@ public class InteractionsFragment
     public void enableActionMode(int pos) {
         if(mActionMode == null){
             mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mSelectionCallback);
+            mViewModel.setSelectionModeActivated(true);
         }
         toggleSelection(pos);
     }
@@ -235,6 +236,7 @@ public class InteractionsFragment
     @Override
     public void finishActionMode() {
         mViewModel.clearSelectedPositions();
+        mViewModel.setSelectionModeActivated(false);
         if(mActionMode != null) {
             mActionMode.finish();
         }
