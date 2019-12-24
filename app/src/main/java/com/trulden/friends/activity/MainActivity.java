@@ -49,6 +49,8 @@ import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.*;
+import static com.trulden.friends.util.ViewUtil.hideView;
+import static com.trulden.friends.util.ViewUtil.showView;
 
 /**
  * Holds {@link InteractionsFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
@@ -139,11 +141,13 @@ public class MainActivity
                         nightMode ? MODE_NIGHT_YES : MODE_NIGHT_NO
                 ));
 
-        mViewModel.getSelectionModeActivated().observe(this, selectionMode ->
-                mFabMenu.setVisibility(
-                        selectionMode
-                        ? View.GONE
-                        : View.VISIBLE));
+        mViewModel.getSelectionModeActivated().observe(this, selectionMode -> {
+                    if (selectionMode)
+                        hideView(mFabMenu);
+                    else
+                        showView(mFabMenu);
+                }
+        );
 
         checkIfTrackerFragmentNeedsToBeShown();
 
