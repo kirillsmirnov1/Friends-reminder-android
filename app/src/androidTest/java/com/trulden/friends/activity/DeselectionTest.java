@@ -364,6 +364,21 @@ public class DeselectionTest extends AbstractMATest {
         onView(withText("1")).check(matches(isDisplayed()));
     }
 
+    @Test
+    public void fabDisabledOnSelectionTest(){
+        openLastInteractions();
+
+        onView(withId(R.id.am_fab)).check(matches(isDisplayed()));
+
+        onView(withText("Caleb")).perform(longClick());
+
+        onView(withId(R.id.am_fab)).check(matches(not(isDisplayed())));
+
+        deselectAll();
+
+        onView(withId(R.id.am_fab)).check(matches(isDisplayed()));
+    }
+
     private void LISelectionTemplateTest(Matcher goTo, Matcher comebackTo){
         openLastInteractions();
 
