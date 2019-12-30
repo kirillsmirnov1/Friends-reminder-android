@@ -1,5 +1,11 @@
 <changelog>
 
+<!--    <release versionCode="" versionName="">-->
+<!--        <new></new>-->
+<!--        <bugfix></bugfix>-->
+<!--        <info>•</info>-->
+<!--    </release>-->
+
     <release versionCode="28" versionName="Version 1.2.3">
         <new>If you click on button of already selected mode, list will scroll up</new>
         <bugfix>Before it might have shown «no data» notice</bugfix>
