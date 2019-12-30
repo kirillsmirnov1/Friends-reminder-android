@@ -6,6 +6,12 @@
 <!--        <info>•</info>-->
 <!--    </release>-->
 
+    <release versionCode="29" versionName="Version 1.2.4">
+        <new>«Add» button in night-mode is yellow now</new>
+        <new>Also it hides when you select something</new>
+        <new>You can edit interaction from opened tracker via long click on comment describing that interaction</new>
+    </release>
+
     <release versionCode="28" versionName="Version 1.2.3">
         <new>If you click on button of already selected mode, list will scroll up</new>
         <bugfix>Before it might have shown «no data» notice</bugfix>
