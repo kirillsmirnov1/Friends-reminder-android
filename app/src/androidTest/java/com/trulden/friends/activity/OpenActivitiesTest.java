@@ -122,4 +122,16 @@ public class OpenActivitiesTest extends AbstractMATest {
         onView(childAtPosition(withId(R.id.toolbar),0))
                 .check(matches(withText(R.string.friends)));
     }
+
+    @Test
+    public void openEIAthroughTFTest(){
+
+        openLastInteractions();
+
+        onView(withText("Caleb")).perform(click());
+
+        onView(withText("B + C")).perform(longClick());
+
+        onView(withText(R.string.edit_interaction)).check(matches(isDisplayed()));
+    }
 }
