@@ -90,100 +90,6 @@ public class DeselectionTest extends AbstractMATest {
     }
 
     @Test
-    public void logAddInteractionDeselectionTest() {
-
-        openInteractions();
-
-        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
-
-        ViewInteraction textView = checkSelectionCounterValue("1");
-
-        openAddInteraction();
-
-        sleep(250);
-
-        navigateUp();
-
-        sleep(250);
-
-        textView.check(doesNotExist());
-
-        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, true);
-
-        checkSelectionCounterValue("1");
-    }
-
-    @Test
-    public void logAddFriendDeselectionTest() {
-
-        openInteractions();
-
-        selectEntry(0, R.id.ei_layout, R.id.fi_recycler_view, true);
-
-        ViewInteraction textView = checkSelectionCounterValue("1");
-
-        openAddFriend();
-
-        sleep(250);
-
-        navigateUp();
-
-        sleep(250);
-
-        textView.check(doesNotExist());
-
-        selectEntry(1, R.id.ei_layout, R.id.fi_recycler_view, true);
-
-        checkSelectionCounterValue("1");
-    }
-
-    @Test
-    public void friendsAddInteractionDeselectionTest() {
-
-        openFriends();
-
-        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
-
-        ViewInteraction textView = checkSelectionCounterValue("1");
-
-        openAddInteraction();
-
-        sleep(250);
-
-        navigateUp();
-
-        sleep(250);
-
-        textView.check(doesNotExist());
-
-        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, true);
-
-        checkSelectionCounterValue("1");
-    }
-
-    @Test
-    public void friendsAddFriendDeselectionTest() {
-
-        openFriends();
-
-        selectEntry(0, R.id.ef_layout, R.id.ff_recycler_view, true);
-
-        ViewInteraction textView = checkSelectionCounterValue("1");
-
-        openAddFriend();
-
-        navigateUp();
-
-        sleep(250);
-
-        textView.check(doesNotExist());
-
-        selectEntry(1, R.id.ef_layout, R.id.ff_recycler_view, true);
-
-        checkSelectionCounterValue("1");
-    }
-
-    @Test
     public void logDeleteDeselectionTest() {
 
         openInteractions();
@@ -427,9 +333,6 @@ public class DeselectionTest extends AbstractMATest {
 
     @Test
     public void LISelectionTest(){
-
-        LISelectionTemplateTest(withId(R.id.am_fab_add_friend), withContentDescription("Navigate up"));
-
         LISelectionTemplateTest(withText("Texting"), withText("Meeting"));
         LISelectionTemplateTest(withId(R.id.mbn_interactions), withId(R.id.mbn_last_interactions));
         LISelectionTemplateTest(withId(R.id.mbn_friends), withId(R.id.mbn_last_interactions));
@@ -470,11 +373,6 @@ public class DeselectionTest extends AbstractMATest {
         selCounter.check(matches(isDisplayed()));
 
         onView(goTo).perform(click());
-
-        if(goTo.toString().equals("with id: com.trulden.friends:id/am_fab_add_friend")) {
-            sleep(250);
-            onView(goTo).perform(click());
-        }
 
         sleep(250);
 
