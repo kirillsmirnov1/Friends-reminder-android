@@ -11,7 +11,7 @@
 <!--        TODO -->
         <CheckBoxPreference
             android:key="preference_show_hidden_trackers"
-            android:title="Show hidden trackers"
+            android:title="@string/show_hidden_trackers"
             android:defaultValue="false"
             />
 

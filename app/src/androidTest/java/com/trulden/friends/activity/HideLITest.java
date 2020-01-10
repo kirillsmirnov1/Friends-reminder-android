@@ -47,7 +47,7 @@ public class HideLITest extends AbstractMATest {
 
         openOverflow();
 
-        onView(withText(R.string.show_hidden_li_entries)).perform(click());
+        onView(withText(R.string.show_hidden_trackers)).perform(click());
 
         sleep(250);
 

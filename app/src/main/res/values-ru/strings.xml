@@ -65,7 +65,7 @@
     <string name="import_in_progress">Восстановление данных началось</string>
     <string name="friends_deleted">Друзья удалены</string>
     <string name="type_updated">Тип обновлён</string>
-    <string name="show_hidden_li_entries">Показывать скрытые записи</string>
+    <string name="show_hidden_trackers">Показывать скрытые записи</string>
     <string name="fi_no_data">У вас ещё нет взаимодействий</string>
     <string name="fli_no_data">У вас нет типов взаимодействий.\n\nДобавьте их в меню «Типы взаимодействий» или перезагрузите приложение.</string>
     <string name="flit_no_data">У вас нет активных взаимодействий этого типа.\n\nВы можете добавить их, кликнув на +\n\nЗаранее добавлять друзей не обязательно, это можно сделать во время создания взаимодействия.</string>

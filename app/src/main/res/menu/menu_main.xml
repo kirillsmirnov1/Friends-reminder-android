@@ -23,7 +23,7 @@
     <item
         android:orderInCategory="8"
         android:id="@+id/mm_show_hidden_li"
-        android:title="@string/show_hidden_li_entries"
+        android:title="@string/show_hidden_trackers"
         app:showAsAction="never"
         android:checkable="true"
         />

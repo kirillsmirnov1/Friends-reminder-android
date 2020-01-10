@@ -71,7 +71,7 @@
     <string name="type_updated">Type updated</string>
     <string name="horizontal_divider_dot" translatable="false">\u0020•\u0020</string>
 
-    <string name="show_hidden_li_entries">Show hidden entries</string>
+    <string name="show_hidden_trackers">Show hidden entries</string>
 
     <string name="fi_no_data">You have no interactions yet</string>
     <string name="fli_no_data">You have no interaction types.\n\nAdd them in «Interaction types» menu or restart an app.</string>

@@ -77,7 +77,7 @@ public class ScreenshotTest {
 
         new ImportDatabaseAsyncTask(activity).execute(Uri.parse(uriString));
 
-        guaranteeCheck(R.string.show_hidden_li_entries, true);
+        guaranteeCheck(R.string.show_hidden_trackers, true);
         guaranteeCheck(R.string.night_mode, false);
 
         sleep(3000);
