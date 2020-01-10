@@ -20,6 +20,8 @@
         <item name="editTextStyle">@style/AppTheme.EditTextStyle</item>
 
         <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
