@@ -274,6 +274,12 @@ public class MainActivity
                 return true;
             }
 
+            case R.id.mm_settings: {
+                startActivity(new Intent(this, SettingsActivity.class));
+
+                return true;
+            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
