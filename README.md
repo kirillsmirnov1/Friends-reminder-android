@@ -1,6 +1,6 @@
 # Friends
 
-Friends is a mobile app that helps to remember about friends. 
+Friends is a mobile app that helps to remember about friends. [Full description](https://kirillsmirnov1.github.io/en/blog/friends-app).
 
 <p align="center">
   <a href="https://play.google.com/store/apps/details?id=com.trulden.friends"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" height="75px"/></a>
