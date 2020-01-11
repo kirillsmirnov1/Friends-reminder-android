@@ -25,7 +25,6 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.michaelflisar.changelog.ChangelogBuilder;
 import com.michaelflisar.changelog.internal.ChangelogPreferenceUtil;
-import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
@@ -59,9 +58,6 @@ public class MainActivity
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
     private boolean mTrackerOverShown = false;
 
-    private static final String SHOW_HIDDEN_LAST_INTERACTION_ENTRIES = "SHOW_HIDDEN_LAST_INTERACTION_ENTRIES";
-    private static final String NIGHT_MODE = "Night mode";
-
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
     private FrameLayout mTrackerOverLayout;
@@ -81,16 +77,16 @@ public class MainActivity
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
-        mPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         checkLastInteractionsReadiness(getIntent());
 
         mViewModel.setShowHiddenLI(
-                mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
+                mPreferences.getBoolean(getString(R.string.preference_show_hidden_trackers), false));
 
-        mViewModel.setNightMode(mPreferences.getBoolean(NIGHT_MODE, false));
+        mViewModel.setNightMode(mPreferences.getBoolean(getString(R.string.preference_night_mode), true));
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -192,8 +188,8 @@ public class MainActivity
     protected void onPause() {
         mPreferences
             .edit()
-            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mViewModel.getShowHiddenLIValue())
-            .putBoolean(NIGHT_MODE, mViewModel.getNightModeValue())
+            .putBoolean(getString(R.string.preference_show_hidden_trackers), mViewModel.getShowHiddenLIValue())
+            .putBoolean(getString(R.string.preference_night_mode), mViewModel.getNightModeValue())
             .apply();
 
         super.onPause();

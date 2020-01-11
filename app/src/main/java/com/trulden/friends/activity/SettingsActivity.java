@@ -2,6 +2,7 @@ package com.trulden.friends.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceFragmentCompat;
 
 import android.content.Intent;
@@ -15,6 +16,8 @@ import com.trulden.friends.async.ImportDatabaseAsyncTask;
 import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.util.Util;
 
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static com.trulden.friends.util.Util.EXPORT_DATABASE_REQUEST;
 import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
@@ -35,6 +38,15 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.preferences, rootKey);
+
+            findPreference(getString(R.string.preference_night_mode))
+                    .setOnPreferenceChangeListener((preference, newValue) -> {
+
+                        AppCompatDelegate.setDefaultNightMode(
+                            (boolean)newValue ? MODE_NIGHT_YES : MODE_NIGHT_NO);
+
+                        return true;
+                    });
 
             findPreference(getString(R.string.preference_export))
                     .setOnPreferenceClickListener(preference -> {
