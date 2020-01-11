@@ -128,6 +128,7 @@ public class MainActivity
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
 
+        // FIXME is that actually required? maybe I can just do it on menu options click
         mViewModel.getNightMode().observe(this, nightMode ->
                 AppCompatDelegate.setDefaultNightMode(
                         nightMode ? MODE_NIGHT_YES : MODE_NIGHT_NO
