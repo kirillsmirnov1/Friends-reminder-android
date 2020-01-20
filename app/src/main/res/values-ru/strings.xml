@@ -91,7 +91,7 @@
     <string name="share">Поделиться</string>
     <string name="hide">Скрыть</string>
     <string name="unhide">Сделать видимым</string>
-    <string name="label_settings">Настройки</string>
+    <string name="label_settings">Опции</string>
     <string name="appearance">Внешний вид</string>
     <string name="data_management">Управление данными</string>
     <string name="export_summary">Создать файл со всеми вашими данными. Этот файл может быть загружен обратно.</string>
