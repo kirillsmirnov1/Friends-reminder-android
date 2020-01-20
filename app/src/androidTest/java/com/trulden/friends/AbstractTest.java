@@ -233,4 +233,8 @@ public abstract class AbstractTest {
             onView(withText(t.getInteractionTypeName())).perform(longClick());
         }
     }
+
+    protected void clickSaveOnDialog() {
+        onView(withId(android.R.id.button1)).perform(scrollTo(), click());
+    }
 }

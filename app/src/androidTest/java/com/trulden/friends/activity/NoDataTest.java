@@ -94,7 +94,8 @@ public class NoDataTest extends AbstractMATest {
 
         onView(withId(R.id.deit_name)).perform(typeText("A"));
         onView(withId(R.id.deit_frequency)).perform(typeText("1"));
-        onView(withText("SAVE")).perform(click());
+
+        clickSaveOnDialog();
 
         onView(withId(R.id.ait_no_data)).check(matches(not(isDisplayed())));
 

@@ -416,10 +416,6 @@ public class DeselectionTest extends AbstractMATest {
         onView(withId(R.id.mam_delete)).perform(click());
     }
 
-    private void clickSaveOnDialog() {
-        onView(withText("Save")).perform(scrollTo(), click());
-    }
-
     private void deselectAll() {
         onView(withId(R.id.action_mode_close_button)).perform(click());
     }

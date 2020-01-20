@@ -67,15 +67,15 @@ public class CRUDTest extends AbstractMATest {
         onView(withId(R.id.deit_frequency))
                 .perform(replaceText("7"));
 
-        onView(withText("Save")).perform(scrollTo(), click()); // Won't work because type already exists
+        clickSaveOnDialog(); // Won't work because type already exists
 
         onView(withId(R.id.deit_name))
                 .perform(replaceText("Mess"));
 
-        onView(withText("Save")).perform(scrollTo(), click());
+        // FIXME espresso still can't press that button for some reason
+        // There is even a 5yo issue https://github.com/xiezefan/android-test-kit/issues/176
+        clickSaveOnDialog();
 
-        // Press save button manually, bc espresso fails to
-        // FIXME breakpoint must be there until fixed
         onView(withId(R.id.aei_edit_date)).perform(click());
 
         sleep(250);
@@ -107,7 +107,7 @@ public class CRUDTest extends AbstractMATest {
 
         onView(withText("Baron")).perform(replaceText("Aaron"));
 
-        onView(withText("Save")).perform(scrollTo(), click());
+        clickSaveOnDialog();
 
         onView(withText("You don't have friend named «Goliath»"))
                 .check(matches(isDisplayed()));
@@ -307,7 +307,7 @@ public class CRUDTest extends AbstractMATest {
         onView(withId(R.id.deit_frequency))
                 .perform(replaceText("29"));
 
-        onView(withText("SAVE")).perform(click());
+        clickSaveOnDialog();
 
         navigateUp();
 
