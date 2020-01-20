@@ -73,6 +73,7 @@ public class FriendPageActivity
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        mToolbar.setPopupTheme(R.style.AppTheme_PopupMenu);
 
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
