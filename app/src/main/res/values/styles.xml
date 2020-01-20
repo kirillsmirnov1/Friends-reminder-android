@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
-        <!-- Customize your theme here. -->
 
         <item name="colorPrimary">@color/primary</item>
         <item name="android:textColorSecondary">@color/titleText</item>
@@ -21,7 +19,11 @@
 
         <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
 
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+    </style>
+
+    <style name="AppTheme.PreferenceTheme" parent="@style/PreferenceThemeOverlay">
+        <item name="android:textColorSecondary">@color/textContrast</item>
     </style>
 
     <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
