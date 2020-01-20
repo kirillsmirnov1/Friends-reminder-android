@@ -20,6 +20,8 @@
         <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
 
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
     </style>
 
     <style name="PreferenceTheme" parent="AppTheme">
