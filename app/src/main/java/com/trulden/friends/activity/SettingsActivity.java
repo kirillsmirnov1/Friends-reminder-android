@@ -23,6 +23,9 @@ import static com.trulden.friends.util.Util.IMPORT_DATABASE_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.wipeDatabaseFiles;
 
+/**
+ * Contains app settings
+ */
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
