@@ -103,9 +103,9 @@
     <string name="unhide">Unhide</string>
     <string name="appearance">Appearance</string>
     <string name="data_management">Data management</string>
-    <string name="show_hidden_trackers_summary">Shows hidden trackers in Last Interactions.</string>
-    <string name="export_summary">Creates a file with all your data. This file can be imported back.</string>
-    <string name="import_summary">Loads data from file to app. Old app data will be wiped. Supports only files exported from this app.</string>
+    <string name="show_hidden_trackers_summary">Show hidden trackers in Last Interactions.</string>
+    <string name="export_summary">Create a file with all your data. This file can be imported back.</string>
+    <string name="import_summary">Load data from file to app. Old app data will be wiped. Works only with files exported from this app.</string>
     <string name="preference_night_mode" translatable="false">preference_night_mode</string>
     <string name="preference_show_hidden_trackers" translatable="false">preference_show_hidden_trackers</string>
     <string name="preference_export" translatable="false">preference_export</string>

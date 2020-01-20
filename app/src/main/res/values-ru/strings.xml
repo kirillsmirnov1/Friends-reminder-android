@@ -94,7 +94,7 @@
     <string name="label_settings">Настройки</string>
     <string name="appearance">Внешний вид</string>
     <string name="data_management">Управление данными</string>
-    <string name="export_summary">Создаёт файл со всеми вашими данными. Этот файл может быть загружен обратно.</string>
-    <string name="import_summary">Загружает данные из файла в приложение. Все старые данные в приложении при этом будут удалены. Поддерживает только файлы созданные в этом приложении.</string>
-    <string name="show_hidden_trackers_summary">Показывает скрытые трекеры в последних взаимодействиях.</string>
+    <string name="export_summary">Создать файл со всеми вашими данными. Этот файл может быть загружен обратно.</string>
+    <string name="import_summary">Загрузить данные из файла в приложение. Все старые данные в приложении при этом будут удалены. Поддерживает только файлы созданные в этом приложении.</string>
+    <string name="show_hidden_trackers_summary">Показать скрытые трекеры в последних взаимодействиях.</string>
 </resources>
