@@ -212,7 +212,7 @@ public abstract class AbstractTest {
     protected void guaranteeCheckShowHiddenLI(boolean checked){
         try {
             // The checkbox of menu item is hidden pretty deep
-            ViewInteraction v = onView(allOf(Matchers.<View>instanceOf(CheckBox.class), hasSibling(withChild(withText(R.string.show_hidden_li_entries)))));
+            ViewInteraction v = onView(allOf(Matchers.<View>instanceOf(CheckBox.class), hasSibling(withChild(withText(R.string.show_hidden_trackers)))));
 
             if(checked) {
                 v.check(matches(isChecked()));
@@ -224,7 +224,7 @@ public abstract class AbstractTest {
             Espresso.pressBack();
 
         } catch (AssertionFailedError e){
-            onView(withText(R.string.show_hidden_li_entries)).perform(click());
+            onView(withText(R.string.show_hidden_trackers)).perform(click());
         }
     }
 

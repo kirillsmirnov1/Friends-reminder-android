@@ -45,9 +45,6 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                         makeToast(context, context.getString(R.string.toast_notice_export_failed));
                     }
 
-                    // Hide progress bar
-                    mMainActivity.get().findViewById(R.id.am_progress_bar).setVisibility(View.INVISIBLE);
-
                     // Make window touchable again
                     mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 

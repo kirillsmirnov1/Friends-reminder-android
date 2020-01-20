@@ -52,7 +52,6 @@ public class InteractionTypesActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interaction_types);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 

@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -21,19 +19,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.preference.PreferenceManager;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.michaelflisar.changelog.ChangelogBuilder;
 import com.michaelflisar.changelog.internal.ChangelogPreferenceUtil;
-import com.trulden.friends.BuildConfig;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
-import com.trulden.friends.async.ExportDatabaseAsyncTask;
-import com.trulden.friends.async.ImportDatabaseAsyncTask;
-import com.trulden.friends.database.FriendsDatabase;
 import com.trulden.friends.database.FriendsViewModel;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
@@ -47,14 +42,12 @@ import java.util.HashSet;
 
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
-import static com.trulden.friends.database.FriendsDatabase.getDatabase;
 import static com.trulden.friends.util.Util.*;
 import static com.trulden.friends.util.ViewUtil.hideView;
 import static com.trulden.friends.util.ViewUtil.showView;
 
 /**
  * Holds {@link InteractionsFragment}, {@link LastInteractionsFragment}, {@link FriendsFragment}.
- * Handles some interactions with database: export and import, queries.
  */
 public class MainActivity
         extends AppCompatActivity
@@ -64,9 +57,6 @@ public class MainActivity
 
     private static FragmentToLoad mFragmentToLoad = FragmentToLoad.LAST_INTERACTIONS_FRAGMENT;
     private boolean mTrackerOverShown = false;
-
-    private static final String SHOW_HIDDEN_LAST_INTERACTION_ENTRIES = "SHOW_HIDDEN_LAST_INTERACTION_ENTRIES";
-    private static final String NIGHT_MODE = "Night mode";
 
     private FloatingActionsMenu mFabMenu;
     private Toolbar mToolbar;
@@ -85,16 +75,18 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
 
         checkLastInteractionsReadiness(getIntent());
 
         mViewModel.setShowHiddenLI(
-                mPreferences.getBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, false));
+                mPreferences.getBoolean(getString(R.string.preference_show_hidden_trackers), false));
 
-        mViewModel.setNightMode(mPreferences.getBoolean(NIGHT_MODE, false));
+        mViewModel.setNightMode(mPreferences.getBoolean(getString(R.string.preference_night_mode), true));
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -136,6 +128,7 @@ public class MainActivity
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, intentFilter);
 
+        // FIXME is that actually required? maybe I can just do it on menu options click
         mViewModel.getNightMode().observe(this, nightMode ->
                 AppCompatDelegate.setDefaultNightMode(
                         nightMode ? MODE_NIGHT_YES : MODE_NIGHT_NO
@@ -196,8 +189,8 @@ public class MainActivity
     protected void onPause() {
         mPreferences
             .edit()
-            .putBoolean(SHOW_HIDDEN_LAST_INTERACTION_ENTRIES, mViewModel.getShowHiddenLIValue())
-            .putBoolean(NIGHT_MODE, mViewModel.getNightModeValue())
+            .putBoolean(getString(R.string.preference_show_hidden_trackers), mViewModel.getShowHiddenLIValue())
+            .putBoolean(getString(R.string.preference_night_mode), mViewModel.getNightModeValue())
             .apply();
 
         super.onPause();
@@ -237,15 +230,6 @@ public class MainActivity
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
-            case R.id.mm_export_database: {
-                onClickExportDatabase();
-                return true;
-            }
-
-            case R.id.mm_import_database: {
-                onClickImportDatabase();
-                return true;
-            }
 
             case R.id.mm_interaction_types: {
 
@@ -274,29 +258,15 @@ public class MainActivity
                 return true;
             }
 
+            case R.id.mm_settings: {
+                startActivity(new Intent(this, SettingsActivity.class));
+
+                return true;
+            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void onClickImportDatabase() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("application/zip");
-        startActivityForResult(intent, IMPORT_DATABASE_REQUEST);
-    }
-
-    private void onClickExportDatabase() {
-
-        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-        intent.setType("application/zip");
-
-        intent.putExtra(Intent.EXTRA_TITLE, Util.generateBackupFileName());
-
-        startActivityForResult(intent, EXPORT_DATABASE_REQUEST);
     }
 
     public void addFriend(View view) {
@@ -382,30 +352,6 @@ public class MainActivity
 
                 break;
             }
-
-            case IMPORT_DATABASE_REQUEST: {
-                if(resultCode == RESULT_OK){
-                    if (resultingIntent != null) {
-                        importDatabaseFromUri(resultingIntent.getData());
-                    }
-                }
-                break;
-            }
-
-            case EXPORT_DATABASE_REQUEST:{
-                if(resultCode == RESULT_OK && resultingIntent != null) {
-
-                    makeToast(this, getString(R.string.export_in_progress));
-                    findViewById(R.id.am_progress_bar).setVisibility(View.VISIBLE);
-
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-                    FriendsDatabase.closeDatabase();
-
-                    new ExportDatabaseAsyncTask(this).execute(resultingIntent.getData());
-                }
-            }
         }
     }
 
@@ -433,19 +379,6 @@ public class MainActivity
             id == -1
                 ? new Interaction(interactionTypeId, date, comment)
                 : new Interaction(id, interactionTypeId, date, comment);
-    }
-
-    private void importDatabaseFromUri(Uri uri) {
-
-        makeSnackbar(findViewById(R.id.am_root_layout), getString(R.string.import_in_progress));
-        findViewById(R.id.am_progress_bar).setVisibility(View.VISIBLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-        getDatabase(this).close();
-        wipeDatabaseFiles(this);
-
-        new ImportDatabaseAsyncTask(this).execute(uri);
     }
 
     private boolean loadFragment(FragmentToLoad fragmentToLoad){

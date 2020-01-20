@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/appearance" >
+<!--        TODO -->
+        <SwitchPreferenceCompat
+            android:key="@string/preference_night_mode"
+            android:title="@string/night_mode"
+            android:defaultValue="true"
+            />
+<!--        TODO -->
+        <CheckBoxPreference
+            android:key="@string/preference_show_hidden_trackers"
+            android:title="@string/show_hidden_trackers"
+            android:summary="@string/show_hidden_trackers_summary"
+            android:defaultValue="false"
+            />
+
+    </PreferenceCategory>
+
+<!--    TODO -->
+    <PreferenceCategory android:title="@string/data_management" >
+
+        <Preference
+            android:key="@string/preference_export"
+            android:title="@string/export_database"
+            android:summary="@string/export_summary"
+            />
+
+        <Preference
+            android:key="@string/preference_import"
+            android:title="@string/import_database"
+            android:summary="@string/import_summary"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -5,11 +5,12 @@
     tools:context="com.trulden.friends.activity.MainActivity"
     >
 
-<!--    <item android:id="@+id/action_settings"-->
-<!--          android:title="@string/action_settings"-->
-<!--          android:orderInCategory="100"-->
-<!--          app:showAsAction="never"-->
-<!--    />-->
+    <item
+        android:id="@+id/mm_settings"
+        android:title="@string/label_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
 
     <item
         android:orderInCategory="7"
@@ -22,7 +23,7 @@
     <item
         android:orderInCategory="8"
         android:id="@+id/mm_show_hidden_li"
-        android:title="@string/show_hidden_li_entries"
+        android:title="@string/show_hidden_trackers"
         app:showAsAction="never"
         android:checkable="true"
         />
@@ -31,20 +32,6 @@
         android:id="@+id/mm_interaction_types"
         android:title="@string/manage_interaction_types"
         android:orderInCategory="9"
-        app:showAsAction="never"
-        />
-
-    <item
-        android:id="@+id/mm_export_database"
-        android:title="@string/export_database"
-        android:orderInCategory="10"
-        app:showAsAction="never"
-        />
-
-    <item
-        android:id="@+id/mm_import_database"
-        android:title="@string/import_database"
-        android:orderInCategory="20"
         app:showAsAction="never"
         />
 
