@@ -82,6 +82,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
 
+        // TODO create TrackerFragmentViewModel
         mViewModel.getLiveLastInteractionWrapper(mTypeId, mFriendId).observe(getViewLifecycleOwner(), lastInteractionWrapper -> {
             mLastInteractionWrapper = lastInteractionWrapper;
 
