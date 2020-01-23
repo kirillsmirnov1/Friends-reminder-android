@@ -37,6 +37,8 @@ import static com.trulden.friends.util.Util.openFriendsPage;
  */
 public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
+    static final String FRIEND_ID = "FRIEND_ID";
+    static final String TYPE_ID = "TYPE_ID";
     private MainViewModel mViewModel;
 
     private long mTypeId;
@@ -53,16 +55,13 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    public static TrackerFragment newInstance(long typeId, long friendId) {
-        TrackerFragment fragment = new TrackerFragment();
-        fragment.mTypeId = typeId;
-        fragment.mFriendId = friendId;
-        return fragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        mTypeId = getArguments().getLong(TYPE_ID);
+        mFriendId = getArguments().getLong(FRIEND_ID);
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tracker, container, false);
     }
@@ -81,12 +80,6 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         mComment = view.findViewById(R.id.ft_comment);
 
         mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-
-        if(mTypeId == 0 || mFriendId == 0){
-            mLastInteractionWrapper = mViewModel.getTrackerInFragment();
-            mTypeId = mLastInteractionWrapper.getType().getId();
-            mFriendId = mLastInteractionWrapper.getFriend().getId();
-        }
 
         mViewModel.getLiveLastInteractionWrapper(mTypeId, mFriendId).observe(getViewLifecycleOwner(), lastInteractionWrapper -> {
             mLastInteractionWrapper = lastInteractionWrapper;

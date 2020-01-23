@@ -289,10 +289,13 @@ public class FriendPageActivity
     public void showTrackerOverActivity(LastInteractionWrapper lastInteractionWrapper) {
         mTrackerOverShown = true;
 
-        mTrackerOverFragment = TrackerFragment
-            .newInstance(
-                lastInteractionWrapper.getType().getId(),
-                lastInteractionWrapper.getFriend().getId());
+        mTrackerOverFragment = new TrackerFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(TrackerFragment.TYPE_ID, lastInteractionWrapper.getType().getId());
+        bundle.putLong(TrackerFragment.FRIEND_ID, lastInteractionWrapper.getFriend().getId());
+
+        mTrackerOverFragment.setArguments(bundle);
 
         getSupportFragmentManager()
                 .beginTransaction()
