@@ -22,10 +22,13 @@ import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
+import static com.trulden.friends.util.Util.FRIEND_ID;
+import static com.trulden.friends.util.Util.FRIEND_NAME;
 import static com.trulden.friends.util.Util.INTERACTION_FRIEND_NAMES;
 import static com.trulden.friends.util.Util.INTERACTION_ID;
 import static com.trulden.friends.util.Util.INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.LAST_INTERACTION;
 import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.daysPassed;
@@ -37,8 +40,6 @@ import static com.trulden.friends.util.Util.openFriendsPage;
  */
 public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
-    static final String FRIEND_ID = "FRIEND_ID";
-    static final String TYPE_ID = "TYPE_ID";
     private MainViewModel mViewModel;
 
     private long mTypeId;
@@ -59,7 +60,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mTypeId = getArguments().getLong(TYPE_ID);
+        mTypeId = getArguments().getLong(INTERACTION_TYPE_ID);
         mFriendId = getArguments().getLong(FRIEND_ID);
 
         // Inflate the layout for this fragment
@@ -156,9 +157,9 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
             Bundle bundle = new Bundle();
 
-            bundle.putString(EditLastInteractionFrequencyDialog.TYPE_NAME, mLastInteractionWrapper.getTypeName());
-            bundle.putString(EditLastInteractionFrequencyDialog.FRIEND_NAME, mLastInteractionWrapper.getFriendName());
-            bundle.putSerializable(EditLastInteractionFrequencyDialog.LAST_INTERACTION, mLastInteractionWrapper.getLastInteraction());
+            bundle.putString(INTERACTION_TYPE_NAME, mLastInteractionWrapper.getTypeName());
+            bundle.putString(FRIEND_NAME, mLastInteractionWrapper.getFriendName());
+            bundle.putSerializable(LAST_INTERACTION, mLastInteractionWrapper.getLastInteraction());
 
             dialog.setArguments(bundle);
 

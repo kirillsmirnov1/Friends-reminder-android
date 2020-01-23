@@ -65,6 +65,8 @@ public abstract class Util {
     public static final String FRIEND_NAME  = "FRIEND_NAME";
     public static final String FRIEND_NOTES = "FRIEND_NOTES";
 
+    public static final String LAST_INTERACTION = "LAST_INTERACTION";
+
     public static final String FRAGMENT_TO_LOAD             = "FRAGMENT_TO_LOAD";
     public static final String CHECK_READINESS_AFTER_IMPORT = "CHECK_READINESS_AFTER_IMPORT";
 

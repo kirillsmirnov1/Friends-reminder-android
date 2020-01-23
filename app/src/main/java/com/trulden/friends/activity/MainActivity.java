@@ -470,8 +470,8 @@ public class MainActivity
         mTrackerOverFragment = new TrackerFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putLong(TrackerFragment.TYPE_ID, lastInteractionWrapper.getType().getId());
-        bundle.putLong(TrackerFragment.FRIEND_ID, lastInteractionWrapper.getFriend().getId());
+        bundle.putLong(INTERACTION_TYPE_ID, lastInteractionWrapper.getType().getId());
+        bundle.putLong(FRIEND_ID, lastInteractionWrapper.getFriend().getId());
 
         mTrackerOverFragment.setArguments(bundle);
 

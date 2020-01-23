@@ -13,23 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
-import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.LastInteraction;
-import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import java.util.Objects;
 
+import static com.trulden.friends.util.Util.FRIEND_NAME;
+import static com.trulden.friends.util.Util.INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.LAST_INTERACTION;
 import static com.trulden.friends.util.Util.makeToast;
 
 public class EditLastInteractionFrequencyDialog extends DialogFragment {
-
-    public static final String TYPE_NAME = "TYPE_NAME";
-    public static final String FRIEND_NAME = "FRIEND_NAME";
-    public static final String LAST_INTERACTION = "LAST_INTERACTION";
 
     public EditLastInteractionFrequencyDialog(){
         // Required constructor
@@ -61,7 +57,7 @@ public class EditLastInteractionFrequencyDialog extends DialogFragment {
 
             LastInteraction lastInteraction = (LastInteraction) getArguments().getSerializable(LAST_INTERACTION);
 
-            String type = getArguments().getString(TYPE_NAME);
+            String type = getArguments().getString(INTERACTION_TYPE_NAME);
             String friend = getArguments().getString(FRIEND_NAME);
             long oldFrequency = lastInteraction.getFrequency();
 

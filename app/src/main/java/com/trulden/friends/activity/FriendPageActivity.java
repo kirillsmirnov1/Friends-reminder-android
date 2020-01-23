@@ -37,6 +37,7 @@ import static com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter.Tr
 import static com.trulden.friends.util.Util.FRIEND_ID;
 import static com.trulden.friends.util.Util.FRIEND_NAME;
 import static com.trulden.friends.util.Util.FRIEND_NOTES;
+import static com.trulden.friends.util.Util.INTERACTION_TYPE_ID;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
@@ -292,8 +293,8 @@ public class FriendPageActivity
         mTrackerOverFragment = new TrackerFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putLong(TrackerFragment.TYPE_ID, lastInteractionWrapper.getType().getId());
-        bundle.putLong(TrackerFragment.FRIEND_ID, lastInteractionWrapper.getFriend().getId());
+        bundle.putLong(INTERACTION_TYPE_ID, lastInteractionWrapper.getType().getId());
+        bundle.putLong(FRIEND_ID, lastInteractionWrapper.getFriend().getId());
 
         mTrackerOverFragment.setArguments(bundle);
 
