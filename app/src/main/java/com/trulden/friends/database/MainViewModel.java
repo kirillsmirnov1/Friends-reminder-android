@@ -47,7 +47,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private int mSelectedLITabPos = 0;
 
-    private LastInteractionWrapper mTrackerInFragment;
+    private LastInteractionWrapper mTrackerInFragment; // TODO remove it
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -90,9 +90,6 @@ public class MainViewModel extends AndroidViewModel {
     }
     public LiveData<List<InteractionType>> getAllInteractionTypes() {
         return mAllInteractionTypes;
-    }
-    public LiveData<List<Interaction>> getAllInteractions() {
-        return mAllInteractions;
     }
 
     public LiveData<List<LastInteractionWrapper>> getLiveAllLastInteractionWrappers() { return mRepository.getLiveAllLastInteractionWrappers(); }
