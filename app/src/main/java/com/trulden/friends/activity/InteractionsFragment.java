@@ -33,7 +33,7 @@ import com.trulden.friends.util.Util;
 
 import java.util.HashSet;
 
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
+import static com.trulden.friends.util.Util.INTERACTION_ID;
 import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
@@ -181,7 +181,7 @@ public class InteractionsFragment
         InteractionWithFriendIDs iwfids = mRecyclerViewAdapter.getSelectedItems().get(0);
         Interaction interaction = iwfids.interaction;
 
-        intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
+        intent.putExtra(INTERACTION_ID, interaction.getId());
 
         getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
     }

@@ -22,10 +22,10 @@ import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.INTERACTION_FRIEND_NAMES;
+import static com.trulden.friends.util.Util.INTERACTION_ID;
+import static com.trulden.friends.util.Util.INTERACTION_TYPE_ID;
+import static com.trulden.friends.util.Util.INTERACTION_TYPE_NAME;
 import static com.trulden.friends.util.Util.NEW_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.daysPassed;
@@ -142,9 +142,9 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         createInteractionIcon.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), EditInteractionActivity.class);
-            intent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
-            intent.putExtra(EXTRA_INTERACTION_TYPE_NAME, mLastInteractionWrapper.getTypeName());
-            intent.putExtra(EXTRA_INTERACTION_TYPE_ID, mLastInteractionWrapper.getType().getId());
+            intent.putExtra(INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
+            intent.putExtra(INTERACTION_TYPE_NAME, mLastInteractionWrapper.getTypeName());
+            intent.putExtra(INTERACTION_TYPE_ID, mLastInteractionWrapper.getType().getId());
 
             ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
 
@@ -168,7 +168,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         mComment.setOnLongClickListener(v -> {
             Intent intent = new Intent(getContext(), EditInteractionActivity.class);
 
-            intent.putExtra(EXTRA_INTERACTION_ID, mLastInteractionWrapper.getLastInteraction().getInteractionId());
+            intent.putExtra(INTERACTION_ID, mLastInteractionWrapper.getLastInteraction().getInteractionId());
 
             getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
 

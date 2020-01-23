@@ -34,9 +34,9 @@ import java.util.HashSet;
 import java.util.Objects;
 
 import static com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter.TrackerMode.SHOW_TYPE_NAME;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
+import static com.trulden.friends.util.Util.FRIEND_ID;
+import static com.trulden.friends.util.Util.FRIEND_NAME;
+import static com.trulden.friends.util.Util.FRIEND_NOTES;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
@@ -85,9 +85,9 @@ public class FriendPageActivity
         Intent intent = getIntent();
 
         mFriend = new Friend(
-                intent.getLongExtra(EXTRA_FRIEND_ID, -1),
-                Objects.requireNonNull(intent.getStringExtra(EXTRA_FRIEND_NAME)),
-                intent.getStringExtra(EXTRA_FRIEND_NOTES));
+                intent.getLongExtra(FRIEND_ID, -1),
+                Objects.requireNonNull(intent.getStringExtra(FRIEND_NAME)),
+                intent.getStringExtra(FRIEND_NOTES));
 
         setFriendInfo(mFriend);
 
@@ -177,9 +177,9 @@ public class FriendPageActivity
             case R.id.mam_edit: {
                 Intent intent = new Intent(this, EditFriendActivity.class);
 
-                intent.putExtra(EXTRA_FRIEND_ID, mFriend.getId());
-                intent.putExtra(EXTRA_FRIEND_NAME, mFriend.getName());
-                intent.putExtra(EXTRA_FRIEND_NOTES, mFriend.getInfo());
+                intent.putExtra(FRIEND_ID, mFriend.getId());
+                intent.putExtra(FRIEND_NAME, mFriend.getName());
+                intent.putExtra(FRIEND_NOTES, mFriend.getInfo());
 
                 startActivityForResult(intent, UPDATE_FRIEND_REQUEST);
                 break;
@@ -202,10 +202,10 @@ public class FriendPageActivity
         if (requestCode == UPDATE_FRIEND_REQUEST) {
             if (resultCode == RESULT_OK) {
                 assert resultingIntent != null;
-                long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
+                long id = resultingIntent.getLongExtra(FRIEND_ID, -1);
                 if (id != -1) {
-                    String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
-                    String info = resultingIntent.getStringExtra(EXTRA_FRIEND_NOTES);
+                    String name = resultingIntent.getStringExtra(FRIEND_NAME);
+                    String info = resultingIntent.getStringExtra(FRIEND_NOTES);
 
                     assert name != null;
                     Friend friend = new Friend(id, name, info);

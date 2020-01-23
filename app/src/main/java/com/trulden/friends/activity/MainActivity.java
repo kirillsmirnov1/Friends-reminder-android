@@ -96,8 +96,8 @@ public class MainActivity
 
         mTrackerOverLayout = findViewById(R.id.am_tracker_over_layout);
 
-        if(getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD) != null){
-            mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(EXTRA_FRAGMENT_TO_LOAD);
+        if(getIntent().getSerializableExtra(FRAGMENT_TO_LOAD) != null){
+            mFragmentToLoad = (FragmentToLoad) getIntent().getSerializableExtra(FRAGMENT_TO_LOAD);
         }
 
         ((BottomNavigationView) findViewById(R.id.am_bottom_navigation))
@@ -154,7 +154,7 @@ public class MainActivity
 
         long lastTime = mPreferences.getLong(key, -1);
 
-        if(lastTime == -1 || Util.daysPassed(lastTime) > 0 || intent.hasExtra(EXTRA_CHECK_READINESS_AFTER_IMPORT)){
+        if(lastTime == -1 || Util.daysPassed(lastTime) > 0 || intent.hasExtra(CHECK_READINESS_AFTER_IMPORT)){
             mViewModel.checkLastInteractionsReadiness();
         }
         mPreferences.edit().putLong(key, Calendar.getInstance().getTimeInMillis()).apply();
@@ -293,7 +293,7 @@ public class MainActivity
 
         Intent intent = new Intent(this, EditInteractionActivity.class);
 
-        intent.putExtra(EXTRA_INTERACTION_TYPE_POS, tabPos);
+        intent.putExtra(INTERACTION_TYPE_POS, tabPos);
 
         startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         mFabMenu.collapse();
@@ -319,7 +319,7 @@ public class MainActivity
 
                     @SuppressWarnings("unchecked")
                     HashSet<Long> friendsIds = (HashSet<Long>)
-                            resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
+                            resultingIntent.getSerializableExtra(INTERACTION_FRIEND_IDS);
 
                     mViewModel.add(getInteractionFromIntent(resultingIntent), friendsIds);
                 }
@@ -331,7 +331,7 @@ public class MainActivity
 
                     @SuppressWarnings("unchecked")
                     HashSet<Long> friendsIds = (HashSet<Long>)
-                            resultingIntent.getSerializableExtra(EXTRA_INTERACTION_FRIEND_IDS);
+                            resultingIntent.getSerializableExtra(INTERACTION_FRIEND_IDS);
 
                     mViewModel.update(getInteractionFromIntent(resultingIntent), friendsIds);
                 }
@@ -356,9 +356,9 @@ public class MainActivity
     }
 
     private Friend getFriendFromIntent(Intent resultingIntent) {
-        long id = resultingIntent.getLongExtra(EXTRA_FRIEND_ID, -1);
-        String name = resultingIntent.getStringExtra(EXTRA_FRIEND_NAME);
-        String info = resultingIntent.getStringExtra(EXTRA_FRIEND_NOTES);
+        long id = resultingIntent.getLongExtra(FRIEND_ID, -1);
+        String name = resultingIntent.getStringExtra(FRIEND_NAME);
+        String info = resultingIntent.getStringExtra(FRIEND_NOTES);
 
         assert name != null;
 
@@ -370,10 +370,10 @@ public class MainActivity
 
     private Interaction getInteractionFromIntent(Intent resultingIntent) {
 
-        long id = resultingIntent.getLongExtra(EXTRA_INTERACTION_ID, -1);
-        long interactionTypeId = resultingIntent.getLongExtra(EXTRA_INTERACTION_TYPE_ID, -1);
-        long date = resultingIntent.getLongExtra(EXTRA_INTERACTION_DATE, -1);
-        String comment = resultingIntent.getStringExtra(EXTRA_INTERACTION_COMMENT);
+        long id = resultingIntent.getLongExtra(INTERACTION_ID, -1);
+        long interactionTypeId = resultingIntent.getLongExtra(INTERACTION_TYPE_ID, -1);
+        long date = resultingIntent.getLongExtra(INTERACTION_DATE, -1);
+        String comment = resultingIntent.getStringExtra(INTERACTION_COMMENT);
 
         return
             id == -1

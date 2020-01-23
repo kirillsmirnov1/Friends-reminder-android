@@ -19,7 +19,7 @@ import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 import static com.trulden.friends.util.Util.ACTION_DATABASE_EXPORT_FINISHED;
-import static com.trulden.friends.util.Util.EXTRA_EXPORT_RESULT;
+import static com.trulden.friends.util.Util.EXPORT_RESULT;
 import static com.trulden.friends.util.Util.getDbPaths;
 import static com.trulden.friends.util.Util.getInnerBackupFilePath;
 
@@ -71,7 +71,7 @@ public class ExportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean exportResult) {
         Intent broadcast = new Intent(ACTION_DATABASE_EXPORT_FINISHED);
-        broadcast.putExtra(EXTRA_EXPORT_RESULT, exportResult);
+        broadcast.putExtra(EXPORT_RESULT, exportResult);
         LocalBroadcastManager.getInstance(mContext.get()).sendBroadcast(broadcast);
     }
 }

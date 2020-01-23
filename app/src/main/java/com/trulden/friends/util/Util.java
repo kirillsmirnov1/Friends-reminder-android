@@ -52,24 +52,24 @@ public abstract class Util {
     public static final int IMPORT_DATABASE_REQUEST    = 5;
     public static final int EXPORT_DATABASE_REQUEST    = 6;
 
-    public static final String EXTRA_INTERACTION_ID = "EXTRA_INTERACTION_ID";
-    public static final String EXTRA_INTERACTION_FRIEND_NAMES = "EXTRA_INTERACTION_FRIEND_NAMES";
-    public static final String EXTRA_INTERACTION_FRIEND_IDS = "EXTRA_INTERACTION_FRIEND_IDS";
-    public static final String EXTRA_INTERACTION_TYPE_ID = "EXTRA_INTERACTION_TYPE_ID";
-    public static final String EXTRA_INTERACTION_TYPE_NAME = "EXTRA_INTERACTION_TYPE_NAME";
-    public static final String EXTRA_INTERACTION_TYPE_POS = "EXTRA_INTERACTION_TYPE_POS";
-    public static final String EXTRA_INTERACTION_DATE = "EXTRA_INTERACTION_DATE";
-    public static final String EXTRA_INTERACTION_COMMENT = "EXTRA_INTERACTION_COMMENT";
+    public static final String INTERACTION_ID           = "INTERACTION_ID";
+    public static final String INTERACTION_FRIEND_NAMES = "INTERACTION_FRIEND_NAMES";
+    public static final String INTERACTION_FRIEND_IDS   = "INTERACTION_FRIEND_IDS";
+    public static final String INTERACTION_TYPE_ID      = "INTERACTION_TYPE_ID";
+    public static final String INTERACTION_TYPE_NAME    = "INTERACTION_TYPE_NAME";
+    public static final String INTERACTION_TYPE_POS     = "INTERACTION_TYPE_POS";
+    public static final String INTERACTION_DATE         = "INTERACTION_DATE";
+    public static final String INTERACTION_COMMENT      = "INTERACTION_COMMENT";
 
-    public static final String EXTRA_FRIEND_ID   = "EXTRA_FRIEND_ID";
-    public static final String EXTRA_FRIEND_NAME = "EXTRA_FRIEND_NAME";
-    public static final String EXTRA_FRIEND_NOTES = "EXTRA_FRIEND_NOTES";
+    public static final String FRIEND_ID    = "FRIEND_ID";
+    public static final String FRIEND_NAME  = "FRIEND_NAME";
+    public static final String FRIEND_NOTES = "FRIEND_NOTES";
 
-    public static final String EXTRA_FRAGMENT_TO_LOAD = "EXTRA_FRAGMENT_TO_LOAD";
-    public static final String EXTRA_CHECK_READINESS_AFTER_IMPORT = "EXTRA_CHECK_READINESS_AFTER_IMPORT";
+    public static final String FRAGMENT_TO_LOAD             = "FRAGMENT_TO_LOAD";
+    public static final String CHECK_READINESS_AFTER_IMPORT = "CHECK_READINESS_AFTER_IMPORT";
 
-    public static final String EXTRA_EXPORT_RESULT = "EXTRA_EXPORT_RESULT";
-    public static final String EXTRA_IMPORT_RESULT = "EXTRA_IMPORT_RESULT";
+    public static final String EXPORT_RESULT = "EXPORT_RESULT";
+    public static final String IMPORT_RESULT = "IMPORT_RESULT";
 
     public static final String ACTION_DATABASE_EXPORT_FINISHED =
             BuildConfig.APPLICATION_ID + ".ACTION_DATABASE_EXPORT_FINISHED";
@@ -85,9 +85,9 @@ public abstract class Util {
      */
     public static void openFriendsPage(FragmentActivity activity, Friend friend){
         Intent intent = new Intent(activity, FriendPageActivity.class);
-        intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
-        intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-        intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
+        intent.putExtra(FRIEND_ID, friend.getId());
+        intent.putExtra(FRIEND_NAME, friend.getName());
+        intent.putExtra(FRIEND_NOTES, friend.getInfo());
         Objects.requireNonNull(activity).startActivity(intent);
     }
 
