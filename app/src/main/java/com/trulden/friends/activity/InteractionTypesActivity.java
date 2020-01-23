@@ -20,7 +20,7 @@ import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
 import com.trulden.friends.adapter.InteractionTypeRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.InteractionType;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +39,7 @@ public class InteractionTypesActivity
             EditInteractionType,
             SelectionWithOnDeleteAlert<InteractionType> {
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
 
     private InteractionTypeRecyclerViewAdapter mRecyclerViewAdapter;
 
@@ -53,7 +53,7 @@ public class InteractionTypesActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interaction_types);
 
-        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         mSelectedPositions = mViewModel.getSelectedPositions(InteractionTypesActivity.class.getName());
 

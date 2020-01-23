@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.R;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Friend;
 
 import java.util.ArrayList;
@@ -41,8 +41,8 @@ public class EditFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_friend);
 
-        FriendsViewModel friendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
-        friendsViewModel.getAllFriends().observe(this, friends -> mFriends = friends);
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getAllFriends().observe(this, friends -> mFriends = friends);
 
         mName = findViewById(R.id.aef_edit_name);
         mInfo = findViewById(R.id.aef_edit_info);

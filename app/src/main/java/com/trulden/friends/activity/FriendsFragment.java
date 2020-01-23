@@ -23,7 +23,7 @@ import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
 import com.trulden.friends.adapter.FriendsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Friend;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class FriendsFragment
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
     private FriendsRecyclerViewAdapter mRecyclerViewAdapter;
 
     private SelectionCallback mSelectionCallback;
@@ -75,7 +75,7 @@ public class FriendsFragment
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
 
         mSelectedPositions = mViewModel.getSelectedPositions(FriendsFragment.class.getName());
 

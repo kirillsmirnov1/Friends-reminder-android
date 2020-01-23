@@ -25,7 +25,7 @@ import com.trulden.friends.activity.interfaces.TrackerOverActivity;
 import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
@@ -56,7 +56,7 @@ public class FriendPageActivity
 
     private Friend mFriend;
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
     private LastInteractionsRecyclerViewAdapter mRecyclerViewAdapter;
     private HashSet<Integer> mSelectedPositions;
     private SelectionCallback mSelectionCallback;
@@ -75,7 +75,7 @@ public class FriendPageActivity
         setSupportActionBar(mToolbar);
         mToolbar.setPopupTheme(R.style.AppTheme_PopupMenu);
 
-        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         mPersonNotes = findViewById(R.id.afp_notes);
         mNotesTrackersDivider = findViewById(R.id.afp_notes_tracker_divider);

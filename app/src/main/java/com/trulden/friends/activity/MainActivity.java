@@ -29,7 +29,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.LastInteraction;
@@ -64,7 +64,7 @@ public class MainActivity
 
     private SharedPreferences mPreferences;
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
 
     private CustomBroadcastReceiver mReceiver;
     private Fragment mFragment;
@@ -79,7 +79,7 @@ public class MainActivity
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         checkLastInteractionsReadiness(getIntent());
 

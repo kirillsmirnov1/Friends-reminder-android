@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.EditLastInteractionFrequencyDialog;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
 import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
@@ -37,7 +37,7 @@ import static com.trulden.friends.util.Util.openFriendsPage;
  */
 public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
 
     private long mTypeId;
     private long mFriendId;
@@ -80,7 +80,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         mWithWhom = view.findViewById(R.id.ft_with_whom);
         mComment = view.findViewById(R.id.ft_comment);
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
 
         if(mTypeId == 0 || mFriendId == 0){
             mLastInteractionWrapper = mViewModel.getTrackerInFragment();

@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
@@ -28,7 +28,7 @@ import static com.trulden.friends.util.Util.makeToast;
 public class EditLastInteractionFrequencyDialog extends DialogFragment {
 
     private LastInteractionWrapper mLastInteractionWrapper;
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
 
     public EditLastInteractionFrequencyDialog(){
         // Required constructor
@@ -49,7 +49,7 @@ public class EditLastInteractionFrequencyDialog extends DialogFragment {
         @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.dialog_edit_last_interaction_frequency, null);
 
-        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         if(mLastInteractionWrapper == null){
             mLastInteractionWrapper = mViewModel.getTrackerInFragment();

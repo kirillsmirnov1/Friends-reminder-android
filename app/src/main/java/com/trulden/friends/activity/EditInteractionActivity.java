@@ -26,7 +26,7 @@ import com.trulden.friends.activity.dialogs.DatePickerFragment;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.InteractionType;
 
@@ -58,7 +58,7 @@ public class EditInteractionActivity
             AdapterView.OnItemSelectedListener,
             EditInteractionType {
 
-    FriendsViewModel mViewModel;
+    MainViewModel mViewModel;
 
     private Spinner  mType;
     private ArrayAdapter<String> mTypeSpinnerAdapter;
@@ -85,7 +85,7 @@ public class EditInteractionActivity
 
         mSaveHandler.restoreState(savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         // Set friend names from database to corresponding dropdown list
         mViewModel.getAllFriends().observe(this, friends -> {

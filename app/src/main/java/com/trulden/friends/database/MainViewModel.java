@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * View model of app database
  */
-public class FriendsViewModel extends AndroidViewModel {
+public class MainViewModel extends AndroidViewModel {
 
     private FriendsRepository mRepository;
 
@@ -49,7 +49,7 @@ public class FriendsViewModel extends AndroidViewModel {
 
     private LastInteractionWrapper mTrackerInFragment;
 
-    public FriendsViewModel(@NonNull Application application) {
+    public MainViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = new FriendsRepository(application);
