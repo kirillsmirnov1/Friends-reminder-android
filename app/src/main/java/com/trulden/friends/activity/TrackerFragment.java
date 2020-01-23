@@ -151,9 +151,19 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
         });
 
-        changeFrequencyIcon.setOnClickListener(v ->
-            new EditLastInteractionFrequencyDialog(mLastInteractionWrapper)
-                .show(getActivity().getSupportFragmentManager(), "editLIFrequency"));
+        changeFrequencyIcon.setOnClickListener(v -> {
+            EditLastInteractionFrequencyDialog dialog = new EditLastInteractionFrequencyDialog();
+
+            Bundle bundle = new Bundle();
+
+            bundle.putString(EditLastInteractionFrequencyDialog.TYPE_NAME, mLastInteractionWrapper.getTypeName());
+            bundle.putString(EditLastInteractionFrequencyDialog.FRIEND_NAME, mLastInteractionWrapper.getFriendName());
+            bundle.putSerializable(EditLastInteractionFrequencyDialog.LAST_INTERACTION, mLastInteractionWrapper.getLastInteraction());
+
+            dialog.setArguments(bundle);
+
+            dialog.show(getActivity().getSupportFragmentManager(), "editLIFrequency");
+        });
 
         mComment.setOnLongClickListener(v -> {
             Intent intent = new Intent(getContext(), EditInteractionActivity.class);

@@ -27,15 +27,12 @@ import static com.trulden.friends.util.Util.makeToast;
 
 public class EditLastInteractionFrequencyDialog extends DialogFragment {
 
-    private LastInteractionWrapper mLastInteractionWrapper;
-    private MainViewModel mViewModel;
+    public static final String TYPE_NAME = "TYPE_NAME";
+    public static final String FRIEND_NAME = "FRIEND_NAME";
+    public static final String LAST_INTERACTION = "LAST_INTERACTION";
 
     public EditLastInteractionFrequencyDialog(){
         // Required constructor
-    }
-
-    public EditLastInteractionFrequencyDialog(LastInteractionWrapper lastInteractionWrapper){
-        mLastInteractionWrapper = lastInteractionWrapper;
     }
 
     @NonNull
@@ -48,12 +45,6 @@ public class EditLastInteractionFrequencyDialog extends DialogFragment {
 
         @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.dialog_edit_last_interaction_frequency, null);
-
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-        if(mLastInteractionWrapper == null){
-            mLastInteractionWrapper = mViewModel.getTrackerInFragment();
-        }
 
         builder
             .setTitle(getString(R.string.edit_frequency))
@@ -68,9 +59,11 @@ public class EditLastInteractionFrequencyDialog extends DialogFragment {
 
         dialog.setOnShowListener(dialogInterface -> {
 
-            String type = mLastInteractionWrapper.getTypeName();
-            String friend = mLastInteractionWrapper.getFriendName();
-            long oldFrequency = mLastInteractionWrapper.getFrequency();
+            LastInteraction lastInteraction = (LastInteraction) getArguments().getSerializable(LAST_INTERACTION);
+
+            String type = getArguments().getString(TYPE_NAME);
+            String friend = getArguments().getString(FRIEND_NAME);
+            long oldFrequency = lastInteraction.getFrequency();
 
             String hintText = String.format(
                     getString(R.string.current_frequency_type_friend), type, friend, oldFrequency);
@@ -79,7 +72,7 @@ public class EditLastInteractionFrequencyDialog extends DialogFragment {
 
             dialog.getButton(DialogInterface.BUTTON_POSITIVE)
                 .setOnClickListener(view -> {
-                    LastInteraction lastInteraction = mLastInteractionWrapper.getLastInteraction();
+
                     int newFrequency = -1;
                     String enteredFrequencyString = editFrequency.getText().toString();
 
@@ -111,17 +104,13 @@ public class EditLastInteractionFrequencyDialog extends DialogFragment {
 
                     lastInteraction.setFrequency(newFrequency);
 
-                    ((TrackerOverActivity) getActivity()).updateLastInteraction(lastInteraction);
+                    ((TrackerOverActivity) getActivity())
+                        .updateLastInteraction(lastInteraction);
+
                     dialog.dismiss();
                 });
         });
 
         return dialog;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mViewModel.setTrackerInFragment(mLastInteractionWrapper);
     }
 }
