@@ -503,8 +503,6 @@ public class MainActivity
                 .beginTransaction()
                 .remove(mTrackerOverFragment)
                 .commit();
-
-        mViewModel.setTrackerInFragment(null);
     }
 
     public enum FragmentToLoad{

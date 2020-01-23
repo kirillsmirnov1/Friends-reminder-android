@@ -196,7 +196,5 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
     @Override
     public void onDetach() {
         super.onDetach();
-
-        mViewModel.setTrackerInFragment(mLastInteractionWrapper);
     }
 }

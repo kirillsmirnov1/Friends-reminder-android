@@ -313,8 +313,6 @@ public class FriendPageActivity
                 .beginTransaction()
                 .remove(mTrackerOverFragment)
                 .commit();
-
-        mViewModel.setTrackerInFragment(null);
     }
 
     @Override
