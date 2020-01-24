@@ -19,8 +19,9 @@ import android.widget.TextView;
 import com.trulden.friends.R;
 import com.trulden.friends.activity.dialogs.EditLastInteractionFrequencyDialog;
 import com.trulden.friends.activity.interfaces.TrackerOverActivity;
-import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
+import com.trulden.friends.database.TrackerViewModel;
+import com.trulden.friends.database.TrackerViewModelFactory;
 
 import static com.trulden.friends.util.Util.FRIEND_ID;
 import static com.trulden.friends.util.Util.FRIEND_NAME;
@@ -40,10 +41,7 @@ import static com.trulden.friends.util.Util.openFriendsPage;
  */
 public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
-    private MainViewModel mViewModel;
-
-    private long mTypeId;
-    private long mFriendId;
+    private TrackerViewModel mTrackerViewModel;
 
     private LastInteractionWrapper mLastInteractionWrapper;
 
@@ -60,8 +58,15 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mTypeId = getArguments().getLong(INTERACTION_TYPE_ID);
-        mFriendId = getArguments().getLong(FRIEND_ID);
+        long typeId = getArguments().getLong(INTERACTION_TYPE_ID);
+        long friendId = getArguments().getLong(FRIEND_ID);
+
+        // Some resources say, creating new factory will cause recreation of VM
+        // Checked that with log and it seems that VM itself survives configuration change
+        mTrackerViewModel = ViewModelProviders
+            .of(this,
+                new TrackerViewModelFactory(this.getActivity().getApplication(), friendId, typeId))
+            .get(TrackerViewModel.class);
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tracker, container, false);
@@ -73,6 +78,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
         view.setOnClickListener(this);
 
+        // FIXME move to onCreateView
         TextView friendsNameView = view.findViewById(R.id.ft_friends_name);
         mStatusIcon = view.findViewById(R.id.ft_status_icon);
         ImageView createInteractionIcon = view.findViewById(R.id.ft_create_interaction_icon);
@@ -80,16 +86,12 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
         mWithWhom = view.findViewById(R.id.ft_with_whom);
         mComment = view.findViewById(R.id.ft_comment);
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-
-        // TODO create TrackerFragmentViewModel
-        mViewModel.getLiveLastInteractionWrapper(mTypeId, mFriendId).observe(getViewLifecycleOwner(), lastInteractionWrapper -> {
+        mTrackerViewModel.getLastInteractionWrapper().observe(getViewLifecycleOwner(), lastInteractionWrapper -> {
             mLastInteractionWrapper = lastInteractionWrapper;
 
-            long interactionId = mLastInteractionWrapper.getLastInteraction().getInteractionId();
-            String friendsName = mLastInteractionWrapper.getFriendName();
+            String friendName = mLastInteractionWrapper.getFriendName();
 
-            friendsNameView.setText(friendsName);
+            friendsNameView.setText(friendName);
 
             ((TextView) view.findViewById(R.id.ft_type))
                     .setText(mLastInteractionWrapper.getTypeName());
@@ -102,11 +104,11 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
 
             setStatusIcon();
 
-            mViewModel.getInteraction(interactionId)
+            mTrackerViewModel.getInteraction()
                     .observe(
                             getViewLifecycleOwner(),
-                            interactions ->{
-                                String comment = interactions.getComment();
+                            interaction -> {
+                                String comment = interaction.getComment(); // FIXME get only string
                                 if(comment.isEmpty()){
                                     mComment.setHint(R.string.no_description);
                                 } else {
@@ -114,9 +116,9 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
                                 }
                             });
 
-            mViewModel.getCoParticipantNames(interactionId, friendsName).observe(getViewLifecycleOwner(),
+            mTrackerViewModel.getCoParticipantNames().observe(getViewLifecycleOwner(),
                     namesList -> {
-                        if(namesList.size() == 0){
+                        if(namesList.size() == 0){ // FIXME transform in VM?
                             mWithWhom.setVisibility(View.GONE);
                         } else {
                             String names = getString(R.string.with) + TextUtils.join(", ", namesList);
@@ -139,7 +141,7 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
                 ? 1
                 : 0);
             setStatusIcon();
-            mViewModel.update(mLastInteractionWrapper.getLastInteraction());
+            mTrackerViewModel.update(mLastInteractionWrapper.getLastInteraction());
         });
 
         createInteractionIcon.setOnClickListener(v -> {
