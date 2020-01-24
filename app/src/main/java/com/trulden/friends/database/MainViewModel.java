@@ -28,7 +28,6 @@ public class MainViewModel extends AndroidViewModel {
 
     private LiveData<List<Friend>> mAllFriends;
     private LiveData<List<InteractionType>> mAllInteractionTypes;
-    private LiveData<List<Interaction>> mAllInteractions;
 
     private MutableLiveData<Boolean> mShowHiddenLI;
     private MutableLiveData<Boolean> mNightMode;
@@ -54,7 +53,6 @@ public class MainViewModel extends AndroidViewModel {
 
         mAllFriends = mRepository.getAllFriends();
         mAllInteractionTypes = mRepository.getAllInteractionTypes();
-        mAllInteractions = mRepository.getAllInteractions();
 
         mShowHiddenLI = new MutableLiveData<>();
         mNightMode = new MutableLiveData<>();
@@ -135,14 +133,6 @@ public class MainViewModel extends AndroidViewModel {
 
     public LiveData<Interaction> getInteraction(long interactionId) {
         return mRepository.getInteraction(interactionId);
-    }
-
-    public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
-        return mRepository.getCoParticipantNames(interactionId, friendsName);
-    }
-
-    public LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId) {
-        return mRepository.getLiveLastInteractionWrapper(typeId, friendId);
     }
 
     public void checkLastInteractionsReadiness() {
