@@ -84,7 +84,7 @@ public class LastInteractionsRecyclerViewAdapter extends CustomRVAdapter<LastInt
 
             int daysPassed = daysPassed(interaction.getLastInteraction());
 
-            String dateString = daysPassed + mContext.getString(R.string.days_ago);
+            String dateString = String.format(mContext.getString(R.string.days_ago), daysPassed);
 
             mTime.setText(dateString);
 

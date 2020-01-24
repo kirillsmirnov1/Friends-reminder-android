@@ -50,7 +50,7 @@
     <string name="add_new_interaction_type">Добавить новый...</string>
     <string name="add_friend">Новый друг</string>
     <string name="edit_interaction">Изменить взаимодействие</string>
-    <string name="days_ago">\u0020д. назад</string>
+    <string name="days_ago">%d д. назад</string>
     <string name="per_days">раз в %d д.</string>
     <string name="discard">Отмена</string>
     <string name="edit_interaction_type">Изменить тип взаимодействия</string>

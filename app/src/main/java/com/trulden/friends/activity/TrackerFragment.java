@@ -154,7 +154,7 @@ public class TrackerFragment extends Fragment implements View.OnClickListener {
                     .setText(mLastInteractionWrapper.getTypeName());
 
             ((TextView) view.findViewById(R.id.ft_time_passed))
-                    .setText(daysPassed(mLastInteractionWrapper.getLastInteraction()) + getString(R.string.days_ago));
+                    .setText(String.format(getString(R.string.days_ago), daysPassed(mLastInteractionWrapper.getLastInteraction())));
 
             ((TextView) view.findViewById(R.id.ft_frequency))
                     .setText(String.format(getString(R.string.LI_every_x_days), mLastInteractionWrapper.getFrequency()));
