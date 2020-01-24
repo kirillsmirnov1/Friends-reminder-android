@@ -71,8 +71,8 @@ class FriendsRepository {
         return mFriendsDao.getInteractionById(interactionId);
     }
 
-    public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
-        return mFriendsDao.getCoParticipantNames(interactionId, friendsName);
+    public LiveData<List<String>> getOtherFriends(long interactionId, String friendsName) {
+        return mFriendsDao.getOtherFriends(interactionId, friendsName);
     }
 
     public LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId) {

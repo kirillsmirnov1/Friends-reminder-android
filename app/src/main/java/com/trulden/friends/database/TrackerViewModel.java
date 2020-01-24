@@ -52,7 +52,7 @@ public class TrackerViewModel extends AndroidViewModel {
             String friendName = lastInteractionWrapper.getFriendName();
 
             mInteractionComment = mRepository.getInteractionComment(interactionId);
-            mOtherFriendsList = mRepository.getCoParticipantNames(interactionId, friendName); // TODO rename
+            mOtherFriendsList = mRepository.getOtherFriends(interactionId, friendName);
 
             // Must be removed in onCleared()
             mOtherFriendsList.observeForever(mOtherFriendsObserver);
