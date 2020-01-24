@@ -27,7 +27,7 @@ public class TrackerViewModel extends AndroidViewModel {
     private MutableLiveData<String> mOtherFriends;
 
     private final Observer<List<String>> mOtherFriendsObserver;
-    private final Observer<LastInteractionWrapper> lastInteractionWrapperObserver;
+    private final Observer<LastInteractionWrapper> mLastInteractionWrapperObserver;
 
     private FriendsRepository mRepository;
 
@@ -47,7 +47,7 @@ public class TrackerViewModel extends AndroidViewModel {
             mOtherFriends.setValue(names);
         };
 
-        lastInteractionWrapperObserver = lastInteractionWrapper -> {
+        mLastInteractionWrapperObserver = lastInteractionWrapper -> {
             long interactionId = lastInteractionWrapper.getLastInteraction().getInteractionId();
             String friendName = lastInteractionWrapper.getFriendName();
 
@@ -59,14 +59,14 @@ public class TrackerViewModel extends AndroidViewModel {
         };
 
         // Must be removed in onCleared()
-        mLastInteractionWrapper.observeForever(lastInteractionWrapperObserver);
+        mLastInteractionWrapper.observeForever(mLastInteractionWrapperObserver);
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
 
-        mLastInteractionWrapper.removeObserver(lastInteractionWrapperObserver);
+        mLastInteractionWrapper.removeObserver(mLastInteractionWrapperObserver);
         mOtherFriendsList.removeObserver(mOtherFriendsObserver);
     }
 
