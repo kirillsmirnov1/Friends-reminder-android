@@ -1,10 +1,12 @@
 package com.trulden.friends.database;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.trulden.friends.database.entity.LastInteraction;
@@ -20,9 +22,11 @@ import java.util.List;
 public class TrackerViewModel extends AndroidViewModel {
 
     private final LiveData<LastInteractionWrapper> mLastInteractionWrapper;
-    private LiveData<List<String>> mCoParticipantNames;
+    private LiveData<List<String>> mOtherFriendsList;
     private LiveData<String> mInteractionComment;
+    private MutableLiveData<String> mOtherFriends;
 
+    private final Observer<List<String>> mOtherFriendsObserver;
     private final Observer<LastInteractionWrapper> lastInteractionWrapperObserver;
 
     private FriendsRepository mRepository;
@@ -33,13 +37,25 @@ public class TrackerViewModel extends AndroidViewModel {
         mRepository = new FriendsRepository(application);
 
         mLastInteractionWrapper = mRepository.getLiveLastInteractionWrapper(typeId, friendId);
+        mOtherFriends = new MutableLiveData<>();
+
+        mOtherFriendsObserver = otherFriends -> {
+            String names =
+                otherFriends.size() > 0
+                ? "+ " + TextUtils.join(", ", otherFriends)
+                : "";
+            mOtherFriends.setValue(names);
+        };
 
         lastInteractionWrapperObserver = lastInteractionWrapper -> {
             long interactionId = lastInteractionWrapper.getLastInteraction().getInteractionId();
             String friendName = lastInteractionWrapper.getFriendName();
 
             mInteractionComment = mRepository.getInteractionComment(interactionId);
-            mCoParticipantNames = mRepository.getCoParticipantNames(interactionId, friendName);
+            mOtherFriendsList = mRepository.getCoParticipantNames(interactionId, friendName); // TODO rename
+
+            // Must be removed in onCleared()
+            mOtherFriendsList.observeForever(mOtherFriendsObserver);
         };
 
         // Must be removed in onCleared()
@@ -51,14 +67,11 @@ public class TrackerViewModel extends AndroidViewModel {
         super.onCleared();
 
         mLastInteractionWrapper.removeObserver(lastInteractionWrapperObserver);
+        mOtherFriendsList.removeObserver(mOtherFriendsObserver);
     }
 
     public LiveData<LastInteractionWrapper> getLastInteractionWrapper() {
         return mLastInteractionWrapper;
-    }
-
-    public LiveData<List<String>> getCoParticipantNames() {
-        return mCoParticipantNames;
     }
 
     public void update(LastInteraction lastInteraction) {
@@ -67,5 +80,9 @@ public class TrackerViewModel extends AndroidViewModel {
 
     public LiveData<String> getInteractionComment() {
         return mInteractionComment;
+    }
+
+    public LiveData<String> getOtherFriends() {
+        return mOtherFriends;
     }
 }

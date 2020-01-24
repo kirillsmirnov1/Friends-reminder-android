@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,16 +169,10 @@ public class TrackerFragment extends Fragment implements View.OnClickListener {
                 }
             });
 
-            mTrackerViewModel.getCoParticipantNames().observe(getViewLifecycleOwner(),
-                    namesList -> {
-                        if(namesList.size() == 0){ // FIXME transform in VM?
-                            withWhom.setVisibility(View.GONE);
-                        } else {
-                            String names = getString(R.string.with) + TextUtils.join(", ", namesList);
-                            withWhom.setVisibility(View.VISIBLE);
-                            withWhom.setText(names);
-                        }
-                    });
+            mTrackerViewModel.getOtherFriends().observe(getViewLifecycleOwner(), names -> {
+                withWhom.setText(names);
+                withWhom.setVisibility(names.isEmpty() ? View.GONE : View.VISIBLE);
+            });
         });
     }
 
