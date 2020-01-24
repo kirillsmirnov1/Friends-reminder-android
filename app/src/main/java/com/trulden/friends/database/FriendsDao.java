@@ -111,6 +111,9 @@ public interface FriendsDao {
     @Query("SELECT * FROM interaction_table WHERE id = :interactionId LIMIT 1")
     LiveData<Interaction> getInteractionById(long interactionId);
 
+    @Query("SELECT comment FROM interaction_table WHERE id = :interactionId LIMIT 1")
+    LiveData<String> getInteractionComment(long interactionId);
+
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     @Transaction
     LiveData<List<InteractionWithFriendIDs>> getInteractionsWithFriendIDs();

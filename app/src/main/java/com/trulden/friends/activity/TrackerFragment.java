@@ -162,17 +162,13 @@ public class TrackerFragment extends Fragment implements View.OnClickListener {
 
             setStatusIcon();
 
-            mTrackerViewModel.getInteraction()
-                    .observe(
-                            getViewLifecycleOwner(),
-                            interaction -> {
-                                String comment = interaction.getComment(); // FIXME get only string
-                                if(comment.isEmpty()){
-                                    mComment.setHint(R.string.no_description);
-                                } else {
-                                    mComment.setText(comment);
-                                }
-                            });
+            mTrackerViewModel.getInteractionComment().observe(getViewLifecycleOwner(), comment -> {
+                if(comment.isEmpty()){
+                    mComment.setHint(R.string.no_description);
+                } else {
+                    mComment.setText(comment);
+                }
+            });
 
             mTrackerViewModel.getCoParticipantNames().observe(getViewLifecycleOwner(),
                     namesList -> {

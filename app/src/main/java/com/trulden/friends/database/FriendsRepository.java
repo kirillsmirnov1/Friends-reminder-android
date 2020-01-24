@@ -264,6 +264,10 @@ class FriendsRepository {
     // Interaction
     // -----------------------------------------
 
+    public LiveData<String> getInteractionComment(long interactionId) {
+        return mFriendsDao.getInteractionComment(interactionId);
+    }
+
     public void add(Interaction interaction, HashSet<Long> friendsIds) {
         new InteractionAsyncTask(mFriendsDao, TaskSelector.ADD_INTERACTION, interaction, friendsIds)
                 .execute();

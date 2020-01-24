@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
-import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
@@ -21,8 +20,8 @@ import java.util.List;
 public class TrackerViewModel extends AndroidViewModel {
 
     private final LiveData<LastInteractionWrapper> mLastInteractionWrapper;
-    private LiveData<Interaction> mInteraction;
     private LiveData<List<String>> mCoParticipantNames;
+    private LiveData<String> mInteractionComment;
 
     private final Observer<LastInteractionWrapper> lastInteractionWrapperObserver;
 
@@ -39,7 +38,7 @@ public class TrackerViewModel extends AndroidViewModel {
             long interactionId = lastInteractionWrapper.getLastInteraction().getInteractionId();
             String friendName = lastInteractionWrapper.getFriendName();
 
-            mInteraction = mRepository.getInteraction(interactionId);
+            mInteractionComment = mRepository.getInteractionComment(interactionId);
             mCoParticipantNames = mRepository.getCoParticipantNames(interactionId, friendName);
         };
 
@@ -58,15 +57,15 @@ public class TrackerViewModel extends AndroidViewModel {
         return mLastInteractionWrapper;
     }
 
-    public LiveData<Interaction> getInteraction() {
-        return mInteraction;
-    }
-
     public LiveData<List<String>> getCoParticipantNames() {
         return mCoParticipantNames;
     }
 
     public void update(LastInteraction lastInteraction) {
         mRepository.update(lastInteraction);
+    }
+
+    public LiveData<String> getInteractionComment() {
+        return mInteractionComment;
     }
 }
