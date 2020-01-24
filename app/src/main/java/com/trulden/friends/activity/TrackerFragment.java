@@ -3,8 +3,6 @@ package com.trulden.friends.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -39,14 +37,14 @@ import static com.trulden.friends.util.Util.openFriendsPage;
  * Shows {@link com.trulden.friends.database.entity.LastInteraction LastInteraction} entry.
  * Shows comment from interaction.
  */
-public class TrackerFragment extends Fragment  implements View.OnClickListener {
+public class TrackerFragment extends Fragment implements View.OnClickListener {
 
     private TrackerViewModel mTrackerViewModel;
 
     private LastInteractionWrapper mLastInteractionWrapper;
 
-    private TextView mWithWhom;
     private TextView mComment;
+    private TextView mFriendsNameView;
 
     private ImageView mStatusIcon;
 
@@ -58,40 +56,100 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        long typeId = getArguments().getLong(INTERACTION_TYPE_ID);
-        long friendId = getArguments().getLong(FRIEND_ID);
-
-        // Some resources say, creating new factory will cause recreation of VM
-        // Checked that with log and it seems that VM itself survives configuration change
-        mTrackerViewModel = ViewModelProviders
-            .of(this,
-                new TrackerViewModelFactory(this.getActivity().getApplication(), friendId, typeId))
-            .get(TrackerViewModel.class);
+        initViewModel();
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tracker, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_tracker, container, false);
 
         view.setOnClickListener(this);
 
-        // FIXME move to onCreateView
-        TextView friendsNameView = view.findViewById(R.id.ft_friends_name);
+        findViews(view);
+
+        setDataToView(view);
+
+        setOnClickListeners(view);
+
+        return view;
+    }
+
+    private void findViews(View view) {
+        mFriendsNameView = view.findViewById(R.id.ft_friends_name);
         mStatusIcon = view.findViewById(R.id.ft_status_icon);
+        mComment = view.findViewById(R.id.ft_comment);
+    }
+
+    private void setOnClickListeners(View view) {
+
         ImageView createInteractionIcon = view.findViewById(R.id.ft_create_interaction_icon);
         ImageView changeFrequencyIcon = view.findViewById(R.id.ft_change_frequency_icon);
-        mWithWhom = view.findViewById(R.id.ft_with_whom);
-        mComment = view.findViewById(R.id.ft_comment);
+
+        // Open FriendPageActivity
+        mFriendsNameView.setOnClickListener(v -> {
+            ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
+            if(getActivity() instanceof MainActivity){
+                openFriendsPage(getActivity(), mLastInteractionWrapper.getFriend());
+            }
+        });
+
+        // Changes status
+        mStatusIcon.setOnClickListener(v -> {
+            mLastInteractionWrapper.getLastInteraction().setStatus(
+                    mLastInteractionWrapper.getLastInteraction().getStatus() == 0
+                            ? 1
+                            : 0);
+            setStatusIcon();
+            mTrackerViewModel.update(mLastInteractionWrapper.getLastInteraction());
+        });
+
+        // Create new interaction of same type with same friend
+        createInteractionIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), EditInteractionActivity.class);
+            intent.putExtra(INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
+            intent.putExtra(INTERACTION_TYPE_NAME, mLastInteractionWrapper.getTypeName());
+            intent.putExtra(INTERACTION_TYPE_ID, mLastInteractionWrapper.getType().getId());
+
+            ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
+
+            getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
+        });
+
+        // Open EditLastInteractionFrequencyDialog
+        changeFrequencyIcon.setOnClickListener(v -> {
+            EditLastInteractionFrequencyDialog dialog = new EditLastInteractionFrequencyDialog();
+
+            Bundle bundle = new Bundle();
+
+            bundle.putString(INTERACTION_TYPE_NAME, mLastInteractionWrapper.getTypeName());
+            bundle.putString(FRIEND_NAME, mLastInteractionWrapper.getFriendName());
+            bundle.putSerializable(LAST_INTERACTION, mLastInteractionWrapper.getLastInteraction());
+
+            dialog.setArguments(bundle);
+
+            dialog.show(getActivity().getSupportFragmentManager(), "editLIFrequency");
+        });
+
+        // Edit interaction
+        mComment.setOnLongClickListener(v -> {
+            Intent intent = new Intent(getContext(), EditInteractionActivity.class);
+
+            intent.putExtra(INTERACTION_ID, mLastInteractionWrapper.getLastInteraction().getInteractionId());
+
+            getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
+
+            return true;
+        });
+    }
+
+    private void setDataToView(View view) {
+
+        TextView withWhom = view.findViewById(R.id.ft_with_whom);
 
         mTrackerViewModel.getLastInteractionWrapper().observe(getViewLifecycleOwner(), lastInteractionWrapper -> {
             mLastInteractionWrapper = lastInteractionWrapper;
 
             String friendName = mLastInteractionWrapper.getFriendName();
 
-            friendsNameView.setText(friendName);
+            mFriendsNameView.setText(friendName);
 
             ((TextView) view.findViewById(R.id.ft_type))
                     .setText(mLastInteractionWrapper.getTypeName());
@@ -119,65 +177,27 @@ public class TrackerFragment extends Fragment  implements View.OnClickListener {
             mTrackerViewModel.getCoParticipantNames().observe(getViewLifecycleOwner(),
                     namesList -> {
                         if(namesList.size() == 0){ // FIXME transform in VM?
-                            mWithWhom.setVisibility(View.GONE);
+                            withWhom.setVisibility(View.GONE);
                         } else {
                             String names = getString(R.string.with) + TextUtils.join(", ", namesList);
-                            mWithWhom.setVisibility(View.VISIBLE);
-                            mWithWhom.setText(names);
+                            withWhom.setVisibility(View.VISIBLE);
+                            withWhom.setText(names);
                         }
                     });
         });
+    }
 
-        friendsNameView.setOnClickListener(v -> {
-            ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
-            if(getActivity() instanceof MainActivity){
-                openFriendsPage(getActivity(), mLastInteractionWrapper.getFriend());
-            }
-        });
+    private void initViewModel() {
+        long typeId = getArguments().getLong(INTERACTION_TYPE_ID);
+        long friendId = getArguments().getLong(FRIEND_ID);
 
-        mStatusIcon.setOnClickListener(v -> {
-            mLastInteractionWrapper.getLastInteraction().setStatus(
-                mLastInteractionWrapper.getLastInteraction().getStatus() == 0
-                ? 1
-                : 0);
-            setStatusIcon();
-            mTrackerViewModel.update(mLastInteractionWrapper.getLastInteraction());
-        });
+        // Some resources say, creating new factory will cause recreation of VM
+        // Checked that with log and it seems that VM itself survives configuration change
+        mTrackerViewModel = ViewModelProviders
+                .of(this,
+                        new TrackerViewModelFactory(this.getActivity().getApplication(), friendId, typeId))
+                .get(TrackerViewModel.class);
 
-        createInteractionIcon.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), EditInteractionActivity.class);
-            intent.putExtra(INTERACTION_FRIEND_NAMES, mLastInteractionWrapper.getFriendName());
-            intent.putExtra(INTERACTION_TYPE_NAME, mLastInteractionWrapper.getTypeName());
-            intent.putExtra(INTERACTION_TYPE_ID, mLastInteractionWrapper.getType().getId());
-
-            ((TrackerOverActivity) getActivity()).closeTrackerOverActivity();
-
-            getActivity().startActivityForResult(intent, NEW_INTERACTION_REQUEST);
-        });
-
-        changeFrequencyIcon.setOnClickListener(v -> {
-            EditLastInteractionFrequencyDialog dialog = new EditLastInteractionFrequencyDialog();
-
-            Bundle bundle = new Bundle();
-
-            bundle.putString(INTERACTION_TYPE_NAME, mLastInteractionWrapper.getTypeName());
-            bundle.putString(FRIEND_NAME, mLastInteractionWrapper.getFriendName());
-            bundle.putSerializable(LAST_INTERACTION, mLastInteractionWrapper.getLastInteraction());
-
-            dialog.setArguments(bundle);
-
-            dialog.show(getActivity().getSupportFragmentManager(), "editLIFrequency");
-        });
-
-        mComment.setOnLongClickListener(v -> {
-            Intent intent = new Intent(getContext(), EditInteractionActivity.class);
-
-            intent.putExtra(INTERACTION_ID, mLastInteractionWrapper.getLastInteraction().getInteractionId());
-
-            getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
-
-            return true;
-        });
     }
 
     private void setStatusIcon() {
