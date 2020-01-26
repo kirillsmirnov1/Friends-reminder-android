@@ -21,7 +21,7 @@ import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.adapter.LastInteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.LastInteraction;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 
@@ -42,7 +42,7 @@ public class LastInteractionsTabFragment
         LastInteractionsSelection,
         RecyclerViewContainer {
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
 
     private ArrayList<LastInteractionWrapper> mLastInteractions = new ArrayList<>();
     private String mTypeName;
@@ -98,7 +98,7 @@ public class LastInteractionsTabFragment
                 : View.GONE
             );
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
 
         if(mTypeName != null){
             mSelectedPositions = mViewModel.getSelectedPositions(mTypeName);

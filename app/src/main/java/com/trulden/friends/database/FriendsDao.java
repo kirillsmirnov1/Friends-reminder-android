@@ -52,7 +52,7 @@ public interface FriendsDao {
             "((SELECT friendId FROM bind_friend_interaction_table WHERE interactionId = :interactionId)" +
             "INNER JOIN (SELECT * FROM friend_table WHERE name != :friendsName) " +
             "ON friendId=id)")
-    LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName);
+    LiveData<List<String>> getOtherFriends(long interactionId, String friendsName);
 
     @Transaction
     @Query("SELECT name FROM" +
@@ -110,6 +110,9 @@ public interface FriendsDao {
 
     @Query("SELECT * FROM interaction_table WHERE id = :interactionId LIMIT 1")
     LiveData<Interaction> getInteractionById(long interactionId);
+
+    @Query("SELECT comment FROM interaction_table WHERE id = :interactionId LIMIT 1")
+    LiveData<String> getInteractionComment(long interactionId);
 
     @Query("SELECT * FROM interaction_table ORDER BY date DESC")
     @Transaction

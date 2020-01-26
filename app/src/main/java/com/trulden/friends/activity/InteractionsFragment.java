@@ -24,7 +24,7 @@ import com.trulden.friends.activity.interfaces.ShareSelection;
 import com.trulden.friends.adapter.InteractionsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Interaction;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.FriendName;
@@ -33,11 +33,7 @@ import com.trulden.friends.util.Util;
 
 import java.util.HashSet;
 
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.INTERACTION_ID;
 import static com.trulden.friends.util.Util.UPDATE_INTERACTION_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 
@@ -51,7 +47,7 @@ public class InteractionsFragment
         ShareSelection,
         RecyclerViewContainer {
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
     private InteractionsRecyclerViewAdapter mRecyclerViewAdapter;
 
     private SelectionCallback mSelectionCallback;
@@ -76,7 +72,7 @@ public class InteractionsFragment
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
 
         mSelectedPositions = mViewModel.getSelectedPositions(InteractionsFragment.class.getName());
 
@@ -185,7 +181,7 @@ public class InteractionsFragment
         InteractionWithFriendIDs iwfids = mRecyclerViewAdapter.getSelectedItems().get(0);
         Interaction interaction = iwfids.interaction;
 
-        intent.putExtra(EXTRA_INTERACTION_ID, interaction.getId());
+        intent.putExtra(INTERACTION_ID, interaction.getId());
 
         getActivity().startActivityForResult(intent, UPDATE_INTERACTION_REQUEST);
     }

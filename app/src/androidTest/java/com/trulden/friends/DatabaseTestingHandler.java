@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.database.FriendsDao;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.BindFriendInteraction;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.Interaction;
@@ -23,8 +23,8 @@ public class DatabaseTestingHandler {
 
     public static void initAndFillDatabase(FragmentActivity activity){
 
-        FriendsViewModel mFriendsViewModel = ViewModelProviders.of(activity).get(FriendsViewModel.class);
-        FriendsDao dao = mFriendsViewModel.getDao();
+        MainViewModel viewModel = ViewModelProviders.of(activity).get(MainViewModel.class);
+        FriendsDao dao = viewModel.getDao();
 
         dao.wipeTypes();
         dao.wipeFriends();

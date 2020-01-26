@@ -17,7 +17,7 @@ import com.trulden.friends.R;
 import com.trulden.friends.activity.interfaces.RecyclerViewContainer;
 import com.trulden.friends.activity.interfaces.SelectionHandler;
 import com.trulden.friends.adapter.LastInteractionsPagerAdapter;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.InteractionType;
 import com.trulden.friends.database.wrappers.LastInteractionWrapper;
 import com.trulden.friends.view.TabLabelWithCounterView;
@@ -38,7 +38,7 @@ public class LastInteractionsFragment
 
     public static final String LOG_TAG = LastInteractionsFragment.class.getSimpleName();
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
 
     private List<InteractionType> mTypes = new ArrayList<>();
     private HashMap<String, ArrayList<LastInteractionWrapper>> mLastInteractionsMap = new HashMap<>();
@@ -63,7 +63,7 @@ public class LastInteractionsFragment
     public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
 
         mViewPager = view.findViewById(R.id.fli_view_pager);
 

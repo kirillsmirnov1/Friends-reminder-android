@@ -11,16 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.trulden.friends.R;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Friend;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
+import static com.trulden.friends.util.Util.FRIEND_ID;
+import static com.trulden.friends.util.Util.FRIEND_NAME;
+import static com.trulden.friends.util.Util.FRIEND_NOTES;
 import static com.trulden.friends.util.Util.makeToast;
 
 /**
@@ -41,24 +41,24 @@ public class EditFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_friend);
 
-        FriendsViewModel friendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
-        friendsViewModel.getAllFriends().observe(this, friends -> mFriends = friends);
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getAllFriends().observe(this, friends -> mFriends = friends);
 
         mName = findViewById(R.id.aef_edit_name);
         mInfo = findViewById(R.id.aef_edit_info);
 
         Intent intent = getIntent();
-        mFriendId = intent.getLongExtra(EXTRA_FRIEND_ID, -1);
+        mFriendId = intent.getLongExtra(FRIEND_ID, -1);
 
         if(mFriendId == -1){
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_friend));
         } else {
-            mOldName = intent.getStringExtra(EXTRA_FRIEND_NAME);
+            mOldName = intent.getStringExtra(FRIEND_NAME);
             Objects.requireNonNull(getSupportActionBar()).setTitle(mOldName);
         }
 
         mName.setText(mOldName);
-        mInfo.setText(intent.getStringExtra(EXTRA_FRIEND_NOTES));
+        mInfo.setText(intent.getStringExtra(FRIEND_NOTES));
     }
 
     private void saveFriend() {
@@ -74,9 +74,9 @@ public class EditFriendActivity extends AppCompatActivity {
             makeToast(this, getString(R.string.toast_warning_friend_exists));
         } else {
 
-            replyIntent.putExtra(EXTRA_FRIEND_ID, mFriendId);
-            replyIntent.putExtra(EXTRA_FRIEND_NAME, name);
-            replyIntent.putExtra(EXTRA_FRIEND_NOTES, info);
+            replyIntent.putExtra(FRIEND_ID, mFriendId);
+            replyIntent.putExtra(FRIEND_NAME, name);
+            replyIntent.putExtra(FRIEND_NOTES, info);
 
             String toastMessage =
                     mFriendId == -1

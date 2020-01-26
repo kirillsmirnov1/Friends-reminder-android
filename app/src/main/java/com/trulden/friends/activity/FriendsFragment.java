@@ -23,7 +23,7 @@ import com.trulden.friends.activity.interfaces.SelectionWithOnDeleteAlert;
 import com.trulden.friends.adapter.FriendsRecyclerViewAdapter;
 import com.trulden.friends.adapter.base.OnClickListener;
 import com.trulden.friends.adapter.base.SelectionCallback;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Friend;
 
 import java.util.ArrayList;
@@ -31,9 +31,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_ID;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NAME;
-import static com.trulden.friends.util.Util.EXTRA_FRIEND_NOTES;
+import static com.trulden.friends.util.Util.FRIEND_ID;
+import static com.trulden.friends.util.Util.FRIEND_NAME;
+import static com.trulden.friends.util.Util.FRIEND_NOTES;
 import static com.trulden.friends.util.Util.UPDATE_FRIEND_REQUEST;
 import static com.trulden.friends.util.Util.makeToast;
 import static com.trulden.friends.util.Util.openFriendsPage;
@@ -50,7 +50,7 @@ public class FriendsFragment
 
     private final static String LOG_TAG = FriendsFragment.class.getCanonicalName();
 
-    private FriendsViewModel mViewModel;
+    private MainViewModel mViewModel;
     private FriendsRecyclerViewAdapter mRecyclerViewAdapter;
 
     private SelectionCallback mSelectionCallback;
@@ -75,7 +75,7 @@ public class FriendsFragment
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
 
         mSelectedPositions = mViewModel.getSelectedPositions(FriendsFragment.class.getName());
 
@@ -172,9 +172,9 @@ public class FriendsFragment
         Intent intent = new Intent(getActivity(), EditFriendActivity.class);
         Friend friend = mRecyclerViewAdapter.getSelectedItems().get(0);
 
-        intent.putExtra(EXTRA_FRIEND_ID, friend.getId());
-        intent.putExtra(EXTRA_FRIEND_NAME, friend.getName());
-        intent.putExtra(EXTRA_FRIEND_NOTES, friend.getInfo());
+        intent.putExtra(FRIEND_ID, friend.getId());
+        intent.putExtra(FRIEND_NAME, friend.getName());
+        intent.putExtra(FRIEND_NOTES, friend.getInfo());
 
         Objects.requireNonNull(getActivity())
                 .startActivityForResult(intent, UPDATE_FRIEND_REQUEST);

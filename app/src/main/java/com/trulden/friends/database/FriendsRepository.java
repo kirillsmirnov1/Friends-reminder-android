@@ -71,8 +71,8 @@ class FriendsRepository {
         return mFriendsDao.getInteractionById(interactionId);
     }
 
-    public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
-        return mFriendsDao.getCoParticipantNames(interactionId, friendsName);
+    public LiveData<List<String>> getOtherFriends(long interactionId, String friendsName) {
+        return mFriendsDao.getOtherFriends(interactionId, friendsName);
     }
 
     public LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId) {
@@ -263,6 +263,10 @@ class FriendsRepository {
     // -----------------------------------------
     // Interaction
     // -----------------------------------------
+
+    public LiveData<String> getInteractionComment(long interactionId) {
+        return mFriendsDao.getInteractionComment(interactionId);
+    }
 
     public void add(Interaction interaction, HashSet<Long> friendsIds) {
         new InteractionAsyncTask(mFriendsDao, TaskSelector.ADD_INTERACTION, interaction, friendsIds)

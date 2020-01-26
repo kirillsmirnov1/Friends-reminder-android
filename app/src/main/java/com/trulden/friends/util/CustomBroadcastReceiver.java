@@ -3,7 +3,6 @@ package com.trulden.friends.util;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.trulden.friends.R;
@@ -13,10 +12,10 @@ import java.lang.ref.WeakReference;
 
 import static com.trulden.friends.util.Util.ACTION_DATABASE_EXPORT_FINISHED;
 import static com.trulden.friends.util.Util.ACTION_DATABASE_IMPORT_FINISHED;
-import static com.trulden.friends.util.Util.EXTRA_CHECK_READINESS_AFTER_IMPORT;
-import static com.trulden.friends.util.Util.EXTRA_EXPORT_RESULT;
-import static com.trulden.friends.util.Util.EXTRA_FRAGMENT_TO_LOAD;
-import static com.trulden.friends.util.Util.EXTRA_IMPORT_RESULT;
+import static com.trulden.friends.util.Util.CHECK_READINESS_AFTER_IMPORT;
+import static com.trulden.friends.util.Util.EXPORT_RESULT;
+import static com.trulden.friends.util.Util.FRAGMENT_TO_LOAD;
+import static com.trulden.friends.util.Util.IMPORT_RESULT;
 import static com.trulden.friends.util.Util.makeToast;
 
 /**
@@ -39,7 +38,7 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
         if(intentAction != null){
             switch (intentAction) {
                 case ACTION_DATABASE_EXPORT_FINISHED:
-                    if(intent.getBooleanExtra(EXTRA_EXPORT_RESULT, false)){
+                    if(intent.getBooleanExtra(EXPORT_RESULT, false)){
                         makeToast(context, context.getString(R.string.toast_notice_export_succeeded));
                     } else {
                         makeToast(context, context.getString(R.string.toast_notice_export_failed));
@@ -49,7 +48,7 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     mMainActivity.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                     restartIntent = new Intent(context, MainActivity.class);
-                    restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
+                    restartIntent.putExtra(FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
 
                     // Easiest way to ensure correct update of data — restart an app
                     mMainActivity.get().finish();
@@ -58,15 +57,15 @@ public class CustomBroadcastReceiver extends BroadcastReceiver {
                     break;
 
                 case ACTION_DATABASE_IMPORT_FINISHED:
-                    if(intent.getBooleanExtra(EXTRA_IMPORT_RESULT, false)){
+                    if(intent.getBooleanExtra(IMPORT_RESULT, false)){
                         makeToast(context, context.getString(R.string.toast_notice_import_succeeded));
                     } else {
                         makeToast(context, context.getString(R.string.toast_notice_import_failed));
                     }
 
                     restartIntent = new Intent(context, MainActivity.class);
-                    restartIntent.putExtra(EXTRA_FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
-                    restartIntent.putExtra(EXTRA_CHECK_READINESS_AFTER_IMPORT, true);
+                    restartIntent.putExtra(FRAGMENT_TO_LOAD, MainActivity.getFragmentToLoad());
+                    restartIntent.putExtra(CHECK_READINESS_AFTER_IMPORT, true);
 
                     // Easiest way to ensure correct update of data — restart an app
                     mMainActivity.get().finish();

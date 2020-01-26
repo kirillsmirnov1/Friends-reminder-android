@@ -22,13 +22,12 @@ import java.util.List;
 /**
  * View model of app database
  */
-public class FriendsViewModel extends AndroidViewModel {
+public class MainViewModel extends AndroidViewModel {
 
     private FriendsRepository mRepository;
 
     private LiveData<List<Friend>> mAllFriends;
     private LiveData<List<InteractionType>> mAllInteractionTypes;
-    private LiveData<List<Interaction>> mAllInteractions;
 
     private MutableLiveData<Boolean> mShowHiddenLI;
     private MutableLiveData<Boolean> mNightMode;
@@ -47,16 +46,13 @@ public class FriendsViewModel extends AndroidViewModel {
 
     private int mSelectedLITabPos = 0;
 
-    private LastInteractionWrapper mTrackerInFragment;
-
-    public FriendsViewModel(@NonNull Application application) {
+    public MainViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = new FriendsRepository(application);
 
         mAllFriends = mRepository.getAllFriends();
         mAllInteractionTypes = mRepository.getAllInteractionTypes();
-        mAllInteractions = mRepository.getAllInteractions();
 
         mShowHiddenLI = new MutableLiveData<>();
         mNightMode = new MutableLiveData<>();
@@ -90,9 +86,6 @@ public class FriendsViewModel extends AndroidViewModel {
     }
     public LiveData<List<InteractionType>> getAllInteractionTypes() {
         return mAllInteractionTypes;
-    }
-    public LiveData<List<Interaction>> getAllInteractions() {
-        return mAllInteractions;
     }
 
     public LiveData<List<LastInteractionWrapper>> getLiveAllLastInteractionWrappers() { return mRepository.getLiveAllLastInteractionWrappers(); }
@@ -140,22 +133,6 @@ public class FriendsViewModel extends AndroidViewModel {
 
     public LiveData<Interaction> getInteraction(long interactionId) {
         return mRepository.getInteraction(interactionId);
-    }
-
-    public LiveData<List<String>> getCoParticipantNames(long interactionId, String friendsName) {
-        return mRepository.getCoParticipantNames(interactionId, friendsName);
-    }
-
-    public LastInteractionWrapper getTrackerInFragment() {
-        return mTrackerInFragment;
-    }
-
-    public void setTrackerInFragment(LastInteractionWrapper trackerInFragment) {
-        this.mTrackerInFragment = trackerInFragment;
-    }
-
-    public LiveData<LastInteractionWrapper> getLiveLastInteractionWrapper(long typeId, long friendId) {
-        return mRepository.getLiveLastInteractionWrapper(typeId, friendId);
     }
 
     public void checkLastInteractionsReadiness() {

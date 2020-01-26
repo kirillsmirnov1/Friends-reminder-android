@@ -26,7 +26,7 @@ import com.trulden.friends.activity.dialogs.DatePickerFragment;
 import com.trulden.friends.activity.dialogs.EditInteractionTypeDialog;
 import com.trulden.friends.activity.dialogs.FriendNotFoundDialog;
 import com.trulden.friends.activity.interfaces.EditInteractionType;
-import com.trulden.friends.database.FriendsViewModel;
+import com.trulden.friends.database.MainViewModel;
 import com.trulden.friends.database.entity.Friend;
 import com.trulden.friends.database.entity.InteractionType;
 
@@ -38,14 +38,14 @@ import java.util.HashSet;
 import java.util.ListIterator;
 import java.util.Objects;
 
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_COMMENT;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_DATE;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_IDS;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_FRIEND_NAMES;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_ID;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_NAME;
-import static com.trulden.friends.util.Util.EXTRA_INTERACTION_TYPE_POS;
+import static com.trulden.friends.util.Util.INTERACTION_COMMENT;
+import static com.trulden.friends.util.Util.INTERACTION_DATE;
+import static com.trulden.friends.util.Util.INTERACTION_FRIEND_IDS;
+import static com.trulden.friends.util.Util.INTERACTION_FRIEND_NAMES;
+import static com.trulden.friends.util.Util.INTERACTION_ID;
+import static com.trulden.friends.util.Util.INTERACTION_TYPE_ID;
+import static com.trulden.friends.util.Util.INTERACTION_TYPE_NAME;
+import static com.trulden.friends.util.Util.INTERACTION_TYPE_POS;
 import static com.trulden.friends.util.Util.formatDate;
 import static com.trulden.friends.util.Util.makeToast;
 
@@ -58,7 +58,7 @@ public class EditInteractionActivity
             AdapterView.OnItemSelectedListener,
             EditInteractionType {
 
-    FriendsViewModel mViewModel;
+    MainViewModel mViewModel;
 
     private Spinner  mType;
     private ArrayAdapter<String> mTypeSpinnerAdapter;
@@ -85,7 +85,7 @@ public class EditInteractionActivity
 
         mSaveHandler.restoreState(savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         // Set friend names from database to corresponding dropdown list
         mViewModel.getAllFriends().observe(this, friends -> {
@@ -134,13 +134,13 @@ public class EditInteractionActivity
 
                 if(mTypeToSelect == null){
 
-                    if(getIntent().hasExtra(EXTRA_INTERACTION_TYPE_POS)) {
+                    if(getIntent().hasExtra(INTERACTION_TYPE_POS)) {
                         mTypeToSelect = mTypeSpinnerAdapter.getItem(
-                            getIntent().getIntExtra(EXTRA_INTERACTION_TYPE_POS, 0));
+                            getIntent().getIntExtra(INTERACTION_TYPE_POS, 0));
                     }
 
-                    if(getIntent().hasExtra(EXTRA_INTERACTION_TYPE_NAME)) {
-                        mTypeToSelect = getIntent().getStringExtra(EXTRA_INTERACTION_TYPE_NAME);
+                    if(getIntent().hasExtra(INTERACTION_TYPE_NAME)) {
+                        mTypeToSelect = getIntent().getStringExtra(INTERACTION_TYPE_NAME);
                     }
                 }
 
@@ -169,14 +169,14 @@ public class EditInteractionActivity
 
         Intent intent = getIntent();
 
-        mInteractionId = intent.getLongExtra(EXTRA_INTERACTION_ID, -1);
+        mInteractionId = intent.getLongExtra(INTERACTION_ID, -1);
 
         if(mInteractionId == -1){
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.add_interaction));
 
-            mPickedDate.setTimeInMillis(intent.getLongExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis()));
+            mPickedDate.setTimeInMillis(intent.getLongExtra(INTERACTION_DATE, mPickedDate.getTimeInMillis()));
             mDateText.setText(formatDate(mPickedDate.getTime()));
-            mFriendsText.setText(intent.getStringExtra(EXTRA_INTERACTION_FRIEND_NAMES));
+            mFriendsText.setText(intent.getStringExtra(INTERACTION_FRIEND_NAMES));
 
         } else {
 
@@ -449,13 +449,13 @@ public class EditInteractionActivity
                 return;
             }
 
-            replyIntent.putExtra(EXTRA_INTERACTION_ID, mInteractionId);
+            replyIntent.putExtra(INTERACTION_ID, mInteractionId);
 
             // Put friend names to intent
 
             String friendNamesString = TextUtils.join(", ", checkFriendsList);
 
-            replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_NAMES, friendNamesString);
+            replyIntent.putExtra(INTERACTION_FRIEND_NAMES, friendNamesString);
 
             // Put friend id's to intent
 
@@ -463,13 +463,13 @@ public class EditInteractionActivity
             for(String friendName : friendNamesSet){
                 friendsIds.add(mFriendsMap.get(friendName));
             }
-            replyIntent.putExtra(EXTRA_INTERACTION_FRIEND_IDS, friendsIds);
+            replyIntent.putExtra(INTERACTION_FRIEND_IDS, friendsIds);
 
             // Put type, date and comment to intent
 
-            replyIntent.putExtra(EXTRA_INTERACTION_TYPE_ID, mTypesMap.get(mType.getSelectedItem().toString()));
-            replyIntent.putExtra(EXTRA_INTERACTION_DATE, mPickedDate.getTimeInMillis());
-            replyIntent.putExtra(EXTRA_INTERACTION_COMMENT, mCommentText.getText().toString());
+            replyIntent.putExtra(INTERACTION_TYPE_ID, mTypesMap.get(mType.getSelectedItem().toString()));
+            replyIntent.putExtra(INTERACTION_DATE, mPickedDate.getTimeInMillis());
+            replyIntent.putExtra(INTERACTION_COMMENT, mCommentText.getText().toString());
 
             setResult(RESULT_OK, replyIntent);
 

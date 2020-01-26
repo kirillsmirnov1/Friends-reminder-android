@@ -21,7 +21,7 @@ import java.util.Objects;
 
 import static com.trulden.friends.database.FriendsDatabase.DATABASE_NAME;
 import static com.trulden.friends.util.Util.ACTION_DATABASE_IMPORT_FINISHED;
-import static com.trulden.friends.util.Util.EXTRA_IMPORT_RESULT;
+import static com.trulden.friends.util.Util.IMPORT_RESULT;
 import static com.trulden.friends.util.Util.getInnerBackupFilePath;
 
 /**
@@ -65,7 +65,7 @@ public class ImportDatabaseAsyncTask extends AsyncTask<Uri, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean importResult) {
         Intent broadcast = new Intent(ACTION_DATABASE_IMPORT_FINISHED);
-        broadcast.putExtra(EXTRA_IMPORT_RESULT, importResult);
+        broadcast.putExtra(IMPORT_RESULT, importResult);
         LocalBroadcastManager.getInstance(mContext.get()).sendBroadcast(broadcast);
     }
 }

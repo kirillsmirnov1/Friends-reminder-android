@@ -3,6 +3,7 @@ package com.trulden.friends.database.entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -39,7 +40,7 @@ import static com.trulden.friends.util.Util.calendarDaysBetween;
                 @Index(value = "interactionId")
         }
 )
-public class LastInteraction implements Entity {
+public class LastInteraction implements Entity, Serializable {
 
     private long friendId;
 
