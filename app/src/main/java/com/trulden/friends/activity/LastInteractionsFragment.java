@@ -91,6 +91,8 @@ public class LastInteractionsFragment
 
                 lastInteractionsLiveData.observe(getViewLifecycleOwner(), lastInteractions -> {
 
+                    // FIXME that map shuffling should be done in VM
+
                     for(InteractionType type : mTypes){
                         Objects.requireNonNull(
                                 mLastInteractionsMap.get(type.getInteractionTypeName())).clear();
